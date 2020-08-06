@@ -1,5 +1,7 @@
 package com.libero.web.user;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -161,7 +163,11 @@ public class UserRestController {
 		System.out.println("[ /user/json/duplicationCheck/"+nickname+" : GET]");
 		System.out.println(" ---------------------------------------");
 		
-		boolean result = userService.duplicationNick(nickname);
+		String decodednickname=URLDecoder.decode(nickname,"UTF-8");
+		System.out.println("\n\n\n---------"+decodednickname+"\n\n\n\n\n");
+		boolean result = userService.duplicationNick(decodednickname);
+		
+		
 		return result;
 	}
 ///////////////////////////////////////////랜덤 코드 생성기

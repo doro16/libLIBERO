@@ -71,7 +71,8 @@
 			DISTINCT
 			buy.prod_no,
 			buy.pay_no,
-			buy.prod_type
+			buy.prod_type,
+			buy.buy_amount
 			FROM pay , buy
 		WHERE pay.pay_no=#{payNo}
 			AND pay.pay_no = buy.pay_no
@@ -79,7 +80,7 @@
 			AND buy.buy_code='paid'
 			AND pay.user_id= #{userId}
 	</select>	
-	
+	 
 	<select id="getUserBuyList" parameterType="String" resultMap="paySelectMapper">
 		SELECT pay_no,
 			   payment_type,
