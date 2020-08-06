@@ -37,9 +37,19 @@ public class ProductServiceImpl implements ProductService{
 		List<Product> list = productDAO.getBookList();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		System.out.println(list);
 		
 		return map;
+	}
+	
+	
+	
+	@Override
+	public List<Product> getBookList(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		List<Product> list = productDAO.getBookList(search);
+	
+		
+		return list;
 	}
 
 	@Override
@@ -96,6 +106,14 @@ public class ProductServiceImpl implements ProductService{
 	public int getProductTotalCount(String prodType) throws Exception{
 		return productDAO.getProductTotalCount(prodType);
 	}
+
+	@Override
+	public int getBookTotalCount() throws Exception {
+		// TODO Auto-generated method stub
+		return productDAO.getBookTotalCount();
+	}
+
+
 
 
 

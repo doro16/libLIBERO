@@ -270,4 +270,34 @@ public class ProductRestController {
 					return map;
 			}
 			
+			//method 서비스상품화면 출력
+			@RequestMapping(value="json/getBookList/", method = RequestMethod.POST)
+			public Map getBookList(int currentPage, String prodType) throws Exception {
+				
+					Search search = new Search();
+		
+				
+					System.out.println("/product/json/getBookList : GET");
+					System.out.println("curPage : "+currentPage);
+					currentPage = currentPage + 1;
+					System.out.println("prodType : "+prodType);
+					
+					search.setPageSize(pageSize);
+					search.setCurrentPage(currentPage);
+					
+					//BusinessLogic
+					List<Product> product = productService.getBookList(search);
+					
+					int totalCount = productService.getBookTotalCount();
+					
+					Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
+					
+					Map map = new HashMap();
+					map.put("product", product);
+					map.put("currentPage", currentPage);
+					
+					
+					return map;
+			}
+			
 }//end class

@@ -26,33 +26,169 @@
 		<jsp:include page="../toolbar.jsp" />
 		<jsp:include page="../community/addReport.jsp" />
 	   	<!-- ToolBar End /////////////////////////////////////-->
-	   	<br/>
-	   	<br/>
-	   	<br/>
-	   	<br/>
-	   	<br/>
-	   	<br/>
-					책번호 ${product.prodNo} <br/>
-					상품 타입 ${product.prodType} <br/>
-					상품 상세 ${product.prodDetail} <br/>
-					상품명 ${product.prodName} <br/> 
-					소비자가 ${product.retailPrice} <br/>
-					저자 ${product.author} <br/>
-					할인여부 ${product.blindCode} <br/>
-					컬러 ${product.colorType} <br/>
-					표지 ${product.coverType} <br/>
-					내지 ${product.innerType} <br/>
-					작성자 ${product.creator}	<br/>
-					
+	  	<style>
+									.number-input input[type="number"] {
+							-webkit-appearance: textfield;
+							-moz-appearance: textfield;
+							appearance: textfield;
+							}
+							
+							.number-input input[type=number]::-webkit-inner-spin-button,
+							.number-input input[type=number]::-webkit-outer-spin-button {
+							-webkit-appearance: none;
+							}
+							
+							.number-input {
+							  display: flex;
+							  justify-content: space-around;
+							  align-items: center;
+							}
+							
+							.number-input button {
+							-webkit-appearance: none;
+							background-color: transparent;
+							border: none;
+							align-items: center;
+							justify-content: center;
+							cursor: pointer;
+							margin: 0;
+							position: relative;
+							}
+							
+							.number-input button:before,
+							.number-input button:after {
+							display: inline-block;
+							position: absolute;
+							content: '';
+							height: 2px;
+							transform: translate(-50%, -50%);
+							}
+							
+							.number-input button.plus:after {
+							transform: translate(-50%, -50%) rotate(90deg);
+							}
+							
+							.number-input input[type=number] {
+							text-align: center;
+							}
+							
+							.number-input.number-input {
+							border: 1px solid #ced4da;
+							width: 10rem;
+							border-radius: .25rem;
+							}
+							
+							.number-input.number-input button {
+							width: 2.6rem;
+							height: .7rem;
+							}
+							
+							.number-input.number-input button.minus {
+							padding-left: 10px;
+							}
+							
+							.number-input.number-input button:before,
+							.number-input.number-input button:after {
+							width: .7rem;
+							background-color: #495057;
+							}
+							
+							.number-input.number-input input[type=number] {
+							max-width: 4rem;
+							padding: .5rem;
+							border: 1px solid #ced4da;
+							border-width: 0 1px;
+							font-size: 1rem;
+							height: 2rem;
+							color: #495057;
+							}
+							
+							@media not all and (min-resolution:.001dpcm) {
+							@supports (-webkit-appearance: none) and (stroke-color:transparent) {
+							
+							.number-input.def-number-input.safari_only button:before,
+							.number-input.def-number-input.safari_only button:after {
+							margin-top: -.3rem;
+							}
+							}
+							}
+
+	</style>
 	
-		<img src="${wish}" id='wish_img' width="70px" height="70px"/><h6>designed by freepik</h6>
-		<input type="number" name="buyAmount" id="buyAmount" onblur="buyAmount()" value="0">개</td>
-		<div class="form-group" align="center">
-			<button type="button" id="button" class="btn btn-info btn-block" 
-				onclick="addCart()">
-				
-			</button>
-		</div>
+	
+	
+</head>
+<body>
+		<!-- ToolBar Start /////////////////////////////////////-->
+		<jsp:include page="../toolbar.jsp" />
+	   	<!-- ToolBar End /////////////////////////////////////-->
+					
+					<div class="container my-5">
+
+					  <section>
+					    
+					    <div class="card mb-4 z-depth-0 w-120">
+					      
+					      <div class="row">
+					
+					        <div class="col-md-6">
+					          <img class="img-fluid rounded-left" src="../../resources/images/publish/fileUpload/thumbnailFile/${product.prodThumbnail }" alt="project image">
+					        </div>
+					
+					        <div class="col-md-6 p-5 align-self-center ">
+					
+					          <h5 class="font-weight-normal mb-3">상품명</h5>
+					
+					          <p class="text-muted">${product.prodName}</p>
+					
+					          <ul class="list-unstyled font-small mt-5 mb-0">
+					            <li>
+					              <p class="text-uppercase mb-2"><strong>작가</strong></p>
+					              <p class="text-muted mb-4">${product.creator}</p>
+					            </li>
+					
+					            <li>
+					              <p class="text-uppercase mb-2"><strong>등록일자</strong></p>
+					              <p class="text-muted mb-4">${product.regDate}</p>
+					            </li>
+					
+					            <li>
+					              <p class="text-uppercase mb-2"><strong>도서 정보</strong></p>
+					              <p class="text-muted mb-4">Page : ${product.bookPage}</p>
+					              <p class="text-muted mb-4">Size : ${product.sizeType}</p>
+					              <p class="text-muted mb-4">Color : ${product.colorType}</p>
+					              <p class="text-muted mb-4">Cover : ${product.coverType}</p>
+					              <p class="text-muted mb-4">Inner : ${product.innerType}</p>
+					            </li>
+					
+					            <li>
+					              <p class="text-uppercase mb-2"><strong>좋아요?</strong></p>
+					              <img src="${wish}" id='wish_img' width="70px" height="70px"/><h6>designed by freepik</h6>
+					            </li>
+					
+					            <li>
+					              <p class="text-uppercase mt-4 mb-2"><strong>장바구니</strong></p>
+					             		 
+					              		<div class="def-number-input number-input safari_only">
+										  <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+										  <input class="quantity" min="0" name="quantity" value="1" type="number" id="buyAmount" >
+										  <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+										</div>
+										<button type="button" class="btn btn-so" onclick="addCart()"><i class="fas fa-cart-plus" ></i></button>
+					              
+					            </li>
+					
+					          </ul>
+					
+					        </div>
+					
+					      </div>
+					
+					    </div>
+
+  </section>
+
+</div>
 		<!-- 신고 추가 -->
 		<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>
 		<button id="reportBtn" class="btn btn-outline-info">신고</button>

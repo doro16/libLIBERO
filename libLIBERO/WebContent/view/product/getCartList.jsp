@@ -195,14 +195,14 @@
 				//alert(retailPrice);
 				var eachPrice = parseInt(retailPrice)*parseInt(buyAmount);
 				//alert(eachPrice)
-				$("#each"+i).html("가격 : "+eachPrice);//업데이트된 eachPrice 화면출력
+				$("#each"+i).html(eachPrice);//업데이트된 eachPrice 화면출력
 				$("#eachPrice"+i).val(eachPrice);//업데이트된 eachPrice input의 value 업데이트
 				var each = $("#eachPrice"+i).val()
 				alert(each);
-				var k = $(".buyAmount:Last").attr("id"); //상품 리스트 갯수 추출
+				var k = $(".form-control:Last").attr("id"); //상품 리스트 갯수 추출
 				var kk = parseInt(k)+1;
-				//alert(k);
-				//alert(kk);
+				alert(k);
+				alert(kk);
 				
 				
 // 				var eachPrice1 = $("#eachPrice1").val();
@@ -215,12 +215,16 @@
 				for (var i=1; i<kk ; i++){
 					
 							var eachPrice=parseInt($("#eachPrice"+i).val());
+							alert("eachPrice는");
+							alert(eachPrice);
 							totalPrice += eachPrice;
 				}
-				$("#totalPrice").html("총액 : "+totalPrice);
+				//$("#totalPrice").html("총액 : "+totalPrice);
+				$("#totalPrice").val(totalPrice);
 				$("#actualPrice").val(totalPrice);
 				var actualPrice = $("#actualPrice").val();
 				alert(actualPrice);
+				$("#totalPrice").text("가격 : "+actualPrice);
 				
 				//var prodNo = $("#prodNo"+i).val();//for 문 때문에 i 변한듯 위에서 선언해야됨
 				alert(prodNo);
