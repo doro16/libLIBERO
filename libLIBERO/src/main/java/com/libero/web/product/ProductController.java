@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.libero.common.Page;
 import com.libero.common.Search;
 import com.libero.service.cart.CartService;
 import com.libero.service.domain.Product;
@@ -41,12 +43,17 @@ public class ProductController{
 	@Autowired
 	@Qualifier("cartServiceImpl")
 	private CartService cartService;
-
 	
 	//Constructor
 	public ProductController() {
 		System.out.println(this.getClass());
 	}
+	
+	@Value("#{commonProperties['pdPageSize']}")
+	int pageSize;
+	
+	@Value("#{commonProperties['pdPageUnit']}")
+	int pageUnit;
 	
 	//method 서점메인화면 출력
 	@RequestMapping(value="getBookList", method = RequestMethod.GET)
@@ -138,16 +145,29 @@ public class ProductController{
 	 
 	//method 서비스상품화면 출력
 		@RequestMapping(value="getProductList/{prodType}", method = RequestMethod.GET)
-		public ModelAndView getProductList(@PathVariable String prodType) throws Exception {
+		public ModelAndView getProductList(@PathVariable String prodType, Search search) throws Exception {
 			
-				System.out.println("/product/getProductList : GET");
+				ModelAndView modelAndView = new ModelAndView();
+			
+				System.out.println("/product/getProductList : GET"+search.getCurrentPage());
+				
+				if(search.getCurrentPage() == 0) {
+									search.setCurrentPage(1);
+				}
+				search.setPageSize(pageSize);
 				
 				//BusinessLogic
-				System.out.println("1");
-				Map<String, Object> map=productService.getProductList(prodType);
-				System.out.println("2");
-				ModelAndView modelAndView = new ModelAndView();
-				modelAndView.addObject("product", map.get("list"));
+				List<Product> product = productService.getProductList(prodType, search);
+				
+				int totalCount = productService.getProductTotalCount(prodType);
+				
+				Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
+				
+				modelAndView.addObject("product", product);
+				modelAndView.addObject("resultPage", resultPage);
+				modelAndView.addObject("search", search);
+				modelAndView.addObject("totalCount", totalCount);
+				
 				modelAndView.setViewName("forward:/view/product/getProductList.jsp");
 				
 				return modelAndView;

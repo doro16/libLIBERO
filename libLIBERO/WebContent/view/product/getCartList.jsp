@@ -17,10 +17,49 @@
 <br/>
 <br/>
 <br/>
-<tbody>
-		<h2>${sessionScope.user.userId}의 장바구니</h2>
-		<form group>
-		  <c:set var="totalPrice" value="0"/>
+
+		<div class="container my-5 py-3 z-depth-0 rounded">
+
+
+  <!--Section: Content-->
+  <section class="dark-grey-text">
+
+    <!-- Shopping Cart table -->
+    <div class="table-responsive">
+
+      <table class="table product-table mb-0">
+
+        <!-- Table head -->
+        <thead class="mdb-color lighten-5">
+          <tr>
+            <th></th>
+            <th class="font-weight-bold">
+              <strong>Product</strong>
+            </th>
+            <th class="font-weight-bold">
+              <strong>Color</strong>
+            </th>
+            <th></th>
+            <th class="font-weight-bold">
+              <strong>Price</strong>
+            </th>
+            <th class="font-weight-bold">
+              <strong>QTY</strong>
+            </th>
+            <th class="font-weight-bold">
+              <strong>Amount</strong>
+            </th>
+            <th></th>
+          </tr>
+        </thead>
+        <!-- /.Table head -->
+
+        <!-- Table body -->
+        <tbody>
+
+          <!-- First row -->
+          <!--  
+          <c:set var="totalPrice" value="0"/>
 		  <c:set var="i" value="0" />
 		  <c:forEach var="cartList" items="${cartList}">
 			<c:set var="i" value="${ i+1 }" />
@@ -28,7 +67,6 @@
 			<tr>
 				<td align="center">${ i }</td>
 				<form id="form${i}" value="${i}">
-		<!--  	 <input type="checkbox" id="checkbox${i}" name="price" value="#"> -->
 				 	<input type="hidden" class="eachPrice" id="eachPrice${i}" name="eachPrice${i}"  value="${cartList.buyAmount * cartList.retailPrice}">
 				 	구매번호 : ${buyNoList[i-1]}</br> 
 					상품번호 : ${cartList.prodNo }	 <br/>	<input type="hidden" class="prodNo" id="prodNo${i}" name="prodNo${i}"  value="${cartList.prodNo}">
@@ -41,19 +79,82 @@
 					<button type="button" class="removeButton" id="button${i}" class="btn btn-info btn-block" value="${cartList.prodNo}">삭제</button>
 					
 				</form></tr>
+				
+
+          </c:forEach>-->
+          
+          
+          
+          
+          
+          
+          <!--  -->
+           <c:set var="totalPrice" value="0"/>
+		  <c:set var="i" value="0" />
+		  <c:forEach var="cartList" items="${cartList}">
+			<c:set var="i" value="${ i+1 }" />
+			<c:set var="totalPrice" value="${totalPrice + cartList.buyAmount * cartList.retailPrice }"/>
+          	<form id="form${i}" value="${i}">
+          
+          
+          
+          <tr>
+            <th scope="row">
+              <img src="../../resources/images/publish/fileUpload/thumbnailFile/${cartList.prodThumbnail }" alt="" class="img-fluid z-depth-0">
+            </th>
+            <td>
+              <h5 class="mt-3">
+                <strong>${cartList.prodName}</strong>
+              </h5>
+              <p class="text-muted">${product.author}</p>
+            </td>
+            <td>White</td>
+            <td></td>
+            <td>${cartList.retailPrice}</td><input type="hidden" class="retailPrice" name="retailPrice${i}" id="retailPrice${i}" value="${cartList.retailPrice }">
+            <td>
+              <input type="number" value="${cartList.buyAmount}" aria-label="Search" class="form-control" name="buyAmount${i}" id="${i}" style="width: 100px" value="${cartList.buyAmount}">
+            </td>
+            <td class="font-weight-bold">
+              <strong id="each${i}">${cartList.buyAmount * cartList.retailPrice}</strong>
+            </td>
+            <td>
+              <button type="button" class="removeButton btn btn-dark" data-toggle="tooltip" data-placement="top" title="Remove item" name="buyAmount${i}" id="button${i}" value="${cartList.prodNo}">X </button>
+              <input type="hidden" class="eachPrice" id="eachPrice${i}" name="eachPrice${i}"  value="${cartList.buyAmount * cartList.retailPrice}">
+              <input type="hidden" class="prodNo" id="prodNo${i}" name="prodNo${i}" value="${cartList.prodNo}">
+             
+            </td>
+          </tr>
+				</form>
           </c:forEach>
-          </form>
-					<h1 id="totalPrice">총액 : ${totalPrice} </h1>
-					<form>
+          
+          <!-- /.First row -->
+
+        </tbody>
+        <!-- /.Table body -->
+
+      </table>
+      
+      <h1 id="totalPrice">총액 : ${totalPrice} </h1>
+        		<form>
 					<input type="hidden" name="buyNoList" value="${buyNoList}">
 					<input type="hidden" id="actualPrice" name="actualPrice" value="${totalPrice}">
-					</form>
-      
-          
-        </tbody>        
-        <button type="button" id="button" class="btn btn-info btn-block" >
-				구매
-		</button>
+				</form>
+		<button type="button" id="button" class="btn btn-light">구매</button>
+
+    </div>
+    <!-- /.Shopping Cart table -->
+
+  </section>
+  <!--Section: Content-->
+
+
+</div>
+		
+		
+		
+		
+		
+		
 
 
 </body>
@@ -82,7 +183,7 @@
 
 		$(function() {
 			
-			$('.buyAmount').click(function(){
+			$('.form-control').click(function(){
 					
 				var buyAmount = $(this).val();
 				alert(buyAmount);
@@ -171,27 +272,6 @@
 				});//end ajax
 			})
 		});
-		//$(function() {
-			
-		//})
-	
-// 		for (var i = 0; i <= colorPrice.length; i++) {
-		
-// 		var buyAmount = $(this).next().val();
-// 		alert(buyAmount);	
-// 	}
-	
-// 	function totalPrice(){
-// 		alert("hi")
-// 		var totalPrice = 0
-		
-// 		<c:forEach items="${cartList}" var="cartList">
-// 		var eachPrice = 
-// 		</c:forEach>
-// 	}
-	
-
-
 
 </script>
 

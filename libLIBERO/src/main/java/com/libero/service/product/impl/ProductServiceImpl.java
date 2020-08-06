@@ -59,19 +59,6 @@ public class ProductServiceImpl implements ProductService{
 
 		return list;
 	}
-	
-	
-	@Override
-	public Map<String, Object> getProductList(String prodType) throws Exception {
-		List<Product> list = productDAO.getProductList(prodType);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		
-		return map;
-	}
-
-
 
 	@Override
 	public Product getProduct(int prodNo) {
@@ -97,6 +84,17 @@ public class ProductServiceImpl implements ProductService{
 		
 		return productDAO.getReview(prodNo);
 		
+	}
+
+	@Override
+	public List<Product> getProductList(String prodType, Search search) throws Exception {
+		
+		return productDAO.getProductList(prodType, search);
+		
+	}
+	
+	public int getProductTotalCount(String prodType) throws Exception{
+		return productDAO.getProductTotalCount(prodType);
 	}
 
 

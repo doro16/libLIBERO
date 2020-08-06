@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -17,18 +17,23 @@
   color: #0d47a1 !important;
 }
 
-    /* #product{
-     
+    #getBook{
+      width: 150px;
+      height: 150px;
+      margin: 50px;
 
       /* list 앞에 점마크 지우기*/
-      /* list-style: none; */
+      list-style: none;
 
       /* inline 배치로 바꾸기 */
-      /* display: inline-block; */
-   /* } */
+      display: inline-block;
+    }
 
-    
+    #getBook{
 
+      /* 일렬로 나열 */
+      white-space: nowrap;
+    }
 
 </style>
 
@@ -38,58 +43,46 @@
 		<!-- ToolBar Start /////////////////////////////////////-->
 		<jsp:include page="../toolbar.jsp" />
 	   	<!-- ToolBar End /////////////////////////////////////-->
-<!-- 
-<tbody>
-		
-		  <c:set var="i" value="0" />
-		  <c:forEach var="product" items="${product}">
-			<c:set var="i" value="${ i+1 }" />
-			<tr>
-				<td align="center">${ i }</td>
-				
-					${product.prodName} </br>
-					${product.prodType}
-				</td>
-          </c:forEach>
-        
-        </tbody>
--->       
 
-<br/>
-<br/>
-<br/>
-
- <h6 class="font-weight-bold text-center grey-text text-uppercase small mb-4">portfolio</h6>
-    <h3 class="font-weight-bold text-center dark-grey-text pb-2">Product Designs</h3>
+<br/><br/><br/><br/><br/><br/>
+<h6 class="font-weight-bold text-center grey-text text-uppercase small mb-4">서점</h6>
+    <h3 class="font-weight-bold text-center dark-grey-text pb-2">ALL</h3>
     <hr class="w-header my-4">
-    <p class="lead text-center text-muted pt-2 mb-5">You can find several product design by our professional team in
-      this section.</p>
-		
-    <!--First row-->
-    <div class="row">
 
-      <!--First column-->
-      <div class="col-12">
+	
+	<!-- 검색 -->
+	<div class="container">
+	<div class="row">
+	<!-- 검색조건 -->
+			<div class="btn-group dropup">
+			  <button type="button" class="btn btn-brown lighten-1 h-75" id="searchConditionText">검색조건</button>
+			  <button type="button" class="btn btn-brown lighten-1 dropdown-toggle px-2 h-75" data-toggle="dropdown" aria-haspopup="true"
+			    aria-expanded="false">
+			    <span class="sr-only">Toggle Dropdown</span>
+			  </button>
+			  <div class="dropdown-menu">
+			    <a class="dropdown-item" href="#">제목</a>
+			    <a class="dropdown-item" >작가명</a>
+			    <a class="dropdown-item" href="#">해쉬태그</a>
+			  </div>
+			</div>
 
-        <!-- Nav tabs -->
-        <ul class="nav md-pills flex-center flex-wrap mx-0" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active font-weight-bold text-uppercase" data-toggle="tab" href="#panel31" role="tab">ALL</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link font-weight-bold text-uppercase" data-toggle="tab" href="#panel32" role="tab">Design</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link font-weight-bold text-uppercase" data-toggle="tab" href="#panel33" role="tab">Mockup</a>
-          </li>
-        </ul>
-
-      </div>
-      <!--First column-->
-
-    </div>
-    <!--First row-->
-
+	
+	<!-- Search form -->
+			<form class="form-inline mr-auto">
+			  <input type="hidden" id="searchCondition" name="searchCondition">
+			  <input class="form-control mr-sm-2" type="text" name="searchKeyword" >
+			  <button class="btn btn-brown btn-rounded btn-sm my-0" id="searchButton" >Search</button>
+			</form>
+	</div>
+	</div>
+	<!-- 검색 -->
+	
+	<!-- 페이지 정보 -->
+	
+	<input type="hidden" id="currentPage" value="${resultPage.currentPage}">
+	
+	
     <!--Tab panels-->
     <div class="tab-content mb-5">
 
@@ -97,7 +90,7 @@
       <div class="tab-pane fade show in active" id="panel31" role="tabpanel">
 
         <!-- Grid row -->
-        <div class="row">
+        <div class="row" id="bookRow">
 
           <!-- Grid column -->
           
@@ -110,14 +103,15 @@
             <a class="card hoverable mb-4 z-depth-0" id="productcard" data-toggle="modal" data-target="#basicExampleModal">
 
               <!-- Card image -->
-              <img class="card-img-top" src="../../resources/images/publish/fileUpload/${product.prodThumbnail}" alt="Card image cap">
-              <br/>${product.prodThumbnail}
+              <img class="card-img-top z-depth-1" src="../../resources/images/publish/fileUpload/${product.prodThumbnail}" alt="Card image cap" width="250px" height="400px">
+     
 
               <!-- Card content -->
               <div class="card-body" id="card-body">
 
-                <h5 class="my-3">${product.prodName}</h5>
-                <p class="card-text text-uppercase mb-3">Bag, Box</p>
+                <h5 class="my-3" ><a href="/libero/product/getProduct/${product.prodNo}">${product.prodName}</a></h5>
+                <p class="card-text text-uppercase mb-3">${product.author}</p>
+                <p class="card-text text-uppercase mb-3"></p>
 
               </div>
 
@@ -126,91 +120,126 @@
             <!-- Card -->
             </c:forEach>
             </div></div></div>
-
-<!-- <tbody> -->
-		<div class="container">
-		<div class="row">
-		  <c:set var="i" value="0" />
-		  <c:forEach var="product" items="${product}">
-			<c:set var="i" value="${ i+1 }" />
-			
-	<!--<tr> <td align="center">${ i }</td> -->			
-				
-
-	
-		<div class="col-3">
-		 <!-- Card -->
-			<div class="card booking-card">
-			
-			  <!-- Card image -->
-			  <div class="view overlay">
-			    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/8-col/img (5).jpg" alt="Card image cap">
-			    <a href="#!">
-			      <div class="mask rgba-white-slight"></div>
-			    </a>
-			  </div>
-			
-			  <!-- Card content -->
-			  <div class="card-body">
-			
-			    <!-- Title -->
-			    <h4 class="card-title font-weight-bold"><a>La Sirena restaurant</a></h4>
-			    <!-- Data -->
-			    <ul class="list-unstyled list-inline rating mb-0">
-			      <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"> </i></li>
-			      <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"></i></li>
-			      <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"></i></li>
-			      <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"></i></li>
-			      <li class="list-inline-item"><i class="fas fa-star-half-alt amber-text"></i></li>
-			      <li class="list-inline-item"><p class="text-muted">3.5 (413)</p></li>
-			    </ul>
-			    <p class="mb-2">$ • American, Restaurant</p>
-			    <!-- Text -->
-			    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-			    <hr class="my-4">
-			    <p class="lead"><strong>Tonight's availability</strong></p>
-			    
-			    <!-- Button -->
-			    <a href="#" class="btn btn-flat deep-purple-text p-1 mx-0 mb-0">Button</a>
-				
-			  </div>
-			
-			</div>
-<!-- Card -->
-		</div>
-	
-     
-					
-				<!--</td>  -->
-				
-          </c:forEach>
-          </div>
-			</div>
-        
-<!-- </tbody> -->
-        <br/>
-        <br/>
-
-        <c:set var="i" value="0" />
-		  <c:forEach var="product" items="${product}">
-			<c:set var="i" value="${ i+1 }" />
-				<c:if test="i % 6 equal 0">
-					<ul><h6>안녕하세요</h6>
-					         <c:if test="[i % 6] eq 0">안녕하세요!</c:if>
-       						 <c:if test="[i mod 6] eq 0">안녕하세요1</c:if>
-     					     <c:if test="${i mod 6} eq 0">안녕하세요2</c:if>
-     					     <c:if test="[${i mod 6} % 6] eq 0">안녕하세요3</c:if>
-        
-				</c:if>
-				<li>
-					상품명:${product.prodName}
-				</li>
-				<c:if test="i % 6 equal 5">
-					</ul><h6>안녕히가세요</h6></h6><br/><br/>
-				</c:if>
-			
-        </c:forEach>
-        
+            
+            <button type="button" class="btn btn-brown" id="button" value="${i}">more</button >
+            <input type="hidden" id="k" value="${product[0].prodType}">
+            <input type="hidden" id="maxPage" value="${resultPage.maxPage}">
+            
+            
+            
+            	
 
 </body>
+
+
+<script>
+
+
+			$("#button").on("click", function() {
+				
+				var curPage = $("#currentPage").val();
+				var prodType = $("#k").val();
+				var maxPage = $("#maxPage").val();
+				
+				curPage = parseInt(curPage);
+				
+				alert("최대 출력페이지 : "+maxPage);
+				//alert(curPage);
+				
+				
+				
+					
+					$.ajax({
+						url : "/libero/product/json/getProductList/"+prodType,
+						type: "POST",
+						dataType: "json",
+						header : {
+								"Accept" : "application/json",
+								"Content-Type" : "application/json"
+						},
+						data: {"currentPage": parseInt(curPage), "prodType": prodType },
+						success : function(data){
+							
+							//alert("success");
+							var currentPage = data.currentPage;
+							//alert(currentPage);
+							
+						if(data.product == ""){
+								alert("더이상 상품이 없습니다");
+							}
+						if(data.product != ""){
+							
+							var displayValue = "<div class='row'>";
+							
+							$.each(data.product, function(index,product){
+								
+						
+								
+							displayValue +=	
+								"<div class='col-sm-3'>"
+							  +"<a class='card hoverable mb-4 z-depth-0' id='productcard' data-toggle='modal' data-target='#basicExampleModal'>"
+				              +"<img class='card-img-top z-depth-1' src='../../resources/images/publish/fileUpload/"+product.prodThumbnail+"' alt='Card image cap' width='250px' height='400px'>"
+				              +"<div class='card-body' id='card-body'>"
+				              +"<h5 class='my-3'><a href=/libero/product/getProduct/"+product.prodNo+">"+product.prodName+"<a></h5>"
+				              +"<p class='card-text text-uppercase mb-3'>"+product.nickname+"</p>"
+				              +"</div>"
+				              +"</a>"
+				              +"</div>"
+							});//end each
+							
+							 displayValue += "</div>"
+								 $("#panel31").append(displayValue);
+							  	 $("#currentPage").val(currentPage);
+						  }//end if	
+						}//end success	
+					});//end ajax
+					
+							
+					 
+				  
+
+				});
+
+			//검색조건 선택에 따른 화면표시
+			$(".dropdown-item").on("click", function() {
+				var searchCondition = $(this).text();
+				$("#searchConditionText").text(searchCondition);
+				$("#searchCondition").val(searchCondition);
+				
+			});
+			
+			
+			//검색
+			$("#searchButton").on("click", function() {
+				var searchCondition = $("#searchConditionText").text();
+					$("#searchConditionText").val(searchCondition);
+				var searchCondition = $("#searchConditionText").val();
+					alert(searchCondition);
+					if(searchCondition == "작가명"){
+						var searchCondition = "author";
+						
+					}else if(searchCondition == "해쉬태그"){
+						var searchCondition = "hashTag";
+					}else{
+						var searchCondition = "prodName";
+					}
+					
+					$("#searchCondition").val(searchCondition);
+					var searchKeyword = $("input[name='searchKeyword'").val();
+					
+					alert(searchKeyword);
+					//searchKeyword = encodeURIComponent(searchKeyword);
+
+				
+				$("form").attr("method", "GET").attr("action", "/libero/product/getProductListBySearch").submit();
+				
+				//location="/libero/product/getBookListBySearch?searchCondition="+searchCondition+"&searchKeyword="+searchKeyword;
+				
+			});
+
+
+
+
+</script>
+
 </html>

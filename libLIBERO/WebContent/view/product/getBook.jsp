@@ -1,21 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 	
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
+	<jsp:include page="../community/addReport.jsp"/>
 	
 	
 	
 	
 	
-	
-<title>µµ¼­  »ó¼¼</title>
+<title>ë„ì„œ  ìƒì„¸</title>
 		
 </head>
 
@@ -24,6 +24,7 @@
 
 		<!-- ToolBar Start /////////////////////////////////////-->
 		<jsp:include page="../toolbar.jsp" />
+		<jsp:include page="../community/addReport.jsp" />
 	   	<!-- ToolBar End /////////////////////////////////////-->
 	   	<br/>
 	   	<br/>
@@ -31,31 +32,30 @@
 	   	<br/>
 	   	<br/>
 	   	<br/>
-
-					Ã¥¹øÈ£ ${product.prodNo} <br/>
-					»óÇ° Å¸ÀÔ ${product.prodType} <br/>
-					»óÇ° »ó¼¼ ${product.prodDetail} <br/>
-					»óÇ°¸í ${product.prodName} <br/> 
-					¼ÒºñÀÚ°¡ ${product.retailPrice} <br/>
-					ÀúÀÚ ${product.author} <br/>
-					ÇÒÀÎ¿©ºÎ ${product.blindCode} <br/>
-					ÄÃ·¯ ${product.colorType} <br/>
-					Ç¥Áö ${product.coverType} <br/>
-					³»Áö ${product.innerType} <br/>
-					ÀÛ¼ºÀÚ ${product.creator}	<br/>
+					ì±…ë²ˆí˜¸ ${product.prodNo} <br/>
+					ìƒí’ˆ íƒ€ì… ${product.prodType} <br/>
+					ìƒí’ˆ ìƒì„¸ ${product.prodDetail} <br/>
+					ìƒí’ˆëª… ${product.prodName} <br/> 
+					ì†Œë¹„ìê°€ ${product.retailPrice} <br/>
+					ì €ì ${product.author} <br/>
+					í• ì¸ì—¬ë¶€ ${product.blindCode} <br/>
+					ì»¬ëŸ¬ ${product.colorType} <br/>
+					í‘œì§€ ${product.coverType} <br/>
+					ë‚´ì§€ ${product.innerType} <br/>
+					ì‘ì„±ì ${product.creator}	<br/>
 					
 	
 		<img src="${wish}" id='wish_img' width="70px" height="70px"/><h6>designed by freepik</h6>
-		<input type="number" name="buyAmount" id="buyAmount" onblur="buyAmount()" value="0">°³</td>
+		<input type="number" name="buyAmount" id="buyAmount" onblur="buyAmount()" value="0">ê°œ</td>
 		<div class="form-group" align="center">
 			<button type="button" id="button" class="btn btn-info btn-block" 
 				onclick="addCart()">
-				Àå¹Ù±¸´Ï
+				
 			</button>
 		</div>
-		<!-- ½Å°íÃß°¡ -->
+		<!-- ì‹ ê³  ì¶”ê°€ -->
 		<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>
-		<button id="reportBtn" class="btn btn-outline-info">½Å°í</button>
+		<button id="reportBtn" class="btn btn-outline-info">ì‹ ê³ </button>
 		<input type="hidden" id="prodPost" name="prodPost" value="prod"/>
 		
 		<!-- Classic tabs -->
@@ -91,7 +91,7 @@
 								<c:set var="i" value="${ i+1 }" />
 								<tr>
 									<td align="center">${ i }</td>
-									<td align="left"  title="Click : ÁÖ¹®Á¤º¸ È®ÀÎ">
+									<td align="left"  title="Click : ì£¼ë¬¸ì •ë³´ í™•ì¸">
 									
 										${review.starRate} <br/>
 										${review.userId }<br/>
@@ -146,7 +146,7 @@
 			$('#wish_img').on("click", function(){
 				var userId = "${sessionScope.user.userId}";
 				if (userId=="") {
-					alert("·Î±×ÀÎ ÇØÁÖ¼¼¿ä.");
+					alert("ë¡œê·¸ì¸ í•´ì£¼ì„¸ìš”.");
 					return;
 				}
 				
@@ -178,15 +178,15 @@
 		//alert(buyAmount);
 		
 		if (userId=="") {
-			alert("·Î±×ÀÎ ÇØÁÖ¼¼¿ä.");
+			alert("ë¡œê·¸ì¸ í•´ì£¼ì„¸ìš”.");
 			return;
 		}
 		if (phoneCode!=1) {
-			alert("ÈŞ´ëÆù º»ÀÎÀÎÁõÀ» ¿Ï·áÇÑ È¸¿ø¸¸ °¡´ÉÇÕ´Ï´Ù.");
+			alert("íœ´ëŒ€í° ë³¸ì¸ì¸ì¦ì„ ì™„ë£Œí•œ íšŒì›ë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 			return;
 		}
 		if (buyAmount==0) {
-			alert("¼ö·®À» ¼±ÅÃÇØÁÖ¼¼¿ä.");
+			alert("ìˆ˜ëŸ‰ì„ ì„ íƒí•´ì£¼ì„¸ìš”.");
 			return;
 		}
 		

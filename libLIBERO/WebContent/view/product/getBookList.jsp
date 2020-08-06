@@ -50,7 +50,7 @@
     <hr class="w-header my-4">
 
 	
-	
+	<!-- 검색 -->
 	<div class="container">
 	<div class="row">
 	<!-- 검색조건 -->
@@ -62,7 +62,7 @@
 			  </button>
 			  <div class="dropdown-menu">
 			    <a class="dropdown-item" href="#">제목</a>
-			    <a class="dropdown-item" href="#">작가명</a>
+			    <a class="dropdown-item" >작가명</a>
 			    <a class="dropdown-item" href="#">해쉬태그</a>
 			  </div>
 			</div>
@@ -76,40 +76,8 @@
 			</form>
 	</div>
 	</div>
+	<!-- 검색 -->
 
-		
-    <!--First row-->
-    <div class="row">
-
-      <!--First column-->
-      <div class="col-12">
-
-   			<ul class="nav justify-content-center brown lighten-4 py-4">
-			  <li class="nav-item">
-			    <a class="nav-link active" href="#!">ALL</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" href="/libero/product/getBookListByCategory/poetry">시</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" href="/libero/product/getBookListByCategory/novel">소설</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" href="/libero/product/getBookListByCategory/essay">수필</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" href="/libero/product/getBookListByCategory/non">비문학</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" href="/libero/product/getBookListByCategory/edu">교육</a>
-			  </li>
-			</ul><br/><br/><br/><br/>
-
-      </div>
-      <!--First column-->
-
-    </div>
-    <!--First row-->
 
     <!--Tab panels-->
     <div class="tab-content mb-5">
@@ -131,7 +99,7 @@
             <a class="card hoverable mb-4 z-depth-0" id="productcard" data-toggle="modal" data-target="#basicExampleModal">
 
               <!-- Card image -->
-              <img class="card-img-top z-depth-1" src="../resources/images/publish/fileUpload/${book.prodThumbnail}" alt="Card image cap" width="250px" height="400px">
+              <img class="card-img-top z-depth-1" src="../resources/images/publish/fileUpload/thumbnailFile/${book.prodThumbnail}" alt="Card image cap" width="250px" height="400px">
      
 
               <!-- Card content -->
@@ -172,31 +140,7 @@
 				alert(endUnit);	
 				var displayValue = "<div class='row'>";
 				endUnit = parseInt(endUnit)+1;
-				
-// 				var tn = $("#thumbnail"+k).val();
-// 				var at = $("#author"+k).val();
-// 				var pn = $("#prodName"+k).val();
-// 				console.log(tn);
-				
-// 				displayValue +=
-// 						"<div class='col-sm-3'>"
-// 					  +"<a class='card hoverable mb-4 z-depth-0' id='productcard' data-toggle='modal' data-target='#basicExampleModal'>"
-// 		              +"<img class='card-img-top z-depth-1' src='../resources/images/publish/fileUpload/"+tn+"' alt='Card image cap' width='250px' height='400px'>"
-// 		              +"<div class='card-body' id='card-body'>"
-// 		              +"<h5 class='my-3'>"+at+"</h5>"
-// 		              +"<p class='card-text text-uppercase mb-3'>"+pn+"</p>"
-// 		              +"</div>"
-// 		              +"</a>"
-// 		              +"</div>"
-// 		              +"</div>"
-		              
-		              
-		              
-// 		              $("#panel31").append(displayValue);
-				
-				
-				
-				
+								
 				for(var k = endUnit ; k<endUnit+4 ; k++ ){
 					
 					
@@ -218,7 +162,7 @@
 							displayValue +=	
 								"<div class='col-sm-3'>"
 							  +"<a class='card hoverable mb-4 z-depth-0' id='productcard' data-toggle='modal' data-target='#basicExampleModal'>"
-				              +"<img class='card-img-top z-depth-1' src='../resources/images/publish/fileUpload/"+prodThumbnail+"' alt='Card image cap' width='250px' height='400px'>"
+				              +"<img class='card-img-top z-depth-1' src='../resources/images/publish/fileUpload/thumbnailFile/"+prodThumbnail+"' alt='Card image cap' width='250px' height='400px'>"
 				              +"<div class='card-body' id='card-body'>"
 				              +"<h5 class='my-3'>"+prodName+"</h5>"
 				              +"<p class='card-text text-uppercase mb-3'>"+author+"</p>"
@@ -235,16 +179,16 @@
 				
 			});
 
-
+			//검색조건 선택에 따른 화면표시
 			$(".dropdown-item").on("click", function() {
 				var searchCondition = $(this).text();
 				$("#searchConditionText").text(searchCondition);
 				$("#searchCondition").val(searchCondition);
 				
-				
-				
 			});
 			
+			
+			//검색
 			$("#searchButton").on("click", function() {
 				var searchCondition = $("#searchConditionText").text();
 					$("#searchConditionText").val(searchCondition);
@@ -261,17 +205,14 @@
 					
 					$("#searchCondition").val(searchCondition);
 					var searchKeyword = $("input[name='searchKeyword'").val();
-					alert(searchKeyword);
-					searchKeyword = encodeURIComponent();
-
-				
-
 					
+					alert(searchKeyword);
+					//searchKeyword = encodeURIComponent(searchKeyword);
+
 				
+				$("form").attr("method", "GET").attr("action", "/libero/product/getBookListBySearch").submit();
 				
-				//$("form").attr("method", "POST").attr("action", "/libero/product/getBookListBySearch").submit();
-				
-				self.location="/libero/product/getBookListBySearch?searchCondition="+searchCondition+"&searchKeyword="+searchKeyword;
+				//location="/libero/product/getBookListBySearch?searchCondition="+searchCondition+"&searchKeyword="+searchKeyword;
 				
 			});
 

@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,8 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.libero.common.Page;
+import com.libero.common.Search;
 import com.libero.service.cart.CartService;
+import com.libero.service.domain.Product;
 import com.libero.service.domain.User;
 import com.libero.service.product.ProductService;
 import com.libero.service.wish.WishService;
@@ -47,6 +52,12 @@ public class ProductRestController {
 			public ProductRestController() {
 				System.out.println(this.getClass());
 			}
+			
+			@Value("#{commonProperties['pdPageSize']}")
+			int pageSize;
+			
+			@Value("#{commonProperties['pdPageUnit']}")
+			int pageUnit;
 			
 			@Value("#{commonProperties['path']}")
 			String path;
@@ -228,5 +239,35 @@ public class ProductRestController {
 					return savedFileName;
 			}
 			
+			
+			//method 서비스상품화면 출력
+			@RequestMapping(value="json/getProductList/{prodType}", method = RequestMethod.POST)
+			public Map getProductList(int currentPage, String prodType) throws Exception {
+				
+					Search search = new Search();
+		
+				
+					System.out.println("/product/json/getProductList : GET");
+					System.out.println("curPage : "+currentPage);
+					currentPage = currentPage + 1;
+					System.out.println("prodType : "+prodType);
+					
+					search.setPageSize(pageSize);
+					search.setCurrentPage(currentPage);
+					
+					//BusinessLogic
+					List<Product> product = productService.getProductList(prodType, search);
+					
+					int totalCount = productService.getProductTotalCount(prodType);
+					
+					Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
+					
+					Map map = new HashMap();
+					map.put("product", product);
+					map.put("currentPage", currentPage);
+					
+					
+					return map;
+			}
 			
 }//end class

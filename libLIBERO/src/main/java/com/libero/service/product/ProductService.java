@@ -17,19 +17,21 @@ public interface ProductService {
 
 	public Map<String, Object> getBookListByCategory(String bookCategory) throws Exception;
 
-	public Map<String, Object> getProductList(String prodType) throws Exception;
+	public List<Product> getProductList(String prodType, Search search) throws Exception;
 
 	//public Product getBook(int prodNo);
 
-	public Product getProduct(int prodNo);
+	public Product getProduct(int prodNo) throws Exception;
 
-	public void addReview(HashMap<String, Object> hashMap) ;
+	public void addReview(HashMap<String, Object> hashMap) throws Exception;
 
-	public void addReviewImage(HashMap<String, Object> hashMap);
+	public void addReviewImage(HashMap<String, Object> hashMap) throws Exception;
 
-	public List<Review> getReview(int prodNo);
+	public List<Review> getReview(int prodNo) throws Exception;
 
-	public List<Product> getBookListBySearch(Search search);
+	public List<Product> getBookListBySearch(Search search) throws Exception;
+
+	public int getProductTotalCount(String prodType) throws Exception;
 
 
 
