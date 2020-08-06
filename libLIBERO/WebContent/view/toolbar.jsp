@@ -155,7 +155,9 @@
 	      		<div class="modal-footer">
 	      			<button type="button" class="btn btn-cyan brown lighten-1" id="loginButton">로그인</button>
 	        		<button type="button" class="btn btn-outline-brown lighten-1 waves-effect" data-dismiss="modal">취소</button>
-	        		<a href="#"><button type="button" class="btn btn-info brown lighten-1" id="addUser">회원가입</button></a>
+	      		</div>
+	      		<div class="modal-footer text-center">
+	        		<a href="#"><button type="button" class="btn btn-info brown lighten-1 btn-block" id="addUser">회원가입</button></a><br/>
 	        		<a href="${kakao_url}"><img src="/libero/resources/images/common/kakao_login_medium_narrow.png"></a>
 	      		</div>
 	    	</div>
@@ -181,7 +183,7 @@
 		});
 	//============= 회원가입============
 		$("#addUser").on("click",function(){
-			self.location="/libero/view/user/addUser.jsp"
+			self.location="/libero/user/addUser"
 		//회원가입 온클릭 함수 
 		})
 	//============= modal 로그인 화면이동 =============

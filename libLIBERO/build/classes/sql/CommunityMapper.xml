@@ -195,6 +195,7 @@
 						<if test="search.searchCondition==2">
 						AND p.user_id like '%${search.searchKeyword}%'
 						</if>
+						AND blind_code LIKE "show"
 						ORDER BY p.post_no DESC) inner_table
 		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum}
 	</select>
@@ -228,14 +229,16 @@
 						@rownum:=@rownum+1 num, p.*, u.nickname
 						FROM post p, user u, (SELECT @rownum:=0) init2
 						where p.user_id = u.user_id
-						<if test='user.role != "a"'>
+						<if test='menu == "q" and user.role == "a"'>
+						AND p.post_type IN("q")
+						</if>
+						<if test='menu == "q" and user.role != "a"'>
+						AND p.post_type IN("q")
 						AND p.user_id = #{user.userId}
 						</if>
 						<if test='menu != "q"'>
 						AND p.post_type IN("n","f")
-						</if>
-						<if test='menu == "q"'>
-						AND p.post_type IN("q")
+						AND p.user_id = #{user.userId}
 						</if>
 						
 						ORDER BY p.post_no DESC) inner_table

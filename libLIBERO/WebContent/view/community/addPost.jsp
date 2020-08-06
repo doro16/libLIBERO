@@ -18,7 +18,7 @@
    
         <form class="form-group my-5 py-5">
        		<c:if test = "${param.postType == 'n' }" ><input type="hidden" name="postType" value="n"></c:if>
-            <c:if test = "${param.postType == 'f' }" ><input type="hidden" name="postType" value="a"></c:if>
+            <c:if test = "${param.postType == 'f' }" ><input type="hidden" name="postType" value="f"></c:if>
             <c:if test = "${param.postType == 'q' }" ><input type="hidden" name="postType" value="q"></c:if>
             <c:if test = "${param.postType != 'q' }" >	
               <h1>게시글 작성</h1>

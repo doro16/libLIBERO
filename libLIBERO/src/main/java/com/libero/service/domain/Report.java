@@ -11,7 +11,7 @@ public class Report implements Serializable{
 	private int reportNo;
 	private int reportType;
 	private Timestamp  regDate; 
-	
+	private String prodPost;
 	private User user;
 	private Product product;
 	private Post post;

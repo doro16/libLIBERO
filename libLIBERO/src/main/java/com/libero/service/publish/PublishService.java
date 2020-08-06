@@ -34,7 +34,7 @@ public interface PublishService {
 	
 	public Map<String, Object> getUserPublishList(Publish publish, Search search) throws Exception;
 	
-	public void removeTempPublish(Publish publish) throws Exception;
+	public void removeTempPublish(int prodNo) throws Exception;
 	
 	public Cash getUserCash(String userId) throws Exception;
 	

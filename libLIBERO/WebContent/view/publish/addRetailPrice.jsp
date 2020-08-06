@@ -165,7 +165,7 @@
 			  	<!-- Grid row -->
 			
 			  	<!-- Button trigger modal -->
-				<button type="button"  align="center" class="btn btn-brown lighten-1 btn-block" data-toggle="modal" data-target="#centralModal" onclick="addModalContent()">
+				<button type="button"  align="center" class="btn btn-info brown lighten-1 btn-block" data-toggle="modal" data-target="#centralModal" onclick="addModalContent()">
 				  	최종 확인 및 등록
 				</button>
 				
@@ -311,7 +311,7 @@
 			      	
 				      	<div class="modal-footer">
 				      		<div class="col-lg-12">
-			      			<button type="button" class="btn btn-brown btn-md btn-block col-lg-5" style="position: relative; float: left;" onclick="addRetailPrice()">등록</button>
+			      			<button type="button" class="btn btn-info brown lighten-1 btn-md btn-block col-lg-5" style="position: relative; float: left;" onclick="addRetailPrice()">등록</button>
 			        		<button type="button" class="btn btn-outline-brown waves-effect btn-md btn-block col-lg-5" style="position: relative; float: right;" data-dismiss="modal">취소</button>
 				      		</div>
 				      	</div>

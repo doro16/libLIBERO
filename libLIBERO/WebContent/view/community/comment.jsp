@@ -67,7 +67,7 @@
 										
 										+ "<img src='../resources/images/community/"+JSONData.list[i].user.profile+"'  alt='프로필사진' style='height: 55px; width: 55px; float: left; margin-right: 10px; margin-bottom: 10px;'>"
 										+"<p style='font-size: 14px; color:DodgerBlue; font-weight: 600; float: left;'>" +JSONData.list[i].user.nickname + "&nbsp;&nbsp;&nbsp;</p>"
-										+"<p style='font-size: 11px; color:gray; font-weight: 400;'>" + date.getFullYear()+".0"+parseInt(date.getMonth()+1)+"."+date.getDate()+". "+date.getHours()+":"+date.getMinutes()+"</span>"
+										+"<p style='font-size: 11px; color:gray; font-weight: 400;'>" + date.getFullYear()+".0"+parseInt(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+"</span>"
 										+"<p id= 'none"+ JSONData.list[i].commentNo+"' style='font-size: 15px; padding: 14px 0px; font-weight: 400;'>"
 										+ JSONData.list[i].commentContent
 										+"</p><br>"

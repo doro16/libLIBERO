@@ -58,11 +58,11 @@ public class UserRestController {
 		System.out.println(this.getClass());
 	}
 	
-	@Value("#{commonProperties['pageUnit']}")
+	@Value("#{userProperties['pageUnit']}")
 	//@Value("#{commonProperties['pageUnit'] ?: 3}")
 	int pageUnit;
 	
-	@Value("#{commonProperties['pageSize']}")
+	@Value("#{userProperties['pageSize']}")
 	//@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	

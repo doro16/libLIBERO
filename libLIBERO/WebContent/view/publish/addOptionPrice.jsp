@@ -199,7 +199,7 @@
 	   			</div>
 	   		</form>
 	   		<div class="row justify-content-center">
-	   			<button class="btn btn-brown lighten-1 btn-block" onclick="submit()" name="updatePost">등록</button>
+	   			<button class="btn btn-info brown lighten-1 btn-block" onclick="submit()" name="updatePost">등록</button>
 	   		</div>
 	   	</div>
 	   	<!-- ///////////// Bootstrap Container End ////////////////// -->

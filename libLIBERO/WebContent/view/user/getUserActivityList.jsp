@@ -20,23 +20,23 @@
 			$(function() {
 				
 				$("#myPost").on("click", function() {
-		            $("#myPost").css("display", "block");
-		            $("#myComment").css("display", "none");
-		            $("#myQna").css("display", "none");
+		            $("#myPost").show();
+		            $("#myComment").hide();
+		            $("#myQna").hide();
 		            
 		        })
 
 		        $("#myComment").on("click", function() {
-		            $("#myComment").css("display", "block");
-		            $("#myPost").css("display", "none");
-		            $("#myQna").css("display", "none");
+		            $("#myComment").show();
+		            $("#myPost").hide();
+		            $("#myQna").hide();
 		          
 		        })
 		        
 		        $("#myQna").on("click", function() {
-		        	 $("#myQna").css("display", "block");
-		             $("#myPost").css("display", "none");
-		             $("#myComment").css("display", "none");
+		        	 $("#myQna").show();
+		             $("#myPost").hide();
+		             $("#myComment").hide();
 		          
 		        })
 				
@@ -95,9 +95,9 @@
 					<c:set var="i" value="${ i+1 }" />
 					
 					
-                    <tr>
+                    <tr onClick = "location.href='/libero/community/getPost?postNo=${post.postNo}'">
                         
-                  		<td align="center" onClick = "location.href='/libero/community/getPost?postNo=${post.postNo}'">${ i }</td>
+                  		<td align="center">${ i }</td>
                         <c:set var="postName" value="${post.postName}" />
                         <td align="left">${fn:substring(postName,0,20)}
                             <c:if test="${fn:length(postName)>20}">
@@ -143,9 +143,9 @@
 					<c:set var="i" value="${ i+1 }" />
 					
 					
-                    <tr>
+                    <tr onClick = "location.href='/libero/community/getPost?postNo=${comment.postNo}'">
                         
-                  		<td align="center" onClick = "location.href='/libero/community/getPost?postNo=${comment.postNo}'">${ i }</td>
+                  		<td align="center">${ i }</td>
                         <c:set var="commentContent" value="${comment.commentContent}" />
                         <td align="left">${fn:substring(commentContent,0,20)}
                             <c:if test="${fn:length(commentContent)>20}">
@@ -194,16 +194,17 @@
 					<c:set var="i" value="${ i+1 }" />
 					
 					
-                    <tr>
+                    <tr onClick = "location.href='/libero/community/getPost?postNo=${post.postNo}'">
                         
-                  		<td align="center" onClick = "location.href='/libero/community/getPost?postNo=${post.postNo}'">${ i }</td>
+                  		<td align="center">${ i }</td>
                         <c:if test="${post.qnaRegType == 'p'}"><td>출판하기</td></c:if>
                         <c:if test="${post.qnaRegType == 'b'}"><td>구매하기</td></c:if>
                         <c:if test="${post.qnaRegType == 'u'}"><td>이용문의</td></c:if>
                         <c:if test="${post.qnaRegType == 'e'}"><td>기타</td></c:if>
                         
                         <c:set var="postName" value="${post.postName}" />
-                        <td align="left">${fn:substring(postName,0,20)}
+                        <td align="left">
+                        	${fn:substring(postName,0,20)}
                             <c:if test="${fn:length(postName)>20}">
                                 ......
                             </c:if>

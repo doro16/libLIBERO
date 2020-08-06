@@ -33,7 +33,7 @@
 		<result property="cartNo"		 column="cart_no"			jdbcType="INTEGER" />
 		<result property="buyAmount"	 column="buy_amount"		jdbcType="INTEGER" />
 		<result property="buyNo" 	 	 column="buy_no" 			jdbcType="INTEGER" />
-			
+		<result property="reportCount" 	 column="report_count" 		jdbcType="INTEGER" />	
 	</resultMap>
 	
 	<resultMap id="reviewSelectMap" type="review">
@@ -59,24 +59,6 @@
 	<select id="getBookListByCategory"	parameterType="string" resultMap="productSelectMap">
 			SELECT * FROM product
 			WHERE book_category = #{value}
-	
-	</select>
-	
-	<select id="getBookListBySearch"	parameterType="search" resultMap="productSelectMap">
-			SELECT * FROM(
-							SELECT *	
-							FROM product 
-							WHERE (prod_type = 'paper' OR prod_type = 'ebook') 
-							AND blind_code='show' 
-							AND purpose_code='sale') pp
-								<where>
-										<if test="searchCondition == 'author'">
-												author LIKE '%${searchKeyword}%'
-										</if>
-								
-								</where>
-							
-							
 	
 	</select>
 	
@@ -165,9 +147,7 @@
 					DELETE
 					FROM buy
 					WHERE prod_no = #{prodNo} AND user_id = #{userId} AND buy_code = 'ready'
-	
-	
-	
+
 	</delete>
 	
 	<!-- 리뷰 기능 -->

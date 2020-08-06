@@ -1,6 +1,8 @@
 package com.libero.service.report.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import com.libero.common.Search;
 import com.libero.service.domain.Post;
 import com.libero.service.domain.Product;
 import com.libero.service.domain.Report;
+import com.libero.service.domain.User;
 import com.libero.service.report.ReportDAO;
 
 @Repository("reportDAOImpl")
@@ -27,32 +30,27 @@ public class ReportDAOImpl implements ReportDAO {
 		System.out.println(this.getClass());
 	}
 
-
-	/*
-	public Report getReportByNo(int reportNo) throws Exception{
-		return sqlSession.selectOne("ReportMapper.getReport", reportNo);
-	}
-	
-	public List<Report> getReportById(String userId) throws Exception{
-		return sqlSession.selectList("ReportMapper.getReportById", userId);
-	}
-	
-	public void addProdReport(Product product) throws Exception{
-		sqlSession.insert("ReportMapper.addProdReport", product);
-	}
-	
-	public void updatePostReport(Report report) throws Exception{
-		sqlSession.update("ReportMapper.updatePostReport", report);
-	}
-	
-	*/
 	public List<Report> getPostReportList(Search search) throws Exception{
 		return sqlSession.selectList("ReportMapper.getPostReportList", search);
 	}
+	public List<Report> getUserReportList(Search search, User user, String menu) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("search", search);
+		map.put("user", user);
+		map.put("menu", menu);
+		return sqlSession.selectList("ReportMapper.getUserReportList", map);
+	}
 	
 	
-	public void addPostReport(Report report) throws Exception{
-		sqlSession.insert("ReportMapper.addPostReport", report);
+	public void addReport(Report report) throws Exception{
+		
+		sqlSession.insert("ReportMapper.addReport", report);
+		if(report.getProdPost().equals("post")) {
+		sqlSession.update("ReportMapper.updatePostReportCount", report.getPost());
+		} else if(report.getProdPost().equals("prod")) {
+		sqlSession.update("ReportMapper.updateProdReportCount", report.getProduct());
+		}
 	}
 	
 	
@@ -63,7 +61,15 @@ public class ReportDAOImpl implements ReportDAO {
 		return sqlSession.selectOne("ReportMapper.getPostReportTotalCount", search);
 	}
 	
-	
+	public int getUserReportTotalCount(Search search, User user, String menu) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("search", search);
+		map.put("user", user);
+		map.put("menu", menu);
+
+		return sqlSession.selectOne("ReportMapper.getUserReportTotalCount", map);
+	}
 	
 
 }

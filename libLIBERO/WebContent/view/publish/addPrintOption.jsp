@@ -323,7 +323,7 @@
 						<input type="number" name="bookPage" id="bookPage">pages
 			  		</div>
 			  		<div class="form-group md-form" align="center">
-			  			<button type="button" class="btn btn-brown lighten-1 btn-block" 
+			  			<button type="button" class="btn btn-info brown lighten-1 btn-block" 
 			      			onclick="addPrintOption()">
 			      			원고 등록
 			      		</button>

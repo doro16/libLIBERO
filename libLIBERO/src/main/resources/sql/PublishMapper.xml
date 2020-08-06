@@ -234,9 +234,9 @@
 		WHERE prod_no IN(#{prodNo})
 	</delete>
 	
-	<delete id="removeHashtag" parameterType="publish">
+	<delete id="removeHashtag" parameterType="int">
 		DELETE FROM hashtag
-		WHERE prod_no IN(#{prodNo})
+		WHERE prod_no IN(#{value})
 	</delete>
 	
 	<select id="getTotalCount" parameterType="publish" resultType="int">

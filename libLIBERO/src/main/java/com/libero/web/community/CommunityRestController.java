@@ -129,7 +129,7 @@ public class CommunityRestController {
 		communityService.deleteComment(commentNo);
 	}
 	
-	@RequestMapping(value="json/addPost", method=RequestMethod.POST)
+	@RequestMapping(value="/json/addPost", method=RequestMethod.POST)
 	public Map addPost(@RequestParam("file") MultipartFile multipartFile) throws Exception {
 
 		System.out.println("/community/json/addPost : POST");

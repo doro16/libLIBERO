@@ -111,7 +111,7 @@
 				<!-- 상품 설명 입력폼(SummerNote) 끝 -->
 				<div class="form-group">
 			    	<div align="right">
-			      		<button type="button" class="btn btn-brown lighten-1" onclick="addProd()">등&nbsp;록</button>
+			      		<button type="button" class="btn btn-info brown lighten-1" onclick="addProd()">등&nbsp;록</button>
 				  		<a class="btn btn-outline-brown waves-effect" href="javascript:history.back();" role="button">취&nbsp;소</a>
 			    	</div>
 			  	</div>

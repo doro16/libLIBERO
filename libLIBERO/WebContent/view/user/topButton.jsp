@@ -16,15 +16,14 @@
 	<a href="/libero/user/getUserCash" 
 			class="btn btn-brown" role="button" 
 			aria-pressed="true">리베로캐쉬 조회</a>
+	<a href="/libero/user/getUserReportList?menu=prod" 
+		class="btn btn-brown" role="button" 
+		aria-pressed="true">신고 조회</a> 
 			
 	<c:if test="${sessionScope.user.role == 'a'}">
 		<a href="/libero/user/getUserList" 
 			class="btn btn-brown" role="button" 
 			aria-pressed="true">전체 회원 조회</a>  
-    	<a href="/libero/user/getAdminReportList" 
-			class="btn btn-brown" role="button" 
-			aria-pressed="true">신고 조회</a>  
-		
     </c:if>
 	
 </div>

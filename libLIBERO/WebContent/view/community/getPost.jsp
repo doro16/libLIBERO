@@ -18,13 +18,14 @@
 <form>
 <input type="hidden" id="postNo" name="postNo" value="${post.postNo}"/>
 <input type="hidden" id="userId" name="userId" value="${post.user.userId}"/>
+<input type="hidden" id="prodPost" name="prodPost" value="post"/>
 </form>
 		<article id="mainContent" class="content-board">
 		<section class="wrap_content">
            <div class="tit_board">
                <h4>${post.postName}</h4> <h3>${post.user.nickname}</h3>
                <span> ${post.regDate}</span>
-               <button id="popOpenBtn" style="float:right;">신고</button> 
+               <bttton id="reportBtn" style="float:right;">신고</button> 
            </div>
            
 
@@ -59,8 +60,8 @@
 			})
 			
 			$("button:contains('목록')").on("click", function(){
-				self.location = "/libero/community/getPostList"
-				<%-- self.location = "javascript:history.go(-1)"; --%>
+				<%-- self.location = "/libero/community/getPostList?menu=" --%>
+				self.location = "javascript:history.go(-1)";
 			})
 			
 		});
