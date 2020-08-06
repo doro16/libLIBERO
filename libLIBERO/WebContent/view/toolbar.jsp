@@ -67,6 +67,11 @@
 		        </li>
 		        
 		        <!-- 회원 메뉴 Start -->
+		        <li class="nav-item userDropdown">
+	      			<a class="nav-link waves-effect waves-light" href="/libero/product/getWishList">
+	      				<i class="fas fa-heart"></i>
+	      			</a>
+	      		</li>
 	      		<li class="nav-item userDropdown">
 	        		<a class="nav-link waves-effect waves-light" href="/libero/product/getCartList">
 	          			<i class="fas fa-shopping-cart"></i>
@@ -80,16 +85,7 @@
 	          			<img alt="" src="http://127.0.0.1:8080/libero/resources/images/user/fileUpload/${sessionScope.user.profile}" class="rounded-circle" width="25px" height="25px">
 	        		</a>
 	        		<div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
-			        	<a class="dropdown-item" href="#">마이페이지</a>
-				        <a class="dropdown-item" href="/libero/user/getUserPublishList?prodType=book">판매 도서 및 상품 조회</a>
-				        <c:if test="${sessionScope.user.role=='f'}">
-				        	<c:if test="${sessionScope.user.colorPrice==''}">
-				        		<a class="dropdown-item" href="/libero/publish/addOptionPrice">인쇄옵션 가격 등록</a>
-				          	</c:if>
-				        	<c:if test="${sessionScope.user.colorPrice!=''}">
-					          	<a class="dropdown-item" href="/libero/publish/getOptionPrice">인쇄옵션 가격 조회</a>
-				          	</c:if>
-				        </c:if>
+			        	<a class="dropdown-item" href="/libero/user/getUser">마이페이지</a>
 				        <div class="dropdown-divider"></div>
 				        <c:if test="${! empty kakao_url}">
 				       	 <a class="dropdown-item" href="${kakao_url}">로그아웃</a>

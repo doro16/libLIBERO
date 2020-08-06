@@ -75,8 +75,8 @@ function relocate(prodNo){
 							  						<td>:  ${getProduct.prodType}</td>
 							  					</tr>
 							  					<tr>
-							  						<th>구매 개수</th>
-							  						<td>:  ${getPay.buyAmount}</td>
+							  						<%-- <th>구매 개수</th>
+							  						<td>:  ${getPay.buyAmount}</td> --%>
 							  					</tr>
 							  					<tr><td><br><br><br><jsp:include page="/view/product/addReview.jsp"/></td></tr>
 							  				</tbody>

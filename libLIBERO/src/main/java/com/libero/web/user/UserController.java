@@ -418,4 +418,16 @@ public class UserController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "getUser", method = RequestMethod.GET)
+	public ModelAndView updateUser(HttpSession session) throws Exception {
+		
+		User user = userService.getUser(((User)session.getAttribute("user")).getUserId());
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName("forward:/view/user/getUser.jsp");
+		
+		return modelAndView;
+	}
+	
 }

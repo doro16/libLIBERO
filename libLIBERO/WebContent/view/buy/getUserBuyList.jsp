@@ -24,7 +24,6 @@
 <title>libLIBERO</title>
 </head>
 <body>
-<br><br>
 <jsp:include page="/view/user/topButton.jsp"></jsp:include>
 <div class="container">	
 
@@ -136,7 +135,7 @@
 		 <div class="card border-light mb-3" style="margin-bottom: 20px">
 				<div class="card-body">
 					<div class="row">
-						<div class="col-lg-7 align-self-center">
+						<div class="col-lg-8 align-self-center">
 							  			<table>
 							  				<tbody>
 							  					<tr>
@@ -192,8 +191,8 @@
 							  			
 							  		</div>
 <!-- 							  		여기는 테이블옆부분 -->
-									<div class="row-center">
-							  		<button id="forajaxPayNo${i}" class="btn btn-brown lighten-3 btn-lg btn-block" value="${buyList.payNo}" onClick="relocate(${buyList.payNo},${session.userId });" >상품정보 보기</button>
+									<div class="col-lg-4">
+							  		<button id="forajaxPayNo${i}" class="btn btn-brown lighten-3 btn-lg btn-block" value="${buyList.payNo}" onClick="relocate('${buyList.payNo}','${sessionScope.user.userId }');" >상품정보 보기</button>
 							  		<br>
 							  		<br>
 							  		<c:if test="${buyList.deliveryStatus == 4 }">
