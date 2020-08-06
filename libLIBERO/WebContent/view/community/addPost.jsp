@@ -12,7 +12,7 @@
 
 <body>
 	<jsp:include page="../toolbar.jsp" />
-
+	<jsp:include page="../community/addReport.jsp" />
 	<div class="mt-5">&nbsp;</div>
 	<div class="container">
    
