@@ -16,6 +16,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,9 +171,11 @@ public class PublishController {
 	}
 	
 	@RequestMapping(value = "addProductInfo", method = RequestMethod.POST)
-	public ModelAndView addProductInfo(Publish publish, @RequestParam("imgFile")List<MultipartFile> files) throws Exception {
+	public ModelAndView addProductInfo(Publish publish, @RequestParam("imgFile")List<MultipartFile> files, HttpServletRequest request) throws Exception {
 		
 		System.out.println("/publish/addProductInfo : POST");
+		
+		String root = request.getSession().getServletContext().getRealPath("/");
 		
 		if (publish.getCoverSelect().contentEquals("fileUpload")) {
 			
@@ -250,10 +253,7 @@ public class PublishController {
 		}
 		
 		publishService.updatePublishInfo(publish);
-		System.out.println("FFFFFFFFFFFFFFFFF"+publish.getHashtagName());
 		List<String> hashtagName = Arrays.asList(publish.getHashtagName().split(","));
-		System.out.println("a>>>>>>>>>>>>>>>>>>>"+hashtagName.get(1));
-		//publishService.addHashtag(prodNo, hash);
 		publishService.addHashtag(publish.getProdNo(), hashtagName);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("redirect:/publish/addRetailPrice?prodNo="+publish.getProdNo());

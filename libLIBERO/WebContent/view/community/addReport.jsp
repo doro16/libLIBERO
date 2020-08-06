@@ -132,7 +132,7 @@
 
 					$("#popup_mask").css("display", "block"); //팝업 뒷배경 display block
 					$("#popupDiv").css("display", "block"); //팝업창 display block
- 					$("body").css("overflow","hidden");//body 스크롤바 없애기 
+ 					//$("body").css("overflow","hidden");//body 스크롤바 없애기 
 	});
 
 	});
