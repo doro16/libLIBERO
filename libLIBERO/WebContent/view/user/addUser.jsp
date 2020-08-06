@@ -3,6 +3,9 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <% request.setCharacterEncoding("utf-8"); %>
+    <% response.setContentType("text/html; charset=utf-8"); %>
+
+
 <!DOCTYPE html>
 
 <html>
@@ -188,15 +191,15 @@
 		
 		$("input[name=nickname]").on("keyup", function(){
 			var nickname = $("input[name=nickname]").val();
-			
-			
-			
-				$.ajax({	url :'/libero/user/json/duplicationNick?nickname='+nickname,
+			var path = '/libero/user/json/duplicationNick?nickname='+nickname;
+			var decUrl = decodeURIComponent(path)
+			//alert(decUrl)
+				$.ajax({	url :decUrl,
 							method : 'GET',
 							dataType : 'text',
 							headers : {
 								"Accept" : "application/json",
-								"Content-Type" : "application/json;charset=UTF-8;"
+								"Content-Type" : "application/json;application/x-www-form-urlencoded;charset=UTF-8"
 									  },
 						    success : function(result , status){
 							console.log(result);

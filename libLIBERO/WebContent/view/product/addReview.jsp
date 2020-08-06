@@ -46,7 +46,7 @@
 
 <ul class="navbar-nav">
 				<li class="nav-item" id="review">
-					<a class="nav-link" href="#" data-toggle="modal" data-target="#addReviewModal">¸®ºä µî·Ï</a>
+					<button data-target="#addReviewModal" data-toggle="modal" id="exampleModalLabel" class="btn btn-brown-lighten3">¸®ºäµî·Ï</button>
 				</li>
 </ul>
 <!-- ¸®ºäµî·Ï ¸ð´ÞÃ¢ -->				
