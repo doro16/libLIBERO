@@ -19,11 +19,6 @@
 		
 </head>
 
-
-		<!-- ToolBar Start /////////////////////////////////////-->
-		<jsp:include page="../toolbar.jsp" />
-		<jsp:include page="../community/addReport.jsp"/>
-	   	<!-- ToolBar End /////////////////////////////////////-->
 	  	<style>
 									.number-input input[type="number"] {
 							-webkit-appearance: textfield;
