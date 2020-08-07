@@ -26,7 +26,7 @@
 		
 		function fncGetUserList(currentPage) {
 			$("#currentPage").val(currentPage);
-			$("form").attr("method", "POST").attr("action", "/libero/community/getPostList?menu=n").submit();	
+			$("form").attr("method", "POST").attr("action", "/libero/community/getPostList?menu=notice").submit();	
 		}   
 		
 		$(function() {

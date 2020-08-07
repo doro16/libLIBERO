@@ -115,7 +115,7 @@
 							
 								    <!--Card image-->
 								    <div class="view overlay">
-								    	<img class="card-img-top" src="/libero/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap">
+								    	<img class="card-img-top" src="/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap">
 							      		<a href="#!">
 							      			<div class="mask rgba-white-slight"></div>
 							      		</a>
@@ -144,7 +144,7 @@
 						
 							    <!--Card image-->
 							    <div class="view overlay">
-							    	<img class="card-img-top" src="/libero/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap">
+							    	<img class="card-img-top" src="/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap">
 						      		<a href="#!">
 						      			<div class="mask rgba-white-slight"></div>
 						      		</a>
@@ -173,7 +173,7 @@
 						
 							    <!--Card image-->
 							    <div class="view overlay">
-							    	<img class="card-img-top" src="/libero/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap">
+							    	<img class="card-img-top" src="/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap">
 						      		<a href="#!">
 						      			<div class="mask rgba-white-slight"></div>
 						      		</a>
@@ -207,7 +207,12 @@
 	    </div>
 	</body>
 	<script type="text/javascript">
+	
+		
+	
         window.onload = function () {
+        	
+        	
             var elm = ".box";
             $(elm).each(function (index) {
                 // 개별적으로 Wheel 이벤트 적용
@@ -256,5 +261,7 @@
         	self.location = "/libero/publish/addPrintOption?prodType=paper"
         	
         }
+        
+     
     </script>
 </html>

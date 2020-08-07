@@ -45,7 +45,7 @@
 	   	<!-- ToolBar End /////////////////////////////////////-->
 
 <br/><br/><br/><br/><br/><br/>
-<h6 class="font-weight-bold text-center grey-text text-uppercase small mb-4">작가서비스</h6>
+<h6 class="font-weight-bold text-center grey-text text-uppercase small mb-4">서점</h6>
     <h3 class="font-weight-bold text-center dark-grey-text pb-2">ALL</h3>
     <hr class="w-header my-4">
 

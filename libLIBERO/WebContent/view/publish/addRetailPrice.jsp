@@ -87,6 +87,7 @@
 	   		<!-- Extended material form grid -->
 			<form>
 				<input type="hidden" name="prodNo" value="${param.prodNo}">
+				<input type="hidden" id="factoryNickname" name="factoryNickname" value="${factoryNickname}">
 				<!-- Grid row -->
 				<div class="form-row">
 				    <!-- Grid column -->
@@ -364,6 +365,17 @@
 			}
 			
 		}
+				
+		
+		function sendMsg(){
+			var facNick = $("#factoryNickname").val();
+			var msg = {
+					type : "message", //메세지 구분하는 구분자 - 상대방 아이디와 메세지 포함
+					sendNickname : "${sessionScope.user.userId}",
+					recvNickname : facNick,
+			};
+			ws.send(JSON.stringify(msg));
+		};
 		
 		function addRetailPrice() {
 			/* var price = $("input[name='retailPrice']").val(); */
@@ -378,6 +390,9 @@
 				alert("수익금이 마이너스입니다. 가격을 높여주세요");
 				return;
 			}
+
+			sendMsg();			
+					
 			$("form").attr("method" , "POST").attr("action" , "/libero/publish/addRetailPrice").submit();
 		}
 	</script>

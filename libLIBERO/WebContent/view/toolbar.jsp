@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <head>
 <!--  ///////////////////////// CSS ////////////////////////// -->
 <style type="text/css">
@@ -14,7 +15,7 @@
 	<!--Navbar -->
 	<nav id="mainToolbar" class="mb-1 navbar navbar-expand-lg navbar-dark brown lighten-1 fixed-top z-depth-1">
 		<a href="/libero/" class="navbar-brand">
-	  		<img src="http://192.168.0.64:8080/libero/resources/images/common/logo_white.png" width="80" height="23" alt="" loading="lazy" id="logoImg">
+	  		<img src="http://127.0.0.1:8080/libero/resources/images/common/logo_white.png" width="80" height="23" alt="" loading="lazy" id="logoImg">
 	  	</a>
 	  	<!-- 모바일 navbar -->
 	  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333" aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +83,7 @@
 	        			<c:if test="${sessionScope.user.profile==null}">
 	        				<i class="fas fa-user-circle"></i>
 	        			</c:if>
-	          			<img alt="" src="http://192.168.0.64:8080/libero/resources/images/user/fileUpload/${sessionScope.user.profile}" class="rounded-circle" width="25px" height="25px">
+	          			<img alt="" src="http://127.0.0.1:8080/libero/resources/images/user/fileUpload/${sessionScope.user.profile}" class="rounded-circle" width="25px" height="25px">
 	        		</a>
 	        		<div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
 			        	<a class="dropdown-item" href="/libero/user/getUser">마이페이지</a>
@@ -162,6 +163,8 @@
 	<!-- Modal End -->
 	</body>
 	<script>
+	var ws = null;
+	
 	//===================toolbar class change ================
 		$(function() {
 			
@@ -176,6 +179,8 @@
 				$("#bookList").show();
 			}
 			
+			connect();
+			
 		});
 	//============= 회원가입============
 		$("#addUser").on("click",function(){
@@ -188,6 +193,7 @@
 	})
 	//============= modal 로그인 처리 =============
 	$(function(){
+		var ws;
 		var session = "${sessionScope.user.userId}";
 		
 		if (session!="") {
@@ -235,5 +241,71 @@
 			});
 			//===========login ajax end========================
 		});
+		
+		connect();
+				
 	});
+	
+		 //=======================Web Socket Start=========================
+		//connect();
+		/* $("#btnSend").on("click", function(){
+			var chat = $("#msgArea").val();
+			chat = chat + "\나 : "+ $("#chatMsg").val();
+			$("#msgArea").val(chat);
+			sendMsg();
+			$("#chatMsg").val("");
+			
+		}) */
+		
+		function connect(){ 
+			var session = "${sessionScope.user.userId}";
+			//웹소켓 객체 생성하는 부분
+			//핸들러 등록(연결 생성, 메세지 수신, 연결 종료)
+			
+			//url 연결할 서버의 경로
+			if (session!="") {
+				
+			ws = new SockJS("<c:url value="/echo"/>");
+			
+			ws.onopen = function(){
+				console.log('연결 생성');
+			};
+			ws.onmessage = function(e){
+				console.log('메세지 받음');
+				var data = e.data;
+				alert("받은 메세지 : "+ data);
+				//addMsg(data);
+			};
+			ws.onclose = function(){
+				console.log('연결 끊김');
+			};
+			
+		}
+		}
+
+/* 		function addMsg(msg){ //원래 채팅 메세지에 방금 받은 메세지 더해서 set
+			var chat = $("#msgArea").val();
+			chat = chat + "\n 상대방 : "+ msg;
+			$("#msgArea").val(chat);
+		} */
+
+		function sender(){ //메세지 수신을 위한 서버에 id 등록
+			var msg = {
+					type : "senderId", //메세지 구분하는 구분자 - 상대방 아이디와 메세지 포함
+					sendId : "${sessionScope.user.userId}"
+			
+			};
+			
+			ws.send(JSON.stringify(msg));
+		}
+
+		/* function sendMsg(facNick){
+			var msg = {
+					type : "message", //메세지 구분하는 구분자 - 상대방 아이디와 메세지 포함
+					sendNickname : "${sessionScope.user.userId}",
+					recvNickname : facNick,
+			};
+			ws.send(JSON.stringify(msg));
+		};
+		 */
 	</script>

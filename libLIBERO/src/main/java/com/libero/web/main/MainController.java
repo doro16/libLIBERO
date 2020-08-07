@@ -52,12 +52,12 @@ public class MainController {
 	    
 	    //수린수린수린 0807
 	    if(session.getAttribute("user") == null) {
-	          kakaoUrl = SNSloginController.getAuthorizationUrl(session);
-	       }else {
-	          if(session.getAttribute("kakao") != null &&  session.getAttribute("kakao").equals("true")) {
-	          kakaoUrl = SNSloginController.getLogoutUrl(session);
-	          }
-	       }
+	    	kakaoUrl = SNSloginController.getAuthorizationUrl(session);
+	    }else {
+	    	if(session.getAttribute("kakao") != null &&  session.getAttribute("kakao").equals("true")) {
+	    	kakaoUrl = SNSloginController.getLogoutUrl(session);
+	    	}
+	    }
 	    
 	    ModelAndView modelAndView = new ModelAndView();
 	    modelAndView.addObject("kakao_url", kakaoUrl);

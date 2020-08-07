@@ -163,10 +163,9 @@ public class CommunityController {
 	public ModelAndView deletePost(@RequestParam("postNo") int postNo) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
-		Post post = communityService.getPost(postNo);
-		String menu = post.getPostType();
-		modelAndView.setViewName("redirect:/community/getPostList?menu="+menu);
-		communityService.deletePost(postNo);
+		//Post post = communityService.getPost(postNo);
+		//communityService.deletePost(postNo);
+		modelAndView.setViewName("/view/community/getPostList");
 		
 		return modelAndView;
 	}

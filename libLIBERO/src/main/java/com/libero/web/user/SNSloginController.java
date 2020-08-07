@@ -37,8 +37,8 @@ public class SNSloginController {
 	
 	
 	private final static String K_CLIENT_ID = "9e6ffb0c08e7ce0c717450fd5b19eb9f";
-    private final static String K_REDIRECT_URI = "http://127.0.0.1:8080/libero/user/json/kakaologin";   
-    private final static String K_LOGOUT_REDIRECT_URI = "http://127.0.0.1:8080/libero/user/json/kakaoLogout";
+    private final static String K_REDIRECT_URI = "http://127.0.0.1:8080/libero/user/json/kakaologin";   //아마존 아이피 바꾸기
+    private final static String K_LOGOUT_REDIRECT_URI = "http://127.0.0.1:8080/libero/user/json/kakaoLogout";  //아마존 아이피 바꾸기
 
     public static String getAuthorizationUrl(HttpSession session) {
     	
