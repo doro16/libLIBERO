@@ -111,7 +111,7 @@
 
 					for (var i = files.length - 1; i >= 0; i--) {
 		            	sendFile(files[i], this);
-		            }
+		            }z
 				}
 			}
   	  	}); //summernote
@@ -148,7 +148,13 @@
 			processData : false,
 			success : function(data) {
             	//항상 업로드된 파일의 url이 있어야 한다.
+            	console.log("img"+$("<img>"));
+            	
+            	console.log("img1"+$("<img>"));
            		$(editor).summernote('insertImage', data.url);
+           		
+           		$("img").css("width","100%");
+           		console.log("img2"+$("img"));
 			}
 		});
 	}

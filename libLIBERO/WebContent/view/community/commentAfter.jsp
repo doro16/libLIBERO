@@ -93,7 +93,7 @@
 			
 		}
 		$(document).on("click", ".commentUpdateDelete p:nth-child(2)", function(){
-			commentNo = parseInt($(this).parent().find(".commentNo").val());
+			commentNo = $(this).parent().find(".commentNo").val();
 			$(this).parent().find("p").hide();
 			$.ajax(
 			    	{
@@ -118,9 +118,6 @@
 			var commentNo = $(this).parent().find(".commentNo").val();
 			var commentContent = $(this).parent().find("textarea").val();
 			
-			$("#update"+commentNo+"").hide(); 
-			$("#none"+commentNo+"").show(); 
-			//alert(commentNo+commentContent);	
 			
 			$.ajax(
 			    	{  		 	
