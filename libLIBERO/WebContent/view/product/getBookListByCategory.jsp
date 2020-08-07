@@ -106,8 +106,9 @@
               <!-- Card content -->
               <div class="card-body" id="card-body">
 
-                <h5 class="my-3">${book.prodName}</h5>
-                <p class="card-text text-uppercase mb-3">${book.author}</p>
+                <div class="card-text text-uppercase mb-2"><a href="/libero/product/getProduct/${book.prodNo}">${book.prodName}</a></div>
+                <div class="card-text text-uppercase mb-2">${book.author}</div>&nbsp;&nbsp;
+                <div class="card-text text-uppercase mb-3">${book.retailPrice}원</div>
 
               </div>
 
@@ -164,10 +165,11 @@
 							displayValue +=	
 								"<div class='col-sm-3'>"
 							  +"<a class='card hoverable mb-4 z-depth-0' id='productcard' data-toggle='modal' data-target='#basicExampleModal'>"
-				              +"<img class='card-img-top z-depth-1' src='../../resources/images/publish/fileUpload/thumbnailFile/"+prodThumbnail+"' alt='Card image cap' width='250px' height='400px'>"
+				              +"<img class='card-img-top z-depth-1' src='../resources/images/publish/fileUpload/thumbnailFile/"+prodThumbnail+"' alt='Card image cap' width='250px' height='400px'>"
 				              +"<div class='card-body' id='card-body'>"
-				              +"<h5 class='my-3'>"+prodName+"</h5>"
-				              +"<p class='card-text text-uppercase mb-3'>"+author+"</p>"
+				              +"<div class='card-text text-uppercase mb-2'><a href=/libero/product/getProduct/"+product.prodNo+">"+product.prodName+"<a></h5>"
+				              +"<div class='card-text text-uppercase mb-2'>"+product.creator+"</div>"
+				              +"<div class='card-text text-uppercase mb-3'>"+product.retailPrice+"원</div>"
 				              +"</div>"
 				              +"</a>"
 				              +"</div>"
