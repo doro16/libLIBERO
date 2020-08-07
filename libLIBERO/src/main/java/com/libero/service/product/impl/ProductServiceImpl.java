@@ -113,6 +113,12 @@ public class ProductServiceImpl implements ProductService{
 		return productDAO.getBookTotalCount();
 	}
 
+	@Override
+	public List<Product> getBookListByCategory(String category, Search search) {
+		// TODO Auto-generated method stub
+		return productDAO.getBookListByCategory(category, search);
+	}
+
 
 
 

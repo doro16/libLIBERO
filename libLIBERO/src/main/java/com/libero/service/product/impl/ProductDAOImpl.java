@@ -2,6 +2,7 @@ package com.libero.service.product.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,6 +122,13 @@ public class ProductDAOImpl implements ProductDAO{
 	public List<Product> getBookList() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("ProductMapper.getBookListForMain");
+	}
+
+	@Override
+	public List<Product> getBookListByCategory(String category, Search search) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		return sqlSession.selectList("ProductMapper.getBookListByCategory", hashMap);
 	}
 	
 }//end class

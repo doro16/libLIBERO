@@ -132,33 +132,33 @@
 					      <div class="row">
 					
 					        <div class="col-md-6">
-					          <img class="img-fluid rounded-left" src="../../resources/images/publish/fileUpload/thumbnailFile/${product.prodThumbnail }" alt="project image">
+					          <img class="img-fluid rounded-left" src="../../resources/images/publish/fileUpload/thumbnailFile/${product.prodThumbnail }" alt="project image" width="1000px" height="2300">
 					        </div>
 					
 					        <div class="col-md-6 p-5 align-self-center ">
 					
-					          <h5 class="font-weight-normal mb-3">상품명</h5>
+					          <h5 class="font-weight-normal mb-3"></h5>
 					
-					          <p class="text-muted">${product.prodName}</p>
+					          <p class="text-muted" style="font-size: 40px">${product.prodName}</p>
 					
 					          <ul class="list-unstyled font-small mt-5 mb-0">
 					            <li>
-					              <p class="text-uppercase mb-2"><strong>작가</strong></p>
-					              <p class="text-muted mb-4">${product.creator}</p>
+					              <p class="text-uppercase mb-2" style="font-size: 20px"><strong>작가</strong></p>
+					              <p class="text-muted mb-4">&nbsp;&nbsp;&nbsp;${product.creator}</p>
 					            </li>
 					
 					            <li>
-					              <p class="text-uppercase mb-2"><strong>등록일자</strong></p>
-					              <p class="text-muted mb-4">${product.regDate}</p>
+					              <p class="text-uppercase mb-2" style="font-size: 20px"><strong>등록일자</strong></p>
+					              <p class="text-muted mb-4">&nbsp;&nbsp;&nbsp;${product.regDate}</p>
 					            </li>
 					
 					            <li>
-					              <p class="text-uppercase mb-2"><strong>도서 정보</strong></p>
-					              <p class="text-muted mb-4">Page : ${product.bookPage}</p>
-					              <p class="text-muted mb-4">Size : ${product.sizeType}</p>
-					              <p class="text-muted mb-4">Color : ${product.colorType}</p>
-					              <p class="text-muted mb-4">Cover : ${product.coverType}</p>
-					              <p class="text-muted mb-4">Inner : ${product.innerType}</p>
+					              <p class="text-uppercase mb-2" style="font-size: 20px"><strong>도서 정보</strong></p>
+					              <p class="text-muted mb-4">&nbsp;&nbsp;&nbsp;Page : ${product.bookPage}</p>
+					              <p class="text-muted mb-4">&nbsp;&nbsp;&nbsp;Size : ${product.sizeType}</p>
+					              <p class="text-muted mb-4">&nbsp;&nbsp;&nbsp;Color : ${product.colorType}</p>
+					              <p class="text-muted mb-4">&nbsp;&nbsp;&nbsp;Cover : ${product.coverType}</p>
+					              <p class="text-muted mb-4">&nbsp;&nbsp;&nbsp;Inner : ${product.innerType}</p>
 					            </li>
 					
 					            <li>
@@ -168,13 +168,15 @@
 					
 					            <li>
 					              <p class="text-uppercase mt-4 mb-2"><strong>장바구니</strong></p>
-					             		 
-					              		<div class="def-number-input number-input safari_only">
+					             		<div class="row">
+					              		<span class="def-number-input number-input safari_only">
 										  <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
 										  <input class="quantity" min="0" name="quantity" value="1" type="number" id="buyAmount" >
 										  <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
-										</div>
-										<button type="button" class="btn btn-so" onclick="addCart()"><i class="fas fa-cart-plus" ></i></button>
+										</span>
+										<span style="float:left;"><button type="button" class="btn btn-so" onclick="addCart()"><i class="fas fa-cart-plus" ></i></button></span>
+										</div> 
+										
 					              
 					            </li>
 					

@@ -17,6 +17,7 @@
   color: #0d47a1 !important;
 }
 
+
     #getBook{
       width: 150px;
       height: 150px;
@@ -84,7 +85,7 @@
 	
 	
     <!--Tab panels-->
-    <div class="tab-content mb-5">
+    <div class="tab-content mb-5"> 
 
       <!--Panel 1-->
       <div class="tab-pane fade show in active" id="panel31" role="tabpanel">
@@ -98,22 +99,29 @@
 			 	<c:set var="i" value="0" />
 		  		<c:forEach var="book" items="${book}">
 				<c:set var="i" value="${ i+1 }" />
-				<div class="col-sm-3">
+				<div class="col-sm-2" style="margin:50px 0px 0px 30px;">
+				
+				<div style="padding:50px 10px 10px 20px;">
            <!-- Card -->
-            <a class="card hoverable mb-4 z-depth-0 h-50" id="productcard" data-toggle="modal" data-target="#basicExampleModal">
+            <a class="card hoverable mb-4 z-depth-0 h-10" id="productcard" data-toggle="modal" data-target="#basicExampleModal">
 
             <!-- Card image -->
-            <img class="card-img-top z-depth-1" id="cardImage" src="../resources/images/publish/fileUpload/thumbnailFile/${book.prodThumbnail}" alt="Card image cap" width="250px" height="400px">
+            <img class="card-img-top z-depth-1" id="cardImage" src="../resources/images/publish/fileUpload/thumbnailFile/${book.prodThumbnail}" alt="Card image cap" width="180px" height="250px">
             
               <!-- Card content -->
-              <div class="card-body" id="card-body">
-              	<div class="card-text text-uppercase mb-2"><a href="/libero/product/getProduct/${book.prodNo}">${book.prodName}</a></div>
+              
+             	<h6><a href="/libero/product/getProduct/${book.prodNo}">${book.prodName}</a></h6>
+                <h6>${book.author}</h6>
+             	<h6>${book.retailPrice}원</h6>
+             
+             
+           		 <!--	<div class="card-text text-uppercase mb-1" style="padding:0px; margin:0px;"><a href="/libero/product/getProduct/${book.prodNo}">${book.prodName}</a></div>
                 <div class="card-text text-uppercase mb-2">${book.author}</div>&nbsp;&nbsp;
-                <div class="card-text text-uppercase mb-3">${book.retailPrice}원</div>
+                <div class="card-text text-uppercase mb-3">${book.retailPrice}원</div>  -->
 
-              </div>
+            
 
-            </a></div>
+            </a></div></div>
          
             <!-- Card -->
             </c:forEach>
@@ -170,15 +178,15 @@
 						
 								
 							displayValue +=	
-								"<div class='col-sm-3'>"
-							  +"<a class='card hoverable mb-4 z-depth-0 h-50' id='productcard' data-toggle='modal' data-target='#basicExampleModal'>"
-				              +"<img class='card-img-top z-depth-1' src='../resources/images/publish/fileUpload/thumbnailFile"+product.prodThumbnail+"' alt='Card image cap' width='250px' height='400px'>"
-				              +"<div class='card-body' id='card-body'>"
-				              +"<div class='card-text text-uppercase mb-2'><a href=/libero/product/getProduct/"+product.prodNo+">"+product.prodName+"<a></div>"
-				              +"<div class='card-text text-uppercase mb-2'>"+product.author+"</div>"
-				              +"<div class='card-text text-uppercase mb-3'>"+product.retailPrice+"</div>"
-				              +"</div>"
+							   "<div class='col-sm-2' style='margin:50px 0px 0px 30px;'>"
+							  +"<div style='padding:50px 10px 10px 20px;'>"
+							  +"<a class='card hoverable mb-4 z-depth-0 h-10' id='productcard' data-toggle='modal' data-target='#basicExampleModal'>"
+				              +"<img class='card-img-top z-depth-1' id='cardImage' src='../resources/images/publish/fileUpload/thumbnailFile"+product.prodThumbnail+"' alt='Card image cap' width='180px' height='250px'>"
+				              +"<h6><a href=/libero/product/getProduct/"+product.prodNo+">"+product.prodName+"<a></h6>"
+				              +"<h6>"+product.author+"</h6>"
+				              +"<h6>"+product.retailPrice+"</h6>"
 				              +"</a>"
+				              +"</div>"
 				              +"</div>"
 							});//end each
 							
@@ -189,9 +197,6 @@
 						}//end success	
 					});//end ajax
 					
-							
-					 
-				  
 
 				});
 

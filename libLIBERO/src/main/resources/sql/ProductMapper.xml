@@ -83,11 +83,14 @@
 	
 	</select>
 	
-	<select id="getBookListByCategory"	parameterType="string" resultMap="productSelectMap">
-			SELECT * FROM product
-			WHERE book_category = #{value}
+	<select id="getBookListByCategory"	parameterType="hashMap" resultMap="productSelectMap">
+			SELECT * 
+			FROM product
+			WHERE book_category = #{category}
 			AND blind_code='show' 
 			AND purpose_code='sale'
+			ORDER BY reg_date DESC
+			LIMIT #{search.pageSize} OFFSET #{offset}
 	
 	</select>
 	

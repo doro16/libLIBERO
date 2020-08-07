@@ -2,6 +2,7 @@ package com.libero.service.product;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.libero.common.Search;
 import com.libero.service.domain.Product;
@@ -32,6 +33,8 @@ public interface ProductDAO {
 	public int getBookTotalCount() throws Exception;
 
 	public List<Product> getBookList();
+
+	public List<Product> getBookListByCategory(String category, Search search);
 
 
 	
