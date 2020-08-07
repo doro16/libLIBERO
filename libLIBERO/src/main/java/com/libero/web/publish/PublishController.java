@@ -252,7 +252,7 @@ public class PublishController {
 		publishService.updatePublishInfo(publish);
 		System.out.println("FFFFFFFFFFFFFFFFF"+publish.getHashtagName());
 		List<String> hashtagName = Arrays.asList(publish.getHashtagName().split(","));
-		System.out.println("a>>>>>>>>>>>>>>>>>>>"+hashtagName.get(1));
+		//System.out.println("a>>>>>>>>>>>>>>>>>>>"+hashtagName.get(1));
 		//publishService.addHashtag(prodNo, hash);
 		publishService.addHashtag(publish.getProdNo(), hashtagName);
 		ModelAndView modelAndView = new ModelAndView();

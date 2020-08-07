@@ -24,6 +24,7 @@
 
 		<!-- ToolBar Start /////////////////////////////////////-->
 		<jsp:include page="../toolbar.jsp" />
+		<jsp:include page="../community/addReport.jsp"/>
 	   	<!-- ToolBar End /////////////////////////////////////-->
 	   	<br/>
 	   	<br/>
