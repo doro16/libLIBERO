@@ -85,7 +85,7 @@ public class UserController {
 			session.setAttribute("user", dbUser);
 		}
 		
-		System.out.println(session.getAttribute("user"));
+		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("user"));
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("redirect:/");
 		
