@@ -76,7 +76,7 @@ public class UserRestController {
 		if( ((String)params.get("password")).equals(user.getPassword())){
 			session.setAttribute("user", user);
 		}
-		
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("user"));
 		return user;
 	}
 	
@@ -230,6 +230,7 @@ public class UserRestController {
 		JsonNode kakaoAccount = userInfo.path("kakao_account");	
 		JsonNode properties = userInfo.path("properties");	
 		
+
 		String kId = userInfo.path("id").asText();	
 		String kEmail = kakaoAccount.path("email").asText();
 		String kNickname = properties.path("nickname").asText(); 		
@@ -248,9 +249,7 @@ public class UserRestController {
 				user.setPassword((UUID.randomUUID().toString().replaceAll("-", "")).substring(0, 14));
 				user.setKakaoId(kId);
 				user.setNickname(kNickname);
-				if(kGender != null) {
-					user.setGenderCode(kGender.substring(0,1));
-				}
+				user.setGenderCode(kGender.substring(0,1));
 				
 				userService.addUser(user);				
 				user = userService.getUser(user.getUserId());
@@ -266,6 +265,7 @@ public class UserRestController {
 		}
 					
 		session.setAttribute("user", user);
+		session.setAttribute("kakao", "true");
 		mav.setViewName("redirect:/");
 		
 		return mav; 

@@ -1,12 +1,14 @@
 package com.libero.service.domain;
 
 
+
+import java.io.Serializable;
 import java.sql.Date;
 
 import lombok.Data;
 
 @Data
-public class User {
+public class User  implements Serializable{
 
 	private String userId;
 	private String password;
@@ -36,6 +38,9 @@ public class User {
 	private int roughPrice;
 	private String kakaoId;
 
+	/*
+	 * public User getUser(){ return new User(); }
+	 */
 }
 
 

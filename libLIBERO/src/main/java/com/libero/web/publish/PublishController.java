@@ -277,6 +277,7 @@ public class PublishController {
 		ModelAndView modelAndView = new ModelAndView();
 		if (user!=null && user.getUserId().contentEquals(publish.getCreator())) {
 			modelAndView.addObject("prod",publish);
+			modelAndView.addObject("factoryNickname", userService.getUser(publish.getFactoryId()).getNickname());
 			modelAndView.setViewName("forward:/view/publish/addRetailPrice.jsp");
 		}else {
 			modelAndView.setViewName("redirect:/");

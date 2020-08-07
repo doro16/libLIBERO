@@ -47,7 +47,9 @@ public class MainController {
 	    if(session.getAttribute("user") == null) {
 	    	kakaoUrl = SNSloginController.getAuthorizationUrl(session);
 	    }else {
+	    	if(session.getAttribute("kakao") != null &&  session.getAttribute("kakao").equals("true")) {
 	    	kakaoUrl = SNSloginController.getLogoutUrl(session);
+	    	}
 	    }
 	    
 	    ModelAndView modelAndView = new ModelAndView();
