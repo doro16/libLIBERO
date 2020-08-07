@@ -1,21 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 	
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
+	<jsp:include page="../community/addReport.jsp"/>
 	
 	
 	
 	
 	
-	
-<title>µµ¼­  »ó¼¼</title>
+<title>ë„ì„œ  ìƒì„¸</title>
 		
 </head>
 
@@ -26,37 +26,172 @@
 		<jsp:include page="../toolbar.jsp" />
 		<jsp:include page="../community/addReport.jsp"/>
 	   	<!-- ToolBar End /////////////////////////////////////-->
-	   	<br/>
-	   	<br/>
-	   	<br/>
-	   	<br/>
-	   	<br/>
-	   	<br/>
+	  	<style>
+									.number-input input[type="number"] {
+							-webkit-appearance: textfield;
+							-moz-appearance: textfield;
+							appearance: textfield;
+							}
+							
+							.number-input input[type=number]::-webkit-inner-spin-button,
+							.number-input input[type=number]::-webkit-outer-spin-button {
+							-webkit-appearance: none;
+							}
+							
+							.number-input {
+							  display: flex;
+							  justify-content: space-around;
+							  align-items: center;
+							}
+							
+							.number-input button {
+							-webkit-appearance: none;
+							background-color: transparent;
+							border: none;
+							align-items: center;
+							justify-content: center;
+							cursor: pointer;
+							margin: 0;
+							position: relative;
+							}
+							
+							.number-input button:before,
+							.number-input button:after {
+							display: inline-block;
+							position: absolute;
+							content: '';
+							height: 2px;
+							transform: translate(-50%, -50%);
+							}
+							
+							.number-input button.plus:after {
+							transform: translate(-50%, -50%) rotate(90deg);
+							}
+							
+							.number-input input[type=number] {
+							text-align: center;
+							}
+							
+							.number-input.number-input {
+							border: 1px solid #ced4da;
+							width: 10rem;
+							border-radius: .25rem;
+							}
+							
+							.number-input.number-input button {
+							width: 2.6rem;
+							height: .7rem;
+							}
+							
+							.number-input.number-input button.minus {
+							padding-left: 10px;
+							}
+							
+							.number-input.number-input button:before,
+							.number-input.number-input button:after {
+							width: .7rem;
+							background-color: #495057;
+							}
+							
+							.number-input.number-input input[type=number] {
+							max-width: 4rem;
+							padding: .5rem;
+							border: 1px solid #ced4da;
+							border-width: 0 1px;
+							font-size: 1rem;
+							height: 2rem;
+							color: #495057;
+							}
+							
+							@media not all and (min-resolution:.001dpcm) {
+							@supports (-webkit-appearance: none) and (stroke-color:transparent) {
+							
+							.number-input.def-number-input.safari_only button:before,
+							.number-input.def-number-input.safari_only button:after {
+							margin-top: -.3rem;
+							}
+							}
+							}
 
-					Ã¥¹øÈ£ ${product.prodNo} <br/>
-					»óÇ° Å¸ÀÔ ${product.prodType} <br/>
-					»óÇ° »ó¼¼ ${product.prodDetail} <br/>
-					»óÇ°¸í ${product.prodName} <br/> 
-					¼ÒºñÀÚ°¡ ${product.retailPrice} <br/>
-					ÀúÀÚ ${product.author} <br/>
-					ÇÒÀÎ¿©ºÎ ${product.blindCode} <br/>
-					ÄÃ·¯ ${product.colorType} <br/>
-					Ç¥Áö ${product.coverType} <br/>
-					³»Áö ${product.innerType} <br/>
-					ÀÛ¼ºÀÚ ${product.creator}	<br/>
-					
+	</style>
 	
-		<img src="${wish}" id='wish_img' width="70px" height="70px"/><h6>designed by freepik</h6>
-		<input type="number" name="buyAmount" id="buyAmount" onblur="buyAmount()" value="0">°³</td>
-		<div class="form-group" align="center">
-			<button type="button" id="button" class="btn btn-info btn-block" 
-				onclick="addCart()">
-				Àå¹Ù±¸´Ï
-			</button>
-		</div>
-		<!-- ½Å°íÃß°¡ -->
+	
+	
+</head>
+<body>
+		<!-- ToolBar Start /////////////////////////////////////-->
+		<jsp:include page="../toolbar.jsp" />
+	   	<!-- ToolBar End /////////////////////////////////////-->
+					
+					<div class="container my-5">
+
+					  <section>
+					    
+					    <div class="card mb-4 z-depth-0 w-120">
+					      
+					      <div class="row">
+					
+					        <div class="col-md-6">
+					          <img class="img-fluid rounded-left" src="../../resources/images/publish/fileUpload/thumbnailFile/${product.prodThumbnail }" alt="project image">
+					        </div>
+					
+					        <div class="col-md-6 p-5 align-self-center ">
+					
+					          <h5 class="font-weight-normal mb-3">ìƒí’ˆëª…</h5>
+					
+					          <p class="text-muted">${product.prodName}</p>
+					
+					          <ul class="list-unstyled font-small mt-5 mb-0">
+					            <li>
+					              <p class="text-uppercase mb-2"><strong>ì‘ê°€</strong></p>
+					              <p class="text-muted mb-4">${product.creator}</p>
+					            </li>
+					
+					            <li>
+					              <p class="text-uppercase mb-2"><strong>ë“±ë¡ì¼ì</strong></p>
+					              <p class="text-muted mb-4">${product.regDate}</p>
+					            </li>
+					
+					            <li>
+					              <p class="text-uppercase mb-2"><strong>ë„ì„œ ì •ë³´</strong></p>
+					              <p class="text-muted mb-4">Page : ${product.bookPage}</p>
+					              <p class="text-muted mb-4">Size : ${product.sizeType}</p>
+					              <p class="text-muted mb-4">Color : ${product.colorType}</p>
+					              <p class="text-muted mb-4">Cover : ${product.coverType}</p>
+					              <p class="text-muted mb-4">Inner : ${product.innerType}</p>
+					            </li>
+					
+					            <li>
+					              <p class="text-uppercase mb-2"><strong>ì¢‹ì•„ìš”?</strong></p>
+					              <img src="${wish}" id='wish_img' width="70px" height="70px"/><h6>designed by freepik</h6>
+					            </li>
+					
+					            <li>
+					              <p class="text-uppercase mt-4 mb-2"><strong>ì¥ë°”êµ¬ë‹ˆ</strong></p>
+					             		 
+					              		<div class="def-number-input number-input safari_only">
+										  <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+										  <input class="quantity" min="0" name="quantity" value="1" type="number" id="buyAmount" >
+										  <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+										</div>
+										<button type="button" class="btn btn-so" onclick="addCart()"><i class="fas fa-cart-plus" ></i></button>
+					              
+					            </li>
+					
+					          </ul>
+					
+					        </div>
+					
+					      </div>
+					
+					    </div>
+
+  </section>
+
+</div>
+		<!-- ì‹ ê³  ì¶”ê°€ -->
 		<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>
-		<button id="reportBtn" class="btn btn-outline-info">½Å°í</button>
+		<button id="reportBtn" class="btn btn-outline-info">ì‹ ê³ </button>
 		<input type="hidden" id="prodPost" name="prodPost" value="prod"/>
 		
 		<!-- Classic tabs -->
@@ -92,7 +227,7 @@
 								<c:set var="i" value="${ i+1 }" />
 								<tr>
 									<td align="center">${ i }</td>
-									<td align="left"  title="Click : ÁÖ¹®Á¤º¸ È®ÀÎ">
+									<td align="left"  title="Click : ì£¼ë¬¸ì •ë³´ í™•ì¸">
 									
 										${review.starRate} <br/>
 										${review.userId }<br/>
@@ -147,7 +282,7 @@
 			$('#wish_img').on("click", function(){
 				var userId = "${sessionScope.user.userId}";
 				if (userId=="") {
-					alert("·Î±×ÀÎ ÇØÁÖ¼¼¿ä.");
+					alert("ë¡œê·¸ì¸ í•´ì£¼ì„¸ìš”.");
 					return;
 				}
 				
@@ -179,15 +314,15 @@
 		//alert(buyAmount);
 		
 		if (userId=="") {
-			alert("·Î±×ÀÎ ÇØÁÖ¼¼¿ä.");
+			alert("ë¡œê·¸ì¸ í•´ì£¼ì„¸ìš”.");
 			return;
 		}
 		if (phoneCode!=1) {
-			alert("ÈŞ´ëÆù º»ÀÎÀÎÁõÀ» ¿Ï·áÇÑ È¸¿ø¸¸ °¡´ÉÇÕ´Ï´Ù.");
+			alert("íœ´ëŒ€í° ë³¸ì¸ì¸ì¦ì„ ì™„ë£Œí•œ íšŒì›ë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 			return;
 		}
 		if (buyAmount==0) {
-			alert("¼ö·®À» ¼±ÅÃÇØÁÖ¼¼¿ä.");
+			alert("ìˆ˜ëŸ‰ì„ ì„ íƒí•´ì£¼ì„¸ìš”.");
 			return;
 		}
 		

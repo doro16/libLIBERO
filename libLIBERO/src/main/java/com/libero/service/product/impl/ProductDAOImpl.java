@@ -27,10 +27,22 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 
 	@Override
-	public List<Product> getBookList() throws Exception{
+	public List<Product> getBookList(Search search) throws Exception{
 		// TODO Auto-generated method stub
 		
-		return sqlSession.selectList("ProductMapper.getBookList");
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		
+		//OFFSET 값 계산
+		int offset = (search.getCurrentPage()-1)*(search.getPageSize());
+		if(offset == -1) {
+			hashMap.put("offset", 0);
+		}else {
+			hashMap.put("offset", offset);
+		}
+
+		hashMap.put("search", search);
+		
+		return sqlSession.selectList("ProductMapper.getBookList", hashMap);
 	}
 
 	@Override
@@ -41,15 +53,27 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 	
 	@Override
-	public List<Product> getProductList(String prodType) {
+	public List<Product> getProductList(String prodType, Search search) {
 		System.out.println("DAOImpl.getBookListByCategory : "+prodType);
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		
-	   return sqlSession.selectList("ProductMapper.getProductList", prodType);
+		//OFFSET 값 계산
+		int offset = (search.getCurrentPage()-1)*(search.getPageSize());
+		if(offset == -1) {
+			hashMap.put("offset", 0);
+		}else {
+			hashMap.put("offset", offset);
+		}
+
+		hashMap.put("prodType", prodType);
+		hashMap.put("search", search);
+
+	   return sqlSession.selectList("ProductMapper.getProductList", hashMap);
 	}
 	
 	@Override
 	public Product getProduct(int prodNo) {
-		System.out.println("DAOImpl.getBook : "+prodNo);
+		System.out.println("ProductDAOImpl.getBook : "+prodNo);
 		
 	   return sqlSession.selectOne("ProductMapper.getProduct", prodNo);
 	}
@@ -80,4 +104,23 @@ public class ProductDAOImpl implements ProductDAO{
 		return sqlSession.selectList("ProductMapper.getBookListBySearch", search);
 		
 	}
+
+	@Override
+	public int getProductTotalCount(String prodType) throws Exception {
+		
+		return sqlSession.selectOne("ProductMapper.getProductTotalCount", prodType);
+	}
+	
+	@Override
+	public int getBookTotalCount() throws Exception {
+		
+		return sqlSession.selectOne("ProductMapper.getBookTotalCount");
+	}
+
+	@Override
+	public List<Product> getBookList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("ProductMapper.getBookListForMain");
+	}
+	
 }//end class

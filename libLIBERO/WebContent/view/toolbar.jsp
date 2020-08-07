@@ -67,6 +67,11 @@
 		        </li>
 		        
 		        <!-- 회원 메뉴 Start -->
+		        <li class="nav-item userDropdown">
+	      			<a class="nav-link waves-effect waves-light" href="/libero/product/getWishList">
+	      				<i class="fas fa-heart"></i>
+	      			</a>
+	      		</li>
 	      		<li class="nav-item userDropdown">
 	        		<a class="nav-link waves-effect waves-light" href="/libero/product/getCartList">
 	          			<i class="fas fa-shopping-cart"></i>
@@ -80,16 +85,7 @@
 	          			<img alt="" src="http://127.0.0.1:8080/libero/resources/images/user/fileUpload/${sessionScope.user.profile}" class="rounded-circle" width="25px" height="25px">
 	        		</a>
 	        		<div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
-			        	<a class="dropdown-item" href="#">마이페이지</a>
-				        <a class="dropdown-item" href="/libero/user/getUserPublishList?prodType=book">판매 도서 및 상품 조회</a>
-				        <c:if test="${sessionScope.user.role=='f'}">
-				        	<c:if test="${sessionScope.user.colorPrice==''}">
-				        		<a class="dropdown-item" href="/libero/publish/addOptionPrice">인쇄옵션 가격 등록</a>
-				          	</c:if>
-				        	<c:if test="${sessionScope.user.colorPrice!=''}">
-					          	<a class="dropdown-item" href="/libero/publish/getOptionPrice">인쇄옵션 가격 조회</a>
-				          	</c:if>
-				        </c:if>
+			        	<a class="dropdown-item" href="/libero/user/getUser">마이페이지</a>
 				        <div class="dropdown-divider"></div>
 				        <c:if test="${! empty kakao_url}">
 				       	 <a class="dropdown-item" href="${kakao_url}">로그아웃</a>
@@ -155,7 +151,9 @@
 	      		<div class="modal-footer">
 	      			<button type="button" class="btn btn-cyan brown lighten-1" id="loginButton">로그인</button>
 	        		<button type="button" class="btn btn-outline-brown lighten-1 waves-effect" data-dismiss="modal">취소</button>
-	        		<a href="#"><button type="button" class="btn btn-info brown lighten-1" id="addUser">회원가입</button></a>
+	      		</div>
+	      		<div class="modal-footer text-center">
+	        		<a href="#"><button type="button" class="btn btn-info brown lighten-1 btn-block" id="addUser">회원가입</button></a><br/>
 	        		<a href="${kakao_url}"><img src="/libero/resources/images/common/kakao_login_medium_narrow.png"></a>
 	      		</div>
 	    	</div>
@@ -181,7 +179,7 @@
 		});
 	//============= 회원가입============
 		$("#addUser").on("click",function(){
-			self.location="/libero/view/user/addUser.jsp"
+			self.location="/libero/user/addUser"
 		//회원가입 온클릭 함수 
 		})
 	//============= modal 로그인 화면이동 =============

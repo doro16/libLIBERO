@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.libero.common.Search;
 import com.libero.service.domain.Cash;
 import com.libero.service.domain.Publish;
+import com.libero.service.domain.Report;
 import com.libero.service.domain.User;
 import com.libero.service.publish.PublishDAO;
 import com.libero.service.publish.PublishService;
@@ -93,8 +94,13 @@ public class PublishServiceImpl implements PublishService{
 		return map;
 	}
 	
-	public void removeTempPublish(Publish publish) throws Exception {
-		publishDAO.removeTempPublish(publish);
+	public void removeTempPublish(int prodNo) throws Exception {
+		
+		if (publishDAO.getHashtagList(prodNo)!=null) {
+			publishDAO.removeHashtag(prodNo);
+		}
+		
+		publishDAO.removeTempPublish(prodNo);
 	}
 	
 	public Cash getUserCash(String userId) throws Exception {

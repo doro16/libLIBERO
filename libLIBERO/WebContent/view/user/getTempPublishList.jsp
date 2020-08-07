@@ -43,9 +43,7 @@
 		   				aria-pressed="true" style="margin-bottom: 10px">나의 문의</a>
 		   		</div>
 	   			<div class="row col-lg-9">
-		   		<c:set var="i" value="0" />
 			  	<c:forEach var="prod" items="${list}">
-				<c:set var="i" value="${ i+1 }" />
 				
 					<div class="col-lg-3">
 					    <div class="card" style="margin-bottom: 35px">
@@ -60,7 +58,7 @@
 						        	<p>제목 없음</p>
 						        </c:if>
 						        <a href="/libero/publish/addManu?prodNo=${prod.prodNo}" class="">수정</a>
-						        <a href="/libero/publish/removeTempPublish?prodNo=${prod.prodNo}" class="">삭제</a>
+						        <a href="/libero/user/removeTempPublish?prodNo=${prod.prodNo}" class="">삭제</a>
 					      </div>
 					    </div>
 				  	</div>

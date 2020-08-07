@@ -213,8 +213,8 @@
 	   			</div>
 	   		</form>
 	   		<div class="row justify-content-center">
-	   			<button class="btn btn-brown lighten-1 btn-block" onclick="update()" name="updateGet">수정</button>
-	   			<button class="btn btn-brown lighten-1 btn-block" onclick="submit()" name="updatePost">수정완료</button>
+	   			<button class="btn btn-info brown lighten-1 btn-block" onclick="update()" name="updateGet">수정</button>
+	   			<button class="btn btn-info brown lighten-1 btn-block" onclick="submit()" name="updatePost">수정완료</button>
 	   		</div>
 	   	</div>
 	   	<!-- ///////////// Bootstrap Container End ////////////////// -->

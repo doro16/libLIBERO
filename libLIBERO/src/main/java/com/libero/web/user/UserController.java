@@ -66,11 +66,11 @@ public class UserController {
 	@Value("#{commonProperties['path3']}")
 	String path;
 	
-	@Value("#{commonProperties['pageUnit']}")
+	@Value("#{userProperties['pageUnit']}")
 	//@Value("#{commonProperties['pageUnit'] ?: 3}")
 	int pageUnit;
 	
-	@Value("#{commonProperties['pageSize']}")
+	@Value("#{userProperties['pageSize']}")
 	//@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
@@ -219,13 +219,11 @@ public class UserController {
 
 	
 	@RequestMapping(value = "removeTempPublish", method = RequestMethod.GET)
-	public ModelAndView removeTempPublish(@RequestParam("prodNo")int prodNo, Publish publish) throws Exception {
+	public ModelAndView removeTempPublish(@RequestParam("prodNo")int prodNo) throws Exception {
 		
 		System.out.println("/user/getTempPublishList : GET");
 		
-		publish = publishService.getProduct(prodNo);
-		
-		publishService.removeTempPublish(publish);
+		publishService.removeTempPublish(prodNo);
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("redirect:/user/getTempPublishList");
@@ -418,6 +416,18 @@ public class UserController {
 		mav.setViewName("redirect:/user/getUserList");
 
 		return mav;
+	}
+	
+	@RequestMapping(value = "getUser", method = RequestMethod.GET)
+	public ModelAndView updateUser(HttpSession session) throws Exception {
+		
+		User user = userService.getUser(((User)session.getAttribute("user")).getUserId());
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName("forward:/view/user/getUser.jsp");
+		
+		return modelAndView;
 	}
 	
 }
