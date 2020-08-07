@@ -38,7 +38,8 @@
 		</section>
 		<br><br><br>
 		<button type="button" class="btn btn-outline-info">수정하기</button>&nbsp;&nbsp;&nbsp;
-		<button type="button" class="btn btn-outline-info">삭제하기</button>
+		<a href="/libero/community/deletePost?postNo=${post.postNo}" 
+			class="btn btn-brown" role="button" aria-pressed="true">신고</a>
 		<button type="button" class="btn btn-info" style="float: right;">목록으로</button>
 		</article>
 

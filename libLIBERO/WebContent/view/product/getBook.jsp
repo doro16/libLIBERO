@@ -9,7 +9,7 @@
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
-	
+	<jsp:include page="../community/addReport.jsp"/>
 	
 	
 	
@@ -24,7 +24,7 @@
 
 		<!-- ToolBar Start /////////////////////////////////////-->
 		<jsp:include page="../toolbar.jsp" />
-		
+		<jsp:include page="../community/addReport.jsp" />
 	   	<!-- ToolBar End /////////////////////////////////////-->
 	  	<style>
 									.number-input input[type="number"] {
@@ -189,7 +189,7 @@
 					    </div>
 
   </section>
-			<jsp:include page="../community/addReport.jsp" />
+
 </div>
 		<!-- 신고 추가 -->
 		<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>

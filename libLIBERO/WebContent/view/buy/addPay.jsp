@@ -128,8 +128,32 @@ function daumjuso() {
                         	alert(msg);
                         }
                     });
+                	swal({
+                		text : "결제 완료",
+                		icon : "info",
+                		buttons:{
+                			Home : {
+                				text:"홈 으로",
+                				value:"Home",
+                			},
+                			BuyList :{
+                				text:"구매목록",
+                				value:"BuyList",
+                			},
+                				},
+                		
+                	}).then((value) =>{
+                		switch (value)     {
+                			case "Home" :
+                				window.location.href="/libero";
+                				break;
+                			
+                			case "BuyList" : 
+                				window.location.href="/libero/buy/getUserBuyList?userId=${user.userId}";
+                		}
+                	});
                     //성공시 이동할 페이지
-                    location.href='/libero';
+                    //location.href='/libero';
                 } else {
                     msg = '결제에 실패하였습니다.';
                     msg += '에러내용 : ' + rsp.error_msg;

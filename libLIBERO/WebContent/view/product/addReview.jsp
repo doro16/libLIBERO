@@ -9,7 +9,7 @@
 				<jsp:include page="/common/cdn.jsp"></jsp:include>
 				<style>
 				     		.starR1{
-							    background: url('../../resources/images/product/star_review.png') no-repeat -52px 0;
+							    background: url('../resources/images/product/star_review.png') no-repeat -52px 0;
 							    background-size: auto 100%;
 							    width: 15px;
 							    height: 30px;
@@ -18,7 +18,7 @@
 							    cursor: pointer;
 							}
 							.starR2{
-							    background: url('../../resources/images/product/star_review.png') no-repeat right 0;
+							    background: url('../resources/images/product/star_review.png') no-repeat right 0;
 							    background-size: auto 100%;
 							    width: 15px;
 							    height: 30px;

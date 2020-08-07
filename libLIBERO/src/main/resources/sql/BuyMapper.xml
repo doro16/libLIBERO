@@ -96,6 +96,7 @@
 			   FROM pay
 		WHERE user_id = #{value}
 		AND pay_code = 'paid'
+		ORDER BY pay_date DESC
 				
 	</select>
 	<select id="getProdNo" parameterType="int" resultType="int">

@@ -71,10 +71,13 @@
 										+"<p id= 'none"+ JSONData.list[i].commentNo+"' style='font-size: 15px; padding: 14px 0px; font-weight: 400;'>"
 										+ JSONData.list[i].commentContent
 										+"</p><br>"
-										+"<div id='update"+ JSONData.list[i].commentNo+"' style='display: none;'>" 
-										+"<textarea class='form-control col-9 col-md-10 mr-1' name='commentContent' rows='3' maxlength='500' style='float:left'>"
+										
+										+"<div id='update"+ JSONData.list[i].commentNo+"' style='display: none;' class='updateComment'>" 
+										+"<input type='hidden' class='commentNo' value=" + JSONData.list[i].commentNo + ">"	
+										+"<textarea class='form-control col-9 col-md-10 mr-1' rows='3' maxlength='500' style='float:left'>"
 										+ JSONData.list[i].commentContent
-										+"</textarea><button class='col-2 col-md-1 btn btn-outline-info' id='updateComment'>등록</button>"
+										+"</textarea>"
+										+"<button class='col-2 col-md-1 btn btn-outline-info' id='updateComment'>등록</button>"
 										+"</div>"
 										
 										+"<div class='commentUpdateDelete'>"
@@ -88,12 +91,9 @@
 					}	
 			    	});
 			
-			
-			
-		
 		}
 		$(document).on("click", ".commentUpdateDelete p:nth-child(2)", function(){
-			commentNo = $(this).parent().find(".commentNo").val();
+			commentNo = parseInt($(this).parent().find(".commentNo").val());
 			$(this).parent().find("p").hide();
 			$.ajax(
 			    	{
@@ -108,12 +108,41 @@
 								
 						$("#update"+commentNo+"").show(); 
 						$("#none"+commentNo+"").hide(); 
-						 
-						   
+			   
 					}	
-    	});
+    		});
 		
-	});
+		});
+		
+		$(document).on("click", ".updateComment button", function(){
+			var commentNo = $(this).parent().find(".commentNo").val();
+			var commentContent = $(this).parent().find("textarea").val();
+			
+			$("#update"+commentNo+"").hide(); 
+			$("#none"+commentNo+"").show(); 
+			//alert(commentNo+commentContent);	
+			
+			$.ajax(
+			    	{  		 	
+			        url : "/libero/community/json/updateComment",
+			        method : "POST" ,
+					dataType : "json" ,
+					
+					data : JSON.stringify({
+    					"commentNo" : commentNo,
+    					"commentContent" : commentContent
+    				}),
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					success : function(JSONData , status) {
+						
+					
+					}	
+					
+			});
+    	});
 		
 		
 
