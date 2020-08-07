@@ -2,6 +2,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <% request.setCharacterEncoding("utf-8"); %>
+    <% response.setContentType("text/html; charset=utf-8"); %>
+
+
 <!DOCTYPE html>
 
 <html>
@@ -11,7 +15,7 @@
 <jsp:include page="/common/cdn.jsp"></jsp:include>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 
 
  
@@ -59,7 +63,7 @@
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById("postCode").value = data.zonecode;
-                document.getElementById("address").value = data.zonecode+addr+extraAddr;
+                document.getElementById("address").value = addr+extraAddr;
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById("postCode").focus();
             }
@@ -68,57 +72,49 @@
 
 
 /////////////////////////////////////////회원가입 버튼 눌렀을때
-    function addUser() {
-    	var hash = $("input[name=hashtagName]").val();
-		var userId = $("input[name='userId']").val();
-		var password = $("input[name='password']").val();
-		var password2 = $("input[name='password2']").val();
-		var profile = $("input[name='file']").val();
-		var address = $("input[name='address']").val();
-		var birthDate= $("input[name='birthDate']").val();
-		var genderCode = $("input[name='genderCode']:checked").val();
-		alert(profile)
-	
-		
-		if (password==null) {
-			Swal.fire({
-				  icon: 'error',
-				  text: '비밀번호를 입력해 주세요.'
-				});
-			return;
-		}
-		if(password!=password2){
-			Swal.fire({
-					icon:'error',
-					text:'비밀번호를 확인해 주세요'
-			});
-			return;
-		}
-		
-		
-		if (birthDate==null) {
-			Swal.fire({
-				  icon: 'error',
-				  text: '생년월일을 입력해 주세요.'
-				});
-			return;
-		}
-		
-		if ($("input[name='genderCode']:checked").val()==null) {
-			Swal.fire({
-				  icon: 'error',
-				  text: '성별을 선택해 주세요.'
-				});
+   	function addUser() {
+	    	
+			var userId = $("input[name='userId']").val();
+			var password = $("input[name='password']").val();
+			var password2 = $("input[name='password2']").val();
+			var profile = $("input[name='file']").val();
+			var address = $("input[name='address']").val();
+			var birthDate= $("input[name='birthDate']").val();
+			var genderCode = $("input[name='genderCode']:checked").val();
+			var name = $("input[name='name']").val();
+			var phone = $("input[name='phone']").val();
+			
+			
+			
+			if(name == null || name== ''){
+				swal("이름을 입력해 주세요","이름 미입력","warning");
 				return;
+			}else if ($("input[name='password']").val()==null || $("input[name='password']").val() =="") {
+				swal("비밀번호를 입력해 주세요","비밀번호 미입력","warning");
+				return;
+			}else if ($("input[name='birthDate']").val()==null || $("input[name='birthDate']").val() =="") {
+				swal("생년월일을 선택해 주세요","생년월일 미등록","warning")
+				return;
+			}else if ($("input[name='genderCode']:checked").val()==null) {
+				swal("성별을 선택해 주세요","\\YAY/","warning")
+				return;
+			}else if($("input[name='password']").val()!=$("input[name='password2']").val() || $("input[name='password2']").val() != $("input[name='password']").val()){
+				swal("2차비밀 번호가 다릅니다.","비밀번호 오류","error")
+				return;
+			}else if(address == null || address == ''){
+				swal("주소를 입력해 주세요","주소 미입력","warning")
+				return;
+			}else if(phone==null|| phone == ''){
+				swal("연락처를 입력해 주세여","연락처 미입력","warning");
+				return;
+			}
+			
+			$("form").attr("method" , "POST").attr("action" , "/libero/user/addUser").submit();
 		}
-		
-    	
-		$("form").attr("method" , "POST").attr("action" , "/libero/user/addUser").submit();
-	}
     
 
 	$(function (){
-			
+		
 		
 		function readURL(input) {
             if (input.files && input.files[0]) {
@@ -148,7 +144,19 @@
 		});
 		
 		
-		$("#userId").focus();
+		$("#verifBtn").on("click",function(){
+			//alert( $("inputVerification").val())
+			//alert($("#verification").val())
+			if( $("#inputVerification").val() != $("#verification").val()){
+				swal("인증번호가 다릅니다 다시 확인해 주세요!","헤헤 바보 :p","error")
+			}else{
+				swal("인증 되었습니다!","\\YAY/","success")
+			}
+		})
+		
+		
+		
+		//$("#userId").focus();
 		
 		//////////////////////////아이디 유효체크
 		$("input[name=userId]").on("keyup", function(){
@@ -161,7 +169,7 @@
 							dataType : 'text',
 							headers : {
 								"Accept" : "application/json",
-								"Content-Type" : "application/json;charset=UTF-8"
+								"Content-Type" : "application/json;charset=UTF-8;"
 									  },
 						    success : function(result , status){
 							console.log(result);
@@ -183,15 +191,15 @@
 		
 		$("input[name=nickname]").on("keyup", function(){
 			var nickname = $("input[name=nickname]").val();
-			
-			
-			
-				$.ajax({	url :'/libero/user/json/duplicationNick?nickname='+nickname,
+			var path = '/libero/user/json/duplicationNick?nickname='+nickname;
+			var decUrl = decodeURIComponent(path)
+			//alert(decUrl)
+				$.ajax({	url :decUrl,
 							method : 'GET',
 							dataType : 'text',
 							headers : {
 								"Accept" : "application/json",
-								"Content-Type" : "application/json;charset=UTF-8"
+								"Content-Type" : "application/json;application/x-www-form-urlencoded;charset=UTF-8"
 									  },
 						    success : function(result , status){
 							console.log(result);
@@ -252,23 +260,15 @@
 				
 				///////////////////////////////////////////////////////////////////////////////////////////////////////
 					
-					$("#verifBtn").on("click",function(){
-						alert( $("inputVerification").val())
-						alert($("#verification").val())
-						if( $("#inputVerification").val() != $("#verification").val()){
-							swal("인증번호가 다릅니다 다시 확인해 주세요!","헤헤 바보 :p","error")
-						}else{
-							swal("인증 되었습니다!","\\YAY/","success")
-						}
-					})
-// 					$("#addBtn").on("click",function(){
-// 						$("form").attr("method","POST").attr("action" , "/libero/user/addUser").attr("enctype","multipart/form-data").submit();
-// 					})
 
+
+
+
+		 
 		});	//$(function)끝
 		
 		
-		  
+		
 		    	
 		    
 	</script> 

@@ -8,7 +8,7 @@
 		 
 		 <nav aria-label="Page navigation example">
 		  <!-- ũ������ :  pagination-lg pagination-sm-->
-		  <ul class="pagination pg-amber justify-content-center">
+		  <ul class="pagination pagination-circle pg-blue justify-content-center">
 		  
 		    <!--  <<== 좌측 nav -->
 		  	<c:if test="${ resultPage.currentPage <= resultPage.pageUnit }">

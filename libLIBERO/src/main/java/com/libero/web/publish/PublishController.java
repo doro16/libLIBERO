@@ -16,6 +16,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,9 +171,11 @@ public class PublishController {
 	}
 	
 	@RequestMapping(value = "addProductInfo", method = RequestMethod.POST)
-	public ModelAndView addProductInfo(Publish publish, @RequestParam("imgFile")List<MultipartFile> files) throws Exception {
+	public ModelAndView addProductInfo(Publish publish, @RequestParam("imgFile")List<MultipartFile> files, HttpServletRequest request) throws Exception {
 		
 		System.out.println("/publish/addProductInfo : POST");
+		
+		String root = request.getSession().getServletContext().getRealPath("/");
 		
 		if (publish.getCoverSelect().contentEquals("fileUpload")) {
 			
@@ -250,10 +253,7 @@ public class PublishController {
 		}
 		
 		publishService.updatePublishInfo(publish);
-		System.out.println("FFFFFFFFFFFFFFFFF"+publish.getHashtagName());
 		List<String> hashtagName = Arrays.asList(publish.getHashtagName().split(","));
-		System.out.println("a>>>>>>>>>>>>>>>>>>>"+hashtagName.get(1));
-		//publishService.addHashtag(prodNo, hash);
 		publishService.addHashtag(publish.getProdNo(), hashtagName);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("redirect:/publish/addRetailPrice?prodNo="+publish.getProdNo());
@@ -433,21 +433,7 @@ public class PublishController {
 		
 		return modelAndView;
 	}
-	//===================== 임시 도서 삭제====================================
-	@RequestMapping(value = "removeTempPublish", method = RequestMethod.GET)
-	public ModelAndView removeTempPublish(@RequestParam("prodNo") int prodNo, Publish publish) throws Exception {
-		
-		System.out.println("/publish/removeTempPublish : GET");
-		
-		publish = publishService.getProduct(prodNo);
-		
-		publishService.removeTempPublish(publish);
-		
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:/user/getTempPublishList");
-		
-		return modelAndView;
-	}
+	//================== 통계 조회 =========================================
 	
 	@RequestMapping(value = "getStatistics", method = RequestMethod.GET)
 	public ModelAndView getStatistics(@RequestParam("prodNo") int prodNo, Statistics statistics) throws Exception {
@@ -465,6 +451,7 @@ public class PublishController {
 		return modelAndView;
 	}
 	
+	//============================== 단일 파일 업로드 ===================================
 	public String fileUpload(MultipartHttpServletRequest request,String path) throws Exception {
 		
 		Map<String, MultipartFile> files = request.getFileMap();
@@ -480,7 +467,7 @@ public class PublishController {
 		
 		return savedFileName;
 	}
-	
+	//============================== 다중 파일 업로드 ==============================
 	public Publish multiFile(List<MultipartFile> files, Publish publish) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("파일 업로드 진입 : "+publish.getProdType());

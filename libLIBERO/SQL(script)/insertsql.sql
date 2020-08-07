@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   `nickname` varchar(20) NOT NULL,
   `profile` varchar(50) DEFAULT NULL,
   `gender_code` char(1) NOT NULL,
-  `name` varchar(20) NOT NULL,
+  `name` varchar(20) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
-  `phone` varchar(14) NOT NULL,
+  `phone` varchar(14) DEFAULT NULL,
   `phone_code` smallint(6) NOT NULL DEFAULT '0',
   `user_code` smallint(6) NOT NULL DEFAULT '1',
   `role` char(1) NOT NULL,
@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `white_price` int(11) DEFAULT NULL,
   `ivory_price` int(11) DEFAULT NULL,
   `rough_price` int(11) DEFAULT NULL,
+  `kakao_id` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `인덱스 2` (`nickname`) USING BTREE,
   UNIQUE KEY `인덱스 3` (`phone`),
@@ -47,20 +48,20 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 -- 테이블 데이터 liblibero.user:~13 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`user_id`, `password`, `nickname`, `profile`, `gender_code`, `name`, `address`, `phone`, `phone_code`, `user_code`, `role`, `birth_date`, `reg_date`, `factory_no`, `cash_code`, `a5_price`, `b5_price`, `a4_price`, `color_price`, `black_price`, `snow_price`, `mont_price`, `arte_price`, `white_price`, `ivory_price`, `rough_price`) VALUES
-	('admin1', '1234', '관리자1', 'ice1.jpg', 'm', '관리자', '서울시 강남구', '000-0000-1111', 1, 1, 'a', '2020-07-28', '2020-07-15 12:28:59', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('admin2', '1234', '관리자2', 'ice2.jpg', 'm', '관리자', NULL, '000-1111-2222', 1, 1, 'a', '2020-07-28', '2020-07-15 12:41:54', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('admin3', '1234', '관리자3', 'ice3.jpg', 'f', '관리자', NULL, '000-2222-3333', 1, 1, 'a', '2020-07-28', '2020-07-15 12:43:09', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('admin4', '1234', '관리자4', 'pururum.jpg', 'f', '관리자', NULL, '000-3333-2222', 1, 1, 'a', '1994-10-31', '2020-07-15 12:43:09', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('choije9410@gmail.com', '1111', '유저유저', 'pururum.jpg', 'f', '최지은', '경기도 수원시', '010-0000-3555', 0, 1, 'u', '1994-10-31', '2020-07-15 16:58:30', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('factory01@naver.com', '1111', '인쇄소01', 'ice1.jpg', 'f', '인쇄소', '경기도', '000-1234-2222', 0, 1, 'f', '2000-07-28', '2020-07-15 12:45:24', '1234', 'bf', 10, 20, 40, 100, 40, 3000, 4000, 4300, 10, 20, 10),
-	('factory02@hanmail.net', '2222', '인쇄소02', NULL, 'f', '인쇄소', '경기도', '000-1313-2222', 0, 1, 'f', '1970-07-28', '2020-07-15 12:45:24', '1424132', 'bf', 20, 30, 40, 100, 100, 2000, 3000, 3500, 10, 5, 5),
-	('factory03', '3333', '인쇄03', NULL, 'f', '인쇄소', '서울', '010-1313-3333', 0, 1, 'f', '2020-07-28', '2020-07-24 16:08:31', '12312311', 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('factory04', '4444', '인쇄0404', NULL, 'm', '인쇄04', NULL, '010-1414-1414', 0, 1, 'f', '2020-07-28', '2020-07-28 09:41:35', '1231232', 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('user01', '0101', '유저01', 'ice1.jpg', 'f', '유저01', NULL, '010-0101-0101', 0, 1, 'u', '2020-07-28', '2020-07-15 16:55:56', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('user02', '0202', '유저02', 'ice3.jpg', 'f', '유저02', NULL, '010-0202-0202', 0, 1, 'u', '2020-07-28', '2020-07-15 16:55:56', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('wjddbstp95@gmail.com', '1111', '윤세', NULL, 'm', '정윤세', NULL, '010-0011-1100', 0, 1, 'u', '2020-07-16', '2020-07-29 10:27:24', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	('xodnr097@naver.com', '1111', '유저유저1', NULL, 'f', '김태욱', '충정도', '010-9430-3757', 0, 1, 'u', '2020-07-16', '2020-07-29 10:27:28', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`user_id`, `password`, `nickname`, `profile`, `gender_code`, `name`, `address`, `phone`, `phone_code`, `user_code`, `role`, `birth_date`, `reg_date`, `factory_no`, `cash_code`, `a5_price`, `b5_price`, `a4_price`, `color_price`, `black_price`, `snow_price`, `mont_price`, `arte_price`, `white_price`, `ivory_price`, `rough_price`, `kakao_id`) VALUES
+	('admin1', '1234', '관리자1', 'ice1.jpg', 'm', '관리자', '서울시 강남구', '000-0000-1111', 1, 1, 'a', '2020-07-28', '2020-07-15 12:28:59', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('admin2', '1234', '관리자2', 'ice2.jpg', 'm', '관리자', NULL, '000-1111-2222', 1, 1, 'a', '2020-07-28', '2020-07-15 12:41:54', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('admin3', '1234', '관리자3', 'ice3.jpg', 'f', '관리자', NULL, '000-2222-3333', 1, 1, 'a', '2020-07-28', '2020-07-15 12:43:09', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('admin4', '1234', '관리자4', 'pururum.jpg', 'f', '관리자', NULL, '000-3333-2222', 1, 1, 'a', '1994-10-31', '2020-07-15 12:43:09', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('choije9410@gmail.com', '1111', '유저유저', 'pururum.jpg', 'f', '최지은', '경기도 수원시', '010-0000-3555', 0, 1, 'u', '1994-10-31', '2020-07-15 16:58:30', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('factory01@naver.com', '1111', '인쇄소01', 'ice1.jpg', 'f', '인쇄소', '경기도', '000-1234-2222', 0, 1, 'f', '2000-07-28', '2020-07-15 12:45:24', '1234', 'bf', 10, 20, 40, 100, 40, 3000, 4000, 4300, 10, 20, 10, NULL),
+	('factory02@hanmail.net', '2222', '인쇄소02', NULL, 'f', '인쇄소', '경기도', '000-1313-2222', 0, 1, 'f', '1970-07-28', '2020-07-15 12:45:24', '1424132', 'bf', 20, 30, 40, 100, 100, 2000, 3000, 3500, 10, 5, 5, NULL),
+	('factory03', '3333', '인쇄03', NULL, 'f', '인쇄소', '서울', '010-1313-3333', 0, 1, 'f', '2020-07-28', '2020-07-24 16:08:31', '12312311', 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('factory04', '4444', '인쇄0404', NULL, 'm', '인쇄04', NULL, '010-1414-1414', 0, 1, 'f', '2020-07-28', '2020-07-28 09:41:35', '1231232', 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('user01', '0101', '유저01', 'ice1.jpg', 'm', '유저01', NULL, '010-0101-0101', 0, 1, 'u', '1980-07-28', '2020-07-15 16:55:56', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('user02', '0202', '유저02', 'ice3.jpg', 'f', '유저02', NULL, '010-0202-0202', 0, 1, 'u', '2020-07-28', '2020-07-15 16:55:56', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('wjddbstp95@gmail.com', '1111', '윤세', NULL, 'm', '정윤세', NULL, '010-0011-1100', 0, 1, 'u', '2020-07-16', '2020-07-29 10:27:24', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	('xodnr097@naver.com', '1111', '유저유저1', NULL, 'f', '김태욱', '충정도', '010-9430-3757', 0, 1, 'u', '2020-07-16', '2020-07-29 10:27:28', NULL, 'bf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- 테이블 liblibero.product 구조 내보내기
@@ -111,10 +112,8 @@ CREATE TABLE IF NOT EXISTS `buy` (
   KEY `FK_buy_product` (`prod_no`) USING BTREE,
   KEY `FK_buy_user` (`user_id`) USING BTREE,
   KEY `FK_buy_pay` (`pay_no`) USING BTREE,
-  KEY `FK_buy_product2` (`prod_type`) USING BTREE,
   CONSTRAINT `FK_buy_pay` FOREIGN KEY (`pay_no`) REFERENCES `pay` (`pay_no`),
   CONSTRAINT `FK_buy_product` FOREIGN KEY (`prod_no`) REFERENCES `product` (`prod_no`),
-  CONSTRAINT `FK_buy_product_2` FOREIGN KEY (`prod_type`) REFERENCES `product` (`prod_type`),
   CONSTRAINT `FK_buy_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8;
 

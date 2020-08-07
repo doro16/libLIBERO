@@ -91,7 +91,7 @@
 			COUNT(p.prod_no) prod_count,
 			COUNT(DISTINCT p.creator) creator_count,
 			sub.sales_count,
-			COUNT(IF(DATE_FORMAT(p.reg_date,'%Y-%m-%d')=DATE_FORMAT(NOW(),'%Y-%m-%d'),p.reg_date,NULL)) now_count
+			COUNT(IF(DATE_FORMAT(p.reg_date,'%Y-%m-%d')=DATE_FORMAT(NOW(),'%Y-%m-%d') AND p.blind_code IN('show'),p.reg_date,NULL)) now_count
 		FROM product p, (SELECT 
 							COUNT(DISTINCT prod_no) sales_count 
 						FROM buy

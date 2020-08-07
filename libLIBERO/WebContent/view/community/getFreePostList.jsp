@@ -11,15 +11,21 @@
     <link rel="stylesheet" href="../resources/css/lyk.css" type="text/css">
 
     <script type="text/javascript">
-		//이거 페이지처리야 ㅁㅊ아..
+		
 		function fncGetUserList(currentPage) {
 			$("#currentPage").val(currentPage);
 			$("form").attr("method", "POST").attr("action", "/libero/community/getPostList?menu=f").submit();	
-		}   
-	    
+		}  
+
 		$(function() {
 			 $( "button.btn.btn-default" ).on("click" , function() {
 					fncGetUserList(1);
+			 });
+			 
+			 $("#searchKeyword").on('keypress',function(e) {
+				    if(e.which == 13) {
+				        fncGetUserList(1);
+				    }
 			 });
 			
 		});
@@ -36,7 +42,7 @@
 				
                 <article id="mainContent" class="content-article content-board">
                     
-				    <form class="form-inline text-right">
+				    <form class="form-inline" style="float:right;">
 				    
 					  <div class="form-group">
 					    <select class="form-control" name="searchCondition" >
@@ -53,7 +59,7 @@
 					  </div>
 					  
 					  <button type="button" class="btn btn-default">검색</button>
-					  <button type="button" class="btn btn-info" onclick="location.href='/libero/community/addPost?postType=n' ">글쓰기</button>
+					  <button type="button" class="btn btn-info" onclick="location.href='/libero/community/addPost?postType=f'">글쓰기</button>
 					  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 					  <input type="hidden" id="currentPage" name="currentPage" value=""/>
 					  <%-- <input type="hidden" id="postType" name="postType" value="${param.menu}" /> --%>
@@ -61,7 +67,7 @@
 					  
 					
 					</form>
-	    			<p style="float:left"> 전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지 </p>
+	    			<p style="padding-top: 20px; "> 전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지 </p>
 				    
                     <div class="warp_board">
                         <ul class="list_news">

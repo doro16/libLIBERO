@@ -112,11 +112,16 @@ public class CommunityRestController {
 	}
 	
 	@RequestMapping(value="/json/updateComment", method=RequestMethod.POST)
-	public void updateComment(@RequestBody Map<String, Object> map2, HttpSession session, Comment comment) throws Exception{
+	public void updateComment(@RequestBody Map<String, String> map2, HttpSession session, Comment comment) throws Exception{
 		System.out.println("updateComment입니다");
 		User user = ((User)session.getAttribute("user"));
-		comment.setPostNo((int)map2.get("postNo"));
-		comment.setCommentContent((String)map2.get("commentContent"));
+
+		comment.setCommentNo(Integer.valueOf(map2.get("commentNo")));
+		System.out.println(map2);
+		System.out.println("넘겨");
+		
+		
+		comment.setCommentContent(map2.get("commentContent"));
 		comment.setUser(user);
 		communityService.updateComment(comment);
 	}
@@ -129,7 +134,7 @@ public class CommunityRestController {
 		communityService.deleteComment(commentNo);
 	}
 	
-	@RequestMapping(value="json/addPost", method=RequestMethod.POST)
+	@RequestMapping(value="/json/addPost", method=RequestMethod.POST)
 	public Map addPost(@RequestParam("file") MultipartFile multipartFile) throws Exception {
 
 		System.out.println("/community/json/addPost : POST");

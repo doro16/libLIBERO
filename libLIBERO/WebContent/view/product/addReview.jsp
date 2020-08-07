@@ -9,7 +9,7 @@
 				<jsp:include page="/common/cdn.jsp"></jsp:include>
 				<style>
 				     		.starR1{
-							    background: url('../../resources/images/product/star_review.png') no-repeat -52px 0;
+							    background: url('../resources/images/product/star_review.png') no-repeat -52px 0;
 							    background-size: auto 100%;
 							    width: 15px;
 							    height: 30px;
@@ -18,7 +18,7 @@
 							    cursor: pointer;
 							}
 							.starR2{
-							    background: url('../../resources/images/product/star_review.png') no-repeat right 0;
+							    background: url('../resources/images/product/star_review.png') no-repeat right 0;
 							    background-size: auto 100%;
 							    width: 15px;
 							    height: 30px;
@@ -46,7 +46,7 @@
 
 <ul class="navbar-nav">
 				<li class="nav-item" id="review">
-					<a class="nav-link" href="#" data-toggle="modal" data-target="#addReviewModal">¸®ºä µî·Ï</a>
+					<button data-target="#addReviewModal" data-toggle="modal" id="exampleModalLabel" class="btn btn-brown-lighten3">¸®ºäµî·Ï</button>
 				</li>
 </ul>
 <!-- ¸®ºäµî·Ï ¸ð´ÞÃ¢ -->				

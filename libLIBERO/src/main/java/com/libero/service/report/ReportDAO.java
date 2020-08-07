@@ -5,24 +5,23 @@ import java.util.List;
 import com.libero.service.domain.Post;
 import com.libero.service.domain.Product;
 import com.libero.service.domain.Report;
+import com.libero.service.domain.User;
 import com.libero.common.Search;
 import com.libero.service.domain.Comment;
 
 public interface ReportDAO {
 	
-	//public Report getReportByNo(int reportNo) throws Exception;
 	
-	//public List<Report> getReportById(String userId) throws Exception;
-	
-	public List<Report> getPostReportList(Search search) throws Exception;
-	
-	//public void addProdReport(Product product) throws Exception;
-	
-	public void addPostReport(Report report) throws Exception;
-	
-	//public void updatePostReport(Report report) throws Exception;
-	
-	
-	// DAO에만 있음
+	public List<Report> getPostReportList(Search search) throws Exception;	
 	public int getPostReportTotalCount(Search search) throws Exception;
+	
+	public List<Report> getUserReportList(Search search, User user, String menu) throws Exception;	
+	public int getUserReportTotalCount(Search search, User user, String menu) throws Exception;
+	
+	public void addReport(Report report) throws Exception;
+
+
+	
+	
+	
 }

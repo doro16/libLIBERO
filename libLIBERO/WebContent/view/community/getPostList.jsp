@@ -23,55 +23,69 @@
     </style>
     
     <script type="text/javascript">
-		//이거 페이지처리야 ㅁㅊ아..
+		
 		function fncGetUserList(currentPage) {
 			$("#currentPage").val(currentPage);
 			$("form").attr("method", "POST").attr("action", "/libero/community/getPostList?menu=notice").submit();	
 		}   
-	    
-
+		
+		$(function() {
+			 $( "button.btn.btn-default" ).on("click" , function() {
+					fncGetUserList(1);
+			 });
+			 
+			 $("#searchKeyword").on('keypress',function(e) {
+				    if(e.which == 13) {
+				        fncGetUserList(1);
+				    }
+			 });
+			
+		});
         
     </script>
 </head>
 
 <body>
 	<jsp:include page="../toolbar.jsp" />
+	 <form class="form-inline text-right " style="float:right; margin-top: 30px;">
+				    
+		  <div class="form-group">
+		    <select class="form-control" name="searchCondition" >
+				<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : ""}>제목</option>
+				<option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : ""}>내용</option>
+				<option value="2" ${! empty search.searchCondition && search.searchCondition==2 ? "selected" : ""}>닉네임</option>
+			</select>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label class="sr-only" for="searchKeyword">검색어</label>
+		    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
+		    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
+		  </div>
+		  
+		  <button type="button" class="btn btn-default">검색</button>
+		  <button type="button" class="btn btn-info" onclick="location.href='/libero/community/addPost?postType=n' ">글쓰기</button>
+		  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
+		  <input type="hidden" id="currentPage" name="currentPage" value=""/>
+		  <%-- <input type="hidden" id="postType" name="postType" value="${param.menu}" /> --%>
+		  <input type="hidden" id="postType" name="postType" value="n" />
+		  
+					
+	</form>
+	<p style="padding-top: 20px; "> 전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지 </p>
     <div class="container-doc">
-        
+        			
+				    
         <main class="doc-main">
             	
         
 				
                 
-                <article id="mainContent" class="content-techn">   
-				    <form class="form-inline text-right">
+                
 				    
-					  <div class="form-group">
-					    <select class="form-control" name="searchCondition" >
-							<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : ""}>제목</option>
-							<option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : ""}>내용</option>
-							<option value="2" ${! empty search.searchCondition && search.searchCondition==2 ? "selected" : ""}>닉네임</option>
-						</select>
-					  </div>
-					  
-					  <div class="form-group">
-					    <label class="sr-only" for="searchKeyword">검색어</label>
-					    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
-					    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
-					  </div>
-					  
-					  <button type="button" class="btn btn-default">검색</button>
-					  <button type="button" class="btn btn-info" onclick="location.href='/libero/community/addPost?postType=n' ">글쓰기</button>
-					  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
-					  <input type="hidden" id="currentPage" name="currentPage" value=""/>
-					  <%-- <input type="hidden" id="postType" name="postType" value="${param.menu}" />--%>
-					  <input type="hidden" id="postType" name="postType" value="n" />
-					</form>
-					
-	    			<p style="float:left"> 전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지 </p>
 				    
                     <div class="container my-5">
-
+						
 					  <!-- Section -->
 					  <section>
                        
@@ -92,7 +106,8 @@
 						          <div class="col-md-12 col-lg-4">
 									
 						            <!-- Card -->
-						            <a class="card hoverable mb-4" data-toggle="modal" data-target="#basicExampleModal">
+						            <a class="card hoverable mb-4" data-toggle="modal" data-target="#basicExampleModal" 
+						            onclick="location.href='/libero/community/getPost?postNo=${post.postNo}' ">
 						
 						              <!-- Card image -->
 						              <c:if test="${ fn:contains(post.postContent, '<img') }">
@@ -100,8 +115,9 @@
 	             					 	<c:set var="imgBefore" value="${ fn:substringBefore(imgAfter, '\" style') }" />
 										<img style='max-height: 200px;' class='card-img-top' src='<c:out value="${imgBefore}" />' alt='글사진' >
 						              </c:if>
-            
-
+            						  <c:if test="${ fn:indexOf(post.postContent, '<img')== -1 }">
+										<img style='max-height: 200px;' class='card-img-top' src="../resources/images/publish/fileUpload/null.png">
+									  </c:if>
 						              <!-- Card content -->
 						              <div class="card-body" style="max-weight: 280px; max-height: 186px;  overflow: hidden;" >
 						
@@ -125,7 +141,7 @@
                        
                     </div>
                     
-                </article>
+               
             
         </main>
         

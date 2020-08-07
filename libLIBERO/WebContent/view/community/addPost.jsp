@@ -12,13 +12,13 @@
 
 <body>
 	<jsp:include page="../toolbar.jsp" />
-
+	<jsp:include page="../community/addReport.jsp" />
 	<div class="mt-5">&nbsp;</div>
 	<div class="container">
    
         <form class="form-group my-5 py-5">
        		<c:if test = "${param.postType == 'n' }" ><input type="hidden" name="postType" value="n"></c:if>
-            <c:if test = "${param.postType == 'f' }" ><input type="hidden" name="postType" value="a"></c:if>
+            <c:if test = "${param.postType == 'f' }" ><input type="hidden" name="postType" value="f"></c:if>
             <c:if test = "${param.postType == 'q' }" ><input type="hidden" name="postType" value="q"></c:if>
             <c:if test = "${param.postType != 'q' }" >	
               <h1>게시글 작성</h1>
@@ -111,7 +111,7 @@
 
 					for (var i = files.length - 1; i >= 0; i--) {
 		            	sendFile(files[i], this);
-		            }
+		            }z
 				}
 			}
   	  	}); //summernote
@@ -148,7 +148,13 @@
 			processData : false,
 			success : function(data) {
             	//항상 업로드된 파일의 url이 있어야 한다.
+            	console.log("img"+$("<img>"));
+            	
+            	console.log("img1"+$("<img>"));
            		$(editor).summernote('insertImage', data.url);
+           		
+           		$("img").css("width","100%");
+           		console.log("img2"+$("img"));
 			}
 		});
 	}

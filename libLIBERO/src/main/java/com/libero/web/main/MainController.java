@@ -44,6 +44,13 @@ public class MainController {
 	    
 	    String kakaoUrl ="";
 	    		
+//	    if(session.getAttribute("user") == null) {
+//	    	kakaoUrl = SNSloginController.getAuthorizationUrl(session);
+//	    }else {
+//	    	kakaoUrl = SNSloginController.getLogoutUrl(session);
+//	    }
+	    
+	    //수린수린수린 0807
 	    if(session.getAttribute("user") == null) {
 	    	kakaoUrl = SNSloginController.getAuthorizationUrl(session);
 	    }else {

@@ -11,11 +11,13 @@ public interface ProductDAO {
 
 	//public Product getProduct(int prodNo) throws Exception;
 	
-	public List<Product> getBookList() throws Exception;
+	public List<Product> getBookList(Search search) throws Exception;
 
 	public List<Product> getBookListByCategory(String category);
+
+	public List<Product> getProductList(String prodType, Search search) throws Exception;
 	
-	public List<Product> getProductList(String prodType) throws Exception;
+	public int getProductTotalCount(String prodType) throws Exception;
 
 	public Product getProduct(int prodNo);
 
@@ -26,6 +28,12 @@ public interface ProductDAO {
 	public List<Review> getReview(int prodNo);
 	
 	public List<Product> getBookListBySearch(Search search);
+
+	public int getBookTotalCount() throws Exception;
+
+	public List<Product> getBookList();
+
+
 	
 	
 }

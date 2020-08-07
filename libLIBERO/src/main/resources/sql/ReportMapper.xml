@@ -11,11 +11,12 @@
 		<result property="reportNo"		column="repost_no"		jdbcType="INTEGER"/>
 		<result property="reportType" 	column="report_type"	jdbcType="SMALLINT" />
 		<result property="regDate" 		column="reg_date" 		jdbcType="TIMESTAMP" />
-	
+		<result property="prodPost" 	column="prod_post" 		jdbcType="VARCHAR"/>
+		
 		<association property="user"  	javaType="user">
 		<id		property="userId" 		column="user_id" 			jdbcType="VARCHAR"/>
 		<result property="password" 	column="password" 			jdbcType="VARCHAR" />
-		<result property="nickname"		column="reporter_nick"			jdbcType="VARCHAR"/>
+		<result property="nickname"		column="nickname"			jdbcType="VARCHAR"/>
 		<result property="profile"		column="profile"			jdbcType="VARCHAR"/>
 		<result property="genderCode"	column="gender_code"		jdbcType="CHAR"/>
 		<result property="name"			column="name"				jdbcType="VARCHAR"/>
@@ -52,35 +53,122 @@
 		<result property="viewCount"	column="view_count"		jdbcType="INTEGER"/>
 		<result property="commentCount" column="comment_count"  jdbcType="INTEGER"/>
 		<result property="reportCount"  column="report_count"	jdbcType="INTEGER"/>
-		<result property="user.userId"  	column="poster_id"	jdbcType="INTEGER"/>
-		
-		
+		<result property="user.userId"  column="user_id" 		jdbcType="INTEGER"/>
 		</association>
+		
+		<association property="product"  javaType="product">
+		<result property="prodNo" 		column="prod_no" 			jdbcType="VARCHAR" />
+		<result property="prodType" 	column="prod_type" 			jdbcType="VARCHAR" />
+		<result property="prodName"		column="prod_name" 			jdbcType="VARCHAR" />
+		<result property="prodDetail" 	column="prod_detail" 		jdbcType="LONGVARCHAR" />
+		<result property="retailPrice" 	column="retail_price" 		jdbcType="INTEGER" />
+		<result property="blindCode" 	column="blind_code" 		jdbcType="VARCHAR" />
+		<result property="prodThumbnail" column="prod_thumbnail" 	jdbcType="VARCHAR" />
+		<result property="coverFile" 	column="cover_file" 		jdbcType="VARCHAR" />
+		<result property="purposeCode" 	column="purpose_code" 		jdbcType="VARCHAR" />
+		<result property="manuFile"		column="manu_file"			jdbcType="VARCHAR" />
+		<result property="regDate"		column="reg_date"			jdbcType="TIMESTAMP" />
+		<result property="discountCode"	 column="discount_code"		jdbcType="VARCHAR" />
+		<result property="bookPage"		 column="book_page"			jdbcType="INTEGER" />
+		<result property="printPrice"	 column="print_price"		jdbcType="INTEGER" />
+		<result property="creator"		 column="creator"			jdbcType="VARCHAR" />
+		<result property="colorType"	 column="color_type"		jdbcType="VARCHAR" />
+		<result property="sizeType"		 column="size_type"			jdbcType="VARCHAR" />
+		<result property="coverType"	 column="cover_type"		jdbcType="VARCHAR" />
+		<result property="innerType"	 column="inner_type"		jdbcType="VARCHAR" />
+		<result property="bookCategory"	 column="book_category"		jdbcType="VARCHAR" />
+		<result property="likeCount"	 column="like_count"		jdbcType="INTEGER" />
+		<result property="wishNo"		 column="wish_no"			jdbcType="INTEGER" />
+		<result property="cartNo"		 column="cart_no"			jdbcType="INTEGER" />
+		<result property="buyAmount"	 column="buy_amount"		jdbcType="INTEGER" />
+		<result property="buyNo" 	 	 column="buy_no" 			jdbcType="INTEGER" />
+		<result property="reportCount" 	 column="report_count" 		jdbcType="INTEGER" />
+	</association>		
+	
 		
 	</resultMap>
 		
-	<insert id="addPostReport" parameterType="report">	
+	<insert id="addReport" parameterType="report">	
  		INSERT
- 		INTO report(report_type, post_no, reporter_id)
- 		VALUES(#{reportType:SMALLINT}, #{post.postNo:INTEGER}, #{user.userId:VARCHAR})
+ 		INTO report(report_type, post_no, prod_no, reporter_id, prod_post)
+ 		VALUES(#{reportType:SMALLINT}, #{post.postNo:INTEGER}, #{product.prodNo:INTEGER}, #{user.userId:VARCHAR}, #{prodPost:VARCHAR})
  	</insert>
-
-	<select  id="getPostReportList"  parameterType="search"	resultMap="reportSelectMap">
-  		SELECT * FROM (SELECT 
-						@rownum:=@rownum+1 num, r.*, p.post_name, p.blind_code, u.nickname reporter_nick, p.user_id poster_id
-						FROM report r, post p, user u, (SELECT @rownum:=0) init2
-						where r.post_no = p.post_no
-						and   r.reporter_id = u.user_id
+	
+	
+	<select id="getUserReportList" parameterType="map"	resultMap="reportSelectMap">
+		SELECT * FROM (SELECT 
+						@rownum:=@rownum+1 num, r.*,  
+						<if test='menu== "prod"'>
+					    p1.prod_name, p1.creator, p1.blind_code
+						FROM report AS r
+						inner JOIN product AS p1
+						ON r.prod_no = p1.prod_no
+						WHERE (@rownum:=0)=0
+							<if test='user.role != "a"'>
+							AND p1.creator = #{user.userId}
+							</if>
+						</if>
+						
+						<if test='menu== "post"'>
+					    p2.post_name, p2.user_id, p2.blind_code
+						FROM report AS r
+						inner JOIN post AS p2
+						ON r.post_no = p2.post_no
+						WHERE (@rownum:=0)=0
+							<if test='user.role != "a"'>
+							AND p2.user_id = #{user.userId}
+							</if>
+						</if>		
+						
+						
 						ORDER BY r.report_no DESC) inner_table
-		WHERE num BETWEEN #{startRowNum} AND #{endRowNum}
+		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum}
+		
 	</select>
 	
-	<select  id="getPostReportTotalCount"  parameterType="search"	 resultType="int">
-		SELECT count(*) FROM (SELECT
-								r.*, p.post_name, u.nickname reporter_nick, p.user_id poster_id
-								FROM report r, post p, user u
-								where r.post_no = p.post_no
-								and   r.reporter_id = u.user_id) countable		
+	<select  id="getUserReportTotalCount"  parameterType="search"	 resultType="int">
+		SELECT count(*) FROM (SELECT 
+							    r.*, 
+							    
+						<if test='menu== "prod"'>
+					    p1.prod_name, p1.creator
+						FROM report AS r
+						inner JOIN product AS p1
+						ON r.prod_no = p1.prod_no
+							<if test='user.role != "a"'>
+							AND p1.creator = #{user.userId}
+							</if>
+						</if>
+						<if test='menu== "post"'>
+					    p2.post_name, p2.user_id
+						FROM report AS r
+						inner JOIN post AS p2
+						ON r.post_no = p2.post_no
+							<if test='user.role != "a"'>
+							AND p2.user_id = #{user.userId}
+							</if>
+						</if>		) countable		
 	 </select>
-
+	 
+	 <update id="updatePostReportCount" parameterType="post">
+	 	UPDATE post
+	 	SET
+	 		report_count = report_count + 1
+	 		<if test='reportCount== 2'>
+			, blind_code = 'report'
+			</if>
+		WHERE post_no = #{postNo:INTEGER}
+		
+	</update>
+	
+	 <update id="updateProdReportCount" parameterType="product">
+	 	UPDATE product
+	 	SET
+	 		report_count = report_count + 1
+	 		<if test='reportCount== 2'>
+			, blind_code = 'report'
+			</if>
+		WHERE prod_no = #{prodNo:INTEGER}
+		
+	</update>
 </mapper>

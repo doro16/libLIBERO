@@ -101,14 +101,8 @@ public class PublishDAOImpl implements PublishDAO {
 		return sqlSession.selectList("PublishMapper.getUserPublishList", map);
 	}
 	
-	public void removeTempPublish(Publish publish) throws Exception {
-		if (publish.getHashtagName()!=null) {
-			if (!publish.getHashtagName().contentEquals("")) {
-				sqlSession.delete("PublishMapper.removeHashtag", publish);
-			}
-			sqlSession.delete("PublishMapper.removeHashtag", publish);
-		}
-		sqlSession.delete("PublishMapper.removeTempPublish", publish);
+	public void removeTempPublish(int prodNo) throws Exception {
+		sqlSession.delete("PublishMapper.removeTempPublish", prodNo);
 	}
 	
 	public int getTotalCount(Publish publish) throws Exception {
@@ -123,6 +117,12 @@ public class PublishDAOImpl implements PublishDAO {
 	public List<String> getHashtagList(int prodNo) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("PublishMapper.getHashtagList", prodNo);
+	}
+
+	@Override
+	public void removeHashtag(int prodNo) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.delete("PublishMapper.removeHashtag", prodNo);
 	}
 
 }

@@ -66,11 +66,11 @@ public class UserController {
 	@Value("#{commonProperties['path3']}")
 	String path;
 	
-	@Value("#{commonProperties['pageUnit']}")
+	@Value("#{userProperties['pageUnit']}")
 	//@Value("#{commonProperties['pageUnit'] ?: 3}")
 	int pageUnit;
 	
-	@Value("#{commonProperties['pageSize']}")
+	@Value("#{userProperties['pageSize']}")
 	//@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
@@ -219,13 +219,11 @@ public class UserController {
 
 	
 	@RequestMapping(value = "removeTempPublish", method = RequestMethod.GET)
-	public ModelAndView removeTempPublish(@RequestParam("prodNo")int prodNo, Publish publish) throws Exception {
+	public ModelAndView removeTempPublish(@RequestParam("prodNo")int prodNo) throws Exception {
 		
 		System.out.println("/user/getTempPublishList : GET");
 		
-		publish = publishService.getProduct(prodNo);
-		
-		publishService.removeTempPublish(publish);
+		publishService.removeTempPublish(prodNo);
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("redirect:/user/getTempPublishList");
@@ -290,42 +288,49 @@ public class UserController {
 	}
 	
 
-	@RequestMapping(value = "getAdminReportList", method = RequestMethod.GET)
-	public ModelAndView getAdminReportList(HttpSession session, String role, Report report, Search search) throws Exception{
+	@RequestMapping(value = "getUserReportList", method = RequestMethod.GET)
+	public ModelAndView getUserReportList( @RequestParam(value="menu", required=false) String menu, @ModelAttribute("search") Search search, HttpSession session) throws Exception {
 		System.out.println("/user/getAdminReportList : GET");
 		
 		if(search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
+		Map<String,Object> map = new HashMap<String,Object>(); 
+		
 		ModelAndView modelAndView = new ModelAndView();
-		role = ((User)session.getAttribute("user")).getRole();
 		
+		User user = (User)session.getAttribute("user");
+		String userId = ((User)session.getAttribute("user")).getUserId();
 		
+		System.out.println("menu가 뭔가요"+menu);
+		if(menu.equals(new String("prod"))) {
+			map = reportService.getUserReportList(search, user, menu);
+		} 		
 		
-		if (role.contentEquals("a")) {
-			Map<String,Object> map = reportService.getPostReportList(search);
-			Page resultPage = new Page(search.getCurrentPage(),
-					((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-
-			System.out.println(resultPage);
-			
-			modelAndView.addObject("list", map.get("list"));
-			modelAndView.addObject("resultPage", resultPage);
-			modelAndView.addObject("search", search);
-			modelAndView.addObject("totalCount", map.get("totalCount"));
-					
-			modelAndView.setViewName("forward:/view/user/getAdminReportList.jsp");
-		}else {
-			modelAndView.setViewName("forward:/view/user/getUserReportList.jsp");
-		}
+		if(menu.equals(new String("post"))) {
+			map = reportService.getUserReportList(search, user, menu);
+		} 
+		
+		Page resultPage = new Page(search.getCurrentPage(),
+									((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		
+		System.out.println(resultPage);
+		
+		modelAndView.addObject("list", map.get("list"));
+		modelAndView.addObject("resultPage", resultPage);
+		modelAndView.addObject("search", search);
+		modelAndView.addObject("totalCount", map.get("totalCount"));
+		
+		modelAndView.setViewName("/view/user/getUserReportList.jsp");
 		
 		return modelAndView;
 	}
 	
+	
+	
 	@RequestMapping(value = "getUserActivityList", method = RequestMethod.GET)
-	public ModelAndView getUserActivityList( @RequestParam(value="menu", required=false) String menu, @ModelAttribute("search") Search search, HttpSession session, 
-								Comment comment, Post post) throws Exception {
+	public ModelAndView getUserActivityList( @RequestParam(value="menu", required=false) String menu, @ModelAttribute("search") Search search, HttpSession session) throws Exception {
 		
 		if(search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
@@ -366,6 +371,7 @@ public class UserController {
 		
 		return modelAndView;
 	}
+
 	
 	@RequestMapping(value = "requestCash/{cashWithdraw}", method = RequestMethod.GET)
 	public ModelAndView requestCash(HttpServletRequest request, @PathVariable("cashWithdraw") int cashWithdraw)
@@ -410,6 +416,18 @@ public class UserController {
 		mav.setViewName("redirect:/user/getUserList");
 
 		return mav;
+	}
+	
+	@RequestMapping(value = "getUser", method = RequestMethod.GET)
+	public ModelAndView updateUser(HttpSession session) throws Exception {
+		
+		User user = userService.getUser(((User)session.getAttribute("user")).getUserId());
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName("forward:/view/user/getUser.jsp");
+		
+		return modelAndView;
 	}
 	
 }

@@ -310,7 +310,7 @@
 				</div>
 				<!-- 도서 설명 입력폼(SummerNote) 끝 -->
 				<div class="form-group" align="center">
-		      		<button type="button" class="btn btn-brown lighten-1 btn-block" 
+		      		<button type="button" class="btn btn-info brown lighten-1 btn-block" 
 		      			onclick="addInfo()">
 		      			가격 책정
 		      		</button>

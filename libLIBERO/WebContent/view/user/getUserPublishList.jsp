@@ -44,13 +44,8 @@
 							<div class="card-body">
 								<div class="row">
 									
-							  		<div class="col-lg-2">
-							  			<c:if test="${prod.prodThumbnail!=null}">
-							  				<img class="prodThumbnail" src="../resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}">
-							  			</c:if>
-							  			<c:if test="${prod.prodThumbnail==null}">
-							  				<img class="prodThumbnail" src="../resources/images/publish/fileUpload/null.png">
-							  			</c:if>
+							  		<div class="col-lg-2 align-self-center">
+						  				<img class="prodThumbnail" src="../resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}">
 							  		</div>
 							  		
 							  		<div class="col-lg-7 align-self-center">
@@ -84,13 +79,10 @@
 							   				class="btn btn-brown btn-block" role="button" 
 							   				aria-pressed="true" style="margin-bottom: 10px">판매 통계 조회</a>
 							   			<c:if test="${prod.blindCode=='show'}">
-							  				<button class="btn btn-outline-brown waves-effect btn-block">판매 중지</button>
+							  				<button class="btn btn-outline-brown waves-effect btn-block">판매 중지하기</button>
 							  			</c:if>
 							  			<c:if test="${prod.blindCode=='hide'}">
 							  				<button class="btn btn-brown btn-block">판매 재개</button>
-							  			</c:if>
-							  			<c:if test="${prod.blindCode=='report'}">
-							  				<button class="btn btn-brown btn-block">수정 요청</button>
 							  			</c:if>
 							  			<c:if test="${param.prodType=='prod'}">
 							  				<a href="/libero/publish/updateProduct?prodNo=${prod.prodNo}"
@@ -100,11 +92,11 @@
 							  		</div>
 						  		</div>
 						  		<!-- row End -->
-						  		<div class="row col-lg-12">
-									<c:if test="${prod.blindCode=='report'}">
+						  		<c:if test="${prod.blindCode=='report'}">
+						  		<div class="row col-lg-12" style="margin:0">
 										<p style="margin: 0">신고로 숨김 처리 당한 상품입니다.<br/>신고사유 : ${prod.reportType}</p>
-									</c:if>
 								</div>
+								</c:if>
 						  	</div>
 						  	<!-- Card Body End -->
 						</div>
@@ -129,11 +121,11 @@
 		$(function () {
 			var curPage = 1;
 			curPage = parseInt(curPage);
-			var prodType = "${param.prodType}";
 			
 			$(window).scroll(function() {
-
-		    	if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+				
+		    	if ($(window).scrollTop()+1 >= $(document).height() - $(window).height()) {
+		    		var prodType = "${param.prodType}";
 		    		console.log("okok");
 		    		curPage++;
 		    		getProdList(curPage,prodType);
@@ -154,20 +146,62 @@
           		// Append next contents
           			if (data.list!="") {
           				$.each(data.list, function(index,prod){
-              				var displayValue = "<div class='card border-light mb-3' style='margin-bottom: 20px'>"
-              										+"<div class='card-body'>"
-              											+"<div class='row'>"
-              												+"<div class='col-lg-2'>"
-    							  								+"<img class='prodThumbnail' src='../resources/images/publish/fileUpload/thumbnailFile/"+prod.prodThumbnail+"'>"
-    							  							+"</div>"
-    							  						+"<div class='col-lg-7 align-self-center'>"
-    										  				+"<table>"
-    									  						+"<tbody>"
-    									  							+"<tr>"
-    									  								+"<th>${param.prodType=='book' ? '도서' : '상품' } 제목</th>"
-    									  								+"<td>: "+prod.prodName+"</td></tr></tbody></table></div></div>";
-    									  								
-              				$("#prodList:last").append(displayValue);
+          					var report = (prod.reportType=='1') ? '11111111111': (prod.reportType=='2') ? '22222222222' : (prod.reportType=='3') ? '333333333333' : '44444444444';
+          					
+              				var card = "<div class='card border-light mb-3' style='margin-bottom: 20px'>"
+              								+"<div class='card-body'>"
+              									+"<div class='row'>"
+             										+"<div class='col-lg-2 align-self-center'>"
+   							  							+"<img class='prodThumbnail' src='../resources/images/publish/fileUpload/thumbnailFile/"+prod.prodThumbnail+"'>"
+   							  						+"</div>"
+    							  					+"<div class='col-lg-7 align-self-center'>"
+    										  			+"<table>"
+    									  					+"<tbody>"
+    									  						+"<tr>"
+    									  							+"<th>${param.prodType=='book' ? '도서' : '상품' } 제목</th>"
+    									  							+"<td>: "+prod.prodName+"</td>"
+    									  						+"</tr>";
+    						if (prod.prodType=='paper' || prod.prodType == 'ebook') {
+								card += 						"<tr>"
+																	+"<th>저자</th>"
+																	+"<td>: "+prod.author+"</td>"
+																+"</tr>";
+							}    						
+    						card +=	    					 	"<tr>"
+									  								+"<th>등록 일자</th>"
+									  								+"<td>: "+prod.regDate+"</td>"
+									  							+"</tr>"
+									  							+"<tr>"
+									  								+"<th>판매량</th>"
+									  								+"<td>: "+prod.salesCount+"</td>"
+									  							+"</tr>"
+									  						+"</tbody>"
+														+"</table>"
+													+"</div>"
+    												+"<div class='col-lg-3'>"
+    														+"<a href='javascript:popup("+prod.prodNo+")' class='btn btn-brown btn-block' role='button' aria-pressed='true' style='margin-bottom:10px'>판매 통계 조회</a>";
+														
+    						if (prod.blindCode=='show') {
+								card += 					"<button class='btn btn-outline-brown waves-effect btn-block'>판매 중지하기</button>";
+							}
+    						if (prod.blindCode=='hide') {
+    							card += 					"<button class='btn btn-brown btn-block'>판매 재개</button>";
+							}
+    						
+    						if (prodType=='prod') {
+    							card += 					"<a href='/libero/publish/updateProduct?prodNo="+prod.prodNo+"' class='btn btn-brown btn-block' role='button' aria-pressed='true' style='margin-top: 10px'>상품 수정</a>";
+							}
+							card +=		  			"</div>";
+							if (prod.blindCode=='report') {
+								card +=				"<div class='row col-lg-12' style='margin:0'>"
+														+"<p style='margin: 0'>신고 당한 상품입니다.<br/>신고사유 : "+report+"</p>"
+													+"</div>";
+							}
+							
+							card +=				"</div>"
+											+"</div>"
+										+"</div>";	
+              				$("#prodList:last").append(card);
               			});
 					}
         		}
