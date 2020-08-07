@@ -100,18 +100,16 @@
 				<c:set var="i" value="${ i+1 }" />
 				<div class="col-sm-3">
             <!-- Card -->
-            <a class="card hoverable mb-4 z-depth-0" id="productcard" data-toggle="modal" data-target="#basicExampleModal">
+            <a class="card hoverable mb-4 z-depth-0 h-50" id="productcard" data-toggle="modal" data-target="#basicExampleModal">
 
-              <!-- Card image -->
-              <img class="card-img-top z-depth-1" src="../../resources/images/publish/fileUpload/${product.prodThumbnail}" alt="Card image cap" width="250px" height="400px">
-     
-
+            <!-- Card image -->
+            <img class="card-img-top z-depth-1" id="cardImage" src="../../resources/images/publish/fileUpload/thumbnailFile/${product.prodThumbnail}" alt="Card image cap" width="250px" height="400px">
+            
               <!-- Card content -->
               <div class="card-body" id="card-body">
-
-                <h5 class="my-3" ><a href="/libero/product/getProduct/${product.prodNo}">${product.prodName}</a></h5>
-                <p class="card-text text-uppercase mb-3">${product.author}</p>
-                <p class="card-text text-uppercase mb-3"></p>
+              	<div class="card-text text-uppercase mb-2"><a href="/libero/product/getProduct/${product.prodNo}">${product.prodName}</a></div>
+                <div class="card-text text-uppercase mb-2">${product.creator}</div>&nbsp;&nbsp;
+                <div class="card-text text-uppercase mb-3">${product.retailPrice}원</div>
 
               </div>
 
@@ -124,10 +122,6 @@
             <button type="button" class="btn btn-brown" id="button" value="${i}">more</button >
             <input type="hidden" id="k" value="${product[0].prodType}">
             <input type="hidden" id="maxPage" value="${resultPage.maxPage}">
-            
-            
-            
-            	
 
 </body>
 
@@ -178,10 +172,11 @@
 							displayValue +=	
 								"<div class='col-sm-3'>"
 							  +"<a class='card hoverable mb-4 z-depth-0' id='productcard' data-toggle='modal' data-target='#basicExampleModal'>"
-				              +"<img class='card-img-top z-depth-1' src='../../resources/images/publish/fileUpload/"+product.prodThumbnail+"' alt='Card image cap' width='250px' height='400px'>"
+				              +"<img class='card-img-top z-depth-1' src='../../resources/images/publish/fileUpload/thumbnailFile"+product.prodThumbnail+"' alt='Card image cap' width='250px' height='400px'>"
 				              +"<div class='card-body' id='card-body'>"
-				              +"<h5 class='my-3'><a href=/libero/product/getProduct/"+product.prodNo+">"+product.prodName+"<a></h5>"
-				              +"<p class='card-text text-uppercase mb-3'>"+product.nickname+"</p>"
+				              +"<div class='card-text text-uppercase mb-2'><a href=/libero/product/getProduct/"+product.prodNo+">"+product.prodName+"<a></h5>"
+				              +"<div class='card-text text-uppercase mb-2'>"+product.creator+"</div>"
+				              +"<div class='card-text text-uppercase mb-3'>"+product.retailPrice+"원</div>"
 				              +"</div>"
 				              +"</a>"
 				              +"</div>"

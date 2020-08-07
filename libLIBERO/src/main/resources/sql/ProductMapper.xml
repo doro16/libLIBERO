@@ -33,7 +33,7 @@
 		<result property="cartNo"		 column="cart_no"			jdbcType="INTEGER" />
 		<result property="buyAmount"	 column="buy_amount"		jdbcType="INTEGER" />
 		<result property="buyNo" 	 	 column="buy_no" 			jdbcType="INTEGER" />
-		<result property="reportCount"	 column="buy_no"			jdbcType="INTEGER" />
+		<result property="reportCount"	 column="report_count"			jdbcType="INTEGER" />
 			
 	</resultMap>
 	
@@ -50,12 +50,36 @@
 	</resultMap>
 			
 	<!--  SQL : SELECT LIST -->
-	<select id="getBookList" resultMap="productSelectMap">
+	<select id="getBookListForMain" resultMap="productSelectMap">
 			SELECT *
 			FROM product
 			WHERE (prod_type = 'paper' OR prod_type = 'ebook') 
 			AND blind_code = 'show' 
 			AND purpose_code='sale'
+			ORDER BY reg_date DESC
+	
+	</select>
+	
+	
+	
+	
+	
+	<select id="getBookList" parameterType="search" resultMap="productSelectMap">
+			SELECT *
+			FROM product
+			WHERE (prod_type = 'paper' OR prod_type = 'ebook') 
+			AND blind_code = 'show' 
+			AND purpose_code='sale'
+			ORDER BY reg_date DESC
+			LIMIT #{search.pageSize} OFFSET #{offset}
+	
+	</select>
+	
+	<select id="getBookTotalCount"  resultType="int">
+			SELECT count(*) FROM(
+				SELECT * FROM product
+				WHERE blind_code='show' AND purpose_code='sale'
+			)countable
 	
 	</select>
 	
@@ -69,9 +93,11 @@
 	
 	<select id="getBookListBySearch"	parameterType="search" resultMap="productSelectMap">
 			SELECT * FROM(
-							SELECT *	
-							FROM product 
-							WHERE (prod_type = 'paper' OR prod_type = 'ebook') 
+							SELECT p.prod_name, p.author, p.retail_price, p.prod_no	
+							FROM product p
+							LEFT OUTER JOIN hashtag h
+							ON p.prod_no = h.prod_no
+							AND (prod_type = 'paper' OR prod_type = 'ebook') 
 							AND blind_code='show' 
 							AND purpose_code='sale') pp
 								<where>
@@ -84,7 +110,7 @@
 										</if>
 										
 										<if test="searchCondition == 'hashtag'">
-												hashtag LIKE '%${searchKeyword}%'
+												hashtag_name LIKE '%${searchKeyword}%'
 										</if>
 								
 								</where>

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
 	
@@ -114,7 +114,7 @@
 					      <div class="row">
 					
 					        <div class="col-md-6">
-					          <img class="img-fluid rounded-left" src="../../resources/images/publish/fileUpload/${product.prodThumbnail }" alt="project image">
+					          <img class="img-fluid rounded-left" src="../../resources/images/publish/fileUpload/thumbnailFile/${product.prodThumbnail }" alt="project image">
 					        </div>
 					
 					        <div class="col-md-6 p-5 align-self-center ">

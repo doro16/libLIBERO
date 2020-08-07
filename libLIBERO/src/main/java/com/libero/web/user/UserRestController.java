@@ -272,6 +272,7 @@ public class UserRestController {
 		}
 					
 		session.setAttribute("user", user);
+		session.setAttribute("kakao", "true"); // 수린수린수린 0807
 		mav.setViewName("redirect:/");
 		
 		return mav; 

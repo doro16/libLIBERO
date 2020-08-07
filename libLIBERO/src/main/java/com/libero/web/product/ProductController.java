@@ -61,12 +61,26 @@ public class ProductController{
 		
 			System.out.println("/product/getBookList : GET");
 			
+			Search search = new Search();
+			if(search.getCurrentPage() == 0) {
+				search.setCurrentPage(1);
+}
+			search.setPageSize(pageSize);
+			
 			//BusinessLogic
-			System.out.println("1");
-			Map<String, Object> map=productService.getBookList();
-			System.out.println("2");
+			int totalCount = productService.getBookTotalCount();
+			
+			Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
+			
 			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.addObject("book", map.get("list"));
+			modelAndView.addObject("resultPage", resultPage);
+			modelAndView.addObject("search", search);
+			modelAndView.addObject("totalCount", totalCount);
+			
+			List<Product> list=productService.getBookList(search);
+			
+		
+			modelAndView.addObject("book", list);
 			modelAndView.setViewName("forward:/view/product/getBookList.jsp");
 			
 			return modelAndView;
