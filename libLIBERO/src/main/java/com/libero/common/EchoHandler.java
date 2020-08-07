@@ -42,13 +42,15 @@ public class EchoHandler extends TextWebSocketHandler{
 		System.out.println("----------------------------------------------------------------------- ");
 	//	users.add(session);
 		
-		//Map<String, Object> httpSession = session.getAttributes();
+		Map<String, Object> httpSession = session.getAttributes();
 		
-		User user = (User)session.getAttributes().get("user");
+		User user = (User) httpSession.get("user");
 		
+		//System.out.println(">>>>>>>>>>>>>>>>>>>1"+user.getUserId());
 		if(user != null) {
-		System.out.println(">>>>>>>>>>>>>>>>>>>"+user.toString());
+		System.out.println(">>>>>>>>>>>>>>>>>>>2"+user.getUserId());
 		String senderNickname = user.getNickname();
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+senderNickname);
 		userMap.put(senderNickname, session);
 		}
 	}

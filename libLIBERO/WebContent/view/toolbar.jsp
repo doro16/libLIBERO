@@ -258,12 +258,13 @@
 		}) */
 		
 		function connect(){ 
-			
+			var session = "${sessionScope.user.userId}";
 			//웹소켓 객체 생성하는 부분
 			//핸들러 등록(연결 생성, 메세지 수신, 연결 종료)
 			
 			//url 연결할 서버의 경로
 			if (session!="") {
+				
 			ws = new SockJS("<c:url value="/echo"/>");
 			
 			ws.onopen = function(){
