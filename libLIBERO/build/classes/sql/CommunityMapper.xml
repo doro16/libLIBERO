@@ -159,8 +159,8 @@
 
 	<update id="updateComment"	parameterType="comment">
 		UPDATE COMMENT
-		SET comment_content=#{commentContent:VARCHAR}
-		WHERE comment_no = #{commentNo}
+		SET comment_content=#{commentContent}
+		WHERE comment_no = #{commentNo:NUMERIC}
 	</update>
 	
 	<delete id="deleteComment" parameterType="int" >

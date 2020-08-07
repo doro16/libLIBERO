@@ -39,10 +39,10 @@
 </div>
 <div class="col">
 
-			
   <c:set var="i" value="0" />
 		  <c:forEach var="buyList" items="${buyList}">
 			<c:set var="i" value="${ i+1 }" />
+			
 			
 			<script>
 			$(function(){
@@ -263,7 +263,7 @@
 				
 			
           </c:forEach>
-          
+        
          </div>
           </div>
           </div>		
