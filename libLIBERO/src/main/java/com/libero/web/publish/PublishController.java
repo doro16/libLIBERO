@@ -217,8 +217,8 @@ public class PublishController {
 				g.setFont(titleFont); 
 				g.drawString(publish.getProdName(), (width/2)-180, 530);
 				g.setFont(nameFont); 
-				g.drawString(publish.getAuthor(), (width/2)-(int)(r2.getWidth())+210, 550); 
-				g.drawImage(logo, 290, 570, 130, 40, null);
+				g.drawString(publish.getAuthor(), (width/2)-(int)(r2.getWidth())+225, 550); 
+				g.drawImage(logo, 290, 560, 130, 40, null);
 			}
 			g.dispose(); 
 			UUID savedFileName = UUID.randomUUID();	
