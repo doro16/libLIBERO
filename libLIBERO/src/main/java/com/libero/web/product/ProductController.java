@@ -71,6 +71,8 @@ public class ProductController{
 			int totalCount = productService.getBookTotalCount();
 			
 			Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
+			int maxPage = (totalCount - 11)/pageSize + 2; //처음페이지 10개 출력, 이후 5개 출력에 따른 최대페이지 수
+			resultPage.setPageSize(maxPage);
 			
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject("resultPage", resultPage);

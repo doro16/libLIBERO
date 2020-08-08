@@ -9,6 +9,7 @@
 							    text-indent: -9999px;
 							    cursor: pointer;
 							}
+							zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 							.starR2{
 							    background: url('../resources/images/product/star_review.png') no-repeat right 0;
 							    background-size: auto 100%;

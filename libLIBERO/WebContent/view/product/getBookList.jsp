@@ -127,9 +127,11 @@
             </c:forEach>
             </div></div></div>
             
-            <button type="button" class="btn btn-brown" id="button" value="${i}">more</button >
-            <input type="hidden" id="k" value="${book[0].prodType}">
-            <input type="hidden" id="maxPage" value="${resultPage.maxPage}">
+            <div class="text-center">
+  				<button type="button" class="btn btn-brown btn-rounded" id="button" value="${i}">5개 더보기</button>
+			</div>
+            	<input type="hidden" id="k" value="${book[0].prodType}">
+            	<input type="hidden" id="maxPage" value="${resultPage.maxPage}">
 
 </body>
 

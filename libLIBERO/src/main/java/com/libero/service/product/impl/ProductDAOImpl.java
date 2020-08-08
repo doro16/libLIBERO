@@ -35,11 +35,11 @@ public class ProductDAOImpl implements ProductDAO{
 		
 		//OFFSET 값 계산
 		int offset = (search.getCurrentPage()-1)*(search.getPageSize());
-		if(offset == -1) {
-			hashMap.put("offset", 0);
-		}else {
-			hashMap.put("offset", offset);
+		if(search.getCurrentPage() == 1) {
+			search.setPageSize(10);
 		}
+			hashMap.put("offset", offset);
+		
 
 		hashMap.put("search", search);
 		
