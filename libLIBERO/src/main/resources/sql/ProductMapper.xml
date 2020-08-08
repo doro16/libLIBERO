@@ -64,7 +64,7 @@
 	
 	
 	
-	<select id="getBookList" parameterType="search" resultMap="productSelectMap">
+	<select id="getBookList" parameterType="hashMap" resultMap="productSelectMap">
 			SELECT *
 			FROM product
 			WHERE (prod_type = 'paper' OR prod_type = 'ebook') 
@@ -96,14 +96,11 @@
 	
 	<select id="getBookListBySearch"	parameterType="search" resultMap="productSelectMap">
 			SELECT * FROM(
-							SELECT p.prod_name, p.author, p.retail_price, p.prod_no	
+							SELECT p.prod_name, p.author, p.retail_price, p.prod_no, h.hashtag_name, p.prod_type, p.blind_code, p.purpose_code	
 							FROM product p
 							LEFT OUTER JOIN hashtag h
 							ON p.prod_no = h.prod_no
-							AND (prod_type = 'paper' OR prod_type = 'ebook') 
-							AND blind_code='show' 
-							AND purpose_code='sale') pp
-								<where>
+							<where>
 										<if test="searchCondition == 'author'">
 												author LIKE '%${searchKeyword}%'
 										</if>
@@ -112,12 +109,15 @@
 												prod_name LIKE '%${searchKeyword}%'
 										</if>
 										
-										<if test="searchCondition == 'hashtag'">
-												hashtag_name LIKE '%${searchKeyword}%'
+										<if test="searchCondition == 'hashTag'">
+												h.hashtag_name LIKE '%${searchKeyword}%'
 										</if>
+							</where>
+							) pp
 								
-								</where>
-							
+							WHERE (prod_type = 'paper' OR prod_type = 'ebook') 
+							AND blind_code='show' 
+							AND purpose_code='sale'
 							
 	
 	</select>
