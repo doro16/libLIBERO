@@ -95,18 +95,28 @@ public class BuyServiceImpl implements BuyService{
 		
 		userPayMap.put("payNo",payNo);
 		userPayMap.put("userId",userId);
-		List payList = buyDao.getUserBuy(userPayMap);
+		List buyList = buyDao.getUserBuy(userPayMap);
 		List prodList = new ArrayList();
-		for(int i=0;i<payList.size();i++) {
+		
+		
+		for(int i=0;i<buyList.size();i++) {
 			Buy buy = new Buy();
-			buy = (Buy)payList.get(i);
+			Product prod = new Product();
+			buy = (Buy)buyList.get(i);
 			buy.getProdNo();
-			prodList.add(productDao.getProduct(buy.getProdNo()));
+			prod = productDao.getProduct(buy.getProdNo());
+			prod.setBuyNo(buy.getBuyNo());
+			//System.out.println("======================\n\n\n\n"+prod+"\n\n\n=======================");
+			prod.setBuyAmount(buy.getBuyAmount());
+			//System.out.println("======================\n\n\n\n"+prod+"\n\n\n=======================");
+			prodList.add(prod);
+			prodList.get(i);
+			
 		}
 		
 		map.put("userProduct",prodList);
 		
-		map.put("payList",payList);
+		map.put("payList",buyList);
 	
 		 return map;
 	}
