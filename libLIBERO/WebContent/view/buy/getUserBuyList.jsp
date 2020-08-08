@@ -124,7 +124,7 @@
 				
 					})
 				})
-			}) 
+			})
 			
 			</script>
 			
@@ -257,11 +257,7 @@
     <!-- /.Stepers Wrapper -->
 
   </div>
-</div>
-
-		 
-				
-			
+</div>			
           </c:forEach>
         
          </div>
