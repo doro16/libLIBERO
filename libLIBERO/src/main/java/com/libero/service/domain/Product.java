@@ -38,9 +38,15 @@ public class Product implements Serializable{
 	
 	private int wishNo;
 	private int cartNo;
+	
+	
 	private int buyAmount;
 	
 	private int buyNo;
+	
+	
+	
+	
 	
 	public Product() {
 		
