@@ -1,12 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-				<title>»óÇ°¸®ºä</title>
-				<jsp:include page="/common/cdn.jsp"></jsp:include>
+
 				<style>
 				     		.starR1{
 							    background: url('../resources/images/product/star_review.png') no-repeat -52px 0;
@@ -41,21 +33,20 @@
 								height: 3.5rem; }
 																	
 				</style>
-</head>
-<body>
+
 
 
 <ul class="navbar-nav">
 				<li class="nav-item" id="review">
-					<button data-target="#addReviewModal" data-toggle="modal" id="exampleModalLabel" class="btn btn-brown-lighten3">¸®ºäµî·Ï</button>
+					<button data-target="#addReviewModal" data-toggle="modal" id="addReviewButton${i}" class="btn btn-brown-lighten3" value="${getProduct.buyNo }">ë¦¬ë·°ë“±ë¡</button>
 				</li>
 </ul>
-<!-- ¸®ºäµî·Ï ¸ğ´ŞÃ¢ -->				
+<!-- ë¦¬ë·°ë“±ë¡ ëª¨ë‹¬ì°½ -->				
 <div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 		<div class="modal-content">
 				<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">¸®ºä µî·Ï</h5>
+						<h5 class="modal-title" id="exampleModalLabel">ë¦¬ë·° ë“±ë¡</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 						</button>
@@ -64,25 +55,25 @@
 				<div class="modal-body">
 						<form name="addReviewForm">
 								<div class="form-group">
-								<label for="recipient-name" class="col-form-label">º°Á¡</label>
+								<label for="recipient-name" class="col-form-label">ë³„ì </label>
 									<div class="starRev">
-									  <span class="starR1 on" id="5" >º°1_¿ŞÂÊ</span>
-									  <span class="starR2" id="10" >º°1_¿À¸¥ÂÊ</span>
-									  <span class="starR1" id="15" >º°2_¿ŞÂÊ</span>
-									  <span class="starR2" id="20" >º°2_¿À¸¥ÂÊ</span>
-									  <span class="starR1" id="25" >º°3_¿ŞÂÊ</span>
-									  <span class="starR2" id="30" >º°3_¿À¸¥ÂÊ</span>
-									  <span class="starR1" id="35" >º°4_¿ŞÂÊ</span>
-									  <span class="starR2" id="40" >º°4_¿À¸¥ÂÊ</span>
-									  <span class="starR1" id="45" >º°5_¿ŞÂÊ</span>
-									  <span class="starR2" id="50" >º°5_¿À¸¥ÂÊ</span>
+									  <span class="starR1 on" id="5" >ë³„1_ì™¼ìª½</span>
+									  <span class="starR2" id="10" >ë³„1_ì˜¤ë¥¸ìª½</span>
+									  <span class="starR1" id="15" >ë³„2_ì™¼ìª½</span>
+									  <span class="starR2" id="20" >ë³„2_ì˜¤ë¥¸ìª½</span>
+									  <span class="starR1" id="25" >ë³„3_ì™¼ìª½</span>
+									  <span class="starR2" id="30" >ë³„3_ì˜¤ë¥¸ìª½</span>
+									  <span class="starR1" id="35" >ë³„4_ì™¼ìª½</span>
+									  <span class="starR2" id="40" >ë³„4_ì˜¤ë¥¸ìª½</span>
+									  <span class="starR1" id="45" >ë³„5_ì™¼ìª½</span>
+									  <span class="starR2" id="50" >ë³„5_ì˜¤ë¥¸ìª½</span>
 									  <input type="hidden" id="starRate" name="starRate" value="">
 									</div></br></br>
 								
 								<!--Material textarea-->
 									
 									<div class="md-form">
-										  <textarea id="textarea-char-counter" class="form-control md-textarea" length="120" rows="3" name="reviewContent">ÇÏÀÌ¿ä</textarea>
+										  <textarea id="textarea-char-counter" class="form-control md-textarea" length="120" rows="3" name="reviewContent">í•˜ì´ìš”</textarea>
 										  <label for="textarea-char-counter" id="review">Type your text</label>
 										  <input type="hidden" id="reviewContent" name="reviewContent">
 									</div>
@@ -105,42 +96,43 @@
 				
 				
 				<div class="modal-footer">
-						<button type="button" class="btn btn-cyan" id="addButton">µî·Ï</button>
-						<button type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">Ãë¼Ò</button>
+						<button type="button" class="btn btn-cyan" id="addButton">ë“±ë¡</button>
+						<button type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">ì·¨ì†Œ</button>
 				</div>
 			</div>
 			</div>
 		</div>		
-	</body>
+
+
 	<script type="text/javascript">
-	
-				//º°Á¡ ¼³Á¤ ÀÌº¥Æ®
+	alert($("#addReviewButton${i}").val()+"íƒœìš±ìŠ¤")
+				//ë³„ì  ì„¤ì • ì´ë²¤íŠ¸
 				$('.starRev span').click(function(){
 					  $(this).parent().children('span').removeClass('on');
 					  $(this).addClass('on').prevAll('span').addClass('on');
-					  //var content = $("#textarea-char-counter").text();   ½ÇÇè
+					  //var content = $("#textarea-char-counter").text();   ì‹¤í—˜
 					  var starRate = $(this).attr("id");
 					  
 					  $("#starRate").val(starRate);
-					  //var star = $("#starRate").val(); ½ÇÇè
-					  //alert(star); ½ÇÇè
-					  //alert(starRate); ½ÇÇè
+					  //var star = $("#starRate").val(); ì‹¤í—˜
+					  //alert(star); ì‹¤í—˜
+					  //alert(starRate); ì‹¤í—˜
 					  
 					  return false;
 				});//end starRev click function
 				
-				//µî·Ï ¹öÆ° Å¬¸¯ ÀÌº¥Æ®
+				//ë“±ë¡ ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸
 				$('#addButton').click(function(){
 					
-					var starRate = $('span[class*=on]:last').attr("id"); //º°Á¡ÀÌ ÂïÈù °¡Àå ¸¶Áö¸· spanÀÇ ¾ÆÀÌµğ°ª
+					var starRate = $('span[class*=on]:last').attr("id"); //ë³„ì ì´ ì°íŒ ê°€ì¥ ë§ˆì§€ë§‰ spanì˜ ì•„ì´ë””ê°’
 					alert(starRate);
-					var content = $("#textarea-char-counter").val(); // ÀÔ·ÂÇÑ ¸®ºä³»¿ë
+					var content = $("#textarea-char-counter").val(); // ì…ë ¥í•œ ë¦¬ë·°ë‚´ìš©
 					alert(content);
 					
 					
 					
 						
-						//¸®ºä ³»¿ë, º°Á¡
+						//ë¦¬ë·° ë‚´ìš©, ë³„ì 
 						$.ajax({
 							url : "/libero/product/json/addReview",
 							type: "POST",
@@ -149,7 +141,7 @@
 										"Accept" : "application/json",
 										"Content-Type" : "application/json"
 									 },
-							data: {"userId": "${sessionScope.user.userId}", "starRate" : starRate, "reviewContent" : content, "buyNo" : 10001},
+							data: {"userId": "${sessionScope.user.userId}", "starRate" : starRate, "reviewContent" : content, "buyNo" : 10001 },
 							success : function(data, success){
 								
 								
@@ -157,7 +149,7 @@
 								alert(message);
 								$('#addReviewModal').modal("hide");
 								window.location.reload();
-								alert("¼º°ø");
+								alert("ì„±ê³µ");
 								
 							}//end success
 						});//end ajax
@@ -184,7 +176,7 @@
 								var message = data.message;
 								alert(message);
 								window.location.reload();
-								alert("¼º°ø2");
+								alert("ì„±ê³µ2");
 								
 							}//end success
 						});//end ajax	
@@ -192,4 +184,3 @@
 				})//end addbutton click
 				
 	</script>
-</html>
