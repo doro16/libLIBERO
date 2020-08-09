@@ -228,6 +228,8 @@ public class UserRestController {
 		System.out.println("/user/json/kakaologin");
 		
 		ModelAndView mav = new ModelAndView(); 
+		session.setAttribute("kakao", "true"); // 수린수린수린 0807
+		mav.setViewName("redirect:/");
 		
 		User user = (User) session.getAttribute("user");	
 		JsonNode node = SNSloginController.getAccessToken(code); 
@@ -249,8 +251,12 @@ public class UserRestController {
 			
 			if(userService.getUserByKakao(kId) != null) {		
 				user = userService.getUserByKakao(kId);
+				session.setAttribute("user", user);
+				return mav;
 			}else if(userService.getUser(kEmail) != null) {
 				user = userService.getUser(kEmail);
+				session.setAttribute("user", user);
+				return mav;
 			}else if(userService.getUserByKakao(kId) == null && userService.getUser(kEmail) == null) {			
 				user.setUserId(kEmail);	
 				user.setPassword((UUID.randomUUID().toString().replaceAll("-", "")).substring(0, 14));
@@ -260,6 +266,9 @@ public class UserRestController {
 				
 				userService.addUser(user);				
 				user = userService.getUser(user.getUserId());
+				
+				session.setAttribute("user", user);
+				return mav;
 			}		
 		}else { 
 			User kUser = userService.getUser(kEmail);
@@ -271,11 +280,7 @@ public class UserRestController {
 				  userService.addKakaoId(user.getUserId(), kId);	  			 
 			}
 		}
-					
-		session.setAttribute("user", user);
-		session.setAttribute("kakao", "true"); // 수린수린수린 0807
-		mav.setViewName("redirect:/");
-		
+							
 		return mav; 
 		}
 	
