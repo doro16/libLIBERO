@@ -78,13 +78,15 @@ public class ProductController{
 			resultPage.setPageSize(maxPage);
 			
 			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.addObject("resultPage", resultPage);
-			modelAndView.addObject("search", search);
-			modelAndView.addObject("totalCount", totalCount);
+
 			
 			List<Product> list=productService.getBookList(search);
 			
-		
+			search.setCurrentPage(2); //5개 더보기 할때 오프셋 10부터 시작하기 위함. 첫페이지가 10개 출력했음으로인해
+			modelAndView.addObject("search", search);
+			modelAndView.addObject("resultPage", resultPage);
+			modelAndView.addObject("totalCount", totalCount);
+
 			modelAndView.addObject("book", list);
 			modelAndView.setViewName("forward:/view/product/getBookList.jsp");
 			

@@ -278,7 +278,12 @@ public class ProductRestController {
 
 					System.out.println("/product/json/getBookList : GET");
 					System.out.println("curPage : "+currentPage);
-					currentPage = currentPage + 1;
+					if(currentPage == 1) {
+						currentPage = currentPage + 2;
+					}else {
+						currentPage = currentPage + 1;
+					}
+					
 					System.out.println("prodType : "+prodType);
 					search.setPageSize(pageSize);
 					search.setCurrentPage(currentPage);

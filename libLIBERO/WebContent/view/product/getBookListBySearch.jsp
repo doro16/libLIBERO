@@ -132,8 +132,8 @@
 			</div>
             	<input type="hidden" id="k" value="${book[0].prodType}">
             	<input type="hidden" id="maxPage" value="${resultPage.maxPage}">
-            	<input type="hidden" id="searchCondition" value="${searchCondition}">
-            	<input type="hidden" id="searchKeyword"	  value="${searchKeyword}">
+            	<input type="hidden" id="searchCondition" value="${search.searchCondition}">
+            	<input type="hidden" id="searchKeyword"	  value="${search.searchKeyword}">
 
 </body>
 
@@ -152,6 +152,8 @@
 				curPage = parseInt(curPage);
 				
 				alert("최대 출력페이지 : "+maxPage);
+				alert(searchCondition);
+				alert(searchKeyword);
 				//alert(curPage);
 				
 				

@@ -32,9 +32,10 @@ public class ProductDAOImpl implements ProductDAO{
 		// TODO Auto-generated method stub
 		
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
-		
+		System.out.println("DAO 현재페이지?"+search.getCurrentPage());
 		//OFFSET 값 계산
 		int offset = (search.getCurrentPage()-1)*(search.getPageSize());
+		System.out.println("오프셋은 "+offset);
 		if(search.getCurrentPage() == 1) {
 			search.setPageSize(10);
 		}
