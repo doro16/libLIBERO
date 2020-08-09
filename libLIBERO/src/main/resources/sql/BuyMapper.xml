@@ -69,6 +69,7 @@
 	<select id ="getUserBuy" parameterType="hashmap" resultMap="buySelectMapper">
 	SELECT 
 			DISTINCT
+			buy.buy_no,
 			buy.prod_no,
 			buy.pay_no,
 			buy.prod_type,
@@ -96,6 +97,7 @@
 			   FROM pay
 		WHERE user_id = #{value}
 		AND pay_code = 'paid'
+		ORDER BY pay_date DESC
 				
 	</select>
 	<select id="getProdNo" parameterType="int" resultType="int">

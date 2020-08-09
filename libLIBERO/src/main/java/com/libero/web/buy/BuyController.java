@@ -23,6 +23,7 @@ import com.libero.service.domain.Buy;
 import com.libero.service.domain.Cash;
 import com.libero.service.domain.Pay;
 import com.libero.service.domain.Product;
+import com.libero.service.domain.Review;
 import com.libero.service.domain.User;
 import com.libero.service.product.ProductService;
 import com.libero.service.user.UserService;
@@ -62,10 +63,14 @@ public class BuyController {
 		// payNo는 리스트에서 조회할때 가져오는 걸로.
 
 		Map<String, Object> map = buyService.getUserBuy(userId, payNo);
+		//System.out.println("=========================\n\n\n"+map.get("payList")+"\n\n\n====================");
+		
+		
 
+		System.out.println("=========================\n\n\n"+map.get("userProduct")+"\n\n\n====================");
 		model.addAttribute("getProduct", map.get("userProduct"));
-		model.addAttribute("getPay", map.get("payList"));
-
+		//model.addAttribute("getPay", map.get("payList"));
+		//model.addAttribute("getProductBuy",review);
 		return "forward:/view/buy/getUserBuy.jsp";
 	}
 

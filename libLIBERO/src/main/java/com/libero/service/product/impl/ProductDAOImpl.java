@@ -2,6 +2,7 @@ package com.libero.service.product.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +35,11 @@ public class ProductDAOImpl implements ProductDAO{
 		
 		//OFFSET 값 계산
 		int offset = (search.getCurrentPage()-1)*(search.getPageSize());
-		if(offset == -1) {
-			hashMap.put("offset", 0);
-		}else {
-			hashMap.put("offset", offset);
+		if(search.getCurrentPage() == 1) {
+			search.setPageSize(10);
 		}
+			hashMap.put("offset", offset);
+		
 
 		hashMap.put("search", search);
 		
@@ -121,6 +122,13 @@ public class ProductDAOImpl implements ProductDAO{
 	public List<Product> getBookList() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("ProductMapper.getBookListForMain");
+	}
+
+	@Override
+	public List<Product> getBookListByCategory(String category, Search search) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		return sqlSession.selectList("ProductMapper.getBookListByCategory", hashMap);
 	}
 	
 }//end class

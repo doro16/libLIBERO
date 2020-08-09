@@ -64,13 +64,15 @@ public class ProductController{
 			Search search = new Search();
 			if(search.getCurrentPage() == 0) {
 				search.setCurrentPage(1);
-}
+			}
 			search.setPageSize(pageSize);
 			
 			//BusinessLogic
 			int totalCount = productService.getBookTotalCount();
 			
 			Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
+			int maxPage = (totalCount - 11)/pageSize + 2; //처음페이지 10개 출력, 이후 5개 출력에 따른 최대페이지 수
+			resultPage.setPageSize(maxPage);
 			
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject("resultPage", resultPage);
@@ -90,6 +92,12 @@ public class ProductController{
 	 public ModelAndView getBookListByCategory(@PathVariable String bookCategory) throws Exception {
 		 		
 		 System.out.println("카테고리 : "+bookCategory);
+		 
+			Search search = new Search();
+			if(search.getCurrentPage() == 0) {
+				search.setCurrentPage(1);
+			}
+			search.setPageSize(pageSize);
 		 		
 		 String category = null;
 			if(bookCategory.equals("edu")) {
@@ -108,15 +116,22 @@ public class ProductController{
 		 	//BusinessLogic
 		 	System.out.println("/product/getBookListByCategory : GET, pathVariable : "+category);
 		 	
-		 	Map<String, Object> map=productService.getBookListByCategory(category);
-		 	System.out.println("컨트롤러 가져온것 :: "+map);
-		 	System.out.println("컨트롤러 가져온것 2:: "+map.get("list"));
-		 	ModelAndView modelAndView = new ModelAndView();
+		 	int totalCount = productService.getBookTotalCount();
+			
+			Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
+			
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject("resultPage", resultPage);
+			modelAndView.addObject("search", search);
+			modelAndView.addObject("totalCount", totalCount);
+		 	
+		 	List<Product> list=productService.getBookListByCategory(category, search);
+		 	System.out.println("컨트롤러 가져온것 :: "+list);
 		 	
 		 	//List<Product> product = (List<Product>) map.get("list");
 		 	//product[0].get()
 		 	//System.out.println(product.get(index).getBookCateogry);
-		 	modelAndView.addObject("book", map.get("list"));
+		 	modelAndView.addObject("book", list);
 		 	modelAndView.setViewName("forward:/view/product/getBookListByCategory.jsp");
 		 	
 		 	return modelAndView;

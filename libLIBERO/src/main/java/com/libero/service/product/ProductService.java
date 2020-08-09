@@ -34,6 +34,8 @@ public interface ProductService {
 	public int getProductTotalCount(String prodType) throws Exception;
 
 	public int getBookTotalCount() throws Exception;
+	
+	public List<Product> getBookListByCategory(String category, Search search);
 
 
 
