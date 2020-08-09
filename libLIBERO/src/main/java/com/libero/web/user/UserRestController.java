@@ -68,7 +68,7 @@ public class UserRestController {
 	
 	//method
 	@RequestMapping( value="json/login", method=RequestMethod.POST )
-	public User login(@RequestBody Map<String, Object> params, HttpSession session ) throws Exception{
+	public User login(@RequestBody Map<String, Object> params, HttpServletRequest request ) throws Exception{
 	
 		System.out.println("/user/json/login : POST");
 		//Business Logic
@@ -76,9 +76,10 @@ public class UserRestController {
 		User user = userService.getUser((String) params.get("userId"));
 		
 		if( ((String)params.get("password")).equals(user.getPassword())){
+			HttpSession session = request.getSession(true);
 			session.setAttribute("user", user);
+			System.out.println(">>>>> "+session.getId());
 		}
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("user"));
 		return user;
 	}
 	
@@ -264,9 +265,10 @@ public class UserRestController {
 			User kUser = userService.getUser(kEmail);
 			if(kUser == null) {
 				userService.addKakaoId(user.getUserId(), kId);				
-			}else {
-				//user_id가 kakao_id인 모든 테이블을 user.getUserId()로 바꿔주기
-				userService.delUser(kId);
+			}else {			
+				  userService.updateKakaoToUser(user.getUserId(), kEmail);
+				  userService.delUser(kId);
+				  userService.addKakaoId(user.getUserId(), kId);	  			 
 			}
 		}
 					

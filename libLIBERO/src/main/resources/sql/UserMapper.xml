@@ -34,6 +34,7 @@
 		<result property="whitePrice"	column="white_price"		jdbcType="INTEGER"/>
 		<result property="ivoryPrice"	column="ivory_price"		jdbcType="INTEGER"/>
 		<result property="roughPrice"	column="rough_price"		jdbcType="INTEGER"/>
+		<result property="kakaoId"		column="kakao_id"			jdbcType="VARCHAR"/>
 	</resultMap>
 	
 	
@@ -214,7 +215,47 @@
 	
 	<delete id="delUser" parameterType="string">
 	DELETE FROM user 
-	WHERE user_id = #{kakaoId}
+	WHERE kakao_id = #{kakaoId}
 	</delete>
+	
+	<update id="updateUserFromBuy" parameterType="map">
+	UPDATE buy SET user_id = #{userId} where user_id = #{kEmail}
+	</update>
+	
+	<update id="updateUserFromCash" parameterType="map">
+	UPDATE cash SET user_id = #{userId} where user_id = #{kEmail}
+	</update>
+	
+	<update id="updateUserFromComment" parameterType="map">
+	UPDATE comment SET user_id = #{userId} where user_id = #{kEmail}
+	</update>
+	
+	<update id="updateUserFromHashtag" parameterType="map">
+	UPDATE hashtag SET user_id = #{userId} where user_id = #{kEmail}
+	</update>
+	
+	<update id="updateUserFromPay" parameterType="map">
+	UPDATE pay SET user_id = #{userId} where user_id = #{kEmail}
+	</update>
+	
+	<update id="updateUserFromPost" parameterType="map">
+	UPDATE post SET user_id = #{userId} where user_id = #{kEmail}
+	</update>
+	
+	<update id="updateUserFromProduct" parameterType="map">
+	UPDATE product SET creator = #{userId} where creator = #{kEmail}
+	</update>
+	
+	<update id="updateUserFromReport" parameterType="map">
+	UPDATE report SET reporter_id = #{userId} where reporter_id = #{kEmail}
+	</update>
+	
+	<update id="updateUserFromReview" parameterType="map">
+	UPDATE review SET user_id = #{userId} where user_id = #{kEmail}
+	</update>
+	
+	<update id="updateUserFromWish" parameterType="map">
+	UPDATE wish SET user_id = #{userId} where user_id = #{kEmail}
+	</update>
 	 
 </mapper>

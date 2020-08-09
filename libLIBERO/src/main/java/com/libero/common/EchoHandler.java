@@ -5,32 +5,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.websocket.server.ServerEndpoint;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.libero.service.domain.User;
 
 
-@Component
+@ServerEndpoint(value = "/echo")
 @RequestMapping("/echo")
 public class EchoHandler extends TextWebSocketHandler{
 	
 	//webSocketSession 클라이언트 당 하나씩 생성, 해당 클라이언트와 연결된 웹소켓을 연결 
 	//해당 객체를 통해 메세지를 주고 받음
-	private List<WebSocketSession> users;
-	private Map<String, Object> userMap;
-	
+	private Map<String, WebSocketSession> userMap;
+
 	public EchoHandler() {
-		users = new ArrayList<WebSocketSession>();
-		userMap = new HashMap<String, Object>();
+		  userMap = new HashMap<String, WebSocketSession>();		 
 	}
 	
 	// 클라이언트가 서버로 연결된 이후 실행
@@ -40,13 +41,14 @@ public class EchoHandler extends TextWebSocketHandler{
 		System.out.println("----------------------------------------------------------------------- ");
 		System.out.println("WEBSOCKET afterConnectionEstablished : 연결 생성");
 		System.out.println("----------------------------------------------------------------------- ");
-	//	users.add(session);
+
+		System.out.println(">>>1 "+session);
+		System.out.println(">>>2 "+session.getId());
+		System.out.println(">>>3 "+session.getAttributes());
 		
 		Map<String, Object> httpSession = session.getAttributes();
-		
 		User user = (User) httpSession.get("user");
 		
-		//System.out.println(">>>>>>>>>>>>>>>>>>>1"+user.getUserId());
 		if(user != null) {
 		System.out.println(">>>>>>>>>>>>>>>>>>>2"+user.getUserId());
 		String senderNickname = user.getNickname();
@@ -85,27 +87,16 @@ public class EchoHandler extends TextWebSocketHandler{
 		System.out.println("----------------------------------------------------------------------- ");
 		System.out.println("afterConnectionClosed : 연결 종료");
 		System.out.println("----------------------------------------------------------------------- ");
-		users.remove(session);
+		userMap.clear();
 	}
 	
-	/*
-	 * private String getNickname(WebSocketSession session) { Map<String, Object>
-	 * httpSession = session.getAttributes();
-	 * 
-	 * System.out.println(httpSession.size());
-	 * 
-	 * User user = (User) httpSession.get("user");
-	 * 
-	 * 
-	 * System.out.println("!!!!!!!!!!!!!!!!!!!!!!"+user);
-	 * 
-	 * System.out.println("========================================="); if(user ==
-	 * null) { System.out.println(">>>>>>>>>>>>>>>>>1 "+session.getId()); return
-	 * session.getId(); }else {
-	 * System.out.println(">>>>>>>>>>>>>>>>>2 "+user.getNickname()); return
-	 * user.getNickname(); }
-	 * 
-	 * }
-	 */
+	 // 메시지 전송시나 접속해제시 오류가 발생할 때 호출되는 메소드
+    @Override
+    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+        super.handleTransportError(session, exception);
+        System.out.println("----------------------------------------------------------------------- ");
+        System.out.println("전송오류 발생");
+        System.out.println("----------------------------------------------------------------------- ");
+    }
 
 }

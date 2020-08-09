@@ -85,7 +85,6 @@ public class UserController {
 			session.setAttribute("user", dbUser);
 		}
 		
-		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("user"));
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("redirect:/");
 		
@@ -423,7 +422,11 @@ public class UserController {
 		
 		User user = userService.getUser(((User)session.getAttribute("user")).getUserId());
 		
+		String kakaoUrl = SNSloginController.getAuthorizationUrl(session);
+		
+		
 		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("kakao_url", kakaoUrl);
 		modelAndView.addObject("user", user);
 		modelAndView.setViewName("forward:/view/user/getUser.jsp");
 		
