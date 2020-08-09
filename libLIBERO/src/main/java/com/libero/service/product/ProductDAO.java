@@ -14,8 +14,6 @@ public interface ProductDAO {
 	
 	public List<Product> getBookList(Search search) throws Exception;
 
-	public List<Product> getBookListByCategory(String category);
-
 	public List<Product> getProductList(String prodType, Search search) throws Exception;
 	
 	public int getProductTotalCount(String prodType) throws Exception;
@@ -35,6 +33,12 @@ public interface ProductDAO {
 	public List<Product> getBookList();
 
 	public List<Product> getBookListByCategory(String category, Search search);
+
+	public int getBookTotalCount(String category) throws Exception;
+
+	public int getBookTotalCountBySearch(Search search) throws Exception;
+
+	
 
 
 	

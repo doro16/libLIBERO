@@ -13,9 +13,8 @@ public interface ProductService {
 	
 	//public Map<String, Object> getProductList(Search search) throws Exception;
 	public Map<String, Object> getBookList() throws Exception;
+	
 	public List<Product> getBookList(Search search) throws Exception;
-
-	public Map<String, Object> getBookListByCategory(String bookCategory) throws Exception;
 
 	public List<Product> getProductList(String prodType, Search search) throws Exception;
 
@@ -36,6 +35,10 @@ public interface ProductService {
 	public int getBookTotalCount() throws Exception;
 	
 	public List<Product> getBookListByCategory(String category, Search search);
+	
+	public int getBookTotalCount(String category) throws Exception;
+
+	public int getBookTotalCountBySearch(Search search) throws Exception;
 
 
 

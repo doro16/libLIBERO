@@ -47,11 +47,41 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 
 	@Override
-	public List<Product> getBookListByCategory(String category) {
+	public List<Product> getBookListByCategory(String category, Search search) {
 		System.out.println("DAOImpl.getBookListByCategory : "+category);
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		
-	   return sqlSession.selectList("ProductMapper.getBookListByCategory", category);
+		//OFFSET 값 계산
+		int offset = (search.getCurrentPage()-1)*(search.getPageSize());
+		if(search.getCurrentPage() == 1) {
+			search.setPageSize(10);
+		}
+			hashMap.put("offset", offset);
+
+		hashMap.put("category", category);
+		hashMap.put("search", search);
+
+		
+	   return sqlSession.selectList("ProductMapper.getBookListByCategory", hashMap);
 	}
+	
+		public List<Product> getBookListBySearch(Search search){
+				
+				System.out.println("DAOImpl.getBookListBySearch : "+search);
+				HashMap<String, Object> hashMap = new HashMap<String, Object>();
+				
+				//OFFSET 값 계산
+						int offset = (search.getCurrentPage()-1)*(search.getPageSize());
+						if(search.getCurrentPage() == 1) {
+							search.setPageSize(10);
+						}
+							hashMap.put("offset", offset);
+		
+						hashMap.put("search", search);
+		
+				return sqlSession.selectList("ProductMapper.getBookListBySearch", hashMap);
+				
+			}
 	
 	@Override
 	public List<Product> getProductList(String prodType, Search search) {
@@ -100,11 +130,7 @@ public class ProductDAOImpl implements ProductDAO{
 		return sqlSession.selectList("ProductMapper.getReview", prodNo);
 	}
 	
-	public List<Product> getBookListBySearch(Search search){
-		
-		return sqlSession.selectList("ProductMapper.getBookListBySearch", search);
-		
-	}
+	
 
 	@Override
 	public int getProductTotalCount(String prodType) throws Exception {
@@ -117,6 +143,19 @@ public class ProductDAOImpl implements ProductDAO{
 		
 		return sqlSession.selectOne("ProductMapper.getBookTotalCount");
 	}
+	
+	@Override
+	public int getBookTotalCount(String category) throws Exception {
+		
+		return sqlSession.selectOne("ProductMapper.getBookTotalCountByCategory", category);
+	}
+	
+	@Override
+	public int getBookTotalCountBySearch(Search search) throws Exception {
+		
+		return sqlSession.selectOne("ProductMapper.getBookTotalCountBySearch", search);
+	}
+	
 
 	@Override
 	public List<Product> getBookList() {
@@ -124,11 +163,7 @@ public class ProductDAOImpl implements ProductDAO{
 		return sqlSession.selectList("ProductMapper.getBookListForMain");
 	}
 
-	@Override
-	public List<Product> getBookListByCategory(String category, Search search) {
-		// TODO Auto-generated method stub
-		HashMap<String, Object> hashMap = new HashMap<String, Object>();
-		return sqlSession.selectList("ProductMapper.getBookListByCategory", hashMap);
-	}
+
+	
 	
 }//end class

@@ -52,15 +52,7 @@ public class ProductServiceImpl implements ProductService{
 		return list;
 	}
 
-	@Override
-	public Map<String, Object> getBookListByCategory(String Category) throws Exception {
-		List<Product> list = productDAO.getBookListByCategory(Category);
-		System.out.println(list);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		
-		return map;
-	}
+
 	
 	@Override
 	public List<Product> getBookListBySearch(Search search) {
@@ -119,8 +111,17 @@ public class ProductServiceImpl implements ProductService{
 		return productDAO.getBookListByCategory(category, search);
 	}
 
+	@Override
+	public int getBookTotalCount(String category) throws Exception {
+		// TODO Auto-generated method stub
+		return productDAO.getBookTotalCount(category);
+	}
 
-
+	@Override
+	public int getBookTotalCountBySearch(Search search) throws Exception {
+		// TODO Auto-generated method stub
+		return productDAO.getBookTotalCountBySearch(search);
+	}
 
 
 }
