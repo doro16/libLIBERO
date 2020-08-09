@@ -49,7 +49,11 @@
 			<mvc:exclude-mapping path="/product/**"/>
 			<mvc:exclude-mapping path="/resources/**"/>
 			<mvc:exclude-mapping path="/echo/**"/>
+<<<<<<< HEAD
 			<mvc:exclude-mapping path="/ws/**"/>
+=======
+			<mvc:exclude-mapping path="/user/json/kakaologin"/>
+>>>>>>> refs/remotes/origin/master
 			<bean class="com.libero.common.web.LogonCheckInterceptor" />
    		</mvc:interceptor>
 
@@ -102,11 +106,10 @@
 	
 	<websocket:handlers>
 		<websocket:mapping handler="echoHandler" path="/echo" />
-		<websocket:handshake-interceptors>
-	         <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
-	      </websocket:handshake-interceptors>
- 
-	      <websocket:sockjs/>
+		<websocket:handshake-interceptors> 
+		<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" /> 
+		</websocket:handshake-interceptors> 
+		<websocket:sockjs />
 	 </websocket:handlers>
 	
 </beans>
