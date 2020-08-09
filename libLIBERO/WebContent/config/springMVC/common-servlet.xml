@@ -48,6 +48,8 @@
 			<mvc:exclude-mapping path="/community/**"/>
 			<mvc:exclude-mapping path="/product/**"/>
 			<mvc:exclude-mapping path="/resources/**"/>
+			<mvc:exclude-mapping path="/echo/**"/>
+			<mvc:exclude-mapping path="/user/json/kakaologin"/>
 			<bean class="com.libero.common.web.LogonCheckInterceptor" />
    		</mvc:interceptor>
 
@@ -96,15 +98,14 @@
 	</bean>
 	
 	<!-- websocket handler -->
-	<bean id="echoHandler" class="com.libero.common.EchoHandler" />
+	<!-- <bean id="echoHandler" class="com.libero.common.EchoHandler" />
 	
 	<websocket:handlers>
 		<websocket:mapping handler="echoHandler" path="/echo" />
-		<websocket:handshake-interceptors>
-	         <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
-	      </websocket:handshake-interceptors>
- 
-	      <websocket:sockjs/>
-	 </websocket:handlers>
+		<websocket:handshake-interceptors> 
+		<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" /> 
+		</websocket:handshake-interceptors> 
+		<websocket:sockjs />
+	 </websocket:handlers> -->
 	
 </beans>

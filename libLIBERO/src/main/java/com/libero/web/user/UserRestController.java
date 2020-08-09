@@ -68,7 +68,7 @@ public class UserRestController {
 	
 	//method
 	@RequestMapping( value="json/login", method=RequestMethod.POST )
-	public User login(@RequestBody Map<String, Object> params, HttpSession session ) throws Exception{
+	public User login(@RequestBody Map<String, Object> params, HttpServletRequest request ) throws Exception{
 	
 		System.out.println("/user/json/login : POST");
 		//Business Logic
@@ -76,9 +76,10 @@ public class UserRestController {
 		User user = userService.getUser((String) params.get("userId"));
 		
 		if( ((String)params.get("password")).equals(user.getPassword())){
+			HttpSession session = request.getSession(true);
 			session.setAttribute("user", user);
+			System.out.println(">>>>> "+session.getId());
 		}
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("user"));
 		return user;
 	}
 	
@@ -227,6 +228,8 @@ public class UserRestController {
 		System.out.println("/user/json/kakaologin");
 		
 		ModelAndView mav = new ModelAndView(); 
+		session.setAttribute("kakao", "true"); // 수린수린수린 0807
+		mav.setViewName("redirect:/");
 		
 		User user = (User) session.getAttribute("user");	
 		JsonNode node = SNSloginController.getAccessToken(code); 
@@ -248,8 +251,12 @@ public class UserRestController {
 			
 			if(userService.getUserByKakao(kId) != null) {		
 				user = userService.getUserByKakao(kId);
+				session.setAttribute("user", user);
+				return mav;
 			}else if(userService.getUser(kEmail) != null) {
 				user = userService.getUser(kEmail);
+				session.setAttribute("user", user);
+				return mav;
 			}else if(userService.getUserByKakao(kId) == null && userService.getUser(kEmail) == null) {			
 				user.setUserId(kEmail);	
 				user.setPassword((UUID.randomUUID().toString().replaceAll("-", "")).substring(0, 14));
@@ -259,21 +266,21 @@ public class UserRestController {
 				
 				userService.addUser(user);				
 				user = userService.getUser(user.getUserId());
+				
+				session.setAttribute("user", user);
+				return mav;
 			}		
 		}else { 
 			User kUser = userService.getUser(kEmail);
 			if(kUser == null) {
 				userService.addKakaoId(user.getUserId(), kId);				
-			}else {
-				//user_id가 kakao_id인 모든 테이블을 user.getUserId()로 바꿔주기
-				userService.delUser(kId);
+			}else {			
+				  userService.updateKakaoToUser(user.getUserId(), kEmail);
+				  userService.delUser(kId);
+				  userService.addKakaoId(user.getUserId(), kId);	  			 
 			}
 		}
-					
-		session.setAttribute("user", user);
-		session.setAttribute("kakao", "true"); // 수린수린수린 0807
-		mav.setViewName("redirect:/");
-		
+							
 		return mav; 
 		}
 	

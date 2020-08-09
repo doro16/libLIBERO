@@ -32,5 +32,7 @@ public interface UserService {
 	
 	public void addKakaoId(String userId, String kakaoId);
 	
-	public void delUser(String userId);
+	public void delUser(String kakaoId);
+	
+	public void updateKakaoToUser(String userId, String kEmail);
 }

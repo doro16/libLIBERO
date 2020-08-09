@@ -1,5 +1,6 @@
 package com.libero.service.user.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.libero.common.Search;
@@ -21,6 +23,11 @@ public class UserDAOImpl implements UserDAO {
 	@Autowired
 	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSession;
+	
+	@Value("#{userProperties['listTable']}")
+	//@Value("#{commonProperties['pageUnit'] ?: 3}")
+	String[] listTable;
+	
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
@@ -115,15 +122,24 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	public void addKakaoId(String userId, String kakaoId) {
-		Map<String, String> map = new HashMap();
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("userId", userId);
 		map.put("kakaoId", kakaoId);
 		
 		sqlSession.update("UserMapper.addKakaoId", map);
 	}
 	
-	public void delUser(String userId) {
-		sqlSession.delete("UserMapper.delUser", userId);
+	public void delUser(String kakaoId) {
+		sqlSession.delete("UserMapper.delUser", kakaoId);
 	}
-
+	
+	public void updateKakaoToUser(String userId, String kEmail) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userId", userId);
+		map.put("kEmail", kEmail);
+		
+		for(int i=0; i<listTable.length; i++) {
+			sqlSession.update("UserMapper.updateUserFrom"+listTable[i], map);
+		}
+	}
 }
