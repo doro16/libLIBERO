@@ -11,9 +11,6 @@
 		<!--  ///////////////////////// CSS ////////////////////////// -->
 		<link rel="stylesheet" href="../resources/css/common.css">
 		<style type="text/css">
-			.row {
-				margin: 10px;
-			}
 		</style>
 	</head>
 	<body>
@@ -28,7 +25,7 @@
 	   	<!-- //////////// Bootstrap Container Start////////////////// -->
 	   	<div class="container">
 	   		<jsp:include page="topButton.jsp"></jsp:include>
-	   		<div class="row col-lg-12">
+	   		<div class="row col-lg-12" style="margin: 10px">
 	   		<c:if test="${!empty cashCode && cashCode eq 'bf'}">
 	   			<h1>현재 정산 전</h1> &nbsp;&nbsp;
 	   			<button type="button" class="btn btn-outline-warning waves-effect" id="reqWithdraw" name="reqWithdraw"><i class="fas fa-comments-dollar mr-1"></i> 정산 신청</button>
@@ -37,10 +34,10 @@
 	   			<h1>정산 신청 완료</h1><br/>
 	   		</c:if>
 	   		</div>
-	   		<div class="row col-lg-12">
+	   		<div class="row col-lg-12" style="margin: 10px">
 	   			<h6>정산일 : <input type='month' id='currentMonth' style="background-color:transparent;border:0 solid black;text-align:right;" readonly>15일</h6>
 	   		</div>
-	   		<div class="row text-center" style="text-align:center; float:center;">
+	   		<div class="row text-center" style="text-align:center; float:center;margin: 10px">
 	   			<div class="col-lg-3">
 	   				<h6><strong>누적 정산금</strong></h6>${cash.cashAmount}원
 	   			</div>
@@ -52,7 +49,7 @@
 	   				
 	   			</div>
 	   		</div>
-	   		<div class="row d-flex justify-content-center">
+	   		<div class="row d-flex justify-content-center"  style="margin: 10px">
 	   			<canvas id="dayChart" id="dayChart" class="row col-lg-12"></canvas>
 	   		</div>
 	   	</div>

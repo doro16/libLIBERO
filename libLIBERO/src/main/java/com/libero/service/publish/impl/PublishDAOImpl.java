@@ -125,4 +125,10 @@ public class PublishDAOImpl implements PublishDAO {
 		sqlSession.delete("PublishMapper.removeHashtag", prodNo);
 	}
 
+	@Override
+	public void updateBlindCode(Publish publish) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update("PublishMapper.updateBlindCode", publish);
+	}
+
 }

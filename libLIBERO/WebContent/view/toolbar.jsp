@@ -162,9 +162,7 @@
 	</div>
 	<!-- Modal End -->
 	</body>
-	<script>
-	var ws = null;
-	
+	<script>	
 	//===================toolbar class change ================
 		$(function() {
 			
@@ -178,8 +176,6 @@
 				$("#mainToolbar").attr("class","mb-1 navbar navbar-expand-lg navbar-dark brown lighten-1 fixed-top z-depth-0");
 				$("#bookList").show();
 			}
-			
-			connect();
 			
 		});
 	//============= 회원가입============

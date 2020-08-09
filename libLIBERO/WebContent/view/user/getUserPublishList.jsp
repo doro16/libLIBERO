@@ -76,25 +76,25 @@
 							  		
 							  		<div class="col-lg-3">
 							  			<a href="javascript:popup(${prod.prodNo})" 
-							   				class="btn btn-brown btn-block" role="button" 
+							   				class="btn btn-info brown lighten-1 btn-block" role="button" 
 							   				aria-pressed="true" style="margin-bottom: 10px">판매 통계 조회</a>
 							   			<c:if test="${prod.blindCode=='show'}">
-							  				<button class="btn btn-outline-brown waves-effect btn-block">판매 중지하기</button>
+							  				<button class="btn btn-outline-brown waves-effect btn-block" onclick="updateCode('${prod.prodNo}','hide',this)">판매 중지하기</button>
 							  			</c:if>
 							  			<c:if test="${prod.blindCode=='hide'}">
-							  				<button class="btn btn-brown btn-block">판매 재개</button>
+							  				<button class="btn btn-info brown lighten-1 btn-block" onclick="updateCode('${prod.prodNo}','show',this)">판매 재개</button>
 							  			</c:if>
 							  			<c:if test="${param.prodType=='prod'}">
 							  				<a href="/libero/publish/updateProduct?prodNo=${prod.prodNo}"
-												class="btn btn-brown btn-block" role="button" 
+												class="btn btn-info brown lighten-1 btn-block" role="button" 
 												aria-pressed="true" style="margin-top: 10px">상품 수정</a>
 							  			</c:if>
 							  		</div>
 						  		</div>
 						  		<!-- row End -->
 						  		<c:if test="${prod.blindCode=='report'}">
-						  		<div class="row col-lg-12" style="margin:0">
-										<p style="margin: 0">신고로 숨김 처리 당한 상품입니다.<br/>신고사유 : ${prod.reportType}</p>
+						  		<div class="row col-lg-12" style="margin:0;padding:0">
+										<p style="margin: 0">신고 당한 상품입니다.</p>
 								</div>
 								</c:if>
 						  	</div>
@@ -109,7 +109,26 @@
 	</body>
 	
 	<script type="text/javascript">
-	
+		//===============blindCode 수정 =================
+		function updateCode(prodNo,blindCode,e) {
+			
+			$.ajax({
+     			type     	: 'GET',
+        		url			: '/libero/publish/json/updateBlindCode/'+prodNo+'/'+blindCode,
+        		dataType 	: 'json',
+                contentType	: "application/json",
+        		success: function (data, status) {
+        			console.log(e);
+        			var hide = "<button class='btn btn-outline-brown waves-effect btn-block' onclick=\"updateCode('"+prodNo+"','hide',this)\">판매 중지하기</button>";
+        			var show = "<button class='btn btn-info brown lighten-1 btn-block' onclick=\"updateCode('"+prodNo+"','show',this)\">판매 재개</button>";
+        			if (data.blindCode == 'show') {
+						$(e).replaceWith(hide);
+					}else {
+						$(e).replaceWith(show);
+					}
+        		}
+			});
+		}
 		//==============판매 통계 팝업 ====================
 		function popup(prodNo){
 	        var url = "/libero/publish/getStatistics?prodNo="+prodNo;
@@ -179,22 +198,22 @@
 														+"</table>"
 													+"</div>"
     												+"<div class='col-lg-3'>"
-    														+"<a href='javascript:popup("+prod.prodNo+")' class='btn btn-brown btn-block' role='button' aria-pressed='true' style='margin-bottom:10px'>판매 통계 조회</a>";
+    														+"<a href='javascript:popup("+prod.prodNo+")' class='btn btn-info brown lighten-1 btn-block' role='button' aria-pressed='true' style='margin-bottom:10px'>판매 통계 조회</a>";
 														
     						if (prod.blindCode=='show') {
-								card += 					"<button class='btn btn-outline-brown waves-effect btn-block'>판매 중지하기</button>";
+								card += 					'<button class="btn btn-outline-brown waves-effect btn-block" onclick="updateCode(\''+prod.prodNo+'\',\'hide\',this)">판매 중지하기</button>';
 							}
     						if (prod.blindCode=='hide') {
-    							card += 					"<button class='btn btn-brown btn-block'>판매 재개</button>";
+    							card += 					"<button class='btn btn-info brown lighten-1 btn-block' onclick='updateCode(\'"+prod.prodNo+"\','show',this)'>판매 재개</button>";
 							}
     						
     						if (prodType=='prod') {
-    							card += 					"<a href='/libero/publish/updateProduct?prodNo="+prod.prodNo+"' class='btn btn-brown btn-block' role='button' aria-pressed='true' style='margin-top: 10px'>상품 수정</a>";
+    							card += 					"<a href='/libero/publish/updateProduct?prodNo="+prod.prodNo+"' class='btn btn-info brown lighten-1 btn-block' role='button' aria-pressed='true' style='margin-top: 10px'>상품 수정</a>";
 							}
 							card +=		  			"</div>";
 							if (prod.blindCode=='report') {
 								card +=				"<div class='row col-lg-12' style='margin:0'>"
-														+"<p style='margin: 0'>신고 당한 상품입니다.<br/>신고사유 : "+report+"</p>"
+														+"<p style='margin: 0'>신고 당한 상품입니다.</p>"
 													+"</div>";
 							}
 							

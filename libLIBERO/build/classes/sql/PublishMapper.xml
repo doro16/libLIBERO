@@ -239,6 +239,13 @@
 		WHERE prod_no IN(#{value})
 	</delete>
 	
+	<update id="updateBlindCode" parameterType="publish">
+		UPDATE product
+		SET 
+			blind_code = #{blindCode}
+		WHERE prod_no = #{prodNo}
+	</update>
+	
 	<select id="getTotalCount" parameterType="publish" resultType="int">
 		SELECT COUNT(*) 
 		FROM product p

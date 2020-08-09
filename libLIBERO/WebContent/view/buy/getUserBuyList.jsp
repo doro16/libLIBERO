@@ -24,9 +24,9 @@
 <title>libLIBERO</title>
 </head>
 <body>
-<jsp:include page="/view/user/topButton.jsp"></jsp:include>
-<div class="container">	
 
+<div class="container">	
+<jsp:include page="/view/user/topButton.jsp"></jsp:include>
 <div class="row">
 <div class="col-lg-2">
 		   			<a href="/libero/user/getUserPublishList?prodType=book" 
