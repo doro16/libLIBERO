@@ -125,6 +125,20 @@ public class UserDAOImpl implements UserDAO {
 	public void delUser(String userId) {
 		sqlSession.delete("UserMapper.delUser", userId);
 	}
+	
+	@Override
+	public void updateUser(User user) {
+		// TODO Auto-generated method stub
+		sqlSession.update("UserMapper.updateUser",user);
+	}
+
+	@Override
+	public int updatePhoneCode(String userId) {
+		
+		return sqlSession.update("UserMapper.updatePhoneCode",userId);
+	}
+
+
 
 	@Override
 	public void removeUser(User user) throws Exception {

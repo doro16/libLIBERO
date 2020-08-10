@@ -30,6 +30,10 @@ public interface UserService {
 	
 	public void updateCash(Cash cash);
 	
+	public void updateUser(User user);
+	
+	public int updatePhoneCode(String userId);
+	
 	public void addKakaoId(String userId, String kakaoId);
 	
 	public void delUser(String userId);

@@ -137,11 +137,34 @@ function daumjuso() {
                    	<%-- location.href="<%=request.getContextPath()%>/order/payFail"; --%>
                     alert(msg);
                 }
-            });    		
+            });    
+            swal({
+        		text : "결제 완료",
+        		icon : "info",
+        		buttons:{
+        			Home : {
+        				text:"홈 으로",
+        				value:"Home",
+        			},
+        			BuyList :{
+        				text:"구매목록",
+        				value:"BuyList",
+        			},
+        				},
+        		
+        	}).then((value) =>{
+        		switch (value)     {
+        			case "Home" :
+        	 			window.location.href="/libero";
+        				break;
+        			
+        			case "BuyList" : 
+        				window.location.href="/libero/buy/getUserBuyList?userId=${user.userId}";
+        		}
+        	});
     		
     	})
-    });
-    
+    });    
   $(document).ready(function() {
 	  
 	  
@@ -157,7 +180,7 @@ function daumjuso() {
 	  })
 	  });
   
-  
+   
  
   
 </script>
@@ -238,24 +261,24 @@ function daumjuso() {
 					<!-- 	입력 창 시작 -->
 
 		<div class="md-form">
-		  <input id="receiverAddr" type="text" length="10" class="form-control" >
+		  <input id="receiverAddr" type="text"  class="form-control" >
 		  <label for="receiverAddr">주소입력</label>
 		</div>
 		<div class="md-form">
-		  <input id="extraAddress" type="text" length="10" class="form-control" >
+		  <input id="extraAddress" type="text" class="form-control" >
 		  <label for="extraAddress">상세 주소 입력</label>
 		</div>	
 		<input type="button" class="btn btn-brown" onclick="daumjuso()" value="우편번호 찾기"><br>
 		<div class="md-form">
-		  <input id="receiverName" type="text" length="10" class="form-control" >
+		  <input id="receiverName" type="text"  class="form-control" >
 		  <label for="receiverName">수령자 이름</label>
 		</div>
 		<div class="md-form">
-		  <input id="receiverPhone" type="text" length="10" class="form-control" >
+		  <input id="receiverPhone" type="text"  class="form-control" >
 		  <label for="receiverPhone">수령자 연락처</label>
 		</div>
 		<div class="md-form">
-		  <input id="userId" type="text" length="10" class="form-control" value="${user.userId }" disabled="disabled" >
+		  <input id="userId" type="text"  class="form-control" value="${user.userId }" disabled="disabled" >
 		  <label for="userId">아이디(이메일)</label>
 		</div>
 		
@@ -303,7 +326,7 @@ function daumjuso() {
 <br><br>
 
 <div class="mx-auto" style="width: 200px; background-color: rgba(86,61,124,.15);">
- <button id ="payment" class="btn btn-brown" value="${actualPrice}"> 총 결제 금액 &nbsp : &nbsp ${actualPrice} &nbsp ￦</button>
+ <button id ="payment" class="btn btn-brown" value="${actualPrice}"> 총 결제 금액 &nbsp; : &nbsp; ${actualPrice} &nbsp; ￦</button>
  
 
 

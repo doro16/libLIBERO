@@ -81,9 +81,9 @@ public class ProductRestController {
 					boolean isWish = wishService.addWish(hashMap);
 					
 					if(isWish == true) {
-						obj.put("wishImage", "../../resources/images/product/wish/smile.png");
-					}else {
-						obj.put("wishImage", "../../resources/images/product/wish/notsmile.png");
+						obj.put("wish", "y");
+					}else if(isWish == false) {
+						obj.put("wish", "n");
 					}
 										
 					
@@ -210,9 +210,6 @@ public class ProductRestController {
 								    productService.addReviewImage(hashMap);
 						}//end if
 						
-
-				
-						
 							//ProductService.addReview(hashMap);
 							
 							//return obj.toJSONString();
@@ -240,16 +237,121 @@ public class ProductRestController {
 			}
 			
 			
+		
+			
+			//method 전체도서상품화면 출력
+			@RequestMapping(value="json/getBookList/", method = RequestMethod.POST)
+			public Map getBookList(int currentPage, String prodType) throws Exception {
+				
+					Search search = new Search();
+
+					System.out.println("/product/json/getBookList : GET");
+					System.out.println("curPage : "+currentPage);
+					if(currentPage == 1) {
+						currentPage = currentPage + 2;
+					}else {
+						currentPage = currentPage + 1;
+					}
+					
+					System.out.println("prodType : "+prodType);
+					search.setPageSize(pageSize);
+					search.setCurrentPage(currentPage);
+					
+					//BusinessLogic
+						List<Product> product = productService.getBookList(search);
+						int totalCount = productService.getBookTotalCount();
+					
+					
+					Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
+					
+					Map map = new HashMap();
+					map.put("product", product);
+					map.put("currentPage", currentPage);
+					
+					
+					return map;
+			}
+			
+			//method 카테고리별도서상품화면 출력
+			@RequestMapping(value="json/getBookListByCategory/", method = RequestMethod.POST)
+			public Map getBookListByCategory(int currentPage, String category) throws Exception {
+				
+					Search search = new Search();
+
+					System.out.println("/product/json/getBookListByCategory : POST");
+					System.out.println("curPage : "+currentPage);
+					if(currentPage == 1) {
+						currentPage = currentPage + 2;
+					}else {
+						currentPage = currentPage + 1;
+					}
+					System.out.println("category : "+category);
+					search.setPageSize(pageSize);
+					search.setCurrentPage(currentPage);
+					
+					//BusinessLogic
+						List<Product> product = productService.getBookListByCategory(category, search);
+						int totalCount = productService.getBookTotalCount(category);
+					
+					
+					Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
+					
+					Map map = new HashMap();
+					map.put("product", product);
+					map.put("currentPage", currentPage);
+					
+					
+					return map;
+			}
+			
+			//method 카테고리별도서상품화면 출력
+			@RequestMapping(value="json/getBookListBySearch/", method = RequestMethod.POST)
+			public Map getBookListBySearch(int currentPage, String searchCondition, String searchKeyword) throws Exception {
+				
+					Search search = new Search();
+
+					System.out.println("/product/json/getBookListBySearch : POST");
+					System.out.println("curPage : "+currentPage);
+					if(currentPage == 1) {
+						currentPage = currentPage + 2;
+					}else {
+						currentPage = currentPage + 1;
+					}
+					System.out.println("searchCondition : "+searchCondition);
+					System.out.println("searchKeyword : "+searchKeyword);
+					search.setPageSize(pageSize);
+					search.setCurrentPage(currentPage);
+					search.setSearchCondition(searchCondition);
+					search.setSearchKeyword(searchKeyword);
+					
+					//BusinessLogic
+						List<Product> product = productService.getBookListBySearch(search);
+						int totalCount = productService.getBookTotalCountBySearch(search);
+					
+					
+					Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
+					
+					Map map = new HashMap();
+					map.put("product", product);
+					map.put("currentPage", currentPage);
+					
+					
+					return map;
+			}
+			
 			//method 서비스상품화면 출력
-			@RequestMapping(value="json/getProductList/{prodType}", method = RequestMethod.POST)
+			@RequestMapping(value="json/getProductList/", method = RequestMethod.POST)
 			public Map getProductList(int currentPage, String prodType) throws Exception {
 				
 					Search search = new Search();
-		
-				
+						
 					System.out.println("/product/json/getProductList : GET");
 					System.out.println("curPage : "+currentPage);
-					currentPage = currentPage + 1;
+					if(currentPage == 1) {
+						currentPage = currentPage + 2;
+					}else {
+						currentPage = currentPage + 1;
+					}
 					System.out.println("prodType : "+prodType);
 					
 					search.setPageSize(pageSize);
@@ -265,38 +367,7 @@ public class ProductRestController {
 					Map map = new HashMap();
 					map.put("product", product);
 					map.put("currentPage", currentPage);
-					
-					
-					return map;
-			}
-			
-			//method 서비스상품화면 출력
-			@RequestMapping(value="json/getBookList/", method = RequestMethod.POST)
-			public Map getBookList(int currentPage, String prodType) throws Exception {
-				
-					Search search = new Search();
-		
-				
-					System.out.println("/product/json/getBookList : GET");
-					System.out.println("curPage : "+currentPage);
-					currentPage = currentPage + 1;
-					System.out.println("prodType : "+prodType);
-					
-					search.setPageSize(pageSize);
-					search.setCurrentPage(currentPage);
-					
-					//BusinessLogic
-					List<Product> product = productService.getBookList(search);
-					
-					int totalCount = productService.getBookTotalCount();
-					
-					Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
-					
-					Map map = new HashMap();
-					map.put("product", product);
-					map.put("currentPage", currentPage);
-					
-					
+										
 					return map;
 			}
 			

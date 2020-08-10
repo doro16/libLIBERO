@@ -94,6 +94,7 @@
 	 <insert id="addNewUser" parameterType="user">
 	 	INSERT INTO user (user_id,
 	 					  password,
+	 					  name,
 	 					  nickname,
 	 					  profile,
 	 					  gender_code,
@@ -107,6 +108,7 @@
 							)
 	 	VALUES(	#{userId},
 	 			#{password},
+	 			#{name},
 	 			#{nickname},
 	 			#{profile:VARCHAR},
 	 			#{genderCode},
@@ -200,6 +202,8 @@
 	INSERT INTO cash(user_id, cash_amount, cash_current, cash_withdraw, reg_date, buy_no) values(#{userId}, #{cashAmount}, #{cashCurrent}, #{cashWithdraw}, CURRENT_TIMESTAMP, #{buyNo:INTEGER})
 	</insert> 
 	
+	
+
 	<update id="requestCash" parameterType="map">
 	UPDATE user
 	SET cash_code = #{cashCode}
@@ -220,6 +224,38 @@
 	<update id="removeUser"	parameterType="user">
 		UPDATE user
 		SET user_code = '0'
+	</update>
+	
+	<update id="updateUser" parameterType="user">
+	UPDATE user
+	SET
+		
+		user_id = #{userId}
+		
+		<if test="profile != null and !profile.equals('') ">
+		, profile = #{profile}
+		</if>
+		<if test="address != null and !address.equals('')">
+		, address = #{address}
+		</if>
+		<if test="nickname !=null and !nickname.equals('') ">
+		 ,nickname = #{nickname}
+		</if>
+		<if test="name !=null and !name.equals('')">
+		, name = #{name}
+		</if>
+		<if test ="phone != null and !phone.equals('')">
+		, phone = #{phone}
+		</if>
+		<if test="birthDate !=null and !birthDate.equals('')">
+		 ,birth_date = #{birthDate}
+		</if>
+	WHERE user_id = #{userId}
+	</update> 
+	
+	<update id="updatePhoneCode" parameterType="string">
+		UPDATE user 
+		SET phone_code = 1
 		WHERE user_id = #{userId}
 	</update>
 	 
