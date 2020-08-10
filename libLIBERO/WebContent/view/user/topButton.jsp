@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <style>
 	.buttonDiv {
-		background-color:#bcaaa4;
+		background-color:#efebe9 ;
 		cursor: pointer;
-		border: 2px #bcaaa4 solid;
+		border: 2px #efebe9  solid;
 		padding:10px;
 		width: 150px;
 		height: 100px;
@@ -24,6 +24,11 @@
 	.brown-text {
 		font-size: 0.8em;
 	}
+	
+	/* #siren {
+		-webkit-filter: opacity(.5) drop-shadow(0 0 0 #8d6e63);
+		filter: opacity(.5) drop-shadow(0 0 0 #8d6e63);
+	} */
 </style>
 <div class="row " style="margin-bottom: 20px">
 	<!-- ///////////////////////////////////유저 마이페이지 버튼 ////////////////////////// -->
@@ -50,7 +55,7 @@
 				<p class="brown-text">리베로캐쉬 조회</p>
 			</div>
 			<div class="buttonDiv col" onclick="location.href='/libero/user/getUserReportList?menu=prod'">
-				<i class="fas fa-bell fa-3x"></i>
+				<img id="siren" src="../resources/images/common/siren_brown.png" width="50px" height="50px" style="margin-bottom: 7px">
 				<p class="brown-text">신고 조회</p>
 			</div>
 		</div>

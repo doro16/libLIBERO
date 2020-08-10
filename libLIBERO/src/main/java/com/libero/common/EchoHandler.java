@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.websocket.server.ServerEndpoint;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,9 +44,9 @@ public class EchoHandler extends TextWebSocketHandler{
 		users.add(session);
 		
 		Map<String, Object> httpSession = session.getAttributes();
-		
 		User user = (User) httpSession.get("user");
 		
+		System.out.println(users);
 		System.out.println(">>>>>>>>>>>>>>>>>>>1"+httpSession.get("user"));
 		if(user != null) {
 		System.out.println(">>>>>>>>>>>>>>>>>>>2"+user.getUserId());

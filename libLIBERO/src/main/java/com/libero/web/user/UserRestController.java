@@ -98,7 +98,7 @@ public class UserRestController {
 		if( ((String)params.get("password")).equals(user.getPassword())){
 			session.setAttribute("user", user);
 		}
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session);
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("user"));
 		return user;
 	}
 	
