@@ -67,8 +67,9 @@ public class CommunityDAOImpl implements CommunityDAO {
 	}
 
 	public void deletePost(int postNo) throws Exception {
+		sqlSession.delete("CommunityMapper.deleteComment2", postNo);
 		sqlSession.delete("CommunityMapper.deletePost", postNo);
-
+		
 	}
 	
 	// 게시판 Page 처리를 위한 전체 Row(totalCount)  return
@@ -114,22 +115,28 @@ public class CommunityDAOImpl implements CommunityDAO {
 	
 	public void addComment(Comment comment) throws Exception {
 		sqlSession.insert("CommunityMapper.addComment", comment);
+		sqlSession.update("CommunityMapper.updateCommentCount", comment.getPostNo());
 	}
 	
 	public void updateComment(Comment comment) throws Exception {
 		sqlSession.update("CommunityMapper.updateComment", comment);
 	}
 	
-	public void deleteComment(int commentNo) throws Exception {
-		sqlSession.delete("CommunityMapper.deleteComment", commentNo);
+	public void deleteComment(Comment comment) throws Exception {
+		sqlSession.update("CommunityMapper.deleteCommentCount", comment.getPostNo());
+		sqlSession.delete("CommunityMapper.deleteComment", comment.getCommentNo());
 	}
 	
 	public int getCommentTotalCount(int postNo) throws Exception {
 		return sqlSession.selectOne("CommunityMapper.getCommentTotalCount", postNo);
 	}
 	
-	public int getMyCommentListTotalCount(String userId)throws Exception{
+	public int getMyCommentListTotalCount(Search search, String userId)throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		return sqlSession.selectOne("CommunityMapper.getMyCommentListTotalCount",userId);
+		map.put("search", search);
+		map.put("userId", userId);
+		
+		return sqlSession.selectOne("CommunityMapper.getMyCommentListTotalCount",map);
 	}
 }
