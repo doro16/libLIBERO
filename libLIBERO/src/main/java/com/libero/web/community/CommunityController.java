@@ -55,7 +55,7 @@ public class CommunityController {
 	int pageSize;
 	
 	@RequestMapping(value="getPost", method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView getPost(@RequestParam("postNo") int postNo) throws Exception {
+	public ModelAndView getPost(@RequestParam("postNo") int postNo, @RequestParam(value="menu", required=false) String menu) throws Exception {
 		
 		System.out.println("^^^^^^^^"+ "/community/getPost : GET");
 		
@@ -163,9 +163,10 @@ public class CommunityController {
 	public ModelAndView deletePost(@RequestParam("postNo") int postNo) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
-		//Post post = communityService.getPost(postNo);
-		//communityService.deletePost(postNo);
-		modelAndView.setViewName("/view/community/getPostList");
+		Post post = communityService.getPost(postNo);
+		String menu = post.getPostType();
+		modelAndView.setViewName("redirect:/community/getPostList?menu="+menu);
+		communityService.deletePost(postNo);
 		
 		return modelAndView;
 	}

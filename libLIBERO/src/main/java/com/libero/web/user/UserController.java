@@ -340,8 +340,8 @@ public class UserController {
 	
 	
 	
-	@RequestMapping(value = "getUserActivityList", method = RequestMethod.GET)
-	public ModelAndView getUserActivityList( @RequestParam(value="menu", required=false) String menu, @ModelAttribute("search") Search search, HttpSession session) throws Exception {
+	@RequestMapping(value = "getUserActivityList")
+	public ModelAndView getUserActivityList( @RequestParam(value="menu", required=false) String menu,  Search search, HttpSession session) throws Exception {
 		
 		if(search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
@@ -356,18 +356,12 @@ public class UserController {
 		String userId = ((User)session.getAttribute("user")).getUserId();
 		
 		System.out.println("menu가 뭔가요"+menu);
-		if(menu.equals(new String("p"))) {
-			map = communityService.getMyPostList(search, user, menu);
-		} 		
-		
 		if(menu.equals(new String("c"))) {
-			map = communityService.getMyCommentList(search, userId);
-		} 
-		
-		if(menu.equals(new String("q"))) {
+			map = communityService.getMyCommentList(search, userId);	
+		} else {
 			map = communityService.getMyPostList(search, user, menu);
-		} 
-		
+		}		
+	
 		Page resultPage = new Page(search.getCurrentPage(),
 									((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		

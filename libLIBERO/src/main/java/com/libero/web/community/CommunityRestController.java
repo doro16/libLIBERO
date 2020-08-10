@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -88,18 +89,20 @@ public class CommunityRestController {
 		}
 
 		map.put("list", map.get("list"));
+		map.put("totalCount", map.get("totalCount"));
 		
 		return map;
 	}
 	
 	@RequestMapping(value="/json/addComment", method=RequestMethod.POST)
-	public void addComment(@RequestBody Map<String, Object> map2,  HttpSession session, Comment comment) throws Exception{
+	public int addComment(@RequestBody Map<String, Object> map2,  HttpSession session, Comment comment) throws Exception{
 		System.out.println("^^^^^^^^"+ "/community/json/addComment : POST");
 		User user = ((User)session.getAttribute("user"));
 		comment.setPostNo((int) map2.get("postNo"));
 		comment.setCommentContent((String) map2.get("commentContent"));
 		comment.setUser(user);
 		communityService.addComment(comment);
+		return 2;
 			
 	}
 	
@@ -112,7 +115,7 @@ public class CommunityRestController {
 	}
 	
 	@RequestMapping(value="/json/updateComment", method=RequestMethod.POST)
-	public void updateComment(@RequestBody Map<String, String> map2, HttpSession session, Comment comment) throws Exception{
+	public Comment updateComment(@RequestBody Map<String, String> map2, HttpSession session, Comment comment) throws Exception{
 		System.out.println("updateComment입니다");
 		User user = ((User)session.getAttribute("user"));
 
@@ -124,14 +127,16 @@ public class CommunityRestController {
 		comment.setCommentContent(map2.get("commentContent"));
 		comment.setUser(user);
 		communityService.updateComment(comment);
+		return comment;
 	}
 	
 	
 	@RequestMapping(value="/json/deleteComment/{commentNo}", method=RequestMethod.GET)
-	public void deleteComment(@PathVariable("commentNo") int commentNo) throws Exception{
+	public int deleteComment(@PathVariable("commentNo") int commentNo) throws Exception{
 		System.out.println("deleteComment입니다");
-		
-		communityService.deleteComment(commentNo);
+		Comment comment = communityService.getComment(commentNo);
+		communityService.deleteComment(comment);
+		return 2;
 	}
 	
 	@RequestMapping(value="/json/addPost", method=RequestMethod.POST)

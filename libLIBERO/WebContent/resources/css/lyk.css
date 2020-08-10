@@ -83,7 +83,7 @@ button {
     font-size: 14px;
     letter-spacing: -0.25px;
     line-height: 1.5;
-    font-family: notosans, 'Apple SD Gothic Neo', 'Malgun Gothic', '嶺뚳옙占쎄섭壤쎪껊쐻占쎈윪繹먲퐛�쐻占쏙옙占쎄퉪占쎈쐻占쎈윞占쎈�� 嶺뚳옙占싼띿삕�뜝�럩源볡춯占쏙옙瑗삼옙�굲�뜝�럥�돥占쎈쐻占쎈짗占쎌굲', '嶺뚳옙占쎄섰占쎄텚占쎈쐻占쎈윥�뜝�뜦諭��뜝�뜴�쐻占쎈윥占쎈눂雅��굢�삕', dotum, sans-serif;
+    font-family: notosans, 'Apple SD Gothic Neo', 'Malgun Gothic', '癲ル슪�삕�뜝�럡�꽠鶯ㅼ렕猿딆맶�뜝�럥�쑋濚밸㉡�맀占쎌맶�뜝�룞�삕�뜝�럡�돦�뜝�럥�맶�뜝�럥�쐾�뜝�럥占쏙옙 癲ル슪�삕�뜝�떬�씮�굲占쎈쐻占쎈윪繹먮끝異��뜝�룞�삕�몭�궪�삕占쎄뎡占쎈쐻占쎈윥占쎈룯�뜝�럥�맶�뜝�럥吏쀥뜝�럩援�', '癲ル슪�삕�뜝�럡�꽣�뜝�럡�뀣�뜝�럥�맶�뜝�럥�쑅占쎈쐻占쎈쑆獄�占쏙옙�쐻占쎈쑕占쎌맶�뜝�럥�쑅�뜝�럥�늹�썒占쏙옙援�占쎌굲', dotum, sans-serif;
     color: #333;
     word-break: keep-all
 }
@@ -126,20 +126,20 @@ select::-ms-expand {
 
 .content-board {
     width: 840px;
-    margin: 70px auto 160px
+    margin: 90px auto 160px
     
 }
 
 
 .content-board .warp_board {
-    margin-top: 51px;
+    margin-top: 30px;
     border-top: 2px solid #333
 }
 
 
 
 .content-board .list_news li {
-    padding: 22px 0 28px;
+    padding: 22px 0 22px;
     border-bottom: 1px solid #e6e6e6
 }
 

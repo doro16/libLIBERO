@@ -130,20 +130,30 @@
 		SELECT * FROM ( SELECT 
 					@rownum:=@rownum+1 num, c.*, u.nickname, u.profile
 		    		FROM comment c, post p, user u, (SELECT @rownum:=0) init2
-		         WHERE c.user_id = u.user_id 
+		        	  WHERE c.user_id = u.user_id 
 		        	  AND c.post_no = p.post_no
 		        	  AND c.user_id = #{userId}
+		        	  <if test="search.searchCondition==0">
+						AND c.comment_content like '%${search.searchKeyword}%'
+						</if>
+						
 		        ORDER BY c.comment_no DESC) inner_table
 		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum}
 	</select>
 
-	<select id="getMyCommentListTotalCount" parameterType="string"	resultType="int">
-		SELECT count(*) FROM (SELECT
-								c.*, u.nickname, u.profile
-		    					FROM comment c, post p, user u
-		         				WHERE c.user_id = u.user_id 
-		        	  			AND c.post_no = p.post_no
-		        	  			AND c.user_id = #{userId} ) countable
+	<select id="getMyCommentListTotalCount" parameterType="map"	resultType="int">
+		SELECT count(*) FROM (SELECT * FROM ( SELECT 
+					 c.*, u.nickname, u.profile
+		    		FROM comment c, post p, user u
+		         WHERE c.user_id = u.user_id 
+		        	  AND c.post_no = p.post_no
+		        	  AND c.user_id =  #{userId}
+		        	  <if test="search.searchCondition==0">
+						AND c.comment_content like '%${search.searchKeyword}%'
+						</if>
+
+						
+		        	  ) inner_table)countable
 	</select>
 	
 	<insert id="addComment"	parameterType="comment">
@@ -168,6 +178,12 @@
 		FROM COMMENT
 		WHERE comment_no = #{commentNo}
 	</delete>
+	
+	<delete id="deleteComment2" parameterType="int" >
+		DELETE
+		FROM COMMENT
+		WHERE post_no = #{postNo}
+	</delete>
 
 	<select id="getPost" parameterType="int" resultMap="postSelectMap" >
 		SELECT *
@@ -189,11 +205,8 @@
 						<if test="search.searchCondition==0">
 						AND p.post_name like '%${search.searchKeyword}%'
 						</if>
-						<if test="search.searchCondition==1">
-						AND p.post_content like '%${search.searchKeyword}%'
-						</if>
 						<if test="search.searchCondition==2">
-						AND p.user_id like '%${search.searchKeyword}%'
+						AND u.nickname like '%${search.searchKeyword}%'
 						</if>
 						AND blind_code LIKE "show"
 						ORDER BY p.post_no DESC) inner_table
@@ -201,25 +214,25 @@
 	</select>
 	
 	<select  id="getPostTotalCount"  parameterType="map"	 resultType="int">
-		SELECT count(*) FROM (SELECT
-								p.*, u.nickname
-								FROM post p, user u
-								where p.user_id = u.user_id
-								<if test='post.postType=="n"'>
-								AND p.post_type LIKE "n"
-								</if>
-								<if test='post.postType=="f"'>
-								AND p.post_type LIKE "f"
-								</if>
-								<if test="search.searchCondition==0">
-								AND p.post_content like '%${search.searchKeyword}%'
-								</if>
-								<if test="search.searchCondition==1">
-								AND p.post_name like '%${search.searchKeyword}%'
-								</if>
-								<if test="search.searchCondition==2">
-								AND p.user_id like '%${search.searchKeyword}%'
-								</if>
+		SELECT count(*) FROM (SELECT * FROM (SELECT 
+						p.*, u.nickname
+						FROM post p, user u
+						where p.user_id = u.user_id
+						<if test='post.postType=="n"'>
+						AND p.post_type LIKE "n"
+						</if>
+						<if test='post.postType=="f"'>
+						AND p.post_type LIKE "f"
+						</if>
+						<if test="search.searchCondition==0">
+						AND p.post_name like '%${search.searchKeyword}%'
+						</if>
+						<if test="search.searchCondition==2">
+						AND u.nickname like '%${search.searchKeyword}%'
+						</if>
+						AND blind_code LIKE "show"
+						) inner_table
+		
 								
 								) countable		
 	</select>
@@ -240,28 +253,45 @@
 						AND p.post_type IN("n","f")
 						AND p.user_id = #{user.userId}
 						</if>
-						
+						<if test="search.searchCondition==0">
+						AND p.post_name like '%${search.searchKeyword}%'
+						</if>
+						<if test="search.searchCondition==1">
+						AND p.post_content like '%${search.searchKeyword}%'
+						</if>
+						<if test="search.searchCondition==2">
+						AND u.nickname like '%${search.searchKeyword}%'
+						</if>
 						ORDER BY p.post_no DESC) inner_table
 		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum}
 		
 	</select>
 
-	<select id="getMyPostListTotalCount" parameterType="string"	resultType="int">
-		SELECT count(*) FROM (SELECT
-								p.*, u.nickname
-								FROM post p, user u
-								where p.user_id = u.user_id
-								<if test='user.role != "a"'>
-								AND p.user_id = #{user.userId}
-								</if>
-								<if test='menu != "q"'>
-								AND p.post_type IN("n","f")
-								</if>
-								<if test='menu == "q"'>
-								AND p.post_type IN("q")
-								</if>
-								
-							  ) countable	
+	<select id="getMyPostListTotalCount" parameterType="map"	resultType="int">
+		SELECT count(*) FROM (SELECT * FROM (SELECT 
+						p.*, u.nickname
+						FROM post p, user u
+						where p.user_id = u.user_id
+						<if test='menu == "q" and user.role == "a"'>
+						AND p.post_type IN("q")
+						</if>
+						<if test='menu == "q" and user.role != "a"'>
+						AND p.post_type IN("q")
+						AND p.user_id = #{user.userId}
+						</if>
+						<if test='menu != "q"'>
+						AND p.post_type IN("n","f")
+						AND p.user_id = #{user.userId}
+						</if>
+						<if test="search.searchCondition==0">
+						AND p.post_name like '%${search.searchKeyword}%'
+						</if>
+						<if test="search.searchCondition==1">
+						AND p.post_content like '%${search.searchKeyword}%'
+						</if>
+						<if test="search.searchCondition==2">
+						AND u.nickname like '%${search.searchKeyword}%'
+						</if> ) inner_table ) countable	
 	</select>
 	 
 	 
@@ -301,6 +331,18 @@
 		WHERE post_no = #{postNo}
 	</update>
 	
+	<update id="updateCommentCount" parameterType="int">
+	 	UPDATE post
+	 	SET
+	 		comment_count = comment_count + 1
+		WHERE post_no = #{postNo}
+	</update>
+	<update id="deleteCommentCount" parameterType="int">
+	 	UPDATE post
+	 	SET
+	 		comment_count = comment_count - 1
+		WHERE post_no = #{postNo}
+	</update>
 	
 
 

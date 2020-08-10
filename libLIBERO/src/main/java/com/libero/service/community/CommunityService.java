@@ -32,7 +32,7 @@ public interface CommunityService {
 		
 		public void updateComment(Comment comment) throws Exception;
 		
-		public void deleteComment(int commentNo) throws Exception;
+		public void deleteComment(Comment comment) throws Exception;
 		
 
 	}

@@ -1,23 +1,16 @@
 package com.libero.common;
 
+import java.io.Serializable;
 
-//==>����Ʈȭ���� �𵨸�(�߻�ȭ/ĸ��ȭ)�� Bean 
-public class Search {
-	
-	///Field
+public class Search implements Serializable {
+
 	private int currentPage;
 	private String searchCondition;
 	private String searchKeyword;
 	private int pageSize;
-	//==> ����Ʈȭ�� currentPage�� �ش��ϴ� ȸ�������� ROWNUM ��� SELECT ���� �߰��� Field 
-	//==> UserMapper.xml �� 
-	//==> <select  id="getUserList"  parameterType="search"	resultMap="userSelectMap">
-	//==> ����
+	
 	private int endRowNum;
 	private int startRowNum;
-	
-	private String orderColumn;
-	private String order;
 	
 	///Constructor
 	public Search() {
@@ -52,29 +45,13 @@ public class Search {
 		this.searchKeyword = searchKeyword;
 	}
 	
-	//==> Select Query �� ROWNUM ������ �� 
+	//==> Select Query 시 ROWNUM 마지막 값 
 	public int getEndRowNum() {
 		return getCurrentPage()*getPageSize();
 	}
-	//==> Select Query �� ROWNUM ���� ��
+	//==> Select Query 시 ROWNUM 시작 값
 	public int getStartRowNum() {
 		return (getCurrentPage()-1)*getPageSize()+1;
-	}
-	
-	public String getOrderColumn() {
-		return orderColumn;
-	}
-
-	public void setOrderColumn(String orderColumn) {
-		this.orderColumn = orderColumn;
-	}
-
-	public String getOrder() {
-		return order;
-	}
-
-	public void setOrder(String order) {
-		this.order = order;
 	}
 
 	@Override
@@ -82,6 +59,7 @@ public class Search {
 		return "Search [currentPage=" + currentPage + ", searchCondition="
 				+ searchCondition + ", searchKeyword=" + searchKeyword
 				+ ", pageSize=" + pageSize + ", endRowNum=" + endRowNum
-				+ ", startRowNum=" + startRowNum + ", orderColumn="+orderColumn+", order="+order+ "]";
+				+ ", startRowNum=" + startRowNum + "]";
 	}
+
 }
