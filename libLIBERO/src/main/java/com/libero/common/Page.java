@@ -2,6 +2,9 @@ package com.libero.common;
 
 import java.io.Serializable;
 
+import lombok.Data;
+
+@Data
 public class Page implements Serializable {
 	
 	///Field
@@ -33,56 +36,5 @@ public class Page implements Serializable {
 				this.endUnitPage = maxPage;
 			}
 		}
-	}
-	
-	///Mehtod
-	public int getCurrentPage() {
-		return currentPage;
-	}
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
-	}
-	public int getTotalCount() {
-		return totalCount;
-	}
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
-	}
-	public int getPageUnit() {
-		return pageUnit;
-	}
-	public void setPageUnit(int pageUnit) {
-		this.pageUnit = pageUnit;
-	}
-	public int getPageSize() {
-		return pageSize;
-	}
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
-	public int getMaxPage() {
-		return maxPage;
-	}
-	public void setMaxPage(int maxPage) {
-		this.maxPage = maxPage;
-	}
-	public int getBeginUnitPage() {
-		return beginUnitPage;
-	}
-	public void setBeginUnitPage(int beginUnitPage) {
-		this.beginUnitPage = beginUnitPage;
-	}
-	public int getEndUnitPage() {
-		return endUnitPage;
-	}
-	public void setEndUnitPage(int endUnitPage) {
-		this.endUnitPage = endUnitPage;
-	}
-	@Override
-	public String toString() {
-		return "Page [currentPage=" + currentPage + ", totalCount="
-				+ totalCount + ", pageUnit=" + pageUnit + ", pageSize="
-				+ pageSize + ", maxPage=" + maxPage + ", beginUnitPage="
-				+ beginUnitPage + ", endUnitPage=" + endUnitPage + "]";
 	}
 }

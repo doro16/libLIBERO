@@ -162,13 +162,9 @@
 	</div>
 	<!-- Modal End -->
 	</body>
-<<<<<<< HEAD
 	<script>	
-=======
-	<script>
 	var ws = null;
 	var session = null;
->>>>>>> refs/remotes/origin/master
 	//===================toolbar class change ================
 		$(function() {
 			session = "${sessionScope.user.userId}";
@@ -183,13 +179,9 @@
 				$("#bookList").show();
 			}
 			
-<<<<<<< HEAD
-=======
 			if (session!="") {
 			connect();
 			}
-
->>>>>>> refs/remotes/origin/master
 		});
 	//============= 회원가입============
 		$("#addUser").on("click",function(){
