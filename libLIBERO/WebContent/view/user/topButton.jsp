@@ -27,6 +27,7 @@
 </style>
 <div class="row " style="margin-bottom: 20px">
 	<!-- ///////////////////////////////////유저 마이페이지 버튼 ////////////////////////// -->
+	<c:if test="${sessionScope.user.role == 'u'}">
 	<div class="col-lg-12 text-center d-flex justify-content-center">
 		<div class="row" style="width: 80%">
 			<div class="buttonDiv col" onclick="location.href='/libero/user/getUser'">
@@ -55,6 +56,7 @@
 			</div>
 		</div>
 	</div>
+	</c:if>
 	<c:if test="${sessionScope.user.role == 'a'}">
 	<!-- //////////////////관리자 마이페이지 버튼/////////////////////////////////  -->
 	<div class="col-lg-12 text-center d-flex justify-content-center">
