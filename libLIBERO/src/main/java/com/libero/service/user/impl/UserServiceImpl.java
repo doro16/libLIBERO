@@ -95,6 +95,12 @@ public class UserServiceImpl implements UserService{
 		userDAO.updateCash(cash);
 	}
 	
+	@Override
+	public void updateUser(User user) {
+		// TODO Auto-generated method stub
+		userDAO.updateUser(user);
+	}
+	
 	public void requestCash(String userId, String cashCode) {
 		userDAO.requestCash(userId, cashCode);
 	}
@@ -106,5 +112,7 @@ public class UserServiceImpl implements UserService{
 	public void delUser(String userId) {
 		userDAO.delUser(userId);
 	}
+
+
 
 }

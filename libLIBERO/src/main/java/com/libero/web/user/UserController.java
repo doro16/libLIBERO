@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -418,13 +419,53 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "getUser", method = RequestMethod.GET)
-	public ModelAndView updateUser(HttpSession session) throws Exception {
-		
-		User user = userService.getUser(((User)session.getAttribute("user")).getUserId());
-		
+	
+	@RequestMapping(value="getUser", method=RequestMethod.GET)
+	public ModelAndView updateUser(HttpSession session) throws Exception{
+		System.out.println(" ---------------------------------------");
+		System.out.println("/user/getUser : GET");
+		System.out.println(" ---------------------------------------");
+		User user = new User();
+		user = (User)session.getAttribute("user");
+		user = userService.getUser(user.getUserId());
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("user", user);
+		
+		modelAndView.addObject("user",user);
+		modelAndView.setViewName("forward:/view/user/getUser.jsp");
+		return modelAndView;
+		
+	}
+	
+	@RequestMapping(value = "updateUser", method = RequestMethod.POST)
+	public ModelAndView updateUser(@ModelAttribute User user,@RequestParam("file") List<MultipartFile> file) throws Exception {
+		System.out.println(" ---------------------------------------");
+		System.out.println("/user/update : POST");
+		System.out.println(" ---------------------------------------");
+		
+		System.out.println("===============\n\n\n"+user+"\n\n\n===============");
+		for (MultipartFile multipartFile : file) {
+			
+			System.out.println(multipartFile.getOriginalFilename());
+			
+			String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
+			String extension=originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+			
+			String fileRoot = "C:/Users/user/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
+			String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+			
+			File f =new File(fileRoot+savedFileName);
+			
+			multipartFile.transferTo(f);
+			System.out.println(" ---------------------------------------");
+			System.out.println(f.getName());
+			System.out.println(" ---------------------------------------");
+		
+			user.setProfile(f.getName());
+		}
+		
+		userService.updateUser(user);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("user", userService.getUser(user.getUserId()));
 		modelAndView.setViewName("forward:/view/user/getUser.jsp");
 		
 		return modelAndView;
