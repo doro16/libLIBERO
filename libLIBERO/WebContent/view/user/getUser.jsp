@@ -140,6 +140,7 @@
 			
 		</div>
 		<!-- //////////////////Bootstrap Container End//////////////////////// -->
+		<jsp:include page="../../common/footer.jsp"></jsp:include>
 	</body>
 	
 	<script type="text/javascript">

@@ -13,7 +13,8 @@
 		</style>
 	</head>
 	<body>
-		<div class="container-fluid">
+		<div class="container">
+			<div style="padding-top: 20px"><h5 class="text-brown">월별 판매 통계</h5></div>
 			<canvas id="dayChart" class="row col-lg-12"></canvas>
 			<div class="row">
 				<canvas id="genderChart" class="col-lg-6"></canvas>

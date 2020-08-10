@@ -93,14 +93,17 @@ public class UserController {
 		//Business Logic
 		User dbUser=userService.getUser(user.getUserId());
 		
-		if( user.getPassword().equals(dbUser.getPassword())){
+		ModelAndView modelAndView = new ModelAndView();
+		
+		if( user.getPassword().equals(dbUser.getPassword()) && dbUser.getUserCode() == 1){
 			session.setAttribute("user", dbUser);
-		}
+			modelAndView.setViewName("redirect:/");
+		} else {
 		
 		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("user"));
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:/");
 		
+		modelAndView.setViewName("redirect:/user/login");
+		}
 		return modelAndView;
 	}
 	
@@ -472,6 +475,29 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("user", userService.getUser(user.getUserId()));
 		modelAndView.setViewName("forward:/view/user/getUser.jsp");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "removeUser", method = RequestMethod.GET)
+	public ModelAndView removeUser(HttpSession session) throws Exception {
+		
+		User user = userService.getUser(((User)session.getAttribute("user")).getUserId());
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName("forward:/view/user/removeUser.jsp");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "removeUser", method = RequestMethod.POST)
+	public ModelAndView removeUser(HttpSession session, User user) throws Exception {
+		
+		userService.removeUser(user);
+		session.invalidate();
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:/");
 		
 		return modelAndView;
 	}

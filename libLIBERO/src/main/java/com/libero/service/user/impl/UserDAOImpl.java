@@ -140,4 +140,11 @@ public class UserDAOImpl implements UserDAO {
 
 
 
+	@Override
+	public void removeUser(User user) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update("UserMapper.removeUser", user);
+		
+	}
+
 }

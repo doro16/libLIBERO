@@ -45,7 +45,7 @@
 						    </div>
 						    <div align="right">
 							    <button type="button" class="btn btn-cyan brown lighten-1" onclick="login()">로그인</button>
-		        				<button type="button" class="btn btn-outline-brown lighten-1 waves-effect" onclick="javascript:history.go(-1)">취소</button>
+		        				<button type="button" class="btn btn-outline-brown lighten-1 waves-effect" onclick="location.href='/libero'">취소</button>
 	        				</div>
 	        			</form>
 	        				<hr/>

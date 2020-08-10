@@ -319,6 +319,7 @@
 	   		<!-- 도서정보 등록 폼 End -->
 	   	</div>
 	   	<!-- //////////// Bootstrap Container End////////////////// -->
+	   	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	</body>
 	
 	<!-- include summernote-lite css/js -->
