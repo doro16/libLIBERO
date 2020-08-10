@@ -74,6 +74,17 @@ public class UserController {
 	//@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
+	@RequestMapping( value="login", method=RequestMethod.GET )
+	public ModelAndView login() throws Exception{
+		
+		System.out.println("/user/login : GET");
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("forward:/view/user/loginView.jsp");
+		
+		return modelAndView;
+	}
+	
 	@RequestMapping( value="login", method=RequestMethod.POST )
 	public ModelAndView login(User user , HttpSession session ) throws Exception{
 		

@@ -64,7 +64,8 @@
 	    	<!-- right Button Start -->
 	    	<ul class="navbar-nav ml-auto nav-flex-icons">
 	    		<li class="nav-item" id="login">
-			    	<a class="nav-link" href="#" data-toggle="modal" data-target="#myModal">로그인</a>
+			    	<!-- <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal">로그인</a> -->
+			    	<a class="nav-link" href="/libero/user/login">로그인</a>
 		        </li>
 		        
 		        <!-- 회원 메뉴 Start -->
@@ -163,8 +164,6 @@
 	<!-- Modal End -->
 	</body>
 	<script>	
-	var ws = null;
-	var session = null;
 	//===================toolbar class change ================
 		$(function() {
 			session = "${sessionScope.user.userId}";
@@ -177,10 +176,6 @@
 			if (path=="/libero/product/getBookList" || path.includes("/libero/product/getBookListByCategory/")) {
 				$("#mainToolbar").attr("class","mb-1 navbar navbar-expand-lg navbar-dark brown lighten-1 fixed-top z-depth-0");
 				$("#bookList").show();
-			}
-			
-			if (session!="") {
-			connect();
 			}
 		});
 	//============= 회원가입============
@@ -236,7 +231,9 @@
 					$(".userDropdown").show(); // 회원 dropdown show
 					$("#login").hide(); // 로그인 버튼 hide
 					$(".userDropdown").children().first().prepend(data.nickname); //닉네임 출력
+					connect();
 					window.location.reload();
+					
 				}
 			});
 			//===========login ajax end========================
