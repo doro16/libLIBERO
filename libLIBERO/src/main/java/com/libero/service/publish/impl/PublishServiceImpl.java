@@ -117,5 +117,9 @@ public class PublishServiceImpl implements PublishService{
 		// TODO Auto-generated method stub
 		return publishDAO.getHashtagList(prodNo);
 	}
+	
+	public void updateBlindCode(Publish publish) throws Exception {
+		publishDAO.updateBlindCode(publish);
+	}
 
 }

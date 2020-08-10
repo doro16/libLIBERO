@@ -88,10 +88,10 @@
 	        		<div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
 			        	<a class="dropdown-item" href="/libero/user/getUser">마이페이지</a>
 				        <div class="dropdown-divider"></div>
-				        <c:if test="${! empty kakao_url}">
-				       	 <a class="dropdown-item" href="${kakao_url}">로그아웃</a>
+				        <c:if test="${! empty kakao_logout}">
+				       	 <a href="${kakao_logout}">로그아웃</a>
 				        </c:if>
-				        <c:if test="${empty kakao_url}">
+				        <c:if test="${empty kakao_logout}">
 				       	 <a class="dropdown-item" href="/libero/user/logout">로그아웃</a>
 				       	 </c:if>
 	        		</div>
@@ -155,19 +155,23 @@
 	      		</div>
 	      		<div class="modal-footer text-center">
 	        		<a href="#"><button type="button" class="btn btn-info brown lighten-1 btn-block" id="addUser">회원가입</button></a><br/>
-	        		<a href="${kakao_url}"><img src="/libero/resources/images/common/kakao_login_medium_narrow.png"></a>
+	        		<a href="${kakao_login}"><img src="/libero/resources/images/common/kakao_login_medium_narrow.png"></a>
 	      		</div>
 	    	</div>
 	  	</div>
 	</div>
 	<!-- Modal End -->
 	</body>
+<<<<<<< HEAD
+	<script>	
+=======
 	<script>
 	var ws = null;
-	
+	var session = null;
+>>>>>>> refs/remotes/origin/master
 	//===================toolbar class change ================
 		$(function() {
-			
+			session = "${sessionScope.user.userId}";
 			var path = window.location.pathname;
 			
 			if (path=="/libero/home.jsp" ||path=="/libero/") {
@@ -179,8 +183,13 @@
 				$("#bookList").show();
 			}
 			
+<<<<<<< HEAD
+=======
+			if (session!="") {
 			connect();
-			
+			}
+
+>>>>>>> refs/remotes/origin/master
 		});
 	//============= 회원가입============
 		$("#addUser").on("click",function(){
@@ -193,7 +202,6 @@
 	})
 	//============= modal 로그인 처리 =============
 	$(function(){
-		var ws;
 		var session = "${sessionScope.user.userId}";
 		
 		if (session!="") {
@@ -241,30 +249,11 @@
 			});
 			//===========login ajax end========================
 		});
-		
-		connect();
-				
 	});
 	
-		 //=======================Web Socket Start=========================
-		//connect();
-		/* $("#btnSend").on("click", function(){
-			var chat = $("#msgArea").val();
-			chat = chat + "\나 : "+ $("#chatMsg").val();
-			$("#msgArea").val(chat);
-			sendMsg();
-			$("#chatMsg").val("");
-			
-		}) */
-		
+		 //=======================Web Socket Start=========================		
 		function connect(){ 
-			var session = "${sessionScope.user.userId}";
-			//웹소켓 객체 생성하는 부분
-			//핸들러 등록(연결 생성, 메세지 수신, 연결 종료)
-			
-			//url 연결할 서버의 경로
-			if (session!="") {
-				
+			session = "${sessionScope.user.userId}";			
 			ws = new SockJS("<c:url value="/echo"/>");
 			
 			ws.onopen = function(){
@@ -280,32 +269,6 @@
 				console.log('연결 끊김');
 			};
 			
-		}
-		}
-
-/* 		function addMsg(msg){ //원래 채팅 메세지에 방금 받은 메세지 더해서 set
-			var chat = $("#msgArea").val();
-			chat = chat + "\n 상대방 : "+ msg;
-			$("#msgArea").val(chat);
-		} */
-
-		function sender(){ //메세지 수신을 위한 서버에 id 등록
-			var msg = {
-					type : "senderId", //메세지 구분하는 구분자 - 상대방 아이디와 메세지 포함
-					sendId : "${sessionScope.user.userId}"
+		}//=======================Web Socket End=========================	
 			
-			};
-			
-			ws.send(JSON.stringify(msg));
-		}
-
-		/* function sendMsg(facNick){
-			var msg = {
-					type : "message", //메세지 구분하는 구분자 - 상대방 아이디와 메세지 포함
-					sendNickname : "${sessionScope.user.userId}",
-					recvNickname : facNick,
-			};
-			ws.send(JSON.stringify(msg));
-		};
-		 */
 	</script>

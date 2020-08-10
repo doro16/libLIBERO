@@ -104,11 +104,11 @@
 	    </div>
 	    <div class="box" style="background-image: url(resources/images/common/index4.jpg);">
 	    	<div class="container text-center" style="height: 100%;display: flex; justify-content: center; align-items: center;">
-		    	<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 70%">
+		    	<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 70%;">
 					<div class="carousel-inner">
-				    	<div class="carousel-item active" data-interval="10000">
+				    	<div class="carousel-item active" data-interval="10000" style="size: 100%">
 				      		<!-- Card deck -->
-							<div class="card-deck">
+							<div class="card-deck" >
 							<c:forEach var="prod" items="${book}" end="2">
 								<!-- Card -->
 								<div class="card mb-4">
@@ -125,7 +125,7 @@
 								    <div class="card-body">
 								
 								    	<!--Title-->
-								      	<h4 class="card-title"><a href="/libero/product/getProduct/${prod.prodNo}">${prod.prodName}</a></h4>
+								      	<h6 class="card-title"><a href="/libero/product/getProduct/${prod.prodNo}">${prod.prodName}</a></h6>
 								
 								    </div>
 							
@@ -154,7 +154,7 @@
 							    <div class="card-body">
 							
 							    	<!--Title-->
-							      	<h4 class="card-title"><a href="/libero/product/getProduct/${prod.prodNo}">${prod.prodName}</a></h4>
+							      	<h6 class="card-title"><a href="/libero/product/getProduct/${prod.prodNo}">${prod.prodName}</a></h6>
 							
 							    </div>
 						
@@ -183,7 +183,7 @@
 							    <div class="card-body">
 							
 							    	<!--Title-->
-							      	<h4 class="card-title"><a href="/libero/product/getProduct/${prod.prodNo}">${prod.prodName}</a></h4>
+							      	<h6 class="card-title"><a href="/libero/product/getProduct/${prod.prodNo}">${prod.prodName}</a></h6>
 							
 							    </div>
 						

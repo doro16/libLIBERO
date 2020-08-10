@@ -37,8 +37,8 @@
 				{
 					label: "판매량",
 					data: ["${st.jan}", "${st.feb}", "${st.mar}", "${st.apr}", "${st.may}", "${st.jun}", "${st.jul}","${st.aug}","${st.sep}","${st.oct}","${st.nov}","${st.dec}"],
-					backgroundColor: ['rgba(165, 222, 159, .4)',],
-					borderColor: ['rgba(47, 157, 39, .7)',],
+					backgroundColor: ['rgba(255, 204, 102, .4)',],
+					borderColor: ['rgba(255, 204, 102, .7)',],
 					borderWidth: 2
 				}
 			]

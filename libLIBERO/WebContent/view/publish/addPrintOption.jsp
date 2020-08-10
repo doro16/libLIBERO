@@ -47,6 +47,7 @@
 			}
 			.black {
 				background-image: url(../resources/images/publish/book_black.png);
+				background-color: #FFFFFF;
 			}
 			.color {
 				background-image: url(../resources/images/publish/book_color.png);

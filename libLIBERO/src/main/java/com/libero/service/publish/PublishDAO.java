@@ -45,6 +45,7 @@ public interface PublishDAO {
 	public List<String> getHashtagList(int prodNo) throws Exception;
 
 	public void removeHashtag(int prodNo) throws Exception;
-
+	
+	public void updateBlindCode(Publish publish) throws Exception;
 
 }

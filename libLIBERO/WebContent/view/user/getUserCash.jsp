@@ -11,9 +11,6 @@
 		<!--  ///////////////////////// CSS ////////////////////////// -->
 		<link rel="stylesheet" href="../resources/css/common.css">
 		<style type="text/css">
-			.row {
-				margin: 10px;
-			}
 		</style>
 	</head>
 	<body>
@@ -28,7 +25,7 @@
 	   	<!-- //////////// Bootstrap Container Start////////////////// -->
 	   	<div class="container">
 	   		<jsp:include page="topButton.jsp"></jsp:include>
-	   		<div class="row col-lg-12">
+	   		<div class="row col-lg-12" style="margin: 10px">
 	   		<c:if test="${!empty cashCode && cashCode eq 'bf'}">
 	   			<h1>현재 정산 전</h1> &nbsp;&nbsp;
 	   			<button type="button" class="btn btn-outline-warning waves-effect" id="reqWithdraw" name="reqWithdraw"><i class="fas fa-comments-dollar mr-1"></i> 정산 신청</button>
@@ -37,10 +34,10 @@
 	   			<h1>정산 신청 완료</h1><br/>
 	   		</c:if>
 	   		</div>
-	   		<div class="row col-lg-12">
+	   		<div class="row col-lg-12" style="margin: 10px">
 	   			<h6>정산일 : <input type='month' id='currentMonth' style="background-color:transparent;border:0 solid black;text-align:right;" readonly>15일</h6>
 	   		</div>
-	   		<div class="row text-center" style="text-align:center; float:center;">
+	   		<div class="row text-center" style="text-align:center; float:center;margin: 10px">
 	   			<div class="col-lg-3">
 	   				<h6><strong>누적 정산금</strong></h6>${cash.cashAmount}원
 	   			</div>
@@ -52,7 +49,7 @@
 	   				
 	   			</div>
 	   		</div>
-	   		<div class="row d-flex justify-content-center">
+	   		<div class="row d-flex justify-content-center"  style="margin: 10px">
 	   			<canvas id="dayChart" id="dayChart" class="row col-lg-12"></canvas>
 	   		</div>
 	   	</div>
@@ -70,10 +67,9 @@
         </button>
       </div>
       <div class="modal-body mx-3">
-        <div class="md-form mb-5" >
-          <i class="fas fa-chevron-down prefix grey-text"></i> &nbsp;
-          <div>
-          <select class="mdb-select md-form">
+        <div class="md-form mb-2">
+          <i class="fas fa-chevron-down prefix grey-text"></i>
+          <select id="bank" class="mdb-select md-form" style="padding:8px; margin-top:50px;">
 		  	<option value="" disabled selected>Choose your Bank</option>
 			<option value="기업">기업은행</option>
 			<option value="농협">농협은행</option>
@@ -83,15 +79,14 @@
 			<option value="한국씨티">한국씨티은행</option>
 			<option value="신한">신한은행</option>
 		</select>
-		</div>
         </div>
         
         
 
         <div class="md-form mb-4">
           <i class="fas fa-pen prefix grey-text"></i>
-          <input type="text" id="defaultForm-pass" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="defaultForm-pass">Your Account Number</label>
+          <input type="text" id="accNum" name="accNum" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="defaultForm-pass">- 를 제외한 계좌 번호 입력</label>
         </div>
         
          <div class="md-form mb-4">
@@ -153,12 +148,35 @@
 				})
 		}
 		
+		var RegNotNum = /[^0-9]/g;
+		
 		$("#reqWithdraw").on("click", function(){
 			$('#modalreqWithdrawForm').modal('show');
 		})
 		
+		$("#accNum,#withDraw").keyup(function(){ 
+			this.value = this.value.replace(RegNotNum, '');
+			});
+
+		
 		$("#inputWithdraw").on("click", function(){
-			var withDraw = $("#withDraw").val();
+			var bank = $("#bank option:selected").val();
+			var accNum = $("#accNum").val();
+			var withDraw = $("#withDraw").val();				
+
+			if(bank == ""){
+				alert("은행을 선택해주세요.");
+				return;
+			}
+			if(accNum == ""){
+				alert("계좌번호를 입력해주세요.")
+				return;
+			}
+			if(withDraw == ""){
+				alert("정산 금액을 입력해주세요.")
+				return;
+			}
+			
 			window.location.href = "/libero/user/requestCash/"+withDraw;
 		})
 	})

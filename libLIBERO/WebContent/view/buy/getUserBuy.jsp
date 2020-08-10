@@ -59,16 +59,19 @@ function relocate(prodNo){
 						<div class="col-lg-7 align-self-center">
 							  			<table>
 							  				<tbody>
-								  				<tr>
-							  						<th>상품 이름</th>
-							  						<td>: ${getProduct.prodName}</td>
+							  					
+							  					
+								  					<tr>
+								  						<th>상품 이름</th>
+								  						<td>: ${getProduct.prodName}</td>
 								  					</tr>
+							  					
 							  					<tr>
 							  						<th>상품 가격</th>
 							  						<td>:  ${getProduct.retailPrice }</td>
 							  					</tr>
 							  					<tr>
-							  						<th>상품 종류</th>
+							  					<th>상품 종류</th>
 							  						<td>:  ${getProduct.prodType}</td>
 							  					</tr>
 							  					<tr>

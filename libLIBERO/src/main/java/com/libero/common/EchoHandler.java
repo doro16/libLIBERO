@@ -25,13 +25,13 @@ public class EchoHandler extends TextWebSocketHandler{
 	
 	//webSocketSession 클라이언트 당 하나씩 생성, 해당 클라이언트와 연결된 웹소켓을 연결 
 	//해당 객체를 통해 메세지를 주고 받음
-	private List<WebSocketSession> users;
-	private Map<String, Object> userMap;
+	private List<WebSocketSession> users = new ArrayList<WebSocketSession>();
+	private Map<String, Object> userMap = new HashMap<String, Object>();
 	
-	public EchoHandler() {
-		users = new ArrayList<WebSocketSession>();
-		userMap = new HashMap<String, Object>();
-	}
+//	public EchoHandler() {
+//		users = new ArrayList<WebSocketSession>();
+//		userMap = new HashMap<String, Object>();
+//	}
 	
 	// 클라이언트가 서버로 연결된 이후 실행
 	@Override
@@ -40,13 +40,13 @@ public class EchoHandler extends TextWebSocketHandler{
 		System.out.println("----------------------------------------------------------------------- ");
 		System.out.println("WEBSOCKET afterConnectionEstablished : 연결 생성");
 		System.out.println("----------------------------------------------------------------------- ");
-	//	users.add(session);
+		users.add(session);
 		
 		Map<String, Object> httpSession = session.getAttributes();
 		
 		User user = (User) httpSession.get("user");
 		
-		//System.out.println(">>>>>>>>>>>>>>>>>>>1"+user.getUserId());
+		System.out.println(">>>>>>>>>>>>>>>>>>>1"+httpSession.get("user"));
 		if(user != null) {
 		System.out.println(">>>>>>>>>>>>>>>>>>>2"+user.getUserId());
 		String senderNickname = user.getNickname();
