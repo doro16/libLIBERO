@@ -55,6 +55,9 @@ public class ProductController{
 	@Value("#{commonProperties['pdPageUnit']}")
 	int pageUnit;
 	
+	@Value("#{commonProperties['path']}")
+	String path;
+	
 	//method 서점메인화면 출력
 	@RequestMapping(value="getBookList", method = RequestMethod.GET)
 	public ModelAndView getBookList() throws Exception {
@@ -64,22 +67,26 @@ public class ProductController{
 			Search search = new Search();
 			if(search.getCurrentPage() == 0) {
 				search.setCurrentPage(1);
-}
+			}
 			search.setPageSize(pageSize);
 			
 			//BusinessLogic
 			int totalCount = productService.getBookTotalCount();
 			
 			Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
+			int maxPage = (totalCount - 11)/pageSize + 2; //처음페이지 10개 출력, 이후 5개 출력에 따른 최대페이지 수
+			resultPage.setPageSize(maxPage);
 			
 			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.addObject("resultPage", resultPage);
-			modelAndView.addObject("search", search);
-			modelAndView.addObject("totalCount", totalCount);
+
 			
 			List<Product> list=productService.getBookList(search);
 			
-		
+			search.setCurrentPage(2); //5개 더보기 할때 오프셋 10부터 시작하기 위함. 첫페이지가 10개 출력했음으로인해
+			modelAndView.addObject("search", search);
+			modelAndView.addObject("resultPage", resultPage);
+			modelAndView.addObject("totalCount", totalCount);
+
 			modelAndView.addObject("book", list);
 			modelAndView.setViewName("forward:/view/product/getBookList.jsp");
 			
@@ -90,6 +97,12 @@ public class ProductController{
 	 public ModelAndView getBookListByCategory(@PathVariable String bookCategory) throws Exception {
 		 		
 		 System.out.println("카테고리 : "+bookCategory);
+		 
+			Search search = new Search();
+			if(search.getCurrentPage() == 0) {
+				search.setCurrentPage(1);
+			}
+			search.setPageSize(pageSize);
 		 		
 		 String category = null;
 			if(bookCategory.equals("edu")) {
@@ -108,15 +121,23 @@ public class ProductController{
 		 	//BusinessLogic
 		 	System.out.println("/product/getBookListByCategory : GET, pathVariable : "+category);
 		 	
-		 	Map<String, Object> map=productService.getBookListByCategory(category);
-		 	System.out.println("컨트롤러 가져온것 :: "+map);
-		 	System.out.println("컨트롤러 가져온것 2:: "+map.get("list"));
-		 	ModelAndView modelAndView = new ModelAndView();
+		 	int totalCount = productService.getBookTotalCount(category);
+			
+			Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
+			
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject("resultPage", resultPage);
+			modelAndView.addObject("search", search);
+			modelAndView.addObject("totalCount", totalCount);
+		 	
+		 	List<Product> list=productService.getBookListByCategory(category, search);
+		 	System.out.println("컨트롤러 가져온것 :: "+list);
 		 	
 		 	//List<Product> product = (List<Product>) map.get("list");
 		 	//product[0].get()
 		 	//System.out.println(product.get(index).getBookCateogry);
-		 	modelAndView.addObject("book", map.get("list"));
+		 	modelAndView.addObject("book", list);
+		 	modelAndView.addObject("path", path);
 		 	modelAndView.setViewName("forward:/view/product/getBookListByCategory.jsp");
 		 	
 		 	return modelAndView;
@@ -126,31 +147,29 @@ public class ProductController{
 	 @RequestMapping(value="getBookListBySearch", method = RequestMethod.GET)
 	 public ModelAndView getBookListBySearch(@RequestParam("searchCondition") String searchCondition, @RequestParam("searchKeyword") String searchKeyword) throws Exception {
 		 		
-	
-		 System.out.println("검색조건 : "+searchCondition);
-		 System.out.println("검색어 : "+searchKeyword);
+		 Search search = new Search();
+			if(search.getCurrentPage() == 0) {
+				search.setCurrentPage(1);
+			}
+			search.setPageSize(pageSize);
+			search.setSearchCondition(searchCondition);
+			search.setSearchKeyword(searchKeyword);
+		
+			int totalCount = productService.getBookTotalCountBySearch(search);
+			
+			Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
+			
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject("resultPage", resultPage);
+			modelAndView.addObject("search", search);
+			modelAndView.addObject("totalCount", totalCount);
+		 	
+		 	List<Product> list=productService.getBookListBySearch(search);
+		 	System.out.println("컨트롤러 가져온것 :: "+list);
+		 	
 
-		 	//BusinessLogic
-		 	System.out.println("/product/getBookListByCategory : GET, ");
-		 	
-		 	Search search = new Search();
-		 	
-		 	search.setSearchCondition(searchCondition);
-		 	search.setSearchKeyword(searchKeyword);
-		 	
-		 	
-		 	List<Product> book=productService.getBookListBySearch(search);
-		 	System.out.println("컨트롤러 가져온것 :: "+book);
-		 	
-		 	ModelAndView modelAndView = new ModelAndView();
-		 	
-		 	//List<Product> product = (List<Product>) map.get("list");
-		 	//product[0].get()
-		 	//System.out.println(product.get(index).getBookCateogry);
-		 	
-		 	modelAndView.addObject("searchKeyword", searchKeyword);
-		 	modelAndView.addObject("searchCondition", searchCondition);
-		 	modelAndView.addObject("book", book);
+		 	modelAndView.addObject("book", list);
+		
 		 	modelAndView.setViewName("forward:/view/product/getBookListBySearch.jsp");
 		 	
 		 	return modelAndView;
@@ -174,8 +193,9 @@ public class ProductController{
 				List<Product> product = productService.getProductList(prodType, search);
 				
 				int totalCount = productService.getProductTotalCount(prodType);
-				
 				Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
+				int maxPage = (totalCount - 11)/pageSize + 2; //처음페이지 10개 출력, 이후 5개 출력에 따른 최대페이지 수
+				resultPage.setPageSize(maxPage);
 				
 				modelAndView.addObject("product", product);
 				modelAndView.addObject("resultPage", resultPage);
@@ -186,6 +206,40 @@ public class ProductController{
 				
 				return modelAndView;
 		}
+		
+		//작가 서비스 검색결과
+		 @RequestMapping(value="getProductListBySearch", method = RequestMethod.GET)
+		 public ModelAndView getProductListBySearch(@RequestParam("prodType") String prodType, @RequestParam("searchCondition") String searchCondition, @RequestParam("searchKeyword") String searchKeyword) throws Exception {
+			 System.out.println("Controller : getProductListBySearch");
+			 System.out.println("prodType은 "+prodType );
+			 Search search = new Search();
+				if(search.getCurrentPage() == 0) {
+					search.setCurrentPage(1);
+				}
+				search.setPageSize(pageSize);
+				search.setSearchCondition(searchCondition);
+				search.setSearchKeyword(searchKeyword);
+			
+				int totalCount = productService.getProductTotalCountBySearch(search, prodType);
+				
+				Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
+				
+				ModelAndView modelAndView = new ModelAndView();
+				modelAndView.addObject("resultPage", resultPage);
+				modelAndView.addObject("search", search);
+				modelAndView.addObject("totalCount", totalCount);
+				//modelAndView.addObject("prodType", prodType);
+			 	
+			 	List<Product> list=productService.getProductListBySearch(search, prodType);
+			 	System.out.println("컨트롤러 가져온것 :: "+list);
+			 	
+			 	modelAndView.addObject("Product", list);
+			
+			 	modelAndView.setViewName("forward:/view/product/getProductListBySearch.jsp");
+			 	
+			 	return modelAndView;
+			 	
+		 }
 		
 				//method 서비스상품화면 출력
 				@RequestMapping(value="getProduct/{prodNo}", method = RequestMethod.GET)
@@ -207,12 +261,12 @@ public class ProductController{
 						hashMap.put("prodNo", prodNo);
 						hashMap.put("userId", userId);
 						if(wishService.checkWish(hashMap) == true) {
-							modelAndView.addObject("wish", "../../resources/images/product/wish/notsmile.png");
+							modelAndView.addObject("wish", 0);
 						}else {
-							modelAndView.addObject("wish", "../../resources/images/product/wish/smile.png");
+							modelAndView.addObject("wish", 1);
 						}
 					}else{
-						   modelAndView.addObject("wish", "../../resources/images/product/wish/notsmile.png");
+						   modelAndView.addObject("wish", 0);
 					}
 						
 						//상품타입에 따른 출력페이지
