@@ -107,4 +107,10 @@ public class UserServiceImpl implements UserService{
 		userDAO.delUser(userId);
 	}
 
+	@Override
+	public void removeUser(User user) throws Exception {
+		// TODO Auto-generated method stub
+		userDAO.removeUser(user);
+	}
+
 }

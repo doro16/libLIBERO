@@ -69,5 +69,6 @@
 	   		
 	   	</div>
 	   	<!-- //////////// Bootstrap Container End////////////////// -->
+	   	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	</body>
 </html>

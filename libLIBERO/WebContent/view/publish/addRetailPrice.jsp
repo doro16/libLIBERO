@@ -321,6 +321,7 @@
 			</div>
 			<!-- Central Modal Large -->
 	   	</div>
+	   	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	</body>
 	<script type="text/javascript">
 		$(function(){
@@ -387,8 +388,11 @@
 				return;
 			} */
 			if (0>finalPrice) {
-				alert("수익금이 마이너스입니다. 가격을 높여주세요");
-				return;
+				Swal.fire({
+					  icon: 'error',
+					  text: '수익금이 마이너스입니다. 가격을 높여주세요.'
+					});
+	    		return;
 			}
 
 			sendMsg();			

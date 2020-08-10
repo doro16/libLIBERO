@@ -126,4 +126,11 @@ public class UserDAOImpl implements UserDAO {
 		sqlSession.delete("UserMapper.delUser", userId);
 	}
 
+	@Override
+	public void removeUser(User user) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update("UserMapper.removeUser", user);
+		
+	}
+
 }

@@ -106,6 +106,7 @@
 			</div>
 	   	</div>
 	   	<!-- //////////// Bootstrap Container End////////////////// -->
+	   	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	</body>
 	
 	<script type="text/javascript">
@@ -143,9 +144,8 @@
 			
 			$(window).scroll(function() {
 				
-		    	if ($(window).scrollTop()+1 >= $(document).height() - $(window).height()) {
+		    	if ($(window).scrollTop()+5 >= $(document).height() - $(window).height()) {
 		    		var prodType = "${param.prodType}";
-		    		console.log("okok");
 		    		curPage++;
 		    		getProdList(curPage,prodType);
 		     		

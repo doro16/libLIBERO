@@ -34,7 +34,7 @@
 	   	
 	   	<!-- //////////// Bootstrap Container Start////////////////// -->
 	   	<div class="container">
-	   	
+	   	<jsp:include page="../user/topButton.jsp"></jsp:include>
 	   		<div class="row">
 		   		<div class="col-lg-12">
 		   			<div class="formLabel">인쇄옵션 가격 조회</div>
@@ -218,6 +218,7 @@
 	   		</div>
 	   	</div>
 	   	<!-- ///////////// Bootstrap Container End ////////////////// -->
+	   	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	</body>
 	<script type="text/javascript">
 		$(function(){
@@ -247,7 +248,11 @@
 			
 			for (var i = 0; i < tableArray.length; i++) {
 				if (tableArray[i]=="") {
-					alert("모든 가격을 등록해주세요.");
+					Swal.fire({
+						  icon: 'error',
+						  text: '모든 가격을 등록해주세요.'
+						});
+		    		return;
 				}
 			}
 

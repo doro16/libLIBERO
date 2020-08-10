@@ -9,11 +9,26 @@
 	nav {
 		font-family: 'Noto Sans KR', sans-serif;
 	}
+	
+	
+	.smart-scroll{
+	  position: fixed;
+	  top: 0;
+	  right: 0;
+	  left: 0;
+	  z-index: 1030;
+	}
+	.scrolled-down{
+	   transform:translateY(-100%); transition: all 0.3s ease-in-out;
+	}
+	.scrolled-up{
+	   transform:translateY(0); transition: all 0.3s ease-in-out;
+	}
 
 </style>
 </head>
 	<!--Navbar -->
-	<nav id="mainToolbar" class="mb-1 navbar navbar-expand-lg navbar-dark brown lighten-1 fixed-top z-depth-1">
+	<nav id="mainToolbar" class="mb-1 navbar navbar-expand-lg navbar-dark brown lighten-1  smart-scroll z-depth-1">
 		<a href="/libero/" class="navbar-brand">
 	  		<img src="http://127.0.0.1:8080/libero/resources/images/common/logo_white.png" width="80" height="23" alt="" loading="lazy" id="logoImg">
 	  	</a>
@@ -104,8 +119,8 @@
 	</nav>
 	<!--/.Navbar -->
 	<!-- subnav here -->
-	<div id="bookList" class="sticky-top" style="padding-top: 56px; display: none;">
-		<nav class="mb-1 navbar navbar-expand-lg navbar-dark brown darken-1 z-depth-0" style="min-height: 30px">
+	<div id="bookList" class="sticky-top" style="display: none;">
+		<nav class="mb-1 navbar navbar-expand-lg navbar-dark brown darken-1 z-depth-0 smart-scroll" style="padding-top: 65px;min-height: 30px">
 		
 		    <div class="collapse navbar-collapse navbar1and2" id="navbarSupportedContent2">
 		        <ul class="navbar-nav mx-auto">
@@ -174,9 +189,25 @@
 			}
 			
 			if (path=="/libero/product/getBookList" || path.includes("/libero/product/getBookListByCategory/")) {
-				$("#mainToolbar").attr("class","mb-1 navbar navbar-expand-lg navbar-dark brown lighten-1 fixed-top z-depth-0");
+				$("#mainToolbar").attr("class","mb-1 navbar navbar-expand-lg navbar-dark brown lighten-1 smart-scroll z-depth-0");
 				$("#bookList").show();
 			}
+			
+			// detect scroll top or down
+			if ($('.smart-scroll').length > 0) { // check if element exists
+			    var last_scroll_top = 0;
+			    $(window).on('scroll', function() {
+			        scroll_top = $(this).scrollTop();
+			        if(scroll_top < last_scroll_top) {
+			            $('.smart-scroll').removeClass('scrolled-down').addClass('scrolled-up');
+			        }
+			        else {
+			            $('.smart-scroll').removeClass('scrolled-up').addClass('scrolled-down');
+			        }
+			        last_scroll_top = scroll_top;
+			    });
+			}
+			
 		});
 	//============= 회원가입============
 		$("#addUser").on("click",function(){
