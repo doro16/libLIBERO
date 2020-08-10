@@ -113,6 +113,12 @@ public class UserServiceImpl implements UserService{
 		userDAO.delUser(userId);
 	}
 
+	@Override
+	public int updatePhoneCode(String userId) {
+		
+		return userDAO.updatePhoneCode(userId);
+	}
+
 
 
 }

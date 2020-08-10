@@ -49,6 +49,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
@@ -191,6 +192,11 @@ public class UserRestController {
 		return result;
 	}
 ///////////////////////////////////////////랜덤 코드 생성기
+	static int randomNumber() {
+		int rand = (int) (Math.random() * 899999) + 100000; 
+		return rand;	
+	}
+	
 	static String getAlphaNumericString() { 
 		
 		
@@ -311,16 +317,16 @@ public class UserRestController {
 	}
 	
 	@RequestMapping(value="json/sendSms",method=RequestMethod.POST)
-	public String sendSms(String receiver) {
+	public int sendSms(String receiver) {
 		// 6자리 인증 코드 생성 
-		int rand = (int) (Math.random() * 899999) + 100000; 
+		int randomNo = UserRestController.randomNumber();
 		// 인증 코드를 데이터베이스에 저장하는 코드는 생략했습니다. 
 		// 문자 보내기 
 		String hostname = "api.bluehouselab.com";
 		String url = "https://" + hostname + "/smscenter/v1.0/sendsms";
 		CredentialsProvider credsProvider = new BasicCredentialsProvider();
 		credsProvider.setCredentials(new AuthScope(hostname, 443, AuthScope.ANY_REALM),// 청기와랩에 등록한 Application Id 와 API key 를 입력합니다. 
-				new UsernamePasswordCredentials("libLIBERO Id", "924dc880d95711ea992c0cc47a1fcfae"));
+				new UsernamePasswordCredentials("libeLIBERO", "8ec6b9cad95611eab5140cc47a1fcfae"));
 		AuthCache authCache = new BasicAuthCache(); 
 		authCache.put(new HttpHost(hostname, 443, "https"), new BasicScheme());
 		HttpClientContext context = HttpClientContext.create();
@@ -330,7 +336,7 @@ public class UserRestController {
 		try {
 			HttpPost httpPost = new HttpPost(url);
 		httpPost.setHeader("Content-type", "application/json; charset=utf-8");//문자에 대한 정보 
-		String json = "{\"sender\":\"보내는 사람\",\"receivers\":[\"" + receiver + "\"],\"content\":\"문자 내용\"}"; 
+		String json = "{\"sender\":\"01035939410\",\"receivers\":[\"" + receiver + "\"],\"content\":\""+randomNo+"\"}"; 
 		StringEntity se = new StringEntity(json, "UTF-8"); 
 		httpPost.setEntity(se); 
 		HttpResponse httpResponse = client.execute(httpPost, context);
@@ -338,19 +344,30 @@ public class UserRestController {
 		if (inputStream != null) {
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream)); 
 		String line = ""; 
-		while ((line = bufferedReader.readLine()) != null) inputStream.close(); 
-		} 
+		while ((line = bufferedReader.readLine()) != null) 
+			inputStream.close(); 
+		}else {
+			return 0;
+		}
 		
 		} catch (Exception e) { 
 			System.err.println("Error: " + e.getLocalizedMessage()); 
 			}finally { 
 				client.getConnectionManager().shutdown();
 				}
-		return "성공!";
+		return randomNo;
 	}
 		
-	
+	@ResponseBody
+	@RequestMapping(value="json/updatePhoneCode",method=RequestMethod.POST)
+	public int updatePhoneCode(HttpSession session,boolean phoneCode ) throws Exception{
+		System.out.println(" ---------------------------------------");
+		System.out.println("[ /user/json/updatePhoneCode  :: POST]");
+		System.out.println(" ---------------------------------------");
+		User user = (User)session.getAttribute("user");
 		
+		return userService.updatePhoneCode(user.getUserId());
+	}
 	
 
 		
