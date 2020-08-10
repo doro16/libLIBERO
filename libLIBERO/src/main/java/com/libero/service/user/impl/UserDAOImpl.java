@@ -132,6 +132,12 @@ public class UserDAOImpl implements UserDAO {
 		sqlSession.update("UserMapper.updateUser",user);
 	}
 
+	@Override
+	public int updatePhoneCode(String userId) {
+		
+		return sqlSession.update("UserMapper.updatePhoneCode",userId);
+	}
+
 
 
 }

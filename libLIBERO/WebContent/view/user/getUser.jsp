@@ -102,9 +102,22 @@
 				  	</div>
 				  	</div>
 				  	<input type="text" class="form-control"name="phone" id="phone" aria-label="Sizing example input" aria-describedby="inputGroupMaterial-sizing-default" value="${user.phone}" readonly="readonly">
-					<div >휴대폰 인증 : ${user.phoneCode==1 ? '<i class="far fa-smile mdb-gallery-view-icon"></i>' : '<i class="far fa-frown mdb-gallery-view-icon"></i>'}</div>
-					<button type="button" id="phoneVerif" class="btn btn-info brown lighten-1">휴대폰 번호 인증</button>
+					<div >${user.phoneCode==1 ? '<i class="far fa-smile mdb-gallery-view-icon"></i>' : '<button type="button" id="phoneVerif" class="btn btn-info brown lighten-1">휴대폰 번호 인증</button>'}</div>
+					
 				</div>
+				</div>
+<!-- 				/////////////////////////////////휴대폰 인증 코드//////////////////////////////// -->
+				<div class="row" style="display:none" id="verifDiv">
+				<div class="md-form input-group mb-3">
+				<div class="col-3">
+				  	<div class="input-group-prepend">
+				    	<span class="input-group-text md-addon" id="inputGroupMaterial-sizing-default">인증 번호</span>
+				  	</div>
+				  	</div>
+				  	<input  class="form-control"name="verifCode" id="verifCode" aria-label="Sizing example input" aria-describedby="inputGroupMaterial-sizing-default">
+					<div ><button type="button" id="verifBtn" class="btn btn-info brown lighten-1">인증 하기</button></div>
+				</div>
+				<input type="hidden" value="" id="hiddenVerif">
 				</div>
 				<!-- ///////////////////////////// 생년월일 ///////////////////////////////// -->
 				<div class="row">
@@ -257,15 +270,53 @@
 						},
 					type: "post",
 					success: function(result) {
-						
-							console.log(result);
+						if(result >0){
+							swal("인증번호가 발송되었습니다.","휴대폰을 확인해 주세요 :>","success");
+						$("#verifDiv").show();
+						$("#hiddenVerif").attr("value",result);
+						//alert($("#hiddenVerif").val());
+						}else{
+							swal("유효한 번호를 입력해 주세요","연락처 수정","error");
+						}
 					}			
 					});
 			
 			})
 
-	
-
+			$("#verifBtn").on("click",function(){
+				if($("#hiddenVerif").val() != $("#verifCode").val()){
+					swal("인증번호를 확인해 주세요","","error");
+					
+				}else if($("#verifCode").val()== null || $("#verifCode").val()== ''){
+					swal("인증번호를 입력하지 않으셨습니다.","","error");
+				}else{
+				
+					$.ajax({
+						url:"/libero/user/json/updatePhoneCode",
+						data:{
+							phoneCode : true
+						},
+						type:"POST",
+						success:function(result){
+							if(result > 0){
+								swal("인증이 완료되었습니다!","감사합니다!","success")
+								window.location.reload();
+								
+							}else{
+								
+							}
+							
+							
+						}
+						
+					})
+					
+				}
+				
+				
+			})
+			
+			
 		})
 			
 	
