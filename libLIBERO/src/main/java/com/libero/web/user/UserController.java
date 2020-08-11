@@ -97,7 +97,13 @@ public class UserController {
 		
 		if( user.getPassword().equals(dbUser.getPassword()) && dbUser.getUserCode() == 1){
 			session.setAttribute("user", dbUser);
-			modelAndView.setViewName("redirect:/");
+			if (dbUser.getRole().contentEquals("u")) {
+				modelAndView.setViewName("redirect:/");
+			} else if (dbUser.getRole().contentEquals("a")) {
+				modelAndView.setViewName("redirect:/user/getUserList");
+			} else if (dbUser.getRole().contentEquals("f")) {
+				modelAndView.setViewName("redirect:/buy/getFactoryBuyList");
+			}
 		} else {
 		
 		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("user"));
@@ -384,7 +390,7 @@ public class UserController {
 		System.out.println("/user/requestCash : POST");
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/user/getUserCash");
+		mav.setViewName("/user/getUserCash");
 
 		HttpSession session = request.getSession(true);
 		User user = (User) session.getAttribute("user");
@@ -392,8 +398,8 @@ public class UserController {
 
 		Cash cash = new Cash();
 		cash = userService.getCash(userId);
-
-		if (cash.getCashCurrent() < cashWithdraw) {
+		
+		if (cash == null || cash.getCashCurrent() < cashWithdraw) {
 			mav.addObject("cashMessage", "0");
 			return mav;
 		}

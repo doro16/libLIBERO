@@ -153,7 +153,7 @@
 		                <a class="nav-link py-0" href="/libero/product/getProductList/target">맞춤형 표지디자인</a>
 		            </li>
 		            <li class="nav-item">
-		                <a class="nav-link py-0" href="/libero/product/getProductList/correct">교정</a>
+		                <a class="nav-link py-0" href="/libero/product/getProductList/correct">교정·교열</a>
 		            </li>
 		        </ul>
 		    </div>
