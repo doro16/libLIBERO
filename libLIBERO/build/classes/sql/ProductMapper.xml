@@ -33,7 +33,7 @@
 		<result property="cartNo"		 column="cart_no"			jdbcType="INTEGER" />
 		<result property="buyAmount"	 column="buy_amount"		jdbcType="INTEGER" />
 		<result property="buyNo" 	 	 column="buy_no" 			jdbcType="INTEGER" />
-		<result property="reportCount"	 column="report_count"			jdbcType="INTEGER" />
+		<result property="reportCount"	 column="report_count"		jdbcType="INTEGER" />
 			
 	</resultMap>
 	
@@ -47,6 +47,11 @@
 		<result property="starRate"		 column="star_rate" 		jdbcType="INTEGER"/>
 		<result property="regDate"		 column="reg_date" 			jdbcType="TIMESTAMP"/>
 		<result property="prodNo"		 column="prod_no"			jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<resultMap id="userSelectMap" type="user">
+		<result property="nickname"		column="nickname"			jdbcType="VARCHAR"/>
+	
 	</resultMap>
 			
 	<!--  SQL : SELECT LIST -->
@@ -230,6 +235,11 @@
 							AND purpose_code='sale'
 			)countable
 	
+	</select>
+	
+	<select id="getCreatorNickname"	parameterType="string"	resultMap="userSelectMap">
+			SELECT nickname FROM user
+			WHERE user_id = #{value}
 	</select>
 	
 	<select id="getProduct"	parameterType="int" resultMap="productSelectMap">

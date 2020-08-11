@@ -282,7 +282,7 @@ public class ProductController{
 						List<Review> review = productService.getReview(prodNo);
 						modelAndView.addObject("review", review);
 						
-						
+				
 						
 						return modelAndView;
 				}

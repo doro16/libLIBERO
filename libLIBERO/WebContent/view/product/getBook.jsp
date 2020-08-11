@@ -253,6 +253,161 @@
 		<button id="reportBtn" class="btn btn-outline-info">신고</button>
 		<input type="hidden" id="prodPost" name="prodPost" value="prod"/>
 		
+		
+<div class="container">		
+		<!-- Nav tabs -->
+<ul class="nav nav-tabs md-tabs nav-justified brown-color" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#panel555" role="tab">
+      <i class="fas fa-user pr-2"></i>상품상세</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#panel666" role="tab">
+      <i class="fas fa-heart pr-2"></i>리뷰</a>
+  </li>
+</ul>
+<!-- Nav tabs -->
+
+<!-- Tab panels -->
+<div class="tab-content">
+
+  <!-- Panel 1 -->
+  <div class="tab-pane fade in show active" id="panel555" role="tabpanel">
+
+    <!-- Nav tabs -->
+    <div class="row">
+      <div class="col-md-3">
+        <ul class="nav md-pills pills-primary flex-column" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#panel21" role="tab">Downloads
+              <i class="fas fa-download ml-2"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#panel22" role="tab">Orders & invoices
+              <i class="fas fa-file-alt ml-2"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#panel23" role="tab">Billing details
+              <i class="fas fa-address-card ml-2"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-9">
+        <!-- Tab panels -->
+        <div class="tab-content vertical">
+          <!-- Panel 1 -->
+          <div class="tab-pane fade in show active" id="panel21" role="tabpanel">
+            <h5 class="my-2 h5">Panel 1</h5>
+          </div>
+          <!-- Panel 1 -->
+          <!-- Panel 2 -->
+          <div class="tab-pane fade" id="panel22" role="tabpanel">
+            <h5 class="my-2 h5">Panel 2</h5>
+          </div>
+          <!-- Panel 2 -->
+          <!-- Panel 3 -->
+          <div class="tab-pane fade" id="panel23" role="tabpanel">
+            <h5 class="my-2 h5">Panel 3</h5>
+          </div>
+          <!-- Panel 3 -->
+        </div>
+      </div>
+    </div>
+    <!-- Nav tabs -->
+
+  </div>
+  <!-- Panel 1 -->
+
+  <!-- Panel 2 -->
+  <div class="tab-pane fade" id="panel666" role="tabpanel">
+
+   <div class="container my-5">
+
+
+  <!--Section: Block Content-->
+  <section class="dark-grey-text mb-5">
+
+    <!-- Section heading -->
+    <h3 class="font-weight-bold text-center mb-5">Product Reviews</h3>
+    						  <c:set var="i" value="0" />
+							  <c:forEach var="review" items="${review}">
+							  <c:set var="i" value="${ i+1 }" />
+    
+    <div class="media mb-3">
+      <img class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img (8).jpg" alt="Generic placeholder image">
+      <div class="media-body">
+        <a>
+          <h5 class="user-name font-weight-bold">John Doe</h5>
+        </a>
+        <!-- Rating -->
+        <ul class="rating mb-2">
+          <li>
+            <i class="fas fa-star blue-text"></i>
+          </li>
+          <li>
+            <i class="fas fa-star blue-text"></i>
+          </li>
+          <li>
+            <i class="fas fa-star blue-text"></i>
+          </li>
+          <li>
+            <i class="fas fa-star blue-text"></i>
+          </li>
+          <li>
+            <i class="fas fa-star blue-text"></i>
+          </li>
+        </ul>
+        <div class="card-data">
+          <ul class="list-unstyled mb-1">
+            <li class="comment-date font-small grey-text">
+              <i class="far fa-clock"></i> 05/10/2015</li>
+          </ul>
+        </div>
+        <p class="dark-grey-text article">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+          nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+      </div>
+    </div>
+    					</c:forEach>
+    
+  
+
+	</section>
+  <!--Section: Block Content-->
+
+
+</div>
+
+  </div>
+  <!-- Panel 2 -->
+
+</div>
+<!-- Tab panels -->
+		
+</div>		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<!-- Classic tabs -->
 		<div class="classic-tabs">
 		
