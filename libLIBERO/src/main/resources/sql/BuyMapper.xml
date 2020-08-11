@@ -69,6 +69,7 @@
 	<select id ="getUserBuy" parameterType="hashmap" resultMap="buySelectMapper">
 	SELECT 
 			DISTINCT
+			buy.buy_no,
 			buy.prod_no,
 			buy.pay_no,
 			buy.prod_type,

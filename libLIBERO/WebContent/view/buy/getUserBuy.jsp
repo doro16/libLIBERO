@@ -75,7 +75,7 @@ function relocate(prodNo){
 		   				aria-pressed="true">서비스상품</a>
 </div>
 <div class="col">
-<c:set var="i" value="0" />
+
 		  <c:forEach var="getProduct" items="${getProduct}">
 			<c:set var="i" value="${ i+1 }" />
 			
@@ -90,31 +90,31 @@ function relocate(prodNo){
 			
 			
 			//alert($("#addReviewButton${i}").val()+"태욱스")
-//별점 설정 이벤트
-$('.starRev span').click(function(){
-	  $(this).parent().children('span').removeClass('on');
-	  $(this).addClass('on').prevAll('span').addClass('on');
-	  //var content = $("#textarea-char-counter").text();   실험
-	  var starRate = $(this).attr("id");
-	  
-	  $("#starRate${i}").val(starRate);
-	  //var star = $("#starRate").val(); 실험
-	  //alert(star); 실험
-	  //alert(starRate); 실험
-	  
-	  return false;
-});//end starRev click function
-
-//등록 버튼 클릭 이벤트
-$('#addButton${i}').click(function(){
-	
-	var starRate = $('span[class*=on]:last').attr("id"); //별점이 찍힌 가장 마지막 span의 아이디값
-	//alert(starRate);
-	var content = $("#textarea-char-counter${i}").val(); // 입력한 리뷰내용
-	//alert(content);
-	
-	
-	
+				//별점 설정 이벤트
+				$('.starRev span').click(function(){
+					  $(this).parent().children('span').removeClass('on');
+					  $(this).addClass('on').prevAll('span').addClass('on');
+					  //var content = $("#textarea-char-counter").text();   실험
+					  var starRate = $(this).attr("id");
+					  
+					  $("#starRate${i}").val(starRate);
+					  //var star = $("#starRate").val(); 실험
+					  //alert(star); 실험
+					  //alert(starRate); 실험
+					  
+					  return false;
+				});//end starRev click function
+				
+				//등록 버튼 클릭 이벤트
+		$('#addButton${i}').click(function(){
+					
+			var starRate = $('span[class*=on]:last').attr("id"); //별점이 찍힌 가장 마지막 span의 아이디값
+				//alert(starRate);
+			var content = $("#textarea-char-counter${i}").val(); // 입력한 리뷰내용
+				//alert(content);
+					
+					
+					
 		
 		//리뷰 내용, 별점
 		$.ajax({
@@ -125,7 +125,7 @@ $('#addButton${i}').click(function(){
 						"Accept" : "application/json",
 						"Content-Type" : "application/json"
 					 },
-			data: {"userId": "${sessionScope.user.userId}", "starRate" : starRate, "reviewContent" : content, "buyNo" : $("#addReviewButton${i}").val() },
+			data: {"userId": "${sessionScope.user.userId}", "starRate" : starRate, "reviewContent" : content, "buyNo" : ${getProduct.buyNo} },
 			success : function(data, success){
 				
 				

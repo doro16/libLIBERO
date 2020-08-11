@@ -30,10 +30,9 @@ function relocate(prodNo){
 		  <c:forEach var="product" items="${product}">
 			<c:set var="i" value="${ i+1 }" />
 			
-					<br/>------------------------------------<br/>
+					
 				<td align="center"><b>${ i }</b></td>
 					<td align="center"  title="Click : 주문정보 확인" >
-						<br>------------------------------------<br>
 						
 						
 						책 번호 	: ${product.prodNo} <br/>
