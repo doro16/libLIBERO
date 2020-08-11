@@ -472,6 +472,7 @@
 
 
 </body>
+<jsp:include page="/common/footer.jsp"></jsp:include>
 <!--  해시태그 링크, 스크립트  -->
 <link href="/libero/resources/css/taginput/jquery.tagsinput.min.css" rel="stylesheet">
 	<script src="/libero/resources/javascript/taginput/jquery.tagsinput.min.js"></script>

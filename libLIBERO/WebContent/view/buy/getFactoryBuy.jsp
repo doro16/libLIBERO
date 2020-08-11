@@ -6,8 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../resources/css/common.css">
+
 <jsp:include page="/common/cdn.jsp"></jsp:include>
+<link rel="stylesheet" href="../resources/css/common.css">
 <jsp:include page="../toolbar.jsp"></jsp:include>
 <script type="text/javascript">
 function relocate(prodNo){
@@ -118,4 +119,5 @@ function relocate(prodNo){
 </div>
 
 </body>
+<jsp:include page="/common/footer.jsp"></jsp:include>
 </html>

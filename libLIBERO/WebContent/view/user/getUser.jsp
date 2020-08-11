@@ -38,7 +38,8 @@
 				    	<span class="input-group-text md-addon" id="inputGroupMaterial-sizing-default">아이디</span>
 				  	</div>
 				  	</div>
-				  	<input type="text" class="form-control" name="userId"aria-label="Sizing example input" aria-describedby="inputGroupMaterial-sizing-default" value="${user.userId}" disabled="disabled">
+				  	<input type="text" class="form-control" id="userId" aria-label="Sizing example input" aria-describedby="inputGroupMaterial-sizing-default" value="${user.userId}" disabled="disabled">
+				  	<input type="hidden" value="${user.userId }" name="userId">
 				</div>
 				</div>
 					<!-- ///////////////////////////// 닉네임 ///////////////////////////////// -->
@@ -134,6 +135,7 @@
 				  	</div>
 				  	</div>
 				  	<input type="text" class="form-control" name="birthDate" id="birthDate" aria-describedby="inputGroupMaterial-sizing-default" value="${user.birthDate}" disabled ="disabled">
+				  	<input type="hidden" value="${user.birthDate }" name="birthDate">
 				</div>
 				</div>
 			</form>
