@@ -27,6 +27,10 @@
 				margin-bottom: 60px;
 			}
 			
+			body {
+				font-family:'GyeonggiBatang';
+			}
+			
 		</style>
 	</head>
 	

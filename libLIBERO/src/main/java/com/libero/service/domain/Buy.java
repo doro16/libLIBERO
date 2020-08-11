@@ -11,7 +11,7 @@ public class Buy implements Serializable{
 	
 	private int buyNo;
 	private int buyAmount;
-	private User buyerId;// 장바구니 등록한 사람 아이디.
+	private String buyerId;// 장바구니 등록한 사람 아이디.
 	private int prodNo;// 등록한 상품의 번호
 	private String buyStatus; 
 	// 상품의 구매 상태 (장바구니 인지 결제 완료인지.)

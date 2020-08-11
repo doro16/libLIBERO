@@ -73,7 +73,8 @@
 			buy.prod_no,
 			buy.pay_no,
 			buy.prod_type,
-			buy.buy_amount
+			buy.buy_amount,
+			buy.user_id
 			FROM pay , buy
 		WHERE pay.pay_no=#{payNo}
 			AND pay.pay_no = buy.pay_no
@@ -189,5 +190,15 @@
 			 
 	</select>
 	 
+	 
+	 <select id="getReviewFlag" parameterType="map" resultType="String">
+		SELECT 
+	 	review_no 
+	 	FROM buy, review 
+	 	WHERE buy.buy_no = ${buyNo}
+	 	AND buy.buy_no = review.buy_no
+	 	AND buy.user_id =#{userId}
+	 	AND buy.buy_no = review.buy_no
+	 </select>
 	 
 </mapper>

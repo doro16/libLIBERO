@@ -59,12 +59,7 @@ function relocate(prodNo){
 
 <div class="container">
 <jsp:include page="/view/user/topButton.jsp"></jsp:include>
-	
-
 <div class="row">
-
-
-
 <div class="col-lg-2">
 		   			<a href="/libero/user/getUserPublishList?prodType=book" 
 		   				class="btn btn-outline-brown waves-effect btn-block" role="button" 
@@ -199,7 +194,12 @@ function relocate(prodNo){
 
 								<ul class="navbar-nav">
 									<li class="nav-item" id="review${i}">
+										<c:if test="${getProduct.reviewFlag == false }">
 										<button data-target="#addReviewModal${i}" data-toggle="modal" id="addReviewButton${i}" class="btn btn-outline-brown lighten-3 waves-effect" value="${getProduct.buyNo }">리뷰등록</button>
+										</c:if>
+										<c:if test="${getProduct.reviewFlag== true }">
+										<button data-target="#addReviewModal${i}" data-toggle="modal" id="addReviewButton${i}" class="btn btn-outline-brown lighten-3 waves-effect" value="${getProduct.buyNo }">리뷰수정</button>
+										</c:if>
 									</li>
 								</ul>
 				<!-- 리뷰등록 모달창 -->				
@@ -228,7 +228,8 @@ function relocate(prodNo){
 													  <span class="starR1" id="45" >별5_왼쪽</span>
 													  <span class="starR2" id="50" >별5_오른쪽</span>
 													  <input type="hidden" id="starRate${i}" name="starRate" value="">
-													</div></br></br>
+													</div></br>
+													</br>
 												
 												<!--Material textarea-->
 													
@@ -266,7 +267,7 @@ function relocate(prodNo){
 				
 					
 											  					
-							  					</th></td></tr>
+							  					</tr>
 							  				</tbody>
 							  			</table>
 <%-- 							  			<br><br><br><jsp:include page="/view/product/addReview.jsp"/> --%>
