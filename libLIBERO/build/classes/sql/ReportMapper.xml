@@ -133,7 +133,7 @@
 						</if>		
 						
 						ORDER BY r.report_no DESC) inner_table
-		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum}
+		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num
 		
 	</select>
 	

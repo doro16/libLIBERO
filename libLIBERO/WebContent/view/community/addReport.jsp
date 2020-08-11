@@ -29,8 +29,9 @@
 			var prodPost =  new String("post");
 			alert("신고가 완료되었습니다.");
 			if (reportCount >= 2) {
-				alert("3회 이상 신고되어 게시글이 숨겨집니다. \n관리자에게 문의하세요");
+				alert("3회 이상 신고되어 해당 글이 숨겨집니다. \n관리자에게 문의하세요");
 			}
+			location.reload();
 	
 		$.ajax({
 					url : "/libero/report/json/addReport",
@@ -61,7 +62,7 @@
 				if (reportCount >= 2) {
 					alert("3회 이상 신고되어 서점에서 도서가 숨겨집니다. \n관리자에게 문의하세요");
 				}
-		
+				location.reload();
 			$.ajax({
 						url : "/libero/report/json/addReport",
 						method : "POST",

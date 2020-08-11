@@ -72,7 +72,7 @@
 									displayValue += "<h6>"
 										+"<input type='hidden' class='commentNo' name='commentNo' value=" + JSONData.list[i].commentNo + ">"
 										
-										+ "<img src='../resources/images/user/fileUpload/"+JSONData.list[i].user.profile+"'  alt='프로필사진' style='height: 55px; width: 55px; float: left; margin-right: 10px; margin-bottom: 10px;'>"
+										+ "<img src='../resources/images/user/fileUpload/"+JSONData.list[i].user.profile+"'  alt='프로필사진' style='height: 55px; width: 55px; float: left; margin:-5px 10px 10px 0;'>"
 										+"<p style='font-size: 14px; color:DodgerBlue; font-weight: 600; float: left;'>" +JSONData.list[i].user.nickname + "&nbsp;&nbsp;&nbsp;</p>"
 										+"<p style='font-size: 11px; color:gray; font-weight: 400;'>" + date.getFullYear()+".0"+parseInt(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+"</span>"
 										+"<p id= 'none"+ JSONData.list[i].commentNo+"' style='font-size: 15px; padding: 14px 0px; font-weight: 400;'>"
@@ -195,8 +195,7 @@
 					<c:if test="${param.menu!='q'}"> 
 					
 					<textarea class="form-control col-12 col-md-12 mr-1"
-						id="commentContent" name="commentContent" rows="3" maxlength="500" style="text-align: left;">
-					</textarea>
+						id="commentContent" name="commentContent" rows="3" maxlength="500" style="text-align: left;"></textarea>
 					<button class="btn btn-brown btn-sm" style="margin-left:742px;" id="addComment">등록</button>
 					</c:if> 		
 				
