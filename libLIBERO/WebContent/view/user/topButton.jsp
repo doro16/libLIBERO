@@ -65,6 +65,10 @@
 					<i class="fas fa-users fa-3x"></i>
 					<p class="brown-text">전체 회원 조회</p>
 				</div>
+				<div class="buttonDiv col" onclick="location.href='/libero/user/getUserActivityList?menu=q'">
+					<i class="fas fa-clipboard-list fa-3x"></i>
+					<p class="brown-text">1:1문의 조회</p>
+				</div>
 				<div class="buttonDiv col" onclick="location.href='/libero/user/getUserReportList?menu=prod'">
 					<img id="siren" src="../resources/images/common/siren_brown.png" width="50px" height="50px" style="margin-bottom: 7px">
 					<p class="brown-text">신고 조회</p>
