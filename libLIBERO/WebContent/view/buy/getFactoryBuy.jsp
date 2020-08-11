@@ -25,69 +25,97 @@ function relocate(prodNo){
 <jsp:include page="/view/user/topButton.jsp"></jsp:include>
 <div class="row">
 <div class="col-lg-2">
-	<a href="/libero/user/getUserPublishList?prodType=book" 
-		   				class="btn btn-outline-brown waves-effect btn-block" role="button" 
-		   				aria-pressed="true" style="margin-bottom: 10px">도서</a>
+	<button class="btn btn-outline-brown waves-effect btn-block" aria-pressed="true" style="margin-bottom: 10px" disabled>주문 상세</button>
 		   				
-		   			<a href="/libero/user/getUserPublishList?prodType=prod" 
-		   				class="btn btn-outline-brown waves-effect btn-block" role="button" 
-		   				aria-pressed="true">서비스상품</a>
+	
   </div>
-<h1>주문번호 : ${payNo }</h1>
+
 <div class="col">
  <c:set var="i" value="0" />
 		  <c:forEach var="product" items="${product}">
-			<c:set var="i" value="${ i+1 }" />
-			
+			<c:set var="i" value="${ i+1 }"/>
 			<div class="card border-light mb-3" style="margin-bottom: 20px">
 				<div class="card-body">
 					<div class="row">
 						<div class="col-lg-7 align-self-center">
 						<table>
 							  				<tbody>
-								  				<tr>
-							  						<th>도서 번호(책페이지 이동 가능)</th>
-							  						<td>: ${getProduct.prodName}</td>
-								  					</tr>
+								  				
 							  					<tr>
-							  						<th>도서명</th>
-							  						<td>:  ${getProduct.retailPrice }</td>
+							  						<th colspan="2">도서명</th>
+							  						<td>:  ${product.prodName }</td>
+							  					</tr>
+							  					<tr >
+							  						<th colspan="2">도서 수량</th>
+							  						<td>:  ${product.buyAmount}</td>
 							  					</tr>
 							  					<tr>
-							  						<th>표지 사진</th>
-							  						<td>:  ${getProduct.prodType}</td>
+							  						<th colspan="2">페이지 수</th>
+							  						<td>:  ${product.bookPage}</td>
 							  					</tr>
 							  					<tr>
-							  						<th>주문 날짜</th>
-							  						<td>:  ${getProduct.buyAmount}</td>
+							  						<th colspan="2">색상 유무</th>
+							  						<td>:  ${product.colorType == 'color' ? '칼라' : '흑백'}</td>
 							  					</tr>
 							  					<tr>
-							  						<th>원고 파일</th>
-							  						<td>:  ${getProduct.buyAmount}</td>
+							  						<th colspan="2">종이 규격</th>
+							  						<td>:  ${product.sizeType} 용지</td>
 							  					</tr>
-							  					<tr><th><td>
-				<td align="center"><b>${ i }</b></td>
-					<td align="center"  title="Click : 주문정보 확인" >
-						
-						
-						책 번호 	: ${product.prodNo} <br/>
-						책 이름 	: ${product.prodName} <br/>
-						표지 사진	:<img src="/libero/resources/images/product/fileUpload/${product.prodThumbnail}">  <br/>
-						주문 날짜	: ${product.regDate} <br/>
-						지은이	: ${product.author} <br/>
-						원고 파일	: ${product.manuFile} <br/>
-						페이지 수	: ${product.bookPage} <br/>
-						흑백 유무	: ${product.colorType} <br/>
-						종이 규격	: ${product.sizeType} <br/>
-						표지 재질	: ${product.coverType} <br/>
-						내지 재질	: ${product.innerType} <br/>
-					</td>	
-							
-          </c:forEach>
-          
-      </div>
+							  					<tr>
+							  					
+							  						<th colspan="2">표지 재질</th>
+							  						<c:if test="${product.coverType == 'snow' }">
+							  						<td>: 스노우지
+							  						</c:if>
+							  						<c:if test="${product.coverType == 'mont' }">
+							  						<td>: 몽블랑지
+							  						</c:if>
+							  						<c:if test="${product.coverType == 'arte' }">
+							  						<td>: 아트지
+							  						</c:if>
+							  					</tr>
+							  					<tr>
+							  						<th colspan="2">내지 재질</th>
+							  						<c:if test="${product.innerType == 'white' }">
+							  						<td>: 화이트지
+							  						</c:if>
+							  						<c:if test="${product.innerType == 'ivory' }">
+							  						<td>: 미색지
+							  						</c:if>
+							  						<c:if test="${product.innerType == 'rough' }">
+							  						<td>: 갱지
+							  						</c:if>
+
+							  					</tr>
+											</tbody>
+											</table>
+											</div>
+													<div class="col-lg-5 align-self-center">
+													
+													<div class="view overlay zoom row-8" >
+													
+													 <img width=300px src="/libero/resources/images/publish/fileUpload/coverFile/${product.prodThumbnail}">
+													  <div class="mask flex-center waves-effect waves-light">
+													     <a href="/libero/resources/images/publish/fileUpload/coverFile/${product.prodThumbnail}" download="coverfile"><p class="black-text">다운로드</p></a>
+													  </div>
+													</div>
+							  						<div class="row-2">
+							  						<a href="/libero/resources/images/publish/fileUpload/manuFile/${product.manuFile}" download="manuFile"><button class="btn btn-outline-warning waves-effect" type="button">원고 파일</button></a>
+							  						</div>
+							  						</div>
+							  						
+							  					
+		</div>
+		
+		</div>
+</div>
+
+          </c:forEach>     
+               
       
 </div>
 </div>
+</div>
+
 </body>
 </html>

@@ -102,6 +102,14 @@ public class CommunityRestController {
 		comment.setCommentContent((String) map2.get("commentContent"));
 		comment.setUser(user);
 		communityService.addComment(comment);
+		
+		System.out.println("comment찍어보자"+comment);
+		String menu = ((String) map2.get("menu"));
+		System.out.println("menu찍어보자"+menu);
+		if(menu.equals("q")) {
+			communityService.updateQnaCode(comment.getPostNo());
+		}
+		
 		return comment;
 			
 	}

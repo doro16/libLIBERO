@@ -84,22 +84,17 @@
 	</select>	
 	 
 	<select id="getUserBuyList" parameterType="String" resultMap="paySelectMapper">
-		SELECT pay_no,
-			   payment_type,
-			   pay_code,
-			   receiver_name,
-			   receiver_addr,
-			   receiver_phone,
-			   actual_price,
-			   delivery_req,
-			   delivery_code,
-			   pay_date
-			  
-			   FROM pay
-		WHERE user_id = #{value}
-		AND pay_code = 'paid'
-				
-	</select>
+	SELECT
+	 pay_no,payment_type,
+	 pay_code,receiver_name,
+	 receiver_addr,receiver_phone,
+	 actual_price,delivery_req,
+	 delivery_code,
+	 pay_date
+	FROM pay
+	WHERE user_id = #{value}
+	AND pay_code = 'paid'
+	ORDER BY pay_date DESC </select>
 	<select id="getProdNo" parameterType="int" resultType="int">
 		SELECT prod_no 
 		FROM buy 
@@ -179,7 +174,8 @@
 		SELECT 
 		DISTINCT
 		buy.prod_no, 
-		buy.pay_no
+		buy.pay_no,
+		buy.buy_amount
 		
 		FROM pay  , buy
 		WHERE pay.pay_no=#{payNo}
