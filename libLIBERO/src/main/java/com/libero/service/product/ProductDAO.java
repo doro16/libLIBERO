@@ -37,14 +37,20 @@ public interface ProductDAO {
 	public void addReview(HashMap<String, Object> hashMap);
 
 	public void addReviewImage(HashMap<String, Object> hashMap);
-
-	public List<Review> getReview(int prodNo);
 	
+	public List<Review> getReview(HashMap<String, Object> reviewMap);
+	
+	public int getReviewCount(int prodNo);
 	//Main
 
 	public List<Product> getBookList();
 
+	
 
+
+	
+	
+	
 	
 
 	

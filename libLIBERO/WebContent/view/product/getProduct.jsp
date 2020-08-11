@@ -1,15 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+	
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
 	
-	
-	<style>
+
+<title>도서  상세</title>
+		<!-- ToolBar Start /////////////////////////////////////-->
+		<jsp:include page="../toolbar.jsp" />
+	   	<!-- ToolBar End /////////////////////////////////////-->
+	  	<style>
 							.number-input input[type="number"] {
 							-webkit-appearance: textfield;
 							-moz-appearance: textfield;
@@ -97,15 +106,10 @@
 							}
 
 	</style>
-	
-	
-	
 </head>
 <body>
-		<!-- ToolBar Start /////////////////////////////////////-->
-		<jsp:include page="../toolbar.jsp" />
-	   	<!-- ToolBar End /////////////////////////////////////-->
-		<div class="container my-5 py-5 z-depth-0">
+
+<div class="container my-5 py-5 z-depth-0">
 
 
   <!--Section: Content-->
@@ -178,66 +182,55 @@
         			<span>
         			<c:if test="${wish == 1}"><i class="fas fa-heart" id="wish"></i></c:if>
 					<c:if test="${wish == 0}"><i class="far fa-heart" id="wish"></i></c:if>
-					</span></h2>
+					</span>
+					<img src="../resources/images/community/">
+					</h2>
         			
         <span class="badge badge-danger product mb-4 ml-xl-0 ml-4">bestseller</span>
         <span class="badge badge-success product mb-4 ml-2">SALE</span>
 
         <h3 class="h3-responsive text-center text-md-left mb-5 ml-xl-0 ml-4">
           <span class="red-text font-weight-bold">
-            <strong>${product.retailPrice}</strong>
+            <strong>￦<fmt:formatNumber value="${product.retailPrice}" pattern="#,###.###" type="currency"/></strong>
           </span>
           <span class="grey-text">
             <small>
-              <s>$1789</s>
+              <s>￦<fmt:formatNumber value="${product.retailPrice*1.1}" pattern="#,###.###" type="currency"/></s>
             </small>
           </span>
         </h3>
 
         <div class="font-weight-normal">
+          <hr/>
+          <p class="ml-xl-0 ml-4"><span class="grey-text">배송일 : </span>영업일 기준 약 2~8일 소요됩니다. </p>
+          <p class="ml-xl-0 ml-4"><span class="grey-text">환불규정 : </span>주문 후 인쇄되므로 배송이 준비된 후에는 환불이 불가능합니다.</p>
+		  <hr/>
+          <p class="ml-xl-0 ml-4">
+            <strong><span class="grey-text">작가 : </span></strong>${product.author} </p>
+          <p class="ml-xl-0 ml-4">
+            <strong><span class="grey-text">상품종류 : </span></strong>${product.prodType} </p>
+          <p class="ml-xl-0 ml-4">
+            <strong><span class="grey-text">등록일자 : </span></strong>${product.regDate} </p>
+            <hr/>
           
-          <p class="ml-xl-0 ml-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente nesciunt atque nemo neque ut officiis nostrum incidunt maiores, magni optio et sunt suscipit iusto nisi totam quis, nobis mollitia necessitatibus.</p>
-
-          <p class="ml-xl-0 ml-4">
-            <strong>Page: </strong></p>
-          <p class="ml-xl-0 ml-4">
-            <strong>Size: </strong>9.6-inch</p>
-          <p class="ml-xl-0 ml-4">
-            <strong>Resolution: </strong>2048 x 1536</p>
-          <p class="ml-xl-0 ml-4">
-            <strong>등록일자: </strong>${product.regDate}</p>
-          
+          <p class="ml-xl-0 ml-4">  
+            <strong><span class="grey-text" style="font-size : 20px;">상품형태</span></strong><br/>
+          <p class="ml-xl-0 ml-3">
+            <strong><span class="grey-text">페이지수 : </span></strong>${product.bookPage}p</p>
+              <c:if test="${product.prodType == 'paper'}">
+          	  <span class="grey-text" style="font-size : 15px;">인쇄컬러 : </span>${product.colorType}, <span class="grey-text" style="font-size : 15px;">표지 : </span>${product.coverType}, <span class="grey-text" style="font-size : 15px;">내지 : </span>${product.innerType} , <span class="grey-text" style="font-size : 15px;">판형 : </span>${product.sizeType }</p>
+          	  </c:if>
           <div class="mt-5">
-            <p class="grey-text">Choose your color</p>
-            <div class="row text-center text-md-left">
-              <div class="col-md-4 col-12 ">
-                <div class="form-group">
-                  <input class="form-check-input" name="group100" type="radio" id="radio100" checked="checked">
-                  <label for="radio100" class="form-check-label dark-grey-text">White</label>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <input class="form-check-input" name="group100" type="radio" id="radio101">
-                  <label for="radio101" class="form-check-label dark-grey-text">Silver</label>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <input class="form-check-input" name="group100" type="radio" id="radio102">
-                  <label for="radio102" class="form-check-label dark-grey-text">Gold</label>
-                </div>
-              </div>
-            </div>
             <div class="row mt-3 mb-4">
             
               <div class="col-6" style="padding:10px ;">
-            
+            							
+            							<!--  
 						                <span class="def-number-input number-input safari_only" style="margin-right:0px; padding-top:0px;">
 										  <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
 										  <input class="quantity" min="0" name="quantity" value="1" type="number" id="buyAmount" >
 										  <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
-										  </span>
+										  </span>-->
               </div>
               							<span class="col-6">
 										  <button class="btn btn-brown btn-rounded" onclick="addCart()" style="margin-top:5px;">
@@ -255,58 +248,244 @@
   <!--Section: Content-->
 
 
-</div>			
-					
-				
+</div>		
+		<!-- 신고 추가 -->
+		<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>
+		<button id="reportBtn" class="btn btn-outline-info">신고</button>
+		<input type="hidden" id="prodPost" name="prodPost" value="prod"/>
+		
+		
+		<div class="container">		
+		<!-- Nav tabs -->
+<ul class="nav nav-tabs md-tabs nav-justified brown-color" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#panel555" role="tab">
+      <i class="fas fa-user pr-2"></i>상품상세</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#panel666" role="tab">
+      <i class="fas fa-heart pr-2"></i>리뷰</a>
+  </li>
+</ul>
+<!-- Nav tabs -->
 
+<!-- Tab panels -->
+<div class="tab-content">
+
+  <!-- Panel 1 -->
+  <div class="tab-pane fade in show active" id="panel555" role="tabpanel">
+
+    <!-- Nav tabs -->
+    <div class="row">
+      <div class="col-md-3">
+       
+      ${product.prodDetail}
+     
+      </div>
+    </div>
+    <!-- Nav tabs -->
+
+  </div>
+  <!-- Panel 1 -->
+
+  <!-- Panel 2 -->
+  <div class="tab-pane fade" id="panel666" role="tabpanel">
+
+   <div class="container my-5">
+
+
+  <!--Section: Block Content-->
+  <section class="dark-grey-text mb-5">
+
+    <!-- Section heading -->
+    <h3 class="font-weight-bold text-center mb-5">Product Reviews</h3>
+    						  <c:set var="i" value="0" />
+							  <c:forEach var="review" items="${review}">
+							  <c:set var="i" value="${ i+1 }" />
+    
+    <div class="media mb-3">
+      <img class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img (8).jpg" alt="Generic placeholder image">
+      <div class="media-body">
+        <a>
+          <h5 class="user-name font-weight-bold">${review.user.nickname}</h5>
+        </a>
+        <!-- Rating -->
+        <ul class="rating mb-2">
+          <li>
+          
+        <c:choose>
+         
+         <c:when test = "${15 > review.starRate && review.starRate >=1}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+          </c:when>
+          <c:when test = "${20>review.starRate && review.starRate >=15}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star-half-alt yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+          </c:when>
+          <c:when test = "${25>review.starRate && review.starRate>=20}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+          </c:when>
+          <c:when test = "${30>review.starRate && review.starRate>=25}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star-half-alt yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+          </c:when>    
+          <c:when test = "${35>review.starRate && review.starRate>=30}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+          </c:when> 
+          <c:when test = "${40>review.starRate && review.starRate>=35}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star-half-alt yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+          </c:when>     
+           <c:when test = "${45>review.starRate && review.starRate>=40}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+         </c:when>  
+         <c:when test = "${50>review.starRate && review.starRate>=45}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star-half-alt yellow-text"></i>
+         </c:when>  
+          <c:when test = "${50==review.starRate}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+         </c:when>  
+
+         
+      </c:choose>
+          </li>
+        </ul>
+        <div class="card-data">
+          <ul class="list-unstyled mb-1">
+            <li class="comment-date font-small grey-text">
+              <i class="far fa-clock"></i>${review.regDate}</li>
+          </ul>
+        </div>
+        <p class="dark-grey-text article">${review.reviewContent}</p>
+        <!-- <p><a href="#" class="more" id="more${i}" value="${i}">more</a></p> -->
+        <button class="more btn btn-link" id="${i}" value="0">more</button>
+        <div id="img${i}"></div>
+        <input type="hidden" id="imgset${i}" value="${review.reviewImage}">
+      </div>
+    </div>
+    	</c:forEach>
+    
+  
+
+	</section>
+  <!--Section: Block Content-->
+
+
+</div>
+
+  </div>
+  <!-- Panel 2 -->
+
+</div>
+<!-- Tab panels -->
+		
+</div>		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+  
+ 
+		
 </body>
 
+<jsp:include page="../community/addReport.jsp"/>	
+	
 <script type="text/javascript">
 	
 	$(document).ready(function(){
 	    //alert(${product.prodNo});
-	   // alert("${sessionScope.user.userId}");
+	    //alert("${sessionScope.user.userId}");
 	});
 	
 // 	$(function(){
 // 		$("input").attr("onclick","buyAmount()");
 // 	})
 	
-// 	function buyAmount(){
-// 		var buyAmount = $("#buyAmount").val();
-// 	}
+	function buyAmount(){
+		var buyAmount = $("#buyAmount").val();
+	}
 	
 	$(document).ready(function(){
-			$('#wish').on("click", function(){
-				var userId = "${sessionScope.user.userId}";
-				if (userId=="") {
-					alert("로그인 해주세요.");
-					return;
-				}
-				
-				
-			
-				$.ajax({
-					url : "/libero/product/json/addWish",
-					type: "POST",
-					dataType: "json",
-					header : {
-							"Accept" : "application/json",
-							"Content-Type" : "application/json"
-					},
-					data: {"prodNo": ${product.prodNo}, "userId": "${sessionScope.user.userId}" },
-					success : function(data){
-						
-						if(data.wish == "y"){
-							var wishwish = "fas fa-heart";
-						}else if(data.wish == "n"){
-							var wishwish = "far fa-heart";
-						}
-						$('#wish').attr('class', wishwish);
-					}//end success
-				});//end ajax
-			});//end click function
-	});//end ready
+		$('#wish').on("click", function(){
+			var userId = "${sessionScope.user.userId}";
+			if (userId=="") {
+				alert("로그인 해주세요.");
+				return;
+			}
+
+		
+			$.ajax({
+				url : "/libero/product/json/addWish",
+				type: "POST",
+				dataType: "json",
+				header : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+				},
+				data: {"prodNo": ${product.prodNo}, "userId": "${sessionScope.user.userId}" },
+				success : function(data){
+					
+					if(data.wish == "y"){
+						var wishwish = "fas fa-heart";
+					}else if(data.wish == "n"){
+						var wishwish = "far fa-heart";
+					}
+					
+					
+					if(data.message != null){
+						alert(data.message);
+					}
+					
+					
+					
+					$('#wish').attr('class', wishwish);
+				}//end success
+			});//end ajax
+		});//end click function
+});//end ready
 	
 	function addCart() {
 		var userId = "${sessionScope.user.userId}";
@@ -335,7 +514,7 @@
 					"Accept" : "application/json",
 					"Content-Type" : "application/json"
 			},
-			data: {"prodNo": ${product.prodNo}, "prodType": "${product.prodType}", "userId": "${sessionScope.user.userId}", "buyAmount": buyAmount, "from": "product"},
+			data: {"prodNo": ${product.prodNo}, "prodType": "${product.prodType}", "userId": "${sessionScope.user.userId}", "buyAmount": 1, "from": "product"},
 			success : function(data){
 						var message = data.result
 						alert(message);
@@ -343,6 +522,41 @@
 		});//end ajax
 		
 	}//end addCart
+	
+
+	$(function(){
+		$(".more").on("click",function(){
+			
+			morecode = $(this).val();
+			
+			var i = $(this).attr("id");
+			console.log(i);
+			var reviewImage = $("#imgset"+i).val();
+			console.log(reviewImage);
+			
+			
+			if(morecode == 0){
+				
+				
+				
+				var displayValue = "<img src='../../resources/images/product/fileUpload/review/"+reviewImage+"'>"
+				
+				
+				$("#img"+i).append(displayValue);
+				$(this).val(1);
+				
+				
+			}else if(morecode == 1){
+				$("#img"+i).remove();
+				$(this).val(0);
+			}
+			
+			
+			})
+			
+			
+		})//end function
+	
 		
 		//$("form").attr("method" , "POST").attr("action" , "/libero/product/json/addCart").submit();
 	</script>

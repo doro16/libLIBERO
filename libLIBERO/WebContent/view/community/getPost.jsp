@@ -41,7 +41,8 @@
 				   	<a href="/libero/community/deletePost?postNo=${post.postNo}" class="btn btn-outline-brown btn-md" role="button" aria-pressed="true">삭제</a>	
 		       </c:if>
 		       <c:if test="${sessionScope.user.userId != post.user.userId}">     
-		            <button type="button" id="reportBtn" class="btn btn-brown btn-md">신고</button>
+		       <button type="button" class="btn btn-brown btn-md" id="reportBtn" data-toggle="modal" data-target="#orangeModalSubscription">신고
+		       </button>
 		       </c:if>    
 	           </div>
                 <br><br>
