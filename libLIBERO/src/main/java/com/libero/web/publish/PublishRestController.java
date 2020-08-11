@@ -10,12 +10,14 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.libero.service.domain.Publish;
 import com.libero.service.publish.PublishService;
 
 @RestController
@@ -63,6 +65,20 @@ public class PublishRestController {
 		}
 		
 		Thread.sleep(5000);
+		return map;
+	}
+	
+	@RequestMapping(value = "json/updateBlindCode/{prodNo}/{blindCode}", method = RequestMethod.GET)
+	public Map updateBlindCode(@PathVariable("prodNo") int prodNo, @PathVariable("blindCode") String blindCode, Publish publish) throws Exception {
+		
+		System.out.println("/publish/json/updateBlindCode : GET");
+		publish.setProdNo(prodNo);
+		publish.setBlindCode(blindCode);
+		
+		publishService.updateBlindCode(publish);
+		
+		Map map = new HashMap();
+		map.put("blindCode",blindCode);
 		return map;
 	}
 

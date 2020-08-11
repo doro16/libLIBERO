@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
+	<link rel="stylesheet" href="../resources/css/common.css">
 	<jsp:include page="/view/toolbar.jsp"></jsp:include>
 	
 <head>
@@ -20,13 +21,13 @@
 	
 <meta charset="UTF-8">
 <!--  ///////////////////////// CSS ////////////////////////// -->
-		<link rel="stylesheet" href="../resources/css/common.css">
+		
 <title>libLIBERO</title>
 </head>
 <body>
-<jsp:include page="/view/user/topButton.jsp"></jsp:include>
-<div class="container">	
 
+<div class="container">	
+<jsp:include page="/view/user/topButton.jsp"></jsp:include>
 <div class="row">
 <div class="col-lg-2">
 		   			<a href="/libero/user/getUserPublishList?prodType=book" 
@@ -169,7 +170,7 @@
 							  						<td>:  ${buyList.receiverAddr}</td>
 							  					</tr>
 							  					<tr>
-							  					<th>수령 연락처</th>
+							  					<th>수령자 연락처</th>
 							  						<td>:  ${buyList.receiverPhone}</td>
 							  					</tr>
 							  					<tr>
@@ -264,4 +265,5 @@
           </div>
           </div>		
 </body>
+<jsp:include page="/common/footer.jsp"></jsp:include>
 </html>

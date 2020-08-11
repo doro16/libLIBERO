@@ -72,46 +72,78 @@
 
 
 /////////////////////////////////////////회원가입 버튼 눌렀을때
-   	function addUser() {
-	    	
-			var userId = $("input[name='userId']").val();
-			var password = $("input[name='password']").val();
-			var password2 = $("input[name='password2']").val();
-			var profile = $("input[name='file']").val();
-			var address = $("input[name='address']").val();
-			var birthDate= $("input[name='birthDate']").val();
-			var genderCode = $("input[name='genderCode']:checked").val();
-			var name = $("input[name='name']").val();
-			var phone = $("input[name='phone']").val();
-			
-			
-			
-			if(name == null || name== ''){
-				swal("이름을 입력해 주세요","이름 미입력","warning");
-				return;
-			}else if ($("input[name='password']").val()==null || $("input[name='password']").val() =="") {
-				swal("비밀번호를 입력해 주세요","비밀번호 미입력","warning");
-				return;
-			}else if ($("input[name='birthDate']").val()==null || $("input[name='birthDate']").val() =="") {
-				swal("생년월일을 선택해 주세요","생년월일 미등록","warning")
-				return;
-			}else if ($("input[name='genderCode']:checked").val()==null) {
-				swal("성별을 선택해 주세요","\\YAY/","warning")
-				return;
-			}else if($("input[name='password']").val()!=$("input[name='password2']").val() || $("input[name='password2']").val() != $("input[name='password']").val()){
-				swal("2차비밀 번호가 다릅니다.","비밀번호 오류","error")
-				return;
-			}else if(address == null || address == ''){
-				swal("주소를 입력해 주세요","주소 미입력","warning")
-				return;
-			}else if(phone==null|| phone == ''){
-				swal("연락처를 입력해 주세여","연락처 미입력","warning");
-				return;
-			}
-			
-			$("form").attr("method" , "POST").attr("action" , "/libero/user/addUser").submit();
+   	
+	 		   	
+	 		   	function addUser() {
+	 			    	
+	 					var userId = $("input[name='userId']").val();
+	 					var password = $("input[name='password']").val();
+	 					var password2 = $("input[name='password2']").val();
+	 					var profile = $("input[name='file']").val();
+	 					var address = $("input[name='address']").val();
+	 					var birthDate= $("input[name='birthDate']").val();
+	 					var genderCode = $("input[name='genderCode']:checked").val();
+	 					var name = $("input[name='name']").val();
+	 					var phone = $("input[name='phone']").val();
+	 					
+	 					
+	 					
+	 					if(name == null || name== ''){
+	 						swal("이름을 입력해 주세요","이름 미입력","warning");
+	 						return;
+	 					}else if ($("input[name='password']").val()==null || $("input[name='password']").val() =="") {
+	 						swal({
+	 							title : "비밀번호를 입력해 주세요",
+	 							text : "비밀번호 미입력",
+	 							icon : "warning",
+	 							timer : 2000,
+	 							}).then(()=> {
+	 								return;
+	 							})
+	 							
+	 							    
+	 							
+	 						
+	 					}else if ($("input[name='birthDate']").val()==null || $("input[name='birthDate']").val() =="") {
+	 						swal("생년월일을 선택해 주세요","생년월일 미등록","warning")
+	 						return;
+	 					}else if ($("input[name='genderCode']:checked").val()==null) {
+	 						swal("성별을 선택해 주세요","\\YAY/","warning")
+	 						return;
+	 					}else if($("input[name='password']").val()!=$("input[name='password2']").val() || $("input[name='password2']").val() != $("input[name='password']").val()){
+	 						swal("2차비밀 번호가 다릅니다.","비밀번호 오류","error")
+	 						return;
+	 					}else if(address == null || address == ''){
+	 						swal("주소를 입력해 주세요","주소 미입력","warning")
+	 						return;
+	 					}else if(phone==null|| phone == ''){
+	 						swal("연락처를 입력해 주세여","연락처 미입력","warning");
+	 						return;
+	 					}else{
+	 						 swal({
+	 							text: "회원가입 완료!",
+	 							icon:"success",
+	 							buttons:{
+	 								 home : {
+	 									 text:"확인",
+	 									 value:"home",
+	 								 },
+	 								},
+	 							}).then((value) =>{
+	 								switch(value){
+	 								case "home" : 	$("form").attr("method" , "POST").attr("action" , "/libero/user/addUser").submit();	 								
+	 								}
+	 							})
+	 		    
+	 						
+	 					}
+	 					
+	 					//swal("회원가입이 완료되었습니다.","감사합니다 :>","success");
+	 					//
+	 				
+	 		  
 		}
-    
+	 		  
 
 	$(function (){
 		
@@ -262,8 +294,9 @@
 					
 
 
-
-
+	 	
+				
+				
 		 
 		});	//$(function)끝
 		
@@ -411,11 +444,11 @@
 			  <div class="md-form col">
 			 	 <label for="genderCode">성별</label>
 		           <div class="form-check form-check-inline">
-					  <input type="radio" class="form-check-input" id="genderCode" name="genderCode" value="m">
+					  <input type="radio" class="form-check-input" id="genderCode1" name="genderCode" value="m">
 					  	<label class="form-check-label" for="men"><i class="fas fa-mars"></i></label>
 					  </div>
 					  <div	class="form-check form-check-inline">
-					  <input type="radio" class="form-check-input" id="genderCode" name="genderCode" value="f">
+					  <input type="radio" class="form-check-input" id="genderCode2" name="genderCode" value="f">
 					  	<label class="form-check-label" for="women"><i class="fas fa-venus"></i></label>
 					</div>
 			  </div>
@@ -425,9 +458,9 @@
 
 
 		
-           	 	<button class="btn btn-outline-brown lighten-1 btn-rounded btn-block my-4 waves-effect z-depth-0" id="addBtn" onClick="addUser()">Sign in</button>
+           	 	<button class="btn btn-outline-brown lighten-1 btn-rounded btn-block my-4 waves-effect z-depth-0" type="button" id="addBtn" onClick="addUser()">Sign in</button>
 
-            
+<!--              -->
         </form>
         <!-- Form -->
 
@@ -439,6 +472,7 @@
 
 
 </body>
+<jsp:include page="/common/footer.jsp"></jsp:include>
 <!--  해시태그 링크, 스크립트  -->
 <link href="/libero/resources/css/taginput/jquery.tagsinput.min.css" rel="stylesheet">
 	<script src="/libero/resources/javascript/taginput/jquery.tagsinput.min.js"></script>

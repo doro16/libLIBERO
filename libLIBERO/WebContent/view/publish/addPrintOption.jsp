@@ -14,6 +14,9 @@
 		
 		<style type="text/css">
 			
+			body {
+				font-family:'GyeonggiBatang';
+			}
 			.formLabel {
 				font-size: 15px;
 				color: #795548;
@@ -47,6 +50,7 @@
 			}
 			.black {
 				background-image: url(../resources/images/publish/book_black.png);
+				background-color: #FFFFFF;
 			}
 			.color {
 				background-image: url(../resources/images/publish/book_color.png);
@@ -100,12 +104,9 @@
 			}
 			.rightform {
 				float: right;
-				position: -webkit-sticky; /* Safari */
-				position: sticky;
 				top: 0;
 				min-height: 100%;
 				height: 100%;
-				background-color: red;
 			}
 			.detail {
 				height: auto;
@@ -306,7 +307,7 @@
 				</div>
 				<!-- 내지 재질 선택 End -->
 				<div class="form-group md-form" align="center">
-		      		<button type="button" class="btn btn-brown lighten-1 btn-block" 
+		      		<button type="button" class="btn btn-info brown lighten-1 btn-block" 
 		      			onclick="addPrintOption()">
 		      			원고 등록
 		      		</button>
@@ -333,6 +334,7 @@
 			</c:if>
 	   	</div>
 	   	<!-- ///////////// Bootstrap Container End ////////////////// -->
+	   	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	</body>
 	<script type="text/javascript">
 		//============= Event Start =====================
@@ -340,6 +342,27 @@
 			$("input").attr("onclick","selectType(); pageCount()");
 			
 		});
+		
+		//====================getUser REST =============================
+		function getUser(userId) {
+			
+			var code = "";
+			
+			$.ajax({
+     			type     	: 'POST',
+        		url			: '/libero/user/json/getUser/',
+        		data 		: JSON.stringify({"userId": userId}) ,
+        		async		: false, 
+        		dataType 	: 'json',
+                contentType	: "application/json",
+        		success: function (data) {
+        			code = parseInt(data.phoneCode);
+        			//return code;
+        		}
+			});
+			return code;
+		}
+		
 		//============= 옵션 선택 Event=====================
 		function selectType() {
 			
@@ -382,7 +405,7 @@
 		//================ form submit ======================
 		function addPrintOption() {
 			var userId = "${sessionScope.user.userId}";
-			var phoneCode = "${sessionScope.user.phoneCode}";
+			var phoneCode = getUser(userId);
 			var prodType = "${param.prodType}";
 			var pages = $("#bookPage").val();
 			
@@ -394,6 +417,7 @@
 				return;
 			}
 			if (phoneCode!=1) {
+				console.log(phoneCode);
 				Swal.fire({
 					  icon: 'error',
 					  text: '휴대폰 본인인증을 완료한 회원만 가능합니다.'
@@ -461,5 +485,7 @@
 				$("#price"+i).html(parseInt(color)+parseInt(cover)+((parseInt(size)+parseInt(inner))*pages)+"원");
 			}
 		}
+		
+		
 	</script>
 </html>

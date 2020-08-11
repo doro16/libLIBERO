@@ -104,11 +104,16 @@ public class BuyServiceImpl implements BuyService{
 			Product prod = new Product();
 			buy = (Buy)buyList.get(i);
 			buy.getProdNo();
+			
+			System.out.println("======================buyNO,id\n\n\n\n"+buy.getBuyerId()+"\n"+buy.getBuyNo()+"\n\n\n=======================");
 			prod = productDao.getProduct(buy.getProdNo());
 			prod.setBuyNo(buy.getBuyNo());
 			//System.out.println("======================\n\n\n\n"+prod+"\n\n\n=======================");
 			prod.setBuyAmount(buy.getBuyAmount());
-			//System.out.println("======================\n\n\n\n"+prod+"\n\n\n=======================");
+			prod.setReviewFlag(buyDao.getReviewFlag(buy.getBuyerId(), buy.getBuyNo()));
+			
+			
+			System.out.println("======================product\n\n\n\n"+prod+"\n\n\n=======================");
 			prodList.add(prod);
 			prodList.get(i);
 			
@@ -151,9 +156,12 @@ public class BuyServiceImpl implements BuyService{
 
 			for(int i=0;i<buyList.size();i++) {
 				Buy buy = new Buy();
+				Product prod = new Product();
 				buy = (Buy)buyList.get(i);
-				buy.getProdNo();
-				prodList.add(productDao.getProduct(buy.getProdNo()));
+				prod = productDao.getProduct(buy.getProdNo());
+				prod.setBuyAmount(buy.getBuyAmount());
+				System.out.println("====\n\n\n"+prod+"\n\n\n====");
+				prodList.add(prod);
 			}
 			System.out.println("prodList\n\n\n"+prodList+"\n\n\n");
 			map.put("product",prodList);
@@ -200,6 +208,12 @@ public class BuyServiceImpl implements BuyService{
 		// TODO Auto-generated method stub
 		buyDao.updateBuyStatus(buyNo, payNo);
 	}
+
+//	@Override
+//	public boolean getReviewFlag(String userId, int buyNo) {
+//		
+//		return buyDao.getReviewFlag(userId, buyNo);
+//	}
 
 
 }

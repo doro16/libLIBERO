@@ -17,6 +17,7 @@
   color: #0d47a1 !important;
 }
 
+
     #getBook{
       width: 150px;
       height: 150px;
@@ -72,6 +73,7 @@
 			<form class="form-inline mr-auto">
 			  <input type="hidden" id="searchCondition" name="searchCondition">
 			  <input class="form-control mr-sm-2" type="text" name="searchKeyword" >
+			  <input type="hidden" id="type" name="prodType" value="${product[0].prodType}">
 			  <button class="btn btn-brown btn-rounded btn-sm my-0" id="searchButton" >Search</button>
 			</form>
 	</div>
@@ -84,7 +86,7 @@
 	
 	
     <!--Tab panels-->
-    <div class="tab-content mb-5">
+    <div class="tab-content mb-5"> 
 
       <!--Panel 1-->
       <div class="tab-pane fade show in active" id="panel31" role="tabpanel">
@@ -98,31 +100,40 @@
 			 	<c:set var="i" value="0" />
 		  		<c:forEach var="product" items="${product}">
 				<c:set var="i" value="${ i+1 }" />
-				<div class="col-sm-3">
-            <!-- Card -->
-            <a class="card hoverable mb-4 z-depth-0 h-50" id="productcard" data-toggle="modal" data-target="#basicExampleModal">
+				<div class="col-sm-2" style="margin:50px 0px 0px 30px;">
+				
+				<div style="padding:50px 10px 10px 20px;">
+           <!-- Card -->
+            <a class="card hoverable mb-4 z-depth-0 h-10" id="productcard" data-toggle="modal" data-target="#basicExampleModal">
 
             <!-- Card image -->
-            <img class="card-img-top z-depth-1" id="cardImage" src="../../resources/images/publish/fileUpload/thumbnailFile/${product.prodThumbnail}" alt="Card image cap" width="250px" height="400px">
+            <img class="card-img-top z-depth-1" id="cardImage" src="../../resources/images/publish/fileUpload/thumbnailFile/${product.prodThumbnail}" alt="Card image cap" width="180px" height="250px">
             
               <!-- Card content -->
-              <div class="card-body" id="card-body">
-              	<div class="card-text text-uppercase mb-2"><a href="/libero/product/getProduct/${product.prodNo}">${product.prodName}</a></div>
-                <div class="card-text text-uppercase mb-2">${product.creator}</div>&nbsp;&nbsp;
-                <div class="card-text text-uppercase mb-3">${product.retailPrice}원</div>
+              
+             	<h6><a href="/libero/product/getProduct/${product.prodNo}">${product.prodName}</a></h6>
+                <h6>${product.author}</h6>
+             	<h6>${product.retailPrice}원</h6>
+             
+             
+           		 <!--	<div class="card-text text-uppercase mb-1" style="padding:0px; margin:0px;"><a href="/libero/product/getProduct/${book.prodNo}">${book.prodName}</a></div>
+                <div class="card-text text-uppercase mb-2">${book.author}</div>&nbsp;&nbsp;
+                <div class="card-text text-uppercase mb-3">${book.retailPrice}원</div>  -->
 
-              </div>
+            
 
-            </a></div>
+            </a></div></div>
          
             <!-- Card -->
             </c:forEach>
             </div></div></div>
             
-            <button type="button" class="btn btn-brown" id="button" value="${i}">more</button >
-            <input type="hidden" id="k" value="${product[0].prodType}">
-            <input type="hidden" id="maxPage" value="${resultPage.maxPage}">
-
+            <div class="text-center">
+  				<button type="button" class="btn btn-brown btn-rounded" id="button" value="${i}">5개 더보기</button>
+			</div>
+            	<input type="hidden" id="k" value="${product[0].prodType}">
+            	<input type="hidden" id="maxPage" value="${resultPage.maxPage}">
+<jsp:include page="../../common/footer.jsp"></jsp:include>
 </body>
 
 
@@ -144,7 +155,7 @@
 				
 					
 					$.ajax({
-						url : "/libero/product/json/getProductList/"+prodType,
+						url : "/libero/product/json/getProductList/",
 						type: "POST",
 						dataType: "json",
 						header : {
@@ -170,15 +181,15 @@
 						
 								
 							displayValue +=	
-								"<div class='col-sm-3'>"
-							  +"<a class='card hoverable mb-4 z-depth-0' id='productcard' data-toggle='modal' data-target='#basicExampleModal'>"
-				              +"<img class='card-img-top z-depth-1' src='../../resources/images/publish/fileUpload/thumbnailFile"+product.prodThumbnail+"' alt='Card image cap' width='250px' height='400px'>"
-				              +"<div class='card-body' id='card-body'>"
-				              +"<div class='card-text text-uppercase mb-2'><a href=/libero/product/getProduct/"+product.prodNo+">"+product.prodName+"<a></h5>"
-				              +"<div class='card-text text-uppercase mb-2'>"+product.creator+"</div>"
-				              +"<div class='card-text text-uppercase mb-3'>"+product.retailPrice+"원</div>"
-				              +"</div>"
+							   "<div class='col-sm-2' style='margin:50px 0px 0px 30px;'>"
+							  +"<div style='padding:50px 10px 10px 20px;'>"
+							  +"<a class='card hoverable mb-4 z-depth-0 h-10' id='productcard' data-toggle='modal' data-target='#basicExampleModal'>"
+				              +"<img class='card-img-top z-depth-1' id='cardImage' src='../../resources/images/publish/fileUpload/thumbnailFile/"+product.prodThumbnail+"' alt='Card image cap' width='180px' height='250px'>"
+				              +"<h6><a href=/libero/product/getProduct/"+product.prodNo+">"+product.prodName+"<a></h6>"
+				              +"<h6>"+product.author+"</h6>"
+				              +"<h6>"+product.retailPrice+"</h6>"
 				              +"</a>"
+				              +"</div>"
 				              +"</div>"
 							});//end each
 							
@@ -189,9 +200,6 @@
 						}//end success	
 					});//end ajax
 					
-							
-					 
-				  
 
 				});
 
@@ -220,7 +228,7 @@
 					}
 					
 					$("#searchCondition").val(searchCondition);
-					var searchKeyword = $("input[name='searchKeyword'").val();
+					var searchKeyword = $("input[name='searchKeyword']").val();
 					
 					alert(searchKeyword);
 					//searchKeyword = encodeURIComponent(searchKeyword);

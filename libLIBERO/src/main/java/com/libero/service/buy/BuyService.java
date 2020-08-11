@@ -42,6 +42,8 @@ public interface BuyService {
 	
 	public void addCash(Cash cash);	
 	
+//	public boolean getReviewFlag(String userId, int buyNo);
+	
 	//public void getPayStatus();
 	
 	//public void updatePayStatus();

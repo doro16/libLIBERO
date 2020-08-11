@@ -12,10 +12,25 @@
 		<link rel="stylesheet" href="../resources/css/common.css">
 		<script type="text/javascript">
 			function fncGetUserList(currentPage) {
-			$("#currentPage").val(currentPage);
-			$("form").attr("method", "POST").attr("action", "/libero/user/getUserActivityList").submit();	
-			}
+				$("#currentPage").val(currentPage);
+
+				$("form").attr("method", "POST").attr("action", "/libero/user/getUserActivityList").submit();	
+			}	
 			
+			
+			
+			$(function() {
+				 $( "fas.fa-search" ).on("click" , function() {
+						fncGetUserList(1);
+				 });
+				 
+				 $("#searchKeyword").on('keypress',function(e) {
+					    if(e.which == 13) {
+					        fncGetUserList(1);
+					    }
+				 });
+				
+			});
 
 			$(function() {
 				
@@ -76,6 +91,37 @@
 		   				aria-pressed="true" style="margin-bottom: 10px">나의 문의</a>
 		   		</div>
 		   		<div class="col-lg-9">
+		   		
+		<%-- 공통 --%>  		
+		 		  <form class="form-inline" style="float:right;">
+				    
+					  <div class="form-group">
+					    <select class="form-control" name="searchCondition" >
+							<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : ""}>
+							<c:if test="${param.menu!='c'}">제목</c:if>
+							<c:if test="${param.menu=='c'}">내용</c:if>
+							</option>
+							<c:if test="${param.menu=='q'}"> 	
+							<option value="2" ${! empty search.searchCondition && search.searchCondition==2 ? "selected" : ""}>닉네임</option>
+							</c:if>
+						</select>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label class="sr-only" for="searchKeyword">검색어</label>
+					    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
+					    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
+					  </div>&nbsp;&nbsp;&nbsp;
+					  <i class="fas fa-search"></i>&nbsp;&nbsp;&nbsp;
+					  
+					  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
+					  <input type="hidden" id="currentPage" name="currentPage" value=""/>
+					  <input type="hidden" id="menu" name="menu" value="${param.menu}" />
+					  
+					
+					</form>
+	    			<p style="padding-top: 20px; "> 전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지 </p>  		
+		   		
 		<c:if test="${param.menu=='p'}"> 	
 		   		<table class="table table-hover" id="myPost" style="font-size: 14px;text-align: center;">
 	            <thead>
@@ -132,7 +178,7 @@
 	                    <th align="left" >내용</th>
 	                    <th align="left" >닉네임</th>
 	                    <th align="left" >작성일</th>
-	                    <th align="left" >조회수</th>
+	                    
 	       
 	                </tr>
 	            </thead>
@@ -151,15 +197,12 @@
                             <c:if test="${fn:length(commentContent)>20}">
                                 ......
                             </c:if>
-                            <%-- <font color='red'>(${post.comments})</font>--%>     
                         </td>
                         <input type="hidden" value="${comment.postNo}"/>
                         
                         <td>${comment.user.nickname}</td>
                         <td>${comment.regDate}</td>
-                        <td>
-                        	1
-                        </td>
+                        
  
                     </tr>
                     
@@ -194,7 +237,7 @@
 					<c:set var="i" value="${ i+1 }" />
 					
 					
-                    <tr onClick = "location.href='/libero/community/getPost?postNo=${post.postNo}'">
+                    <tr onClick = "location.href='/libero/community/getPost?postNo=${post.postNo}&menu=q'">
                         
                   		<td align="center">${ i }</td>
                         <c:if test="${post.qnaRegType == 'p'}"><td>출판하기</td></c:if>

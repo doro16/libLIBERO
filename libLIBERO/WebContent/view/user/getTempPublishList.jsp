@@ -43,6 +43,7 @@
 		   				aria-pressed="true" style="margin-bottom: 10px">나의 문의</a>
 		   		</div>
 	   			<div class="row col-lg-9">
+	   			<p style="padding-top: 20px;width: 100% "> 전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지 </p><br/>
 			  	<c:forEach var="prod" items="${list}">
 				
 					<div class="col-lg-3">
@@ -69,5 +70,6 @@
 	   		
 	   	</div>
 	   	<!-- //////////// Bootstrap Container End////////////////// -->
+	   	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	</body>
 </html>

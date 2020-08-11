@@ -3,6 +3,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/common/cdn.jsp"></jsp:include>
+<link rel="stylesheet" href="../resources/css/common.css">
 <jsp:include page="../toolbar.jsp"></jsp:include>
 
 
@@ -13,7 +14,7 @@
 <title>Insert title here</title>
 
 <!--  ///////////////////////// CSS ////////////////////////// -->
-		<link rel="stylesheet" href="../resources/css/common.css">
+		
 <script type="text/javascript">
 function relocate(prodNo){
 	self.location="/libero/product/getProduct/"+prodNo;	
@@ -59,12 +60,7 @@ function relocate(prodNo){
 
 <div class="container">
 <jsp:include page="/view/user/topButton.jsp"></jsp:include>
-	
-
 <div class="row">
-
-
-
 <div class="col-lg-2">
 		   			<a href="/libero/user/getUserPublishList?prodType=book" 
 		   				class="btn btn-outline-brown waves-effect btn-block" role="button" 
@@ -75,7 +71,7 @@ function relocate(prodNo){
 		   				aria-pressed="true">서비스상품</a>
 </div>
 <div class="col">
-<c:set var="i" value="0" />
+
 		  <c:forEach var="getProduct" items="${getProduct}">
 			<c:set var="i" value="${ i+1 }" />
 			
@@ -90,31 +86,31 @@ function relocate(prodNo){
 			
 			
 			//alert($("#addReviewButton${i}").val()+"태욱스")
-//별점 설정 이벤트
-$('.starRev span').click(function(){
-	  $(this).parent().children('span').removeClass('on');
-	  $(this).addClass('on').prevAll('span').addClass('on');
-	  //var content = $("#textarea-char-counter").text();   실험
-	  var starRate = $(this).attr("id");
-	  
-	  $("#starRate${i}").val(starRate);
-	  //var star = $("#starRate").val(); 실험
-	  //alert(star); 실험
-	  //alert(starRate); 실험
-	  
-	  return false;
-});//end starRev click function
-
-//등록 버튼 클릭 이벤트
-$('#addButton${i}').click(function(){
-	
-	var starRate = $('span[class*=on]:last').attr("id"); //별점이 찍힌 가장 마지막 span의 아이디값
-	//alert(starRate);
-	var content = $("#textarea-char-counter${i}").val(); // 입력한 리뷰내용
-	//alert(content);
-	
-	
-	
+				//별점 설정 이벤트
+				$('.starRev span').click(function(){
+					  $(this).parent().children('span').removeClass('on');
+					  $(this).addClass('on').prevAll('span').addClass('on');
+					  //var content = $("#textarea-char-counter").text();   실험
+					  var starRate = $(this).attr("id");
+					  
+					  $("#starRate${i}").val(starRate);
+					  //var star = $("#starRate").val(); 실험
+					  //alert(star); 실험
+					  //alert(starRate); 실험
+					  
+					  return false;
+				});//end starRev click function
+				
+				//등록 버튼 클릭 이벤트
+		$('#addButton${i}').click(function(){
+					
+			var starRate = $('span[class*=on]:last').attr("id"); //별점이 찍힌 가장 마지막 span의 아이디값
+				//alert(starRate);
+			var content = $("#textarea-char-counter${i}").val(); // 입력한 리뷰내용
+				//alert(content);
+					
+					
+					
 		
 		//리뷰 내용, 별점
 		$.ajax({
@@ -125,7 +121,7 @@ $('#addButton${i}').click(function(){
 						"Accept" : "application/json",
 						"Content-Type" : "application/json"
 					 },
-			data: {"userId": "${sessionScope.user.userId}", "starRate" : starRate, "reviewContent" : content, "buyNo" : $("#addReviewButton${i}").val() },
+			data: {"userId": "${sessionScope.user.userId}", "starRate" : starRate, "reviewContent" : content, "buyNo" : ${getProduct.buyNo} },
 			success : function(data, success){
 				
 				
@@ -199,7 +195,12 @@ $('#addButton${i}').click(function(){
 
 								<ul class="navbar-nav">
 									<li class="nav-item" id="review${i}">
-										<button data-target="#addReviewModal${i}" data-toggle="modal" id="addReviewButton${i}" class="btn btn-outline-brown lighten-3 waves-effect" value="${getProduct.buyNo }">리뷰등록</button>
+										<c:if test="${getProduct.reviewFlag == false }">
+										<button data-target="#addReviewModal${i}" data-toggle="modal" id="addReviewButton${i}" class="btn btn-outline-brown lighten-3 waves-effect float-left" value="${getProduct.buyNo }" >리뷰등록</button>
+										</c:if>
+										<c:if test="${getProduct.reviewFlag== true }">
+										<button data-target="#addReviewModal${i}" data-toggle="modal" id="addReviewButton${i}" class="btn btn-outline-brown lighten-3 waves-effect float-left" value="${getProduct.buyNo }">리뷰수정</button>
+										</c:if>
 									</li>
 								</ul>
 				<!-- 리뷰등록 모달창 -->				
@@ -228,7 +229,8 @@ $('#addButton${i}').click(function(){
 													  <span class="starR1" id="45" >별5_왼쪽</span>
 													  <span class="starR2" id="50" >별5_오른쪽</span>
 													  <input type="hidden" id="starRate${i}" name="starRate" value="">
-													</div></br></br>
+													</div></br>
+													</br>
 												
 												<!--Material textarea-->
 													
@@ -266,14 +268,14 @@ $('#addButton${i}').click(function(){
 				
 					
 											  					
-							  					</th></td></tr>
+							  					</tr>
 							  				</tbody>
 							  			</table>
 <%-- 							  			<br><br><br><jsp:include page="/view/product/addReview.jsp"/> --%>
 							  		</div>
 <!-- 							  		여기는 테이블옆부분 -->
 									<div class="view overlay zoom" >
-									 <img src="/libero/resources/images/product/fileUpload/${getProduct.prodThumbnail }" class="img-thumbnail hoverable" alt="Responsive image" width= 200px onClick="relocate(${getProduct.prodNo})">
+									 <img src="/libero/resources/images/publish/fileUpload/thumbnailFile/${getProduct.prodThumbnail }" class="img-thumbnail hoverable" alt="Responsive image" width= 200px onClick="relocate(${getProduct.prodNo})">
 									  <div class="mask flex-center waves-effect waves-light" id="prodImg${i}">
 									    <p class="white-text">상세정보</p>
 									  </div>
@@ -296,4 +298,5 @@ $('#addButton${i}').click(function(){
 
 
 </body>
+<jsp:include page="/common/footer.jsp"></jsp:include>
 </html>

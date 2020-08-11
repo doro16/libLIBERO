@@ -38,4 +38,6 @@ public interface BuyDAO {
 	
 	public void addCash(Cash cash);
 	
+	public boolean getReviewFlag(String userId, int buyNo);
+	
 }

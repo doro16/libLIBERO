@@ -47,7 +47,7 @@
 
 <br/><br/><br/><br/><br/><br/>
 <h6 class="font-weight-bold text-center grey-text text-uppercase small mb-4">서점</h6>
-    <h3 class="font-weight-bold text-center dark-grey-text pb-2">ALL</h3>
+    <h3 class="font-weight-bold text-center dark-grey-text pb-2">${book[0].bookCategory}</h3>
     <hr class="w-header my-4">
 
 	
@@ -106,7 +106,7 @@
             <a class="card hoverable mb-4 z-depth-0 h-10" id="productcard" data-toggle="modal" data-target="#basicExampleModal">
 
             <!-- Card image -->
-            <img class="card-img-top z-depth-1" id="cardImage" src="../resources/images/publish/fileUpload/thumbnailFile/${book.prodThumbnail}" alt="Card image cap" width="180px" height="250px">
+            <img class="card-img-top z-depth-1" id="cardImage" src="../../resources/images/publish/fileUpload/thumbnailFile/${book.prodThumbnail}" alt="Card image cap" width="180px" height="250px">
             
               <!-- Card content -->
               
@@ -127,9 +127,12 @@
             </c:forEach>
             </div></div></div>
             
-            <button type="button" class="btn btn-brown" id="button" value="${i}">more</button >
-            <input type="hidden" id="k" value="${book[0].prodType}">
-            <input type="hidden" id="maxPage" value="${resultPage.maxPage}">
+            <div class="text-center">
+  				<button type="button" class="btn btn-brown btn-rounded" id="button" value="${i}">5개 더보기</button>
+			</div>
+            	<input type="hidden" id="k" value="${book[0].prodType}">
+            	<input type="hidden" id="category" value="${book[0].bookCategory}">
+            	<input type="hidden" id="maxPage" value="${resultPage.maxPage}">
 
 </body>
 
@@ -142,24 +145,26 @@
 				var curPage = $("#currentPage").val();
 				var prodType = $("#k").val();
 				var maxPage = $("#maxPage").val();
+				var category = $("#category").val();
 				
 				curPage = parseInt(curPage);
 				
 				alert("최대 출력페이지 : "+maxPage);
 				//alert(curPage);
+				alert("카테고리 : "+category);
 				
 				
 				
 					
 					$.ajax({
-						url : "/libero/product/json/getBookList/",
+						url : "/libero/product/json/getBookListByCategory/",
 						type: "POST",
 						dataType: "json",
 						header : {
 								"Accept" : "application/json",
 								"Content-Type" : "application/json"
 						},
-						data: {"currentPage": parseInt(curPage), "prodType": prodType },
+						data: {"currentPage": parseInt(curPage), "category": category },
 						success : function(data){
 							
 							//alert("success");

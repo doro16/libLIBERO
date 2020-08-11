@@ -27,6 +27,10 @@
 				margin-bottom: 60px;
 			}
 			
+			body {
+				font-family:'GyeonggiBatang';
+			}
+			
 		</style>
 	</head>
 	
@@ -107,6 +111,7 @@
 	   		<!-- form End -->
 	   	</div>
 	   	<!-- //////////// Bootstrap Container End/////////////////// -->
+	   	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	</body>
 	<script type="text/javascript">
 	//================ form submit ======================

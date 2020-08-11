@@ -17,7 +17,10 @@
 				margin:0; 
 				padding:0; 
 				width:100%; height:100%;
-			}
+
+  				
+
+				}
         	.box { 
         		width:100%; height:100%; 
         		position:relative; 
@@ -25,11 +28,13 @@
         	}
         	.title {
         		position: absolute;
-        		top:30%;
-        		left:10%;
+        		top:40%;
+        		left:34%;
         		color: #FFFFFF;
         		font-family: 'Nanum Gothic', sans-serif;
-        		font-size: 30px;
+
+        		z-index:10;
+        		text-align: center;
         	}
         	.title2 {
         		margin-left:auto;
@@ -63,6 +68,9 @@
         		cursor: pointer;
         		color: white;
         	}
+        	::-webkit-scrollbar {
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
@@ -70,8 +78,14 @@
 		<jsp:include page="/view/toolbar.jsp" />
 		<!-- Toolbar End -->
 		
-		<div class="box" style="background-image: url(resources/images/common/index1.jpg);">
-			<div class="title" align="left">자가 출판 플랫폼<br/>리브리베로</div>
+		<div class="box">
+		
+			 <div style="position: absolute; top: 0; left: 0; height: 100%;  width: 100%; background-color: black; opacity: 0.3; z-index: 1;" > </div>
+		 	 <video autoplay loop controls muted class="video-fluid" >
+			 <source src="resources/images/common/book3.mp4" type="video/mp4" />
+			 </video>
+			 <div class="title"><p style="font-size:70px;">자가출판 플랫폼</p><p style="font-size:50px;">libLIBERO</p> </div>
+		
 		</div>
 	    <div class="box" style="background-image: url(resources/images/common/index3.jpg);display: flex; justify-content: center; align-items: center;">
 	    	<table>
@@ -104,18 +118,18 @@
 	    </div>
 	    <div class="box" style="background-image: url(resources/images/common/index4.jpg);">
 	    	<div class="container text-center" style="height: 100%;display: flex; justify-content: center; align-items: center;">
-		    	<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 70%">
+		    	<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 70%;">
 					<div class="carousel-inner">
-				    	<div class="carousel-item active" data-interval="10000">
+				    	<div class="carousel-item active" data-interval="10000" style="size: 100%">
 				      		<!-- Card deck -->
-							<div class="card-deck">
+							<div class="card-deck" >
 							<c:forEach var="prod" items="${book}" end="2">
 								<!-- Card -->
 								<div class="card mb-4">
 							
 								    <!--Card image-->
 								    <div class="view overlay">
-								    	<img class="card-img-top" src="/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap">
+								    	<img class="card-img-top" src="/libero/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap" height="250px">
 							      		<a href="#!">
 							      			<div class="mask rgba-white-slight"></div>
 							      		</a>
@@ -125,7 +139,7 @@
 								    <div class="card-body">
 								
 								    	<!--Title-->
-								      	<h4 class="card-title"><a href="/libero/product/getProduct/${prod.prodNo}">${prod.prodName}</a></h4>
+								      	<h6 class="card-title"><a href="/libero/product/getProduct/${prod.prodNo}">${prod.prodName}</a></h6>
 								
 								    </div>
 							
@@ -144,7 +158,7 @@
 						
 							    <!--Card image-->
 							    <div class="view overlay">
-							    	<img class="card-img-top" src="/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap">
+							    	<img class="card-img-top" src="/libero/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap" height="250px">
 						      		<a href="#!">
 						      			<div class="mask rgba-white-slight"></div>
 						      		</a>
@@ -154,7 +168,7 @@
 							    <div class="card-body">
 							
 							    	<!--Title-->
-							      	<h4 class="card-title"><a href="/libero/product/getProduct/${prod.prodNo}">${prod.prodName}</a></h4>
+							      	<h6 class="card-title"><a href="/libero/product/getProduct/${prod.prodNo}">${prod.prodName}</a></h6>
 							
 							    </div>
 						
@@ -173,7 +187,7 @@
 						
 							    <!--Card image-->
 							    <div class="view overlay">
-							    	<img class="card-img-top" src="/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap">
+							    	<img class="card-img-top" src="/libero/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap" height="250px">
 						      		<a href="#!">
 						      			<div class="mask rgba-white-slight"></div>
 						      		</a>
@@ -183,7 +197,7 @@
 							    <div class="card-body">
 							
 							    	<!--Title-->
-							      	<h4 class="card-title"><a href="/libero/product/getProduct/${prod.prodNo}">${prod.prodName}</a></h4>
+							      	<h6 class="card-title"><a href="/libero/product/getProduct/${prod.prodNo}">${prod.prodName}</a></h6>
 							
 							    </div>
 						

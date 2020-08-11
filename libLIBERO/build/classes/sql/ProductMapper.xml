@@ -33,13 +33,12 @@
 		<result property="cartNo"		 column="cart_no"			jdbcType="INTEGER" />
 		<result property="buyAmount"	 column="buy_amount"		jdbcType="INTEGER" />
 		<result property="buyNo" 	 	 column="buy_no" 			jdbcType="INTEGER" />
-		<result property="reportCount"	 column="report_count"			jdbcType="INTEGER" />
+		<result property="reportCount"	 column="report_count"		jdbcType="INTEGER" />
 			
 	</resultMap>
 	
 	<resultMap id="reviewSelectMap" type="review">
 		<result property="reviewNo"		 column="review_no" 		jdbcType="INTEGER"/>
-		<result property="userId"	   	 column="user_id" 			jdbcType="VARCHAR"/>
 		<result property="buyNo"		 column="buy_no" 			jdbcType="INTEGER"/>
 		<result property="reviewName"	 column="review_name" 		jdbcType="VARCHAR"/>
 		<result property="reviewContent" column="review_content" 	jdbcType="LONGVARCHAR"/>
@@ -47,7 +46,15 @@
 		<result property="starRate"		 column="star_rate" 		jdbcType="INTEGER"/>
 		<result property="regDate"		 column="reg_date" 			jdbcType="TIMESTAMP"/>
 		<result property="prodNo"		 column="prod_no"			jdbcType="INTEGER"/>
+		
+			<association property="user"  	javaType="user">
+		<id		property="userId" 		column="user_id" 			jdbcType="VARCHAR"/>
+		<result property="nickname"		column="nickname"			jdbcType="VARCHAR"/>
+		<result property="profile"		column="profile"			jdbcType="VARCHAR"/>
+		
+		</association>
 	</resultMap>
+		
 			
 	<!--  SQL : SELECT LIST -->
 	<select id="getBookListForMain" resultMap="productSelectMap">
@@ -59,11 +66,7 @@
 			ORDER BY reg_date DESC
 	
 	</select>
-	
-	
-	
-	
-	
+
 	<select id="getBookList" parameterType="hashMap" resultMap="productSelectMap">
 			SELECT *
 			FROM product
@@ -94,8 +97,47 @@
 	
 	</select>
 	
-	<select id="getBookListBySearch"	parameterType="search" resultMap="productSelectMap">
+	<select id="getBookTotalCountByCategory"  parameterType="string" resultType="int">
+			SELECT count(*) FROM(
+				SELECT * FROM product
+				WHERE blind_code='show' AND purpose_code='sale' AND book_category=#{value}
+			)countable
+	
+	</select>
+	
+	<select id="getBookListBySearch"	parameterType="hashMap" resultMap="productSelectMap">
 			SELECT * FROM(
+							SELECT DISTINCT p.prod_name, p.author, p.retail_price, p.prod_no, h.hashtag_name, p.prod_type, p.blind_code, p.purpose_code, p.reg_date	
+							FROM product p
+							LEFT OUTER JOIN hashtag h
+							ON p.prod_no = h.prod_no
+							<where>
+										<if test="search.searchCondition == 'author'">
+												author LIKE '%${search.searchKeyword}%'
+										</if>
+										
+										<if test="search.searchCondition == 'prodName'">
+												prod_name LIKE '%${search.searchKeyword}%'
+										</if>
+										
+										<if test="search.searchCondition == 'hashTag'">
+												h.hashtag_name LIKE '%${search.searchKeyword}%'
+										</if>
+							</where>
+							) pp
+								
+							WHERE (prod_type = 'paper' OR prod_type = 'ebook') 
+							AND blind_code='show' 
+							AND purpose_code='sale'
+							GROUP BY pp.prod_no
+							ORDER BY reg_date DESC
+							LIMIT #{search.pageSize} OFFSET #{offset}
+	
+	</select>
+	
+	<select id="getBookTotalCountBySearch"  parameterType="search" resultType="int">
+			SELECT count(*) FROM(
+				SELECT * FROM(
 							SELECT p.prod_name, p.author, p.retail_price, p.prod_no, h.hashtag_name, p.prod_type, p.blind_code, p.purpose_code	
 							FROM product p
 							LEFT OUTER JOIN hashtag h
@@ -118,10 +160,10 @@
 							WHERE (prod_type = 'paper' OR prod_type = 'ebook') 
 							AND blind_code='show' 
 							AND purpose_code='sale'
-							
+			)countable
 	
 	</select>
-	
+
 	<select id="getProductList"	parameterType="hashMap" resultMap="productSelectMap">
 			
 			SELECT * 
@@ -129,6 +171,7 @@
 			WHERE prod_type = #{prodType}
 			ORDER BY reg_date DESC
 			LIMIT #{search.pageSize} OFFSET #{offset}
+			
 	</select>
 	
 	<select id="getProductTotalCount" parameterType="string" resultType="int">
@@ -136,10 +179,67 @@
 				SELECT * FROM product
 				WHERE blind_code='show' AND prod_type=#{value}
 			)countable
+
+	</select>
 	
-	
+	<select id="getProductListBySearch"	parameterType="hashMap" resultMap="productSelectMap">
+			SELECT * FROM(
+							SELECT DISTINCT p.prod_name, p.author, p.retail_price, p.prod_no, h.hashtag_name, p.prod_type, p.blind_code, p.purpose_code, p.reg_date	
+							FROM product p
+							LEFT OUTER JOIN hashtag h
+							ON p.prod_no = h.prod_no
+							<where>
+										<if test="search.searchCondition == 'author'">
+												author LIKE '%${search.searchKeyword}%'
+										</if>
+										
+										<if test="search.searchCondition == 'prodName'">
+												prod_name LIKE '%${search.searchKeyword}%'
+										</if>
+										
+										<if test="search.searchCondition == 'hashTag'">
+												h.hashtag_name LIKE '%${search.searchKeyword}%'
+										</if>
+							</where>
+							) pp
+								
+							WHERE prod_type = #{prodType} 
+							AND blind_code='show' 
+							AND purpose_code='sale'
+							ORDER BY reg_date DESC
+							LIMIT #{search.pageSize} OFFSET #{offset}
 	
 	</select>
+	
+	<select id="getProductTotalCountBySearch"  parameterType="hashMap" resultType="int">
+			SELECT count(*) FROM(
+				SELECT * FROM(
+							SELECT p.prod_name, p.author, p.retail_price, p.prod_no, h.hashtag_name, p.prod_type, p.blind_code, p.purpose_code	
+							FROM product p
+							LEFT OUTER JOIN hashtag h
+							ON p.prod_no = h.prod_no
+							<where>
+										<if test="search.searchCondition == 'author'">
+												author LIKE '%${searchKeyword}%'
+										</if>
+										
+										<if test="search.searchCondition == 'prodName'">
+												prod_name LIKE '%${searchKeyword}%'
+										</if>
+										
+										<if test="search.searchCondition == 'hashTag'">
+												h.hashtag_name LIKE '%${searchKeyword}%'
+										</if>
+							</where>
+							) pp
+								
+							WHERE prod_type = #{prodType} 
+							AND blind_code='show' 
+							AND purpose_code='sale'
+			)countable
+	
+	</select>
+	
 	
 	<select id="getProduct"	parameterType="int" resultMap="productSelectMap">
 			SELECT * FROM product
@@ -166,7 +266,7 @@
 	
 	<select id="getWishList" parameterType="string" resultMap="productSelectMap">
 	
-					SELECT p.prod_name, p.prod_type, p.retail_price 
+					SELECT p.prod_name, p.prod_type, p.retail_price, p.prod_no, p.creator, p.author
 					FROM product p 
 					INNER JOIN wish w 
 					ON p.prod_no = w.prod_no AND user_id= #{userId}
@@ -179,6 +279,14 @@
 					FROM wish
 					WHERE prod_no = #{prodNo} AND user_id = #{userId}
 	
+	</select>
+	
+	<select id="countWish" parameterType="string" resultType="int">
+				select count(*) FROM(
+					SELECT wish_no
+					FROM wish
+					WHERE user_id = #{userId}
+				)countable
 	</select>
 
 	
@@ -247,11 +355,26 @@
 					WHERE buy_no = #{buyNo}
 	</update>
 	
-	<select id="getReview"	parameterType="int"	resultMap="reviewSelectMap">
-					SELECT *
-					FROM review
-					WHERE prod_no = #{prodNo}
+	<select id="getReview"	parameterType="hashMap"	resultMap="reviewSelectMap">
+				SELECT * FROM(
+							SELECT r.review_no, r.user_id, r.buy_no, r.review_name, r.review_content, r.review_image, r.star_rate, r.reg_date, u.nickname
+							FROM review r
+							INNER JOIN user u
+							ON r.user_id = u.user_id
+							WHERE prod_no = #{prodNo}
+							) pp
+							ORDER BY reg_date DESC
+							LIMIT #{pageSize} OFFSET #{offset}		
+	</select>
 	
+	<select id="getReviewCount"		parameterType="int"	resultType="int">
+				SELECT COUNT(*) FROM(
+							SELECT r.review_no, r.user_id, r.buy_no, r.review_name, r.review_content, r.review_image, r.star_rate, r.reg_date, u.nickname
+							FROM review r
+							INNER JOIN user u
+							ON r.user_id = u.user_id
+							WHERE prod_no = #{prodNo}
+							) countable
 	</select>
 	 
 </mapper>

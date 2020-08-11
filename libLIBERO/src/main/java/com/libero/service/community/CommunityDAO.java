@@ -36,11 +36,13 @@ public interface CommunityDAO {
 	public int getCommentTotalCount(int postNo) throws Exception;
 	
 	public List<Comment> getMyCommentList(Search search, String userId)throws Exception;
-	public int getMyCommentListTotalCount(String userId)throws Exception;
+	public int getMyCommentListTotalCount(Search search, String userId)throws Exception;
 	
 	public void updateComment(Comment comment) throws Exception;
 	
-	public void deleteComment(int commentNo) throws Exception;
+	public void deleteComment(Comment comment) throws Exception;
+	
+	public void updateQnaCode(int postNo) throws Exception;
 	
 
 	

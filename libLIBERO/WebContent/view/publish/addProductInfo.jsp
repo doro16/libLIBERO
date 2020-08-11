@@ -304,8 +304,8 @@
 				<div class="form-group">
 				    <label class="formLabel" for="prodDetail">상품상세정보</label>
 				    <div>
-						<textarea id="prodDetail" name="prodDetail" value="${prod.prodDetail}" class="summernote" style="display: none;"></textarea>
-						<div id="summernote"></div>
+						<textarea id="prodDetail" name="prodDetail" class="summernote" style="display: none;"></textarea>
+						<div id="summernote">${prod.prodDetail}</div>
 				    </div>
 				</div>
 				<!-- 도서 설명 입력폼(SummerNote) 끝 -->
@@ -319,6 +319,7 @@
 	   		<!-- 도서정보 등록 폼 End -->
 	   	</div>
 	   	<!-- //////////// Bootstrap Container End////////////////// -->
+	   	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	</body>
 	
 	<!-- include summernote-lite css/js -->
@@ -448,6 +449,19 @@
 		   	        tabsize: 1,
 		   	        height: 300,
 		   	     	lang: 'ko-KR', // default: 'en-US'
+			   	    toolbar: [
+			 			    ['fontname', ['fontname']],
+			 			    ['fontsize', ['fontsize']],
+			 			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			 			    ['color', ['forecolor','color']],
+			 			    ['table', ['table']],
+			 			    ['para', ['ul', 'ol', 'paragraph']],
+			 			    ['height', ['height']],
+			 			    ['insert',['picture','link','video']],
+			 			    ['view', ['fullscreen', 'help']]
+			 		],
+			 		fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+			 		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
 		   	     	callbacks: {	//여기 부분이 이미지를 첨부하는 부분
 					onImageUpload : function(files, editor, welEditable) {
 						console.log(files);

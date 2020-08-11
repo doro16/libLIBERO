@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <!DOCTYPE html>
 <html lang="ko">
@@ -18,7 +19,7 @@
 		}  
 
 		$(function() {
-			 $( "button.btn.btn-default" ).on("click" , function() {
+			 $( "fas.fa-search" ).on("click" , function() {
 					fncGetUserList(1);
 			 });
 			 
@@ -56,10 +57,11 @@
 					    <label class="sr-only" for="searchKeyword">검색어</label>
 					    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
 					    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
-					  </div>
-					  
-					  <button type="button" class="btn btn-default">검색</button>
-					  <button type="button" class="btn btn-info" onclick="location.href='/libero/community/addPost?postType=f'">글쓰기</button>
+					  </div>&nbsp;&nbsp;&nbsp;
+					  <i class="fas fa-search"></i>&nbsp;&nbsp;&nbsp;
+					  <c:if test="${sessionScope.user.userId != null}">
+					  <button type="button" class="btn btn-brown" onclick="location.href='/libero/community/addPost?postType=f'">글쓰기</button>
+					  </c:if>
 					  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 					  <input type="hidden" id="currentPage" name="currentPage" value=""/>
 					  <%-- <input type="hidden" id="postType" name="postType" value="${param.menu}" /> --%>
@@ -76,12 +78,11 @@
 							<c:forEach var="post" items="${list}"> 
                             <c:set var="i" value="${ i+1 }" />
                             
-                            <li style="max-height: 183px;  overflow: hidden;">
-                                <a href="/libero/community/getPost?postNo=${post.postNo}" class="link_news before_thumb">
-                				<strong class="tit_news">${ i }&nbsp;&nbsp;${post.postName}</strong>
-                				<i class="far fa-eye">&nbsp;&nbsp;${post.viewCount}</i>
+                            <li style="max-height: 183x;  overflow: hidden;" onclick="location.href='/libero/community/getPost?postNo=${post.postNo}&menu=f' ">
+                                <a class="link_news before_thumb">
+                				<strong class="tit_news">${ i }&nbsp;&nbsp;${post.postName}<span style="color: #FF7171;">&nbsp;[${post.commentCount}]</span></strong>
              					</a>
-             					
+             					 
              					 <a class="link_thumb">
              					 <c:if test="${ fn:contains(post.postContent, '<img') }">
              					 	<c:set var="imgAfter" value="${ fn:substringAfter(post.postContent, '<img src=\"') }" />
@@ -89,27 +90,21 @@
 									
 									<img src='<c:out value="${imgBefore}" />' alt='글사진' class='thumb_img' >
 
-									<%-- 
-									비포 : <c:out value="${imgAfter}" />
-									애프터 : <c:out value="${imgBefore}" />
-									<c:out value="${imgName}" escapeXml="true"/>
-									 --%>
              					 </c:if>
              					
              					
                                 </a>
-                                <div class="txt_news" onclick="location.href='/libero/community/getPost?postNo=${post.postNo}' ">
+                                <div class="txt_news">
                                 ${post.postContent}
                                 </div>
-                                
-                                
-                                
-                                
-                                <span class="txt_date">${post.regDate}</span>
+
+                                <span class="txt_date">${post.user.nickname}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <fmt:formatDate value="${post.regDate}" pattern="yyyy.MM.dd" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <i class="far fa-eye">&nbsp;&nbsp;${post.viewCount}</i>
+                                </span>
                             </li>
                             </c:forEach>
-                           
-                          
+  
                         </ul>
                     </div>
                     

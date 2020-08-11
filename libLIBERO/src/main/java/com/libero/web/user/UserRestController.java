@@ -1,5 +1,9 @@
 package com.libero.web.user;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.sql.Date;
@@ -21,24 +25,47 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.AuthCache;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.client.BasicAuthCache;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.ibatis.annotations.Param;
 import org.codehaus.jackson.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.libero.common.Page;
 import com.libero.common.Search;
+import com.libero.service.community.CommunityService;
+import com.libero.service.domain.Post;
+import com.libero.service.domain.Product;
 import com.libero.service.domain.Publish;
+import com.libero.service.domain.Report;
 import com.libero.service.domain.User;
+import com.libero.service.product.ProductService;
 import com.libero.service.publish.PublishService;
+import com.libero.service.report.ReportService;
 import com.libero.service.user.UserService;
 
 //==> 회원관리 RestController
@@ -52,6 +79,12 @@ public class UserRestController {
 	private UserService userService;
 	@Autowired
 	private PublishService publishService;
+	@Autowired
+	private ReportService reportService;
+	@Autowired
+	private CommunityService communityService;
+	@Autowired
+	private ProductService productService;
 	
 	//Constructor
 	public UserRestController(){
@@ -68,7 +101,7 @@ public class UserRestController {
 	
 	//method
 	@RequestMapping( value="json/login", method=RequestMethod.POST )
-	public User login(@RequestBody Map<String, Object> params, HttpServletRequest request ) throws Exception{
+	public User login(@RequestBody Map<String, Object> params, HttpSession session ) throws Exception{
 	
 		System.out.println("/user/json/login : POST");
 		//Business Logic
@@ -76,10 +109,19 @@ public class UserRestController {
 		User user = userService.getUser((String) params.get("userId"));
 		
 		if( ((String)params.get("password")).equals(user.getPassword())){
-			HttpSession session = request.getSession(true);
 			session.setAttribute("user", user);
-			System.out.println(">>>>> "+session.getId());
 		}
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("user"));
+		return user;
+	}
+	
+	@RequestMapping( value="json/getUser", method=RequestMethod.POST )
+	public User getUser(@RequestBody User user) throws Exception{
+	
+		System.out.println("/user/json/getUser : GET");
+		//Business Logic
+		user = userService.getUser(user.getUserId());
+		
 		return user;
 	}
 	
@@ -172,6 +214,11 @@ public class UserRestController {
 		return result;
 	}
 ///////////////////////////////////////////랜덤 코드 생성기
+	static int randomNumber() {
+		int rand = (int) (Math.random() * 899999) + 100000; 
+		return rand;	
+	}
+	
 	static String getAlphaNumericString() { 
 		
 		
@@ -228,8 +275,6 @@ public class UserRestController {
 		System.out.println("/user/json/kakaologin");
 		
 		ModelAndView mav = new ModelAndView(); 
-		session.setAttribute("kakao", "true"); // 수린수린수린 0807
-		mav.setViewName("redirect:/");
 		
 		User user = (User) session.getAttribute("user");	
 		JsonNode node = SNSloginController.getAccessToken(code); 
@@ -251,12 +296,8 @@ public class UserRestController {
 			
 			if(userService.getUserByKakao(kId) != null) {		
 				user = userService.getUserByKakao(kId);
-				session.setAttribute("user", user);
-				return mav;
 			}else if(userService.getUser(kEmail) != null) {
 				user = userService.getUser(kEmail);
-				session.setAttribute("user", user);
-				return mav;
 			}else if(userService.getUserByKakao(kId) == null && userService.getUser(kEmail) == null) {			
 				user.setUserId(kEmail);	
 				user.setPassword((UUID.randomUUID().toString().replaceAll("-", "")).substring(0, 14));
@@ -266,21 +307,21 @@ public class UserRestController {
 				
 				userService.addUser(user);				
 				user = userService.getUser(user.getUserId());
-				
-				session.setAttribute("user", user);
-				return mav;
 			}		
 		}else { 
 			User kUser = userService.getUser(kEmail);
 			if(kUser == null) {
 				userService.addKakaoId(user.getUserId(), kId);				
-			}else {			
-				  userService.updateKakaoToUser(user.getUserId(), kEmail);
-				  userService.delUser(kId);
-				  userService.addKakaoId(user.getUserId(), kId);	  			 
+			}else {
+				//user_id가 kakao_id인 모든 테이블을 user.getUserId()로 바꿔주기
+				userService.delUser(kId);
 			}
 		}
-							
+					
+		session.setAttribute("user", user);
+		session.setAttribute("kakao", "true"); // 수린수린수린 0807
+		mav.setViewName("redirect:/");
+		
 		return mav; 
 		}
 	
@@ -296,5 +337,87 @@ public class UserRestController {
 		
 		return mav; 			
 	}
+	
+	@RequestMapping(value="json/sendSms",method=RequestMethod.POST)
+	public int sendSms(String receiver) {
+		// 6자리 인증 코드 생성 
+		int randomNo = UserRestController.randomNumber();
+		// 인증 코드를 데이터베이스에 저장하는 코드는 생략했습니다. 
+		// 문자 보내기 
+		String hostname = "api.bluehouselab.com";
+		String url = "https://" + hostname + "/smscenter/v1.0/sendsms";
+		CredentialsProvider credsProvider = new BasicCredentialsProvider();
+		credsProvider.setCredentials(new AuthScope(hostname, 443, AuthScope.ANY_REALM),// 청기와랩에 등록한 Application Id 와 API key 를 입력합니다. 
+				new UsernamePasswordCredentials("libeLIBERO", "8ec6b9cad95611eab5140cc47a1fcfae"));
+		AuthCache authCache = new BasicAuthCache(); 
+		authCache.put(new HttpHost(hostname, 443, "https"), new BasicScheme());
+		HttpClientContext context = HttpClientContext.create();
+		context.setCredentialsProvider(credsProvider);
+		context.setAuthCache(authCache);
+		DefaultHttpClient client = new DefaultHttpClient();
+		try {
+			HttpPost httpPost = new HttpPost(url);
+		httpPost.setHeader("Content-type", "application/json; charset=utf-8");//문자에 대한 정보 
+		String json = "{\"sender\":\"01035939410\",\"receivers\":[\"" + receiver + "\"],\"content\":\""+randomNo+"\"}"; 
+		StringEntity se = new StringEntity(json, "UTF-8"); 
+		httpPost.setEntity(se); 
+		HttpResponse httpResponse = client.execute(httpPost, context);
+		InputStream inputStream = httpResponse.getEntity().getContent();
+		if (inputStream != null) {
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream)); 
+		String line = ""; 
+		while ((line = bufferedReader.readLine()) != null) 
+			inputStream.close(); 
+		}else {
+			return 0;
+		}
+		
+		} catch (Exception e) { 
+			System.err.println("Error: " + e.getLocalizedMessage()); 
+			}finally { 
+				client.getConnectionManager().shutdown();
+				}
+		return randomNo;
+	}
+		
+	@ResponseBody
+	@RequestMapping(value="json/updatePhoneCode",method=RequestMethod.POST)
+	public int updatePhoneCode(HttpSession session,boolean phoneCode ) throws Exception{
+		System.out.println(" ---------------------------------------");
+		System.out.println("[ /user/json/updatePhoneCode  :: POST]");
+		System.out.println(" ---------------------------------------");
+		User user = (User)session.getAttribute("user");
+		
+		return userService.updatePhoneCode(user.getUserId());
+	}
+	
+	@RequestMapping(value = "/json/updateBlindCode",  method=RequestMethod.POST)
+	public int updateBlindCode(@RequestBody Map<String, String> map2, Report report) throws Exception{
+		
+		System.out.println("updateBlineCode입니다");
+		String prodPost = ((String)map2.get("prodPost"));
+		report.setProdPost(prodPost);
+		//System.out.println("prodpost봅시다"+prodPost);
+		if(prodPost.equals("post")) {
+			Post post = communityService.getPost(Integer.valueOf(map2.get("prodPostNo")));
+			post.setBlindCode(map2.get("blindCode"));
+			report.setPost(post);
+		} else if (prodPost.equals("prod")) {
+			Product product = productService.getProduct(Integer.valueOf(map2.get("prodPostNo")));
+			product.setBlindCode(map2.get("blindCode"));
+			report.setProduct(product);
+		}
+		
+		System.out.println(map2);
+		System.out.println("넘겨");
+			
+		reportService.updateBlindCode(report);
+		return 2;
+	}
+		
+	
+	
+	
+	
 	
 }

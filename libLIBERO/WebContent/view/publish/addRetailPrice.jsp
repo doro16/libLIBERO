@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!--  ///////////////////////// JSTL  ////////////////////////// -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -98,7 +99,7 @@
 			      			<hr class="hrColor">
 			      		</div>
 			      		<div class="md-form input-group mb-0">
-  							<input type="text" name="retailPrice" class="form-control col-lg-5" onblur="retailView()" value="${prod.retailPrice}">
+  							<input type="text" id="retailPrice" name="retailPrice" class="form-control col-lg-5" onblur="retailView()" value="${prod.retailPrice}">
   							<div class="input-group-append">
     							<span class="input-group-text md-addon">원</span>
   							</div>
@@ -112,7 +113,7 @@
 			    		<div class="md-form form-group">
 			      			<div class="formLabel">최종 소비자 가격</div>
 			      			<hr class="hrColor">
-			      			<div class="text-right font-weight-bold retailView">${prod.retailPrice}원</div>
+			      			<div class="text-right font-weight-bold retailView"><fmt:formatNumber value="${prod.retailPrice}" pattern="#,###"/>원</div>
 			      		</div>
 				    </div>
 				    <!-- Grid column -->
@@ -145,11 +146,11 @@
 			      				<tbody>
 			      					<tr>
 			      						<th>소비자 가격</th>
-			      						<td class="text-right retailView">${prod.retailPrice}원</td>
+			      						<td class="text-right retailView"><fmt:formatNumber value="${prod.retailPrice}" pattern="#,###"/>원</td>
 			      					</tr>
 			      					<tr>
 			      						<th>인쇄비</th>
-			      						<td id="printPrice" class="text-right">- ${prod.printPrice}원</td>
+			      						<td id="printPrice" class="text-right">- <fmt:formatNumber value="${prod.printPrice}" pattern="#,###"/>원</td>
 			      					</tr>
 			      					<tr>
 			      						<th>리브리베로 수수료</th>
@@ -191,7 +192,7 @@
 				      	<div class="modal-body">
 				      		<div class="row">
 				      			<div class="col-lg-6 text-center justify-content-center align-self-center">
-				      				<img src="../resources/images/publish/fileUpload/${prod.prodThumbnail}" id="modalImg" width="230px" height="280px">
+				      				<img src="../resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" id="modalImg" width="230px" height="280px">
 				      			</div>
 				      			<div class="col-lg-6 justify-content-right">
 				      				<table class="modalTable">
@@ -232,7 +233,16 @@
 					      					</tr>
 					      					<tr>
 					      						<th><b>해시태그</b></th>
-					      						<td>: ${prod.hashtagName}</td>
+					      						<td>: 
+					      							<c:forEach var="hash" items="${hash}" varStatus="status">
+					      								<c:if test="${!status.last}">
+					      									${hash},
+					      								</c:if>
+					      								<c:if test="${status.last}">
+					      									${hash}
+					      								</c:if>
+					      							</c:forEach>
+					      						</td>
 					      					</tr>
 					      					<tr>
 					      						<th><b>페이지수</b></th>
@@ -321,6 +331,7 @@
 			</div>
 			<!-- Central Modal Large -->
 	   	</div>
+	   	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	</body>
 	<script type="text/javascript">
 		$(function(){
@@ -328,9 +339,17 @@
 			var printPrice = "${prod.printPrice}";
 			var fee = Math.ceil(price*0.3/10)*10;
 			
+			fee = numberWithCommas(fee);
+			price = numberWithCommas(price);
+			printPrice = numberWithCommas(printPrice);
+			
 			$("#fee").html("- "+fee+"원");
 			
-			$("#finalPrice").html(price-printPrice-fee+"원");
+			var finalPrice = removeCommas(price)-removeCommas(printPrice)-removeCommas(fee);
+			
+			finalPrice = numberWithCommas(finalPrice);
+			
+			$("#finalPrice").html(finalPrice+"원");
 		});
 		
 		function retailView() {
@@ -339,6 +358,13 @@
 			// 10의 자리에서 올림
 			var fee = Math.ceil(price*0.3/10)*10;
 			price = Math.ceil(price/100)*100;
+			fee = numberWithCommas(fee);
+			price = numberWithCommas(price);
+			printPrice = numberWithCommas(printPrice);
+			
+			var finalPrice = removeCommas(price)-removeCommas(printPrice)-removeCommas(fee);
+			
+			finalPrice = numberWithCommas(finalPrice);
 			
 			// 올림값 반환
 			$("input[name='retailPrice']").val(price);
@@ -346,7 +372,7 @@
 			$("#modalPrice").html(": "+price+"원");
 			$("#fee").html("- "+fee+"원");
 			
-			$("#finalPrice").html(price-printPrice-fee+"원");
+			$("#finalPrice").html(finalPrice+"원");
 		}
 		
 		function addModalContent() {
@@ -365,7 +391,15 @@
 			}
 			
 		}
-				
+		
+		function numberWithCommas(x) {
+		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+			
+		function removeCommas(x){ 
+			x = parseInt(x.replace(/,/g,""));
+			return x;
+		}
 		
 		function sendMsg(){
 			var facNick = $("#factoryNickname").val();
@@ -378,21 +412,25 @@
 		};
 		
 		function addRetailPrice() {
-			/* var price = $("input[name='retailPrice']").val(); */
+			var price = removeCommas($("#retailPrice").val());
 			var finalPrice = $("#finalPrice").html();
 			finalPrice = Number(finalPrice.slice(0,-1));
 			
-			/* if (price == "") {
+			if (price == "") {
 				alert("가격을 입력해주세요");
 				return;
-			} */
+			}
+			
 			if (0>finalPrice) {
-				alert("수익금이 마이너스입니다. 가격을 높여주세요");
-				return;
+				Swal.fire({
+					  icon: 'error',
+					  text: '수익금이 마이너스입니다. 가격을 높여주세요.'
+					});
+	    		return;
 			}
 
-			sendMsg();			
-					
+			//sendMsg();			
+			$("input[name='retailPrice']").val(price);
 			$("form").attr("method" , "POST").attr("action" , "/libero/publish/addRetailPrice").submit();
 		}
 	</script>

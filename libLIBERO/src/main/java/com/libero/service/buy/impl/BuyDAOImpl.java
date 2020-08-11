@@ -132,6 +132,19 @@ public class BuyDAOImpl implements BuyDAO{
 		sqlSession.insert("UserMapper.addCash", cash);
 	}
 	
+	public boolean getReviewFlag(String userId , int buyNo) {
+		Map map = new HashMap();
+		map.put("userId",userId);
+		map.put("buyNo", buyNo);
+		String result = sqlSession.selectOne("BuyMapper.getReviewFlag",map);
+		System.out.println("=====================\n\n"+result+"\n\n=================");
+		if(result == null ) {
+			return false;//리뷰 없음
+		}else {
+			return true;// 리뷰 있음
+		}
+		
+	}
 //	@Override
 //	public List getFactoryProdNo(String payNo) {
 //		// TODO Auto-generated method stub

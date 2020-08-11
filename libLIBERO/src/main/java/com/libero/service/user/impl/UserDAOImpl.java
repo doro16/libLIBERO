@@ -1,6 +1,5 @@
 package com.libero.service.user.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +7,6 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.libero.common.Search;
@@ -23,11 +21,6 @@ public class UserDAOImpl implements UserDAO {
 	@Autowired
 	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSession;
-	
-	@Value("#{userProperties['listTable']}")
-	//@Value("#{commonProperties['pageUnit'] ?: 3}")
-	String[] listTable;
-	
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
@@ -122,24 +115,36 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	public void addKakaoId(String userId, String kakaoId) {
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap();
 		map.put("userId", userId);
 		map.put("kakaoId", kakaoId);
 		
 		sqlSession.update("UserMapper.addKakaoId", map);
 	}
 	
-	public void delUser(String kakaoId) {
-		sqlSession.delete("UserMapper.delUser", kakaoId);
+	public void delUser(String userId) {
+		sqlSession.delete("UserMapper.delUser", userId);
 	}
 	
-	public void updateKakaoToUser(String userId, String kEmail) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("userId", userId);
-		map.put("kEmail", kEmail);
-		
-		for(int i=0; i<listTable.length; i++) {
-			sqlSession.update("UserMapper.updateUserFrom"+listTable[i], map);
-		}
+	@Override
+	public void updateUser(User user) {
+		// TODO Auto-generated method stub
+		sqlSession.update("UserMapper.updateUser",user);
 	}
+
+	@Override
+	public int updatePhoneCode(String userId) {
+		
+		return sqlSession.update("UserMapper.updatePhoneCode",userId);
+	}
+
+
+
+	@Override
+	public void removeUser(User user) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update("UserMapper.removeUser", user);
+		
+	}
+
 }

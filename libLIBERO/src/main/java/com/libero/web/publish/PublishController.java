@@ -193,8 +193,8 @@ public class PublishController {
 			Graphics g2 = cover.getGraphics();
 			int width = thumbnail.getWidth();
 			int cWidth = cover.getWidth();
-			Font titleFont = new Font("Serif", Font.PLAIN, 30);
-			Font nameFont = new Font("Serif", Font.PLAIN, 15);
+			Font titleFont = new Font("경기천년제목 Light", Font.PLAIN, 30);
+			Font nameFont = new Font("경기천년제목 Light", Font.PLAIN, 15);
 			FontRenderContext frc = new FontRenderContext(null,true,true);
 			Rectangle2D r = titleFont.getStringBounds(publish.getProdName(), frc); 
 			Rectangle2D r2 = titleFont.getStringBounds(publish.getAuthor(), frc); 
@@ -217,8 +217,8 @@ public class PublishController {
 				g.setFont(titleFont); 
 				g.drawString(publish.getProdName(), (width/2)-180, 530);
 				g.setFont(nameFont); 
-				g.drawString(publish.getAuthor(), (width/2)-(int)(r2.getWidth())+210, 550); 
-				g.drawImage(logo, 290, 570, 130, 40, null);
+				g.drawString(publish.getAuthor(), (width/2)-(int)(r2.getWidth())+225, 550); 
+				g.drawImage(logo, 290, 560, 130, 40, null);
 			}
 			g.dispose(); 
 			UUID savedFileName = UUID.randomUUID();	
@@ -235,9 +235,9 @@ public class PublishController {
 				g2.drawImage(logo, 740, 555, 130, 40, null);
 			}else if (publish.getImgType().contentEquals("icon")) {
 				g2.setFont(titleFont); 
-				g2.drawString(publish.getProdName(), (cWidth/4)*3-(int)((r.getWidth())/2), 330);
+				g2.drawString(publish.getProdName(), (cWidth/4)*3-(int)((r.getWidth())/2)-50, 330);
 				g2.setFont(nameFont); 
-				g2.drawString(publish.getAuthor(), (cWidth/4)*3-(int)((r2.getWidth())/2)+55, 350); 
+				g2.drawString(publish.getAuthor(), (cWidth/4)*3-(int)((r2.getWidth())/2)+25, 350); 
 				g2.drawImage(logo, 740, 555, 130, 40, null);
 			}else if (publish.getImgType().contentEquals("img")) {
 				g2.setFont(titleFont); 
@@ -252,7 +252,7 @@ public class PublishController {
 			publish.setCoverFile(savedFileName+".png");
 		}
 		
-		publishService.updatePublishInfo(publish);
+		publishService.updateProductInfo(publish);
 		List<String> hashtagName = Arrays.asList(publish.getHashtagName().split(","));
 		publishService.addHashtag(publish.getProdNo(), hashtagName);
 		ModelAndView modelAndView = new ModelAndView();
@@ -269,15 +269,23 @@ public class PublishController {
 		publish.setProdNo(prodNo);
 		
 		publish = publishService.getProduct(prodNo);
+		
+		//인쇄비가 있다면 추천 소비자가격은 인쇄비의 2배
 		if (publish.getRetailPrice()==0) {
 			publish.setRetailPrice(publish.getPrintPrice()*2);
 		}
+		
+		//해시태그 가져오기
+		List<String> hash = publishService.getHashtagList(prodNo);
 		User user = (User) session.getAttribute("user");
 		
 		ModelAndView modelAndView = new ModelAndView();
 		if (user!=null && user.getUserId().contentEquals(publish.getCreator())) {
 			modelAndView.addObject("prod",publish);
-			modelAndView.addObject("factoryNickname", userService.getUser(publish.getFactoryId()).getNickname());
+			modelAndView.addObject("hash", hash);
+			if (publish.getFactoryId()!=null) {
+				modelAndView.addObject("factoryNickname", userService.getUser(publish.getFactoryId()).getNickname());
+			}
 			modelAndView.setViewName("forward:/view/publish/addRetailPrice.jsp");
 		}else {
 			modelAndView.setViewName("redirect:/");

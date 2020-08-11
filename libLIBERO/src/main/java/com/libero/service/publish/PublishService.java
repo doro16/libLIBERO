@@ -16,7 +16,7 @@ public interface PublishService {
 	
 	public void updateManu(Publish publish) throws Exception;
 	
-	public void updatePublishInfo(Publish publish) throws Exception;
+	public void updateProductInfo(Publish publish) throws Exception;
 	
 	public void updateRetailPrice(Publish publish) throws Exception;
 	
@@ -41,5 +41,7 @@ public interface PublishService {
 	public void addHashtag(int prodNo, List<String> hashtagName) throws Exception;
 	
 	public List<String> getHashtagList(int prodNo) throws Exception;
+	
+	public void updateBlindCode(Publish publish) throws Exception;
 
 }

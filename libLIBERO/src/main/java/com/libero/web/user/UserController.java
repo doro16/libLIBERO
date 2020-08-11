@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,6 +75,17 @@ public class UserController {
 	//@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
+	@RequestMapping( value="login", method=RequestMethod.GET )
+	public ModelAndView login() throws Exception{
+		
+		System.out.println("/user/login : GET");
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("forward:/view/user/loginView.jsp");
+		
+		return modelAndView;
+	}
+	
 	@RequestMapping( value="login", method=RequestMethod.POST )
 	public ModelAndView login(User user , HttpSession session ) throws Exception{
 		
@@ -81,13 +93,23 @@ public class UserController {
 		//Business Logic
 		User dbUser=userService.getUser(user.getUserId());
 		
-		if( user.getPassword().equals(dbUser.getPassword())){
-			session.setAttribute("user", dbUser);
-		}
-		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:/");
 		
+		if( user.getPassword().equals(dbUser.getPassword()) && dbUser.getUserCode() == 1){
+			session.setAttribute("user", dbUser);
+			if (dbUser.getRole().contentEquals("u")) {
+				modelAndView.setViewName("redirect:/");
+			} else if (dbUser.getRole().contentEquals("a")) {
+				modelAndView.setViewName("redirect:/user/getUserList");
+			} else if (dbUser.getRole().contentEquals("f")) {
+				modelAndView.setViewName("redirect:/buy/getFactoryBuyList");
+			}
+		} else {
+		
+		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("user"));
+		
+		modelAndView.setViewName("redirect:/user/login");
+		}
 		return modelAndView;
 	}
 	
@@ -287,8 +309,8 @@ public class UserController {
 	}
 	
 
-	@RequestMapping(value = "getUserReportList", method = RequestMethod.GET)
-	public ModelAndView getUserReportList( @RequestParam(value="menu", required=false) String menu, @ModelAttribute("search") Search search, HttpSession session) throws Exception {
+	@RequestMapping(value = "getUserReportList")
+	public ModelAndView getUserReportList( @RequestParam(value="menu", required=false) String menu, Search search, HttpSession session) throws Exception {
 		System.out.println("/user/getAdminReportList : GET");
 		
 		if(search.getCurrentPage() == 0) {
@@ -303,17 +325,12 @@ public class UserController {
 		String userId = ((User)session.getAttribute("user")).getUserId();
 		
 		System.out.println("menu가 뭔가요"+menu);
-		if(menu.equals(new String("prod"))) {
-			map = reportService.getUserReportList(search, user, menu);
-		} 		
 		
-		if(menu.equals(new String("post"))) {
-			map = reportService.getUserReportList(search, user, menu);
-		} 
-		
+		map = reportService.getUserReportList(search, user, menu);
+	
 		Page resultPage = new Page(search.getCurrentPage(),
-									((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-		
+				((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+
 		System.out.println(resultPage);
 		
 		modelAndView.addObject("list", map.get("list"));
@@ -328,8 +345,8 @@ public class UserController {
 	
 	
 	
-	@RequestMapping(value = "getUserActivityList", method = RequestMethod.GET)
-	public ModelAndView getUserActivityList( @RequestParam(value="menu", required=false) String menu, @ModelAttribute("search") Search search, HttpSession session) throws Exception {
+	@RequestMapping(value = "getUserActivityList")
+	public ModelAndView getUserActivityList( @RequestParam(value="menu", required=false) String menu,  Search search, HttpSession session) throws Exception {
 		
 		if(search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
@@ -344,18 +361,12 @@ public class UserController {
 		String userId = ((User)session.getAttribute("user")).getUserId();
 		
 		System.out.println("menu가 뭔가요"+menu);
-		if(menu.equals(new String("p"))) {
+		if(menu.equals("c")) {
+			map = communityService.getMyCommentList(search, userId);	
+		} else {
 			map = communityService.getMyPostList(search, user, menu);
-		} 		
-		
-		if(menu.equals(new String("c"))) {
-			map = communityService.getMyCommentList(search, userId);
-		} 
-		
-		if(menu.equals(new String("q"))) {
-			map = communityService.getMyPostList(search, user, menu);
-		} 
-		
+		}		
+	
 		Page resultPage = new Page(search.getCurrentPage(),
 									((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		
@@ -371,6 +382,7 @@ public class UserController {
 		return modelAndView;
 	}
 
+
 	
 	@RequestMapping(value = "requestCash/{cashWithdraw}", method = RequestMethod.GET)
 	public ModelAndView requestCash(HttpServletRequest request, @PathVariable("cashWithdraw") int cashWithdraw)
@@ -378,7 +390,7 @@ public class UserController {
 		System.out.println("/user/requestCash : POST");
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/user/getUserCash");
+		mav.setViewName("redirect:/user/getUserCash");
 
 		HttpSession session = request.getSession(true);
 		User user = (User) session.getAttribute("user");
@@ -417,20 +429,111 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "getUser", method = RequestMethod.GET)
-	public ModelAndView updateUser(HttpSession session) throws Exception {
-		
-		User user = userService.getUser(((User)session.getAttribute("user")).getUserId());
-		
-		String kakaoUrl = SNSloginController.getAuthorizationUrl(session);
-		
-		
+	
+	@RequestMapping(value="getUser", method=RequestMethod.GET)
+	public ModelAndView updateUser(HttpSession session, @RequestParam(required = false) String userId) throws Exception{
+		System.out.println(" ---------------------------------------");
+		System.out.println("/user/getUser : GET");
+		System.out.println(" ---------------------------------------");
+		User user = new User();
+		user = (User)session.getAttribute("user");
+		if (user.getRole().contentEquals("a") && userId!=null) {
+			user = userService.getUser(userId);
+		}else {
+			user = userService.getUser(user.getUserId());
+		}
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("kakao_url", kakaoUrl);
-		modelAndView.addObject("user", user);
+		
+		modelAndView.addObject("user",user);
+		modelAndView.setViewName("forward:/view/user/getUser.jsp");
+		return modelAndView;
+		
+	}
+	
+	@RequestMapping(value = "updateUser", method = RequestMethod.POST)
+	public ModelAndView updateUser(@ModelAttribute User user,@RequestParam("file") List<MultipartFile> file) throws Exception {
+		System.out.println(" ---------------------------------------");
+		System.out.println("/user/update : POST");
+		System.out.println(" ---------------------------------------");
+		
+		System.out.println("===============\n\n\n"+user+"\n\n\n===============");
+		if (file!=null) {
+			for (MultipartFile multipartFile : file) {
+				
+				System.out.println(multipartFile.getOriginalFilename());
+				
+				String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
+				String extension=originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+				
+				String fileRoot = "C:/Users/user/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
+				String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+				
+				File f =new File(fileRoot+savedFileName);
+				
+				multipartFile.transferTo(f);
+				System.out.println(" ---------------------------------------");
+				System.out.println(f.getName());
+				System.out.println(" ---------------------------------------");
+			
+				user.setProfile(f.getName());
+			}
+		}
+		
+		userService.updateUser(user);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("user", userService.getUser(user.getUserId()));
 		modelAndView.setViewName("forward:/view/user/getUser.jsp");
 		
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = "removeUser", method = RequestMethod.GET)
+	public ModelAndView removeUser(HttpSession session) throws Exception {
+		
+		User user = userService.getUser(((User)session.getAttribute("user")).getUserId());
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName("forward:/view/user/removeUser.jsp");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "removeUser", method = RequestMethod.POST)
+	public ModelAndView removeUser(HttpSession session, User user) throws Exception {
+		
+		userService.removeUser(user);
+		session.invalidate();
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:/");
+		
+		return modelAndView;
+	}
+	
+	//0811 태욱
+	@RequestMapping(value = "findId", method = RequestMethod.GET)
+	public ModelAndView findId() throws Exception{
+		
+		ModelAndView modelAndView = new ModelAndView();
+
+			modelAndView.setViewName("redirect:/libero/view/user/findId.jsp");
+		
+		return modelAndView;
+		
+	}
+	
+	@RequestMapping(value = "findPwd", method = RequestMethod.GET)
+	public ModelAndView findPwd() throws Exception{
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+			modelAndView.setViewName("redirect:/libero/view/user/findPwd.jsp");
+		
+		return modelAndView;
+		
+	}
+	
+
+	//===========================태욱
 	
 }

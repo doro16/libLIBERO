@@ -50,8 +50,8 @@ public class PublishServiceImpl implements PublishService{
 		publishDAO.updateManu(publish);
 	}
 	
-	public void updatePublishInfo(Publish publish) throws Exception{
-		publishDAO.updatePublishInfo(publish);
+	public void updateProductInfo(Publish publish) throws Exception{
+		publishDAO.updateProductInfo(publish);
 	}
 	
 	public void updateRetailPrice(Publish publish) throws Exception{
@@ -116,6 +116,10 @@ public class PublishServiceImpl implements PublishService{
 	public List<String> getHashtagList(int prodNo) throws Exception {
 		// TODO Auto-generated method stub
 		return publishDAO.getHashtagList(prodNo);
+	}
+	
+	public void updateBlindCode(Publish publish) throws Exception {
+		publishDAO.updateBlindCode(publish);
 	}
 
 }
