@@ -6,15 +6,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../resources/css/common.css">
 <jsp:include page="/common/cdn.jsp"></jsp:include>
+<jsp:include page="../toolbar.jsp"></jsp:include>
 <script type="text/javascript">
-
+function relocate(prodNo){
+	self.location="/libero/product/getProduct?prodNo="+prodNo;
+}
 </script>
 
 
 </head>
 <body>
-<jsp:include page="../toolbar.jsp"></jsp:include>
+
 
 
 
@@ -26,15 +30,14 @@
 		  <c:forEach var="product" items="${product}">
 			<c:set var="i" value="${ i+1 }" />
 			
-					<br/>------------------------------------<br/>
+					
 				<td align="center"><b>${ i }</b></td>
 					<td align="center"  title="Click : 주문정보 확인" >
-						<br>------------------------------------<br>
 						
 						
 						책 번호 	: ${product.prodNo} <br/>
 						책 이름 	: ${product.prodName} <br/>
-						표지 사진	:<img src="/libero/resources/images/publish/freeTemplate/img/${product.prodThumbnail}">  <br/>
+						표지 사진	:<img src="/libero/resources/images/product/fileUpload/${product.prodThumbnail}">  <br/>
 						주문 날짜	: ${product.regDate} <br/>
 						지은이	: ${product.author} <br/>
 						원고 파일	: ${product.manuFile} <br/>

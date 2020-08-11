@@ -62,10 +62,14 @@ public class BuyController {
 		// payNo는 리스트에서 조회할때 가져오는 걸로.
 
 		Map<String, Object> map = buyService.getUserBuy(userId, payNo);
+		//System.out.println("=========================\n\n\n"+map.get("payList")+"\n\n\n====================");
+		
+		
 
+		System.out.println("=========================\n\n\n"+map.get("userProduct")+"\n\n\n====================");
 		model.addAttribute("getProduct", map.get("userProduct"));
-		model.addAttribute("getPay", map.get("payList"));
-
+		//model.addAttribute("getPay", map.get("payList"));
+		//model.addAttribute("getProductBuy",review);
 		return "forward:/view/buy/getUserBuy.jsp";
 	}
 
@@ -174,9 +178,13 @@ public class BuyController {
 		System.out.println(" ---------------------------------------");
 		System.out.println("/buy/getFactoryBuy : GET");
 		System.out.println(" ---------------------------------------");
-
+		
+		System.out.println(" ---------------------------------------");
+		System.out.println(""+payNo);
+		System.out.println(" ---------------------------------------");
+		
 		Map<String, Object> map = buyService.getFactoryBuy(payNo);
-
+		
 		model.addAttribute("payNo", payNo);
 
 		model.addAttribute("product", map.get("product"));
