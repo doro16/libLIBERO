@@ -384,7 +384,7 @@ public class UserController {
 		System.out.println("/user/requestCash : POST");
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/user/getUserCash");
+		mav.setViewName("redirect:/user/getUserCash");
 
 		HttpSession session = request.getSession(true);
 		User user = (User) session.getAttribute("user");
@@ -425,13 +425,17 @@ public class UserController {
 	
 	
 	@RequestMapping(value="getUser", method=RequestMethod.GET)
-	public ModelAndView updateUser(HttpSession session) throws Exception{
+	public ModelAndView updateUser(HttpSession session, @RequestParam(required = false) String userId) throws Exception{
 		System.out.println(" ---------------------------------------");
 		System.out.println("/user/getUser : GET");
 		System.out.println(" ---------------------------------------");
 		User user = new User();
 		user = (User)session.getAttribute("user");
-		user = userService.getUser(user.getUserId());
+		if (user.getRole().contentEquals("a") && userId!=null) {
+			user = userService.getUser(userId);
+		}else {
+			user = userService.getUser(user.getUserId());
+		}
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("user",user);

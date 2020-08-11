@@ -24,7 +24,14 @@
 		<article id="mainContent" class="content-board">
 		<section class="wrap_content">
            <div class="tit_board">
-               <h4>&nbsp;${post.postName}</h4>
+           
+               <h4>
+               <c:if test="${post.qnaRegType == 'p'}">출판하기</c:if>
+               <c:if test="${post.qnaRegType == 'b'}">구매하기</c:if>
+               <c:if test="${post.qnaRegType == 'u'}">이용문의</c:if>
+               <c:if test="${post.qnaRegType == 'e'}">기타</c:if>
+               
+               &nbsp;| &nbsp;${post.postName}</h4>
                <img src='../resources/images/user/fileUpload/${post.user.profile}' style='height: 50px; width: 50px; float: left; margin:10px 10px 10px 0;'>
                <span style="margin:6px 0 -18px 0; font-size: 16px; font-weight:bold;">${post.user.nickname}</span>
                <span style="float:left;"> ${post.regDate} &nbsp;&nbsp;조회 &nbsp;${post.viewCount}&nbsp;&nbsp;댓글 &nbsp;${post.commentCount}</span>
@@ -70,8 +77,9 @@
 			})	
 			
 			$("button:contains('목록')").on("click", function(){
-				<%-- self.location = "/libero/community/getPostList?menu=" --%>
-				self.location = "javascript:history.go(-1)";
+				
+				var menu = $("#menu").val();
+				self.location = "/libero/community/getPostList?menu="+menu; 
 			})
 			
 		});
