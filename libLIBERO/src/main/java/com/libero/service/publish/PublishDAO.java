@@ -16,7 +16,7 @@ public interface PublishDAO {
 	
 	public void updateManu(Publish publish) throws Exception;
 	
-	public void updatePublishInfo(Publish publish) throws Exception;
+	public void updateProductInfo(Publish publish) throws Exception;
 	
 	public void updateHashtag(Publish publish) throws Exception;
 	

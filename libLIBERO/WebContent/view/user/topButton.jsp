@@ -13,13 +13,13 @@
 	}
 	
 	.buttonDiv > i {
-		color: #8d6e63;
+		color: #a1887f;
 		margin-bottom: 10px;
 	}
 	
 	.buttonDiv:hover {
 		cursor: pointer;
-		border: 2px #8d6e63 solid;
+		border: 2px #a1887f solid;
 	}
 	.brown-text {
 		font-size: 0.8em;

@@ -235,9 +235,9 @@ public class PublishController {
 				g2.drawImage(logo, 740, 555, 130, 40, null);
 			}else if (publish.getImgType().contentEquals("icon")) {
 				g2.setFont(titleFont); 
-				g2.drawString(publish.getProdName(), (cWidth/4)*3-(int)((r.getWidth())/2), 330);
+				g2.drawString(publish.getProdName(), (cWidth/4)*3-(int)((r.getWidth())/2)-30, 330);
 				g2.setFont(nameFont); 
-				g2.drawString(publish.getAuthor(), (cWidth/4)*3-(int)((r2.getWidth())/2)+55, 350); 
+				g2.drawString(publish.getAuthor(), (cWidth/4)*3-(int)((r2.getWidth())/2)+25, 350); 
 				g2.drawImage(logo, 740, 555, 130, 40, null);
 			}else if (publish.getImgType().contentEquals("img")) {
 				g2.setFont(titleFont); 
@@ -252,7 +252,7 @@ public class PublishController {
 			publish.setCoverFile(savedFileName+".png");
 		}
 		
-		publishService.updatePublishInfo(publish);
+		publishService.updateProductInfo(publish);
 		List<String> hashtagName = Arrays.asList(publish.getHashtagName().split(","));
 		publishService.addHashtag(publish.getProdNo(), hashtagName);
 		ModelAndView modelAndView = new ModelAndView();
@@ -269,15 +269,23 @@ public class PublishController {
 		publish.setProdNo(prodNo);
 		
 		publish = publishService.getProduct(prodNo);
+		
+		//인쇄비가 있다면 추천 소비자가격은 인쇄비의 2배
 		if (publish.getRetailPrice()==0) {
 			publish.setRetailPrice(publish.getPrintPrice()*2);
 		}
+		
+		//해시태그 가져오기
+		List<String> hash = publishService.getHashtagList(prodNo);
 		User user = (User) session.getAttribute("user");
 		
 		ModelAndView modelAndView = new ModelAndView();
 		if (user!=null && user.getUserId().contentEquals(publish.getCreator())) {
 			modelAndView.addObject("prod",publish);
-			modelAndView.addObject("factoryNickname", userService.getUser(publish.getFactoryId()).getNickname());
+			modelAndView.addObject("hash", hash);
+			if (publish.getFactoryId()!=null) {
+				modelAndView.addObject("factoryNickname", userService.getUser(publish.getFactoryId()).getNickname());
+			}
 			modelAndView.setViewName("forward:/view/publish/addRetailPrice.jsp");
 		}else {
 			modelAndView.setViewName("redirect:/");

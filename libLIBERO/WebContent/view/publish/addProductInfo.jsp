@@ -304,8 +304,8 @@
 				<div class="form-group">
 				    <label class="formLabel" for="prodDetail">상품상세정보</label>
 				    <div>
-						<textarea id="prodDetail" name="prodDetail" value="${prod.prodDetail}" class="summernote" style="display: none;"></textarea>
-						<div id="summernote"></div>
+						<textarea id="prodDetail" name="prodDetail" class="summernote" style="display: none;"></textarea>
+						<div id="summernote">${prod.prodDetail}</div>
 				    </div>
 				</div>
 				<!-- 도서 설명 입력폼(SummerNote) 끝 -->

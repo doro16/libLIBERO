@@ -50,7 +50,7 @@ public class PublishDAOImpl implements PublishDAO {
 		sqlSession.update("PublishMapper.updateManu", publish);
 	}
 	
-	public void updatePublishInfo(Publish publish) throws Exception {
+	public void updateProductInfo(Publish publish) throws Exception {
 		sqlSession.update("PublishMapper.updateProductInfo", publish);
 	}
 	

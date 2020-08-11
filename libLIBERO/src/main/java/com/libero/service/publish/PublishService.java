@@ -16,7 +16,7 @@ public interface PublishService {
 	
 	public void updateManu(Publish publish) throws Exception;
 	
-	public void updatePublishInfo(Publish publish) throws Exception;
+	public void updateProductInfo(Publish publish) throws Exception;
 	
 	public void updateRetailPrice(Publish publish) throws Exception;
 	
