@@ -97,7 +97,13 @@ public class UserController {
 		
 		if( user.getPassword().equals(dbUser.getPassword()) && dbUser.getUserCode() == 1){
 			session.setAttribute("user", dbUser);
-			modelAndView.setViewName("redirect:/");
+			if (dbUser.getRole().contentEquals("u")) {
+				modelAndView.setViewName("redirect:/");
+			} else if (dbUser.getRole().contentEquals("a")) {
+				modelAndView.setViewName("redirect:/user/getUserList");
+			} else if (dbUser.getRole().contentEquals("f")) {
+				modelAndView.setViewName("redirect:/buy/getFactoryBuyList");
+			}
 		} else {
 		
 		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("user"));
