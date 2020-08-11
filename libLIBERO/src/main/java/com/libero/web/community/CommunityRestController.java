@@ -95,14 +95,14 @@ public class CommunityRestController {
 	}
 	
 	@RequestMapping(value="/json/addComment", method=RequestMethod.POST)
-	public int addComment(@RequestBody Map<String, Object> map2,  HttpSession session, Comment comment) throws Exception{
+	public Comment addComment(@RequestBody Map<String, Object> map2,  HttpSession session, Comment comment) throws Exception{
 		System.out.println("^^^^^^^^"+ "/community/json/addComment : POST");
 		User user = ((User)session.getAttribute("user"));
 		comment.setPostNo((int) map2.get("postNo"));
 		comment.setCommentContent((String) map2.get("commentContent"));
 		comment.setUser(user);
 		communityService.addComment(comment);
-		return 2;
+		return comment;
 			
 	}
 	

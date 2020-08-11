@@ -20,7 +20,7 @@
 <input type="hidden" id="userId" name="userId" value="${post.user.userId}"/>
 <input type="hidden" id="prodPost" name="prodPost" value="post"/>
 <input type="hidden" id="menu" name="menu" value="${param.menu}" />
-</form>
+
 		<article id="mainContent" class="content-board">
 		<section class="wrap_content">
            <div class="tit_board">
@@ -59,7 +59,7 @@
 
 	<jsp:include page="addReport.jsp"></jsp:include>
 
-
+</form>
 </body>
 <script type="text/javascript">
 		

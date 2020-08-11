@@ -133,7 +133,7 @@
 		        	  WHERE c.user_id = u.user_id 
 		        	  AND c.post_no = p.post_no
 		        	  AND c.user_id = #{userId}
-		        	  <if test="search.searchCondition==0">
+		        	   <if test="search.searchCondition==0">
 						AND c.comment_content like '%${search.searchKeyword}%'
 						</if>
 						
@@ -232,8 +232,6 @@
 						</if>
 						AND blind_code LIKE "show"
 						) inner_table
-		
-								
 								) countable		
 	</select>
 	

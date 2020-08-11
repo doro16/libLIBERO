@@ -12,17 +12,9 @@
 		<link rel="stylesheet" href="../resources/css/common.css">
 		<script type="text/javascript">
 			function fncGetUserList(currentPage) {
-
 				$("#currentPage").val(currentPage);
-				var menu = $("input[name='menu']").val(); 
 
-				if(menu=='p'){
-					$("form").attr("method", "POST").attr("action", "/libero/user/getUserActivityList?menu=p").submit();	
-				} else if (menu=='c'){
-					$("form").attr("method", "POST").attr("action", "/libero/user/getUserActivityList?menu=c").submit();	
-				} else if (menu=='q'){
-					$("form").attr("method", "POST").attr("action", "/libero/user/getUserActivityList?menu=q").submit();	
-				}
+				$("form").attr("method", "POST").attr("action", "/libero/user/getUserActivityList").submit();	
 			}	
 			
 			
@@ -186,7 +178,7 @@
 	                    <th align="left" >내용</th>
 	                    <th align="left" >닉네임</th>
 	                    <th align="left" >작성일</th>
-	                    <th align="left" >조회수</th>
+	                    
 	       
 	                </tr>
 	            </thead>
@@ -205,15 +197,12 @@
                             <c:if test="${fn:length(commentContent)>20}">
                                 ......
                             </c:if>
-                            <%-- <font color='red'>(${post.comments})</font>--%>     
                         </td>
                         <input type="hidden" value="${comment.postNo}"/>
                         
                         <td>${comment.user.nickname}</td>
                         <td>${comment.regDate}</td>
-                        <td>
-                        	1
-                        </td>
+                        
  
                     </tr>
                     

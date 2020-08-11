@@ -30,9 +30,6 @@ public class ReportDAOImpl implements ReportDAO {
 		System.out.println(this.getClass());
 	}
 
-	public List<Report> getPostReportList(Search search) throws Exception{
-		return sqlSession.selectList("ReportMapper.getPostReportList", search);
-	}
 	public List<Report> getUserReportList(Search search, User user, String menu) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -53,13 +50,17 @@ public class ReportDAOImpl implements ReportDAO {
 		}
 	}
 	
-	
+	public void updateBlindCode(Report report) throws Exception{
+		
+		if(report.getProdPost().equals("post")) {
+			sqlSession.update("ReportMapper.updatePostBlindCode", report.getPost());
+		} else if(report.getProdPost().equals("prod")) {
+			sqlSession.update("ReportMapper.updateProdBlindCode", report.getProduct());
+		}
+	}
 	
 	
 	// DAO에만 있음
-	public int getPostReportTotalCount(Search search) throws Exception{
-		return sqlSession.selectOne("ReportMapper.getPostReportTotalCount", search);
-	}
 	
 	public int getUserReportTotalCount(Search search, User user, String menu) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();

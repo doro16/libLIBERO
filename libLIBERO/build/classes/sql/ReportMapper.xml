@@ -8,7 +8,7 @@
 	
 	<resultMap id="reportSelectMap" 	type="report">
 		
-		<result property="reportNo"		column="repost_no"		jdbcType="INTEGER"/>
+		<result property="reportNo"		column="report_no"		jdbcType="INTEGER"/>
 		<result property="reportType" 	column="report_type"	jdbcType="SMALLINT" />
 		<result property="regDate" 		column="reg_date" 		jdbcType="TIMESTAMP" />
 		<result property="prodPost" 	column="prod_post" 		jdbcType="VARCHAR"/>
@@ -107,6 +107,12 @@
 							<if test='user.role != "a"'>
 							AND p1.creator = #{user.userId}
 							</if>
+							<if test="search.searchCondition==0">
+							AND p1.prod_name like '%${search.searchKeyword}%'
+							</if>
+							<if test="search.searchCondition==2">
+							AND p1.creator like '%${search.searchKeyword}%'
+							</if>
 						</if>
 						
 						<if test='menu== "post"'>
@@ -118,36 +124,57 @@
 							<if test='user.role != "a"'>
 							AND p2.user_id = #{user.userId}
 							</if>
+							<if test="search.searchCondition==0">
+							AND p2.post_name like '%${search.searchKeyword}%'
+							</if>
+							<if test="search.searchCondition==2">
+							AND p2.user_id like '%${search.searchKeyword}%'
+							</if>
 						</if>		
-						
 						
 						ORDER BY r.report_no DESC) inner_table
 		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum}
 		
 	</select>
 	
-	<select  id="getUserReportTotalCount"  parameterType="search"	 resultType="int">
-		SELECT count(*) FROM (SELECT 
-							    r.*, 
-							    
+	<select  id="getUserReportTotalCount"  parameterType="map"	 resultType="int">
+		SELECT count(*) FROM (SELECT * FROM (SELECT 
+						@rownum:=@rownum+1 num, r.*,  
 						<if test='menu== "prod"'>
-					    p1.prod_name, p1.creator
+					    p1.prod_name, p1.creator, p1.blind_code
 						FROM report AS r
 						inner JOIN product AS p1
 						ON r.prod_no = p1.prod_no
+						WHERE (@rownum:=0)=0
 							<if test='user.role != "a"'>
 							AND p1.creator = #{user.userId}
 							</if>
+							<if test="search.searchCondition==0">
+							AND p1.prod_name like '%${search.searchKeyword}%'
+							</if>
+							<if test="search.searchCondition==2">
+							AND p1.creator like '%${search.searchKeyword}%'
+							</if>
 						</if>
+						
 						<if test='menu== "post"'>
-					    p2.post_name, p2.user_id
+					    p2.post_name, p2.user_id, p2.blind_code
 						FROM report AS r
 						inner JOIN post AS p2
 						ON r.post_no = p2.post_no
+						WHERE (@rownum:=0)=0
 							<if test='user.role != "a"'>
 							AND p2.user_id = #{user.userId}
 							</if>
-						</if>		) countable		
+							<if test="search.searchCondition==0">
+							AND p2.post_name like '%${search.searchKeyword}%'
+							</if>
+							<if test="search.searchCondition==2">
+							AND p2.user_id like '%${search.searchKeyword}%'
+							</if>
+						</if>		
+						
+						ORDER BY r.report_no DESC) inner_table) countable		
 	 </select>
 	 
 	 <update id="updatePostReportCount" parameterType="post">
@@ -170,5 +197,29 @@
 			</if>
 		WHERE prod_no = #{prodNo:INTEGER}
 		
+	</update>
+	
+	<update id="updatePostBlindCode" parameterType="post">
+	 	UPDATE post
+	 	SET
+	 		<if test='blindCode== "report"'>
+			 blind_code = 'require'
+			</if>
+			<if test='blindCode== "require"'>
+			 blind_code = 'show'
+			</if>
+		WHERE post_no = #{postNo:INTEGER}
+	</update>
+	
+	<update id="updateProdBlindCode" parameterType="product">
+	 	UPDATE product
+	 	SET
+	 		<if test='blindCode== "report"'>
+			 blind_code = 'require'
+			</if>
+			<if test='blindCode== "require"'>
+			 blind_code = 'show'
+			</if>
+		WHERE prod_no = #{prodNo:INTEGER}
 	</update>
 </mapper>
