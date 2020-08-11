@@ -40,18 +40,8 @@ public class ReportServiceImpl implements ReportService{
 	public void addReport(Report report) throws Exception {
 		reportDAO.addReport(report);
 	}
-
-	
-	public Map<String, Object> getPostReportList(Search search) throws Exception {
-		List<Report> list = reportDAO.getPostReportList(search);
-		int totalCount = reportDAO.getPostReportTotalCount(search);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("totalCount", totalCount);
-		
-		
-		return map;		
+	public void updateBlindCode(Report report) throws Exception{
+		reportDAO.updateBlindCode(report);
 	}
 	
 
@@ -63,7 +53,6 @@ public class ReportServiceImpl implements ReportService{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("totalCount", totalCount);
-		
 		
 		return map;		
 	}

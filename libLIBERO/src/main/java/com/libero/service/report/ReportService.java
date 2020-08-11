@@ -9,12 +9,11 @@ import com.libero.service.domain.User;
 public interface ReportService {
 	
 	
-	public Map<String, Object> getPostReportList(Search search) throws Exception;
 	
 	public Map<String , Object> getUserReportList(Search search, User user, String menu)throws Exception;
 	
 	public void addReport(Report report) throws Exception;
-	
+	public void updateBlindCode(Report report) throws Exception;
 	
 
 	}

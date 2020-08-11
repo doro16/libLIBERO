@@ -76,10 +76,16 @@ public class ProductRestController {
 					hashMap.put("prodNo", prodNo);
 					hashMap.put("userId", userId);
 					
-					
 					//좋아요 존재 여부 검사
 					boolean isWish = wishService.addWish(hashMap);
 					
+					//좋아요 요청 처리 후의 회원의 좋아요 갯수 5개 여부 검사
+					int countWish = wishService.countWish(userId);			
+					
+					if(countWish == 5 && isWish == false ) {
+						obj.put("message", "좋아요 상품은 최대 5개 등록 가능합니다.");
+					}
+							
 					if(isWish == true) {
 						obj.put("wish", "y");
 					}else if(isWish == false) {
@@ -124,7 +130,7 @@ public class ProductRestController {
 			
 			//장바구니 삭제
 			@RequestMapping(value="json/removeCart", method = RequestMethod.POST)
-			public String addCart(int prodNo, String userId) throws Exception {
+			public String removeCart(int prodNo, String userId) throws Exception {
 				
 					System.out.println("/product/addWish : POST");
 					System.out.println("전달된 prodNo : "+prodNo);

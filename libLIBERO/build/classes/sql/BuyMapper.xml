@@ -155,17 +155,22 @@
 	<select id="getFactoryBuyList" parameterType="String" resultMap="paySelectMapper">
 	SELECT 
 			pay.pay_no ,
+			pay.pay_code,
+			receiver_name,
 			receiver_addr,
 			receiver_phone,
 			delivery_code,
 			pay_date,
-			pay.user_id
+			actual_price,
+			pay.user_id,
+			payment_type
 			
 		FROM pay,buy
 		WHERE  buy.buy_code= 'paid'
 		 AND pay.pay_no = buy.pay_no
 		 AND buy.prod_type ='paper'
 		 GROUP BY pay.pay_no
+		 ORDER BY pay_date DESC
 	</select>
 	
 	<select id="getFactoryBuy" parameterType="String" resultMap="buySelectMapper">

@@ -248,7 +248,6 @@
 
 
 </div>		
-		
 		<!-- 신고 추가 -->
 		<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>
 		<button id="reportBtn" class="btn btn-outline-info">신고</button>
@@ -393,8 +392,7 @@
 				alert("로그인 해주세요.");
 				return;
 			}
-			
-			
+
 		
 			$.ajax({
 				url : "/libero/product/json/addWish",
@@ -412,6 +410,14 @@
 					}else if(data.wish == "n"){
 						var wishwish = "far fa-heart";
 					}
+					
+					
+					if(data.message != null){
+						alert(data.message);
+					}
+					
+					
+					
 					$('#wish').attr('class', wishwish);
 				}//end success
 			});//end ajax

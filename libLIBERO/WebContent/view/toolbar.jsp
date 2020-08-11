@@ -102,7 +102,9 @@
 	          			<img alt="" src="http://127.0.0.1:8080/libero/resources/images/user/fileUpload/${sessionScope.user.profile}" class="rounded-circle" width="25px" height="25px">
 	        		</a>
 	        		<div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
-			        	<a class="dropdown-item" href="/libero/user/getUser">마이페이지</a>
+	        		<c:if test="${sessionScope.user.role =='f' }"><a class="dropdown-item" href="/libero/buy/getFactoryBuyList">마이페이지</a></c:if>
+	        		<c:if test="${sessionScope.user.role =='a' }"><a class="dropdown-item" href="/libero/user/getUserList">마이페이지</a></c:if>
+			        <c:if test="${sessionScope.user.role =='u' }"><a class="dropdown-item" href="/libero/user/getUser">마이페이지</a></c:if>
 				        <div class="dropdown-divider"></div>
 				        <c:if test="${! empty kakao_logout}">
 				       	 <a href="${kakao_logout}">로그아웃</a>

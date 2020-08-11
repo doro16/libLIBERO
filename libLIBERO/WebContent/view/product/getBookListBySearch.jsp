@@ -46,8 +46,8 @@
 	   	<!-- ToolBar End /////////////////////////////////////-->
 
 <br/><br/><br/><br/><br/><br/>
-<h6 class="font-weight-bold text-center grey-text text-uppercase small mb-4">서점</h6>
-    <h3 class="font-weight-bold text-center dark-grey-text pb-2">ALL</h3>
+<h6 class="font-weight-bold text-center grey-text text-uppercase small mb-4">검색조건 : ${search.searchCondition}</h6>
+    <h3 class="font-weight-bold text-center dark-grey-text pb-2">검색어 : ${search.searchKeyword}</h3>
     <hr class="w-header my-4">
 
 	
@@ -56,7 +56,18 @@
 	<div class="row">
 	<!-- 검색조건 -->
 			<div class="btn-group dropup">
-			  <button type="button" class="btn btn-brown lighten-1 h-75" id="searchConditionText">검색조건</button>
+			  <button type="button" class="btn btn-brown lighten-1 h-75" id="searchConditionText">
+			   <c:if test="${search.searchCondition == 'author'}">
+			   	작가
+			   </c:if>
+			   <c:if test="${search.searchCondition == 'prodName'}">
+			   	제목
+			   </c:if>
+			   <c:if test="${search.searchCondition == 'hashTag'}">
+			   	해쉬태그
+			   </c:if>
+			  
+			  </button>
 			  <button type="button" class="btn btn-brown lighten-1 dropdown-toggle px-2 h-75" data-toggle="dropdown" aria-haspopup="true"
 			    aria-expanded="false">
 			    <span class="sr-only">Toggle Dropdown</span>
@@ -71,7 +82,7 @@
 	
 	<!-- Search form -->
 			<form class="form-inline mr-auto">
-			  <input type="hidden" id="searchCondition" name="searchCondition">
+			  <input type="hidden" id="searchCondition" name="searchCondition" value="${search.searchCondition}">
 			  <input class="form-control mr-sm-2" type="text" name="searchKeyword" >
 			  <button class="btn btn-brown btn-rounded btn-sm my-0" id="searchButton" >Search</button>
 			</form>
@@ -132,7 +143,6 @@
 			</div>
             	<input type="hidden" id="k" value="${book[0].prodType}">
             	<input type="hidden" id="maxPage" value="${resultPage.maxPage}">
-            	<input type="hidden" id="searchCondition" value="${search.searchCondition}">
             	<input type="hidden" id="searchKeyword"	  value="${search.searchKeyword}">
 
 </body>
