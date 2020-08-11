@@ -274,7 +274,7 @@ function relocate(prodNo){
 							  		</div>
 <!-- 							  		여기는 테이블옆부분 -->
 									<div class="view overlay zoom" >
-									 <img src="/libero/resources/images/product/fileUpload/${getProduct.prodThumbnail }" class="img-thumbnail hoverable" alt="Responsive image" width= 200px onClick="relocate(${getProduct.prodNo})">
+									 <img src="/libero/resources/images/publish/fileUpload/thumbnailFile/${getProduct.prodThumbnail }" class="img-thumbnail hoverable" alt="Responsive image" width= 200px onClick="relocate(${getProduct.prodNo})">
 									  <div class="mask flex-center waves-effect waves-light" id="prodImg${i}">
 									    <p class="white-text">상세정보</p>
 									  </div>

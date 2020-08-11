@@ -75,7 +75,7 @@ public class ProductController{
 			
 			Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
 			int maxPage = (totalCount - 11)/pageSize + 2; //처음페이지 10개 출력, 이후 5개 출력에 따른 최대페이지 수
-			resultPage.setPageSize(maxPage);
+			//resultPage.setPageSize(maxPage); 이거 아닌거같은데
 			
 			ModelAndView modelAndView = new ModelAndView();
 
@@ -86,6 +86,7 @@ public class ProductController{
 			modelAndView.addObject("search", search);
 			modelAndView.addObject("resultPage", resultPage);
 			modelAndView.addObject("totalCount", totalCount);
+			modelAndView.addObject("maxPage", maxPage);
 
 			modelAndView.addObject("book", list);
 			modelAndView.setViewName("forward:/view/product/getBookList.jsp");
@@ -249,18 +250,24 @@ public class ProductController{
 					String userId ="";
 						//prodNo에 해당하는 도서정보 model에
 						Product product=productService.getProduct(prodNo);
+						
 						ModelAndView modelAndView = new ModelAndView();
+						
 						modelAndView.addObject("product", product);
-						System.out.println("회원/비회연 여부 확인");
+						
+						
 					if(session.getAttribute("user") != null) {
-						System.out.println("널 확인");
 						User user = (User)session.getAttribute("user");
-						System.out.println("널 확인2");
+						
 						userId = user.getUserId();
+						
 						HashMap <String, Object> hashMap = new HashMap<String, Object>();
+						
 						hashMap.put("prodNo", prodNo);
 						hashMap.put("userId", userId);
+						
 						if(wishService.checkWish(hashMap) == true) {
+							
 							modelAndView.addObject("wish", 0);
 						}else {
 							modelAndView.addObject("wish", 1);
@@ -279,10 +286,27 @@ public class ProductController{
 						
 						
 						//리뷰 데이터
-						List<Review> review = productService.getReview(prodNo);
+						
+						HashMap reviewMap = new HashMap();
+						reviewMap.put("currentPage", 1);
+						reviewMap.put("pageSize", 3);
+						reviewMap.put("prodNo", prodNo);
+						
+						List<Review> review = productService.getReview(reviewMap);
+						int reviewCount = productService.getReviewCount(prodNo);
+						List<String> reviewCut = new ArrayList<String>();
+						
+						for(int i = 0 ; i<review.size() ; i++) {
+							String reviewContentCut = (review.get(i).getReviewContent()).substring(0, 15);
+							//System.out.println(reviewContentCut);
+							//reviewCut.add(reviewContentCut);
+							//reviewCut.add(i, reviewContentCut);
+						}
+						
 						modelAndView.addObject("review", review);
-						
-						
+						modelAndView.addObject("reviewCount", reviewCount);
+						//modelAndView.addObject("reviewCut", reviewCut);
+				
 						
 						return modelAndView;
 				}
