@@ -183,7 +183,12 @@
         			<c:if test="${wish == 1}"><i class="fas fa-heart" id="wish"></i></c:if>
 					<c:if test="${wish == 0}"><i class="far fa-heart" id="wish"></i></c:if>
 					</span>
-					<img src="../resources/images/community/">
+					<!-- 신고 추가 -->
+					<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>
+					<button type="button" class="btn btn-link btn-md" id="reportBtn" data-toggle="modal" data-target="#redModalSubscription" style="font-size: 17px;">
+					<p class="orange-text">신고</p>
+					</button>
+					<input type="hidden" id="prodPost" name="prodPost" value="prod"/>
 					</h2>
         			
         <span class="badge badge-danger product mb-4 ml-xl-0 ml-4">bestseller</span>
@@ -216,9 +221,14 @@
           <p class="ml-xl-0 ml-4">  
             <strong><span class="grey-text" style="font-size : 20px;">상품형태</span></strong><br/>
           <p class="ml-xl-0 ml-3">
-            <strong><span class="grey-text">페이지수 : </span></strong>${product.bookPage}p</p>
-              <c:if test="${product.prodType == 'paper'}">
-          	  <span class="grey-text" style="font-size : 15px;">인쇄컬러 : </span>${product.colorType}, <span class="grey-text" style="font-size : 15px;">표지 : </span>${product.coverType}, <span class="grey-text" style="font-size : 15px;">내지 : </span>${product.innerType} , <span class="grey-text" style="font-size : 15px;">판형 : </span>${product.sizeType }</p>
+              <c:if test="${product.prodType == 'design'}">
+          	  <span class="grey-text" style="font-size : 15px;">미리 제작된 표지상품입니다. 이미지파일을 다운받으실 수 있습니다.</span>
+          	  </c:if>
+          	  <c:if test="${product.prodType == 'target'}">
+          	  <span class="grey-text" style="font-size : 15px;">디자이너를 통해 맞춤형 표지를 제작하실 수 있습니다.</span>
+          	  </c:if>
+          	  <c:if test="${product.prodType == 'correct'}">
+          	  <span class="grey-text" style="font-size : 15px;">교정, 교열 서비스를 제공하는 상품입니다.</span>
           	  </c:if>
           <div class="mt-5">
             <div class="row mt-3 mb-4">
@@ -249,10 +259,6 @@
 
 
 </div>		
-		<!-- 신고 추가 -->
-		<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>
-		<button id="reportBtn" class="btn btn-outline-info">신고</button>
-		<input type="hidden" id="prodPost" name="prodPost" value="prod"/>
 		
 		
 		<div class="container">		
@@ -260,11 +266,11 @@
 <ul class="nav nav-tabs md-tabs nav-justified brown-color" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" data-toggle="tab" href="#panel555" role="tab">
-      <i class="fas fa-user pr-2"></i>상품상세</a>
+      상품상세</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#panel666" role="tab">
-      <i class="fas fa-heart pr-2"></i>리뷰</a>
+      리뷰</a>
   </li>
 </ul>
 <!-- Nav tabs -->

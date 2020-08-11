@@ -123,6 +123,12 @@ public class ProductServiceImpl implements ProductService{
 		return productDAO.getReviewCount(prodNo);
 	}
 
+	@Override
+	public void updateReview(HashMap<String, Object> hashMap) {
+		productDAO.updateReview(hashMap);
+		
+	}
+
 
 
 

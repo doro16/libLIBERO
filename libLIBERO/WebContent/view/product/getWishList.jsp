@@ -7,16 +7,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
+	<link rel="stylesheet" href="../resources/css/common.css">
 </head>
 <body>
 		<!-- ToolBar Start /////////////////////////////////////-->
 		<jsp:include page="../toolbar.jsp" />
 	   	<!-- ToolBar End /////////////////////////////////////-->
-<br/>
-<br/>
-<br/>
-<br/>
-		<h2>${userId}의 위시리스트</h2>	  
+
+		<jsp:include page="cartWishTopButton.jsp"></jsp:include>	  
 <div class="container my-5 py-3 z-depth-1 rounded">
 
 
@@ -29,7 +27,7 @@
       <table class="table product-table mb-0">
 
         <!-- Table head -->
-        <thead class="mdb-color brown lighten-5">
+        <thead class="brown lighten-4">
           <tr>
             <th></th>
             <th class="font-weight-bold">
@@ -62,11 +60,11 @@
           <!-- First row -->
           <tr>
             <th scope="row">
-              <img src="../resources/images/publish/fileUpload/thumbnailFile/${wishList.prodThumbnail}" alt="" class="img-fluid z-depth-0">
+              <img src="../resources/images/publish/fileUpload/thumbnailFile/${wishList.prodThumbnail}" alt="" class="img-fluid z-depth-0" style="height:200px; width:150px;">
             </th>
             <td>
               <h5 class="mt-3">
-                <strong>${wishList.prodName}</strong>
+                <strong><a href="/libero/product/getProduct/${wishList.prodNo}">${wishList.prodName}</a></strong>
               </h5>
               <p class="text-muted">
               <c:if test="${wishList.prodType == 'paper' or wishList.prodType == 'ebook'}">

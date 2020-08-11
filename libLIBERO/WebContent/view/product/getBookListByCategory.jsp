@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -113,7 +114,7 @@
               
              	<h6><a href="/libero/product/getProduct/${book.prodNo}">${book.prodName}</a></h6>
                 <h6>${book.author}</h6>
-             	<h6>${book.retailPrice}원</h6>
+             	<h6>￦<fmt:formatNumber value="${book.retailPrice}" pattern="#,###.###" type="currency"/>원</h6>
              
              
            		 <!--	<div class="card-text text-uppercase mb-1" style="padding:0px; margin:0px;"><a href="/libero/product/getProduct/${book.prodNo}">${book.prodName}</a></div>
@@ -133,7 +134,9 @@
 			</div>
             	<input type="hidden" id="k" value="${book[0].prodType}">
             	<input type="hidden" id="category" value="${book[0].bookCategory}">
-            	<input type="hidden" id="maxPage" value="${resultPage.maxPage}">
+            	<input type="hidden" id="maxPage" value="${maxPage}">
+            	
+            	<jsp:include page="../../common/footer.jsp"/>
 
 </body>
 

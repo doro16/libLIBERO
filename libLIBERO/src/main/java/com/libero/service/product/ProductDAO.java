@@ -45,6 +45,10 @@ public interface ProductDAO {
 
 	public List<Product> getBookList();
 
+	public void updateReview(HashMap<String, Object> hashMap);
+
+	
+
 	
 
 

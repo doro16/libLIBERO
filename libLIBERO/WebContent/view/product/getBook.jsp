@@ -267,11 +267,11 @@
 <ul class="nav nav-tabs md-tabs nav-justified brown-color" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" data-toggle="tab" href="#panel555" role="tab">
-      <i class="fas fa-user pr-2"></i>상품상세</a>
+      상품상세</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#panel666" role="tab">
-      <i class="fas fa-heart pr-2"></i>리뷰</a>
+      리뷰</a>
   </li>
 </ul>
 <!-- Nav tabs -->

@@ -14,13 +14,9 @@
 		<!-- ToolBar Start /////////////////////////////////////-->
 		<jsp:include page="../toolbar.jsp" />
 	   	<!-- ToolBar End /////////////////////////////////////-->
-<br/>
-<br/>
-<br/>
-<br/>
-
+<jsp:include page="cartWishTopButton.jsp"></jsp:include>
 		<div class="container my-5 py-3 z-depth-1 rounded">
-
+		
 
   <!--Section: Content-->
   <section class="dark-grey-text">
@@ -95,11 +91,11 @@
           
           <tr>
             <th scope="row">
-              <img src="../resources/images/publish/fileUpload/thumbnailFile/${cartList.prodThumbnail }" alt="" class="img-fluid z-depth-0">
+              <img src="../resources/images/publish/fileUpload/thumbnailFile/${cartList.prodThumbnail }" alt="" class="img-fluid z-depth-0" style="height:200px; width:150px;">
             </th>
             <td>
               <h5 class="mt-3">
-                <strong>${cartList.prodName}</strong>
+                <strong><a href="/libero/product/getProduct/${cartList.prodNo}">${cartList.prodName}</a></strong>
               </h5>
               <p class="text-muted"></p>
             </td>
@@ -193,7 +189,7 @@
 			$("input[type='number']").click(function(){
 					
 				var buyAmount = $(this).val();
-				alert(buyAmount);
+				//alert(buyAmount);
 				//i는 포문의 몇번째인지 뽑기 위해 일부로 buyAmount의 id를 i로 설정해놓고 뽑아온것
 				var i = $(this).attr("id"); //상품이 리스트중 몇번째 상품인지 추출
 				//alert(i);
@@ -205,11 +201,11 @@
 				$("#each"+i).html(eachPrice);//업데이트된 eachPrice 화면출력
 				$("#eachPrice"+i).val(eachPrice);//업데이트된 eachPrice input의 value 업데이트
 				var each = $("#eachPrice"+i).val()
-				alert(each);
+				//alert(each);
 				var k = $(".form-control:Last").attr("id"); //상품 리스트 갯수 추출
 				var kk = parseInt(k)+1;
-				alert(k);
-				alert(kk);
+				//alert(k);
+				//alert(kk);
 				
 				
 // 				var eachPrice1 = $("#eachPrice1").val();
@@ -222,8 +218,8 @@
 				for (var i=1; i<kk ; i++){
 					
 							var eachPrice=parseInt($("#eachPrice"+i).val());
-							alert("eachPrice는");
-							alert(eachPrice);
+							//alert("eachPrice는");
+							//alert(eachPrice);
 							totalPrice += eachPrice;
 				}
 				//$("#totalPrice").html("총액 : "+totalPrice);
@@ -234,7 +230,7 @@
 				
 
 
-				alert(actualPrice);
+				//alert(actualPrice);
 				$("#total").html("합계 : "+actualPrice+"원");
 				
 				//var prodNo = $("#prodNo"+i).val();//for 문 때문에 i 변한듯 위에서 선언해야됨

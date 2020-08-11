@@ -199,6 +199,12 @@ public class ProductDAOImpl implements ProductDAO{
 		return sqlSession.selectList("ProductMapper.getBookListForMain");
 	}
 
+	@Override
+	public void updateReview(HashMap<String, Object> hashMap) {
+		sqlSession.update("ProductMapper.updateReview", hashMap);
+		
+	}
+
 	
 
 	
