@@ -25,11 +25,13 @@
         	}
         	.title {
         		position: absolute;
-        		top:30%;
-        		left:10%;
+        		top:40%;
+        		left:34%;
         		color: #FFFFFF;
         		font-family: 'Nanum Gothic', sans-serif;
-        		font-size: 30px;
+
+        		z-index:10;
+        		text-align: center;
         	}
         	.title2 {
         		margin-left:auto;
@@ -70,8 +72,14 @@
 		<jsp:include page="/view/toolbar.jsp" />
 		<!-- Toolbar End -->
 		
-		<div class="box" style="background-image: url(resources/images/common/index1.jpg);">
-			<div class="title" align="left">자가 출판 플랫폼<br/>리브리베로</div>
+		<div class="box">
+		
+			 <div style="position: absolute; top: 0; left: 0; height: 100%;  width: 100%; background-color: black; opacity: 0.3; z-index: 1;" > </div>
+		 	 <video autoplay loop controls muted class="video-fluid" >
+			 <source src="resources/images/common/book3.mp4" type="video/mp4" />
+			 </video>
+			 <div class="title"><p style="font-size:70px;">자가출판 플랫폼</p><p style="font-size:50px;">libLIBERO</p> </div>
+		
 		</div>
 	    <div class="box" style="background-image: url(resources/images/common/index3.jpg);display: flex; justify-content: center; align-items: center;">
 	    	<table>

@@ -10,7 +10,8 @@
 
 <script type="text/javascript">
 		$(function() { 
-			 fncGetCommentList();		 
+
+			fncGetCommentList();	 
 		});	
 
 		$(function() { 
@@ -33,19 +34,14 @@
 							"Accept" : "application/json",
 							"Content-Type" : "application/json"
 						},
-						success : function(JSONData , status) {					
-							<%-- if(menu=='q'){
-								alert("d3");	
-								$("#commentContent").val("commentContent");
-							$("form").attr("method", "POST").attr("action", "/libero/community/getPost?postNo="+postNo+"&menu=q").submit(); }--%>
-							 
+						success : function(JSONData , status) {						 
 						}	
 				    	});
 			})	
 		});
 		
 		function fncGetCommentList(){
-			
+			var menu = $("input[name='menu']").val(); 
 			var postNo = parseInt($("input[name='postNo']").val()); 
 			
 			//alert(postNo);
@@ -90,13 +86,14 @@
 											+"<input type='hidden' class='commentNo' value=" + JSONData.list[i].commentNo + ">"			
 											+"<p style='float:left; padding: 0px 10px 0px 65px; font-size: 13px; color:gray; font-weight: 500;'>수정 </p>"
 											+"<p style='font-size:13px; color:gray; font-weight: 500;'>삭제</p><br>"
-										+"</div></c:if>";	
-										
-										
+										+"</div></c:if>";		
 								}
-								
-					$( "#hh" ).html(displayValue);
-					$( "#totalCount" ).html(totalCount);
+					if(menu!='q'){				
+						$( "#hh" ).html(displayValue);
+						$( "#totalCount" ).html(totalCount);
+					} else if(menu=='q'){
+						$( "#commentContent" ).html(JSONData.list[0].commentContent);	
+					}
 					}	
 			    	});
 			

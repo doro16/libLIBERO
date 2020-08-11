@@ -93,7 +93,7 @@ public class CommunityServiceImpl implements CommunityService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );
 		map.put("totalCount",totalCount);
-		//System.out.println(list);
+
 		return map;
 	}
 	

@@ -128,10 +128,10 @@
                             			<c:if test="${fn:length(postName)>20}">......</c:if>
 						                </h5>
 						                
-						                <div style= "max-height: 80px;  margin: -14px 0px; overflow: hidden;">
+						                <div style= "max-height: 84px;  margin: -14px 0px; overflow: hidden;">
 						                <p class="card-text text-uppercase mb-3" >${post.postContent}</p>
 						                </div> 
-						                     <div style="margin: 30px 0 0 274px; color: #5587ED; font-size: 14px;">
+						                     <div style="margin: 32px 0 0 274px; color: #5587ED; font-size: 14px;">
 						                      	더 보기&nbsp;&nbsp;<i class="fas fa-plus"></i>    
 						                     </div>      
 						               
