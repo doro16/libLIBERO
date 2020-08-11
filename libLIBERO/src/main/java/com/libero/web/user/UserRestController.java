@@ -57,9 +57,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.libero.common.Page;
 import com.libero.common.Search;
+import com.libero.service.community.CommunityService;
+import com.libero.service.domain.Post;
+import com.libero.service.domain.Product;
 import com.libero.service.domain.Publish;
+import com.libero.service.domain.Report;
 import com.libero.service.domain.User;
+import com.libero.service.product.ProductService;
 import com.libero.service.publish.PublishService;
+import com.libero.service.report.ReportService;
 import com.libero.service.user.UserService;
 
 //==> 회원관리 RestController
@@ -73,6 +79,12 @@ public class UserRestController {
 	private UserService userService;
 	@Autowired
 	private PublishService publishService;
+	@Autowired
+	private ReportService reportService;
+	@Autowired
+	private CommunityService communityService;
+	@Autowired
+	private ProductService productService;
 	
 	//Constructor
 	public UserRestController(){
@@ -369,7 +381,29 @@ public class UserRestController {
 		return userService.updatePhoneCode(user.getUserId());
 	}
 	
-
+	@RequestMapping(value = "/json/updateBlindCode",  method=RequestMethod.POST)
+	public int updateBlindCode(@RequestBody Map<String, String> map2, Report report) throws Exception{
+		
+		System.out.println("updateBlineCode입니다");
+		String prodPost = ((String)map2.get("prodPost"));
+		report.setProdPost(prodPost);
+		//System.out.println("prodpost봅시다"+prodPost);
+		if(prodPost.equals("post")) {
+			Post post = communityService.getPost(Integer.valueOf(map2.get("prodPostNo")));
+			post.setBlindCode(map2.get("blindCode"));
+			report.setPost(post);
+		} else if (prodPost.equals("prod")) {
+			Product product = productService.getProduct(Integer.valueOf(map2.get("prodPostNo")));
+			product.setBlindCode(map2.get("blindCode"));
+			report.setProduct(product);
+		}
+		
+		System.out.println(map2);
+		System.out.println("넘겨");
+			
+		reportService.updateBlindCode(report);
+		return 2;
+	}
 		
 	
 	

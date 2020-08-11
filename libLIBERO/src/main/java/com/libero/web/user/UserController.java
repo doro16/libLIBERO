@@ -303,8 +303,8 @@ public class UserController {
 	}
 	
 
-	@RequestMapping(value = "getUserReportList", method = RequestMethod.GET)
-	public ModelAndView getUserReportList( @RequestParam(value="menu", required=false) String menu, @ModelAttribute("search") Search search, HttpSession session) throws Exception {
+	@RequestMapping(value = "getUserReportList")
+	public ModelAndView getUserReportList( @RequestParam(value="menu", required=false) String menu, Search search, HttpSession session) throws Exception {
 		System.out.println("/user/getAdminReportList : GET");
 		
 		if(search.getCurrentPage() == 0) {
@@ -319,17 +319,12 @@ public class UserController {
 		String userId = ((User)session.getAttribute("user")).getUserId();
 		
 		System.out.println("menu가 뭔가요"+menu);
-		if(menu.equals(new String("prod"))) {
-			map = reportService.getUserReportList(search, user, menu);
-		} 		
 		
-		if(menu.equals(new String("post"))) {
-			map = reportService.getUserReportList(search, user, menu);
-		} 
-		
+		map = reportService.getUserReportList(search, user, menu);
+	
 		Page resultPage = new Page(search.getCurrentPage(),
-									((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-		
+				((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+
 		System.out.println(resultPage);
 		
 		modelAndView.addObject("list", map.get("list"));
@@ -360,7 +355,7 @@ public class UserController {
 		String userId = ((User)session.getAttribute("user")).getUserId();
 		
 		System.out.println("menu가 뭔가요"+menu);
-		if(menu.equals(new String("c"))) {
+		if(menu.equals("c")) {
 			map = communityService.getMyCommentList(search, userId);	
 		} else {
 			map = communityService.getMyPostList(search, user, menu);
@@ -380,6 +375,7 @@ public class UserController {
 		
 		return modelAndView;
 	}
+
 
 	
 	@RequestMapping(value = "requestCash/{cashWithdraw}", method = RequestMethod.GET)
