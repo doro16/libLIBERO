@@ -277,43 +277,9 @@
     <!-- Nav tabs -->
     <div class="row">
       <div class="col-md-3">
-        <ul class="nav md-pills pills-primary flex-column" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#panel21" role="tab">Downloads
-              <i class="fas fa-download ml-2"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#panel22" role="tab">Orders & invoices
-              <i class="fas fa-file-alt ml-2"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#panel23" role="tab">Billing details
-              <i class="fas fa-address-card ml-2"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-md-9">
-        <!-- Tab panels -->
-        <div class="tab-content vertical">
-          <!-- Panel 1 -->
-          <div class="tab-pane fade in show active" id="panel21" role="tabpanel">
-            <h5 class="my-2 h5">Panel 1</h5>
-          </div>
-          <!-- Panel 1 -->
-          <!-- Panel 2 -->
-          <div class="tab-pane fade" id="panel22" role="tabpanel">
-            <h5 class="my-2 h5">Panel 2</h5>
-          </div>
-          <!-- Panel 2 -->
-          <!-- Panel 3 -->
-          <div class="tab-pane fade" id="panel23" role="tabpanel">
-            <h5 class="my-2 h5">Panel 3</h5>
-          </div>
-          <!-- Panel 3 -->
-        </div>
+       
+      ${product.prodDetail}
+     
       </div>
     </div>
     <!-- Nav tabs -->
@@ -340,39 +306,96 @@
       <img class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img (8).jpg" alt="Generic placeholder image">
       <div class="media-body">
         <a>
-          <h5 class="user-name font-weight-bold">John Doe</h5>
+          <h5 class="user-name font-weight-bold">${review.user.nickname}</h5>
         </a>
         <!-- Rating -->
         <ul class="rating mb-2">
           <li>
-            <i class="fas fa-star blue-text"></i>
-          </li>
-          <li>
-            <i class="fas fa-star blue-text"></i>
-          </li>
-          <li>
-            <i class="fas fa-star blue-text"></i>
-          </li>
-          <li>
-            <i class="fas fa-star blue-text"></i>
-          </li>
-          <li>
-            <i class="fas fa-star blue-text"></i>
+          
+        <c:choose>
+         
+         <c:when test = "${15 > review.starRate && review.starRate >=1}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+          </c:when>
+          <c:when test = "${20>review.starRate && review.starRate >=15}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star-half-alt yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+          </c:when>
+          <c:when test = "${25>review.starRate && review.starRate>=20}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+          </c:when>
+          <c:when test = "${30>review.starRate && review.starRate>=25}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star-half-alt yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+          </c:when>    
+          <c:when test = "${35>review.starRate && review.starRate>=30}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+          </c:when> 
+          <c:when test = "${40>review.starRate && review.starRate>=35}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star-half-alt yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+          </c:when>     
+           <c:when test = "${45>review.starRate && review.starRate>=40}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="far fa-star yellow-text"></i>
+         </c:when>  
+         <c:when test = "${50>review.starRate && review.starRate>=45}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star-half-alt yellow-text"></i>
+         </c:when>  
+          <c:when test = "${50==review.starRate}">
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+ 			<i class="fas fa-star yellow-text"></i>
+         </c:when>  
+
+         
+      </c:choose>
           </li>
         </ul>
         <div class="card-data">
           <ul class="list-unstyled mb-1">
             <li class="comment-date font-small grey-text">
-              <i class="far fa-clock"></i> 05/10/2015</li>
+              <i class="far fa-clock"></i>${review.regDate}</li>
           </ul>
         </div>
-        <p class="dark-grey-text article">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-          nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+        <p class="dark-grey-text article">${review.reviewContent}</p>
+        <!-- <p><a href="#" class="more" id="more${i}" value="${i}">more</a></p> -->
+        <button class="more btn btn-link" id="${i}" value="0">more</button>
+        <div id="img${i}"></div>
+        <input type="hidden" id="imgset${i}" value="${review.reviewImage}">
       </div>
     </div>
-    					</c:forEach>
+    	</c:forEach>
     
   
 
@@ -389,137 +412,6 @@
 <!-- Tab panels -->
 		
 </div>		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<!-- Classic tabs -->
-		<div class="classic-tabs">
-		
-		  <ul class="nav tabs-cyan" id="myClassicTab" role="tablist">
-		    <li class="nav-item">
-		      <a class="nav-link  waves-light active show" id="profile-tab-classic" data-toggle="tab" href="#profile-classic"
-		        role="tab" aria-controls="profile-classic" aria-selected="true">Profile</a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link waves-light" id="follow-tab-classic" data-toggle="tab" href="#follow-classic" role="tab"
-		        aria-controls="follow-classic" aria-selected="false">Follow</a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link waves-light" id="contact-tab-classic" data-toggle="tab" href="#contact-classic" role="tab"
-		        aria-controls="contact-classic" aria-selected="false">Contact</a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link waves-light" id="awesome-tab-classic" data-toggle="tab" href="#awesome-classic" role="tab"
-		        aria-controls="awesome-classic" aria-selected="false">Be awesome</a>
-		    </li>
-		  </ul>
-		  <div class="tab-content border-right border-bottom border-left rounded-bottom" id="myClassicTabContent">
-		    <div class="tab-pane fade active show" id="profile-classic" role="tabpanel" aria-labelledby="profile-tab-classic">
-		      
-		    </div>
-		    <div class="tab-pane fade" id="follow-classic" role="tabpanel" aria-labelledby="follow-tab-classic">
-						 
-						 
-			 		 		  <c:set var="i" value="0" />
-							  <c:forEach var="review" items="${review}">
-								<c:set var="i" value="${ i+1 }" />
-								<tr>
-									<td align="center">${ i }</td>
-									<td align="left"  title="Click : 주문정보 확인">
-									
-										${review.starRate} <br/>
-										${review.userId }<br/>
-										${review.regDate} <br/>
-										${review.reviewContent} <br/>
-										${review.reviewImage}
-										<img src="../../resources/images/product/fileUpload/review/${review.reviewImage}">
-										
-									</td>
-					          </c:forEach>
-					
-		    </div>
-		    <div class="tab-pane fade" id="contact-classic" role="tabpanel" aria-labelledby="contact-tab-classic">
-		      <div class="container my-5">
-
-  
-  <!-- Section: Block Content -->
-  <section>
-    
-    <div class="row">
-      <div class="col-12">
-      	<div class="card card-list">
-          <div class="card-header white d-flex justify-content-between align-items-center py-3">
-            <p class="h5-responsive font-weight-bold mb-0">Last Orders</p>
-            <ul class="list-unstyled d-flex align-items-center mb-0">
-              <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
-              <li><i class="fas fa-times fa-sm pl-3"></i></li>
-            </ul>
-          </div>
-          <div class="card-body">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Order ID</th>
-                  <th scope="col">Item</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Popularity</th>
-                </tr>
-              </thead>
-              <tbody>
-              	  <c:set var="i" value="0" />
-				  <c:forEach var="review" items="${review}">
-				  <c:set var="i" value="${ i+1 }" />
-                <tr>
-                  <th scope="row"><a class="text-primary">OR9842</a></th>
-                  <td>${review.userId }</td>
-                  <td>${review.regDate}</td>
-                  <td>${review.Content}</td>
-                </tr>
-                </c:forEach>
-              </tbody>
-            </table>
-          </div>
-          <div class="card-footer white py-3 d-flex justify-content-between">
-            <button class="btn btn-primary btn-md px-3 my-0 mr-0">Place New Order</button>
-            <button class="btn btn-light btn-md px-3 my-0 ml-0">View All Orders</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </section>
-  <!-- Section: Block Content -->
-
-  
-</div>
-		    </div>
-		    <div class="tab-pane fade" id="awesome-classic" role="tabpanel" aria-labelledby="awesome-tab-classic">
-		      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-		        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-		        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-		        eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-		        deserunt mollit anim id est laborum.</p>
-		    </div>
-		  </div>
-		
-		</div>
-		<!-- Classic tabs -->
 		
 </body>
 
@@ -614,6 +506,40 @@
 		});//end ajax
 		
 	}//end addCart
+	
+	
+	$(function(){
+		$(".more").on("click",function(){
+			
+			morecode = $(this).val();
+			
+			var i = $(this).attr("id");
+			console.log(i);
+			var reviewImage = $("#imgset"+i).val();
+			console.log(reviewImage);
+			
+			
+			if(morecode == 0){
+				
+				
+				
+				var displayValue = "<img src='../../resources/images/product/fileUpload/review/"+reviewImage+"'>"
+				
+				
+				$("#img"+i).append(displayValue);
+				$(this).val(1);
+				
+				
+			}else if(morecode == 1){
+				$("#img"+i).remove();
+				$(this).val(0);
+			}
+			
+			
+			})
+			
+			
+		})//end function
 		
 		//$("form").attr("method" , "POST").attr("action" , "/libero/product/json/addCart").submit();
 	</script>

@@ -288,16 +288,24 @@ public class ProductController{
 						//리뷰 데이터
 						
 						HashMap reviewMap = new HashMap();
-						reviewMap.put("CurrentPage", 1);
+						reviewMap.put("currentPage", 1);
 						reviewMap.put("pageSize", 3);
 						reviewMap.put("prodNo", prodNo);
 						
 						List<Review> review = productService.getReview(reviewMap);
 						int reviewCount = productService.getReviewCount(prodNo);
+						List<String> reviewCut = new ArrayList<String>();
+						
+						for(int i = 0 ; i<review.size() ; i++) {
+							String reviewContentCut = (review.get(i).getReviewContent()).substring(0, 15);
+							//System.out.println(reviewContentCut);
+							//reviewCut.add(reviewContentCut);
+							//reviewCut.add(i, reviewContentCut);
+						}
 						
 						modelAndView.addObject("review", review);
 						modelAndView.addObject("reviewCount", reviewCount);
-						
+						//modelAndView.addObject("reviewCut", reviewCut);
 				
 						
 						return modelAndView;

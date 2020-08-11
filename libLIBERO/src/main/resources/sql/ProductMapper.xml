@@ -39,7 +39,6 @@
 	
 	<resultMap id="reviewSelectMap" type="review">
 		<result property="reviewNo"		 column="review_no" 		jdbcType="INTEGER"/>
-		<result property="userId"	   	 column="user_id" 			jdbcType="VARCHAR"/>
 		<result property="buyNo"		 column="buy_no" 			jdbcType="INTEGER"/>
 		<result property="reviewName"	 column="review_name" 		jdbcType="VARCHAR"/>
 		<result property="reviewContent" column="review_content" 	jdbcType="LONGVARCHAR"/>
@@ -47,12 +46,15 @@
 		<result property="starRate"		 column="star_rate" 		jdbcType="INTEGER"/>
 		<result property="regDate"		 column="reg_date" 			jdbcType="TIMESTAMP"/>
 		<result property="prodNo"		 column="prod_no"			jdbcType="INTEGER"/>
-	</resultMap>
-	
-	<resultMap id="userSelectMap" type="user">
+		
+			<association property="user"  	javaType="user">
+		<id		property="userId" 		column="user_id" 			jdbcType="VARCHAR"/>
 		<result property="nickname"		column="nickname"			jdbcType="VARCHAR"/>
-	
+		<result property="profile"		column="profile"			jdbcType="VARCHAR"/>
+		
+		</association>
 	</resultMap>
+		
 			
 	<!--  SQL : SELECT LIST -->
 	<select id="getBookListForMain" resultMap="productSelectMap">
@@ -238,10 +240,6 @@
 	
 	</select>
 	
-	<select id="getCreatorNickname"	parameterType="string"	resultMap="userSelectMap">
-			SELECT nickname FROM user
-			WHERE user_id = #{value}
-	</select>
 	
 	<select id="getProduct"	parameterType="int" resultMap="productSelectMap">
 			SELECT * FROM product
@@ -358,11 +356,25 @@
 	</update>
 	
 	<select id="getReview"	parameterType="hashMap"	resultMap="reviewSelectMap">
-					SELECT *
-					FROM review
-					WHERE prod_no = #{prodNo}
-					ORDER BY reg_date DESC
-					LIMIT #{pageSize} OFFSET #{offset}
+				SELECT * FROM(
+							SELECT r.review_no, r.user_id, r.buy_no, r.review_name, r.review_content, r.review_image, r.star_rate, r.reg_date, u.nickname
+							FROM review r
+							INNER JOIN user u
+							ON r.user_id = u.user_id
+							WHERE prod_no = #{prodNo}
+							) pp
+							ORDER BY reg_date DESC
+							LIMIT #{pageSize} OFFSET #{offset}		
+	</select>
+	
+	<select id="getReviewCount"		parameterType="int"	resultType="int">
+				SELECT COUNT(*) FROM(
+							SELECT r.review_no, r.user_id, r.buy_no, r.review_name, r.review_content, r.review_image, r.star_rate, r.reg_date, u.nickname
+							FROM review r
+							INNER JOIN user u
+							ON r.user_id = u.user_id
+							WHERE prod_no = #{prodNo}
+							) countable
 	</select>
 	 
 </mapper>
