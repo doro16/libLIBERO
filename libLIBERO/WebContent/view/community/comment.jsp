@@ -195,7 +195,7 @@
 					<c:if test="${param.menu!='q'}"> 
 					
 					<textarea class="form-control col-12 col-md-12 mr-1"
-						id="commentContent" name="commentContent" rows="3" maxlength="500">
+						id="commentContent" name="commentContent" rows="3" maxlength="500" style="text-align: left;">
 					</textarea>
 					<button class="btn btn-brown btn-sm" style="margin-left:742px;" id="addComment">등록</button>
 					</c:if> 		

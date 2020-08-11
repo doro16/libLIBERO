@@ -250,7 +250,8 @@
 </div>		
 		<!-- 신고 추가 -->
 		<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>
-		<button id="reportBtn" class="btn btn-outline-info">신고</button>
+		<button type="button" class="btn btn-brown btn-md" id="reportBtn" data-toggle="modal" data-target="#redModalSubscription">신고
+		</button>
 		<input type="hidden" id="prodPost" name="prodPost" value="prod"/>
 		
 		<!-- Classic tabs -->
