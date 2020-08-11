@@ -510,7 +510,7 @@ public class UserController {
 		
 		ModelAndView modelAndView = new ModelAndView();
 
-			modelAndView.setViewName("forward:/libero/view/user/findId.jsp");
+			modelAndView.setViewName("redirect:/libero/view/user/findId.jsp");
 		
 		return modelAndView;
 		
@@ -521,7 +521,7 @@ public class UserController {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
-			modelAndView.setViewName("forward:/libero/view/user/findPwd.jsp");
+			modelAndView.setViewName("redirect:/libero/view/user/findPwd.jsp");
 		
 		return modelAndView;
 		
