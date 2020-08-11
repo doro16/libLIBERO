@@ -174,9 +174,13 @@ public class BuyController {
 		System.out.println(" ---------------------------------------");
 		System.out.println("/buy/getFactoryBuy : GET");
 		System.out.println(" ---------------------------------------");
-
+		
+		System.out.println(" ---------------------------------------");
+		System.out.println(""+payNo);
+		System.out.println(" ---------------------------------------");
+		
 		Map<String, Object> map = buyService.getFactoryBuy(payNo);
-
+		
 		model.addAttribute("payNo", payNo);
 
 		model.addAttribute("product", map.get("product"));
