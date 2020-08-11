@@ -195,7 +195,7 @@
 							</where>
 							) pp
 								
-							WHERE prod_type = #{prodType) 
+							WHERE prod_type = #{prodType} 
 							AND blind_code='show' 
 							AND purpose_code='sale'
 							ORDER BY reg_date DESC
