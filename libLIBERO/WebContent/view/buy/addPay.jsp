@@ -196,14 +196,7 @@ function daumjuso() {
 
 </head>
 <body>
-<div id="buyHeader" class="sticky-top" style="padding-top: 56px;">
-		<nav class="mb-1 navbar navbar-expand-lg navbar-dark brown darken-1 z-depth-0" style="min-height: 30px">
-		
-		<div class="collapse navbar-collapse navbar1and2" id="navbarSupportedContent2">
-		<h1>결제 정보확인</h1>
-		</div>
-		</nav>
-		</div>
+
 
 <div class="container">
 <br><br><br>
@@ -336,4 +329,5 @@ function daumjuso() {
 
 
 </body>
+<jsp:include page="/common/footer.jsp"></jsp:include>
 </html>

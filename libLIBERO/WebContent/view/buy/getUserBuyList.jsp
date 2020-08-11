@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
+	<link rel="stylesheet" href="../resources/css/common.css">
 	<jsp:include page="/view/toolbar.jsp"></jsp:include>
 	
 <head>
@@ -20,7 +21,7 @@
 	
 <meta charset="UTF-8">
 <!--  ///////////////////////// CSS ////////////////////////// -->
-		<link rel="stylesheet" href="../resources/css/common.css">
+		
 <title>libLIBERO</title>
 </head>
 <body>
@@ -264,4 +265,5 @@
           </div>
           </div>		
 </body>
+<jsp:include page="/common/footer.jsp"></jsp:include>
 </html>

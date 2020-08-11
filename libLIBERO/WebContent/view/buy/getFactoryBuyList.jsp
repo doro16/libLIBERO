@@ -6,8 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-		<link rel="stylesheet" href="../resources/css/common.css">
+		
 <jsp:include page="/common/cdn.jsp"></jsp:include>
+<link rel="stylesheet" href="../resources/css/common.css">
 <jsp:include page="../toolbar.jsp"></jsp:include>
 <script type="text/javascript">
 function relocate(payNo){
@@ -16,9 +17,6 @@ function relocate(payNo){
 </script>
 </head>
 <body>
-	
-		
-		
 	<div class ="container">
 	<jsp:include page="/view/user/topButton.jsp"></jsp:include>
 	<div class="row">
@@ -33,6 +31,8 @@ function relocate(payNo){
 </div>
 
 <div class="col">
+	<input type="checkbox" id="deleteDone">
+	<label for="deleteDone">완료물품 제거</label>
 	 <c:set var="i" value="0"/>
 		  <c:forEach var="factorylist" items="${factorylist}">
 			<c:set var="i" value="${ i+1 }" />
@@ -53,12 +53,9 @@ function relocate(payNo){
 						}, 
 				success:function(result){
 					//alert(result.result);
-					
-					
 					$("#forajaxDeliverystat"+${i}).val(result.result)
 					//$("#listSelect${i}").attr("value",result.result);
- 					//$(".col-md-8${i}").remove();
-					
+ 					//$(".col-md-8${i}").remove();					
 						//alert('하하호호');
 						if(result.result ==2){
 							swal("책 제작을 시작합니다.","","success")
@@ -96,8 +93,7 @@ function relocate(payNo){
 // 								+'</li>'
 // 								+"<li id='listSelect${i}'>"
 // 								+'<a href="#!">'+'<span class="circle" ><i class="fas fa-exclamation"></i></span>'+'<span class="label"><font color="gray">배송 완료</font></span>'+'</a>'
-// 								+'</li></ul>'+'</div>');
-							
+// 								+'</li></ul>'+'</div>');							
 							$("#forajaxDeliverystat${i}").replaceWith(
 									'<button type="button" class="btn btn-brown lighten-3 btn-lg btn-block"value="${factorylist.deliveryStatus }" id="forajaxDeliverystat'+${i}+'"><i class="fas fa-truck-loading"></i>&nbsp;배송 시작</button>'
 									)
@@ -127,15 +123,20 @@ function relocate(payNo){
 				}			
 					})
 				})
+				
+				$("#deleteDone").on("click",function(){
+					$("#card${i}:contains('배송')").remove();
+					
+				})
 			})
 			
 			</script>
 			
 					
 
-			<tr>
-			<td align="left" title ="Click : 주문정보 확인">
-			<div class="card border-light mb-3" style="margin-bottom: 20px">
+			
+			<div class="card border-light mb-3" style="margin-bottom: 20px" id="card${i}">
+			
 				<div class="card-body">
 				<div class="row">
 				<div class="col-8">
@@ -269,4 +270,5 @@ function relocate(payNo){
        </div> 
 
 </body>
+<jsp:include page="/common/footer.jsp"></jsp:include>
 </html>

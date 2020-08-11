@@ -17,7 +17,10 @@
 				margin:0; 
 				padding:0; 
 				width:100%; height:100%;
-			}
+
+  				
+
+				}
         	.box { 
         		width:100%; height:100%; 
         		position:relative; 
@@ -65,6 +68,9 @@
         		cursor: pointer;
         		color: white;
         	}
+        	::-webkit-scrollbar {
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
