@@ -193,8 +193,8 @@ public class PublishController {
 			Graphics g2 = cover.getGraphics();
 			int width = thumbnail.getWidth();
 			int cWidth = cover.getWidth();
-			Font titleFont = new Font("Serif", Font.PLAIN, 30);
-			Font nameFont = new Font("Serif", Font.PLAIN, 15);
+			Font titleFont = new Font("경기천년제목 Light", Font.PLAIN, 30);
+			Font nameFont = new Font("경기천년제목 Light", Font.PLAIN, 15);
 			FontRenderContext frc = new FontRenderContext(null,true,true);
 			Rectangle2D r = titleFont.getStringBounds(publish.getProdName(), frc); 
 			Rectangle2D r2 = titleFont.getStringBounds(publish.getAuthor(), frc); 

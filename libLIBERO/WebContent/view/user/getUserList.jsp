@@ -28,11 +28,11 @@
 	   		<jsp:include page="topButton.jsp"></jsp:include>
 	   		<form>
 	   		<input type="hidden" id="currentPage" name="currentPage" value=""/>
-		   	<table class="table table-hover table-striped" width="100%">
+		   	<table class="table table-hover table-striped text-center" width="100%">
 				<thead>
 					<tr>
-						<th class="text-center">No</th>
-						<th>회원ID</th>
+						<th>No</th>
+						<th style="width: 35%">회원ID</th>
 					    <th>회원 상태</th>
 					    <th>회원 코드</th>
 					    <th>정산 상태</th>
@@ -43,10 +43,10 @@
 		   		<c:set var="i" value="0" />
 			  	<c:forEach var="user" items="${list}">
 				<c:set var="i" value="${ i+1 }" />
-					<tr>
-						<td align="center">${i}</td>
-						<td><a href="/libero/user/getUser?userId=${user.userId}">${user.userId}</a></td>
-						<td>
+					<tr style="height: 66px">
+						<td class="align-middle">${i}</td>
+						<td class="text-left align-middle" style="width: 35%"><a href="/libero/user/getUser?userId=${user.userId}">${user.userId}</a></td>
+						<td class="align-middle">
 							<c:if test="${user.userCode==1}">
 								정상
 							</c:if>
@@ -54,7 +54,7 @@
 								탈퇴
 							</c:if>
 						</td>
-						<td>
+						<td class="align-middle">
 							<c:if test="${user.role=='a'}">
 								관리자
 							</c:if>
@@ -65,13 +65,13 @@
 								유저
 							</c:if>
 						</td>
-						<td>
+						<td class="align-middle" style="width: 20%">
 							<c:if test="${user.cashCode=='af'}">
-							<button type="button" class="btn btn-outline-warning waves-effect" id="okWithdraw" name="okWithdraw"><i class="fas fa-comments-dollar mr-1"></i> 정산</button>
+							<button type="button" class="btn btn-sm btn-outline-warning waves-effect m-0" id="okWithdraw" name="okWithdraw" style="border-radius: 20px;"><i class="fas fa-comments-dollar mr-1"></i> 정산</button>
 								<input type="hidden" value="${user.userId}"/>
 							</c:if>
 						</td>
-						<td>${user.regDate}</td>
+						<td class="align-middle">${user.regDate}</td>
 					</tr>
 				</c:forEach>
 				</tbody>
