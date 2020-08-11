@@ -390,7 +390,7 @@ public class UserController {
 		System.out.println("/user/requestCash : POST");
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/user/getUserCash");
+		mav.setViewName("/user/getUserCash");
 
 		HttpSession session = request.getSession(true);
 		User user = (User) session.getAttribute("user");
@@ -398,8 +398,8 @@ public class UserController {
 
 		Cash cash = new Cash();
 		cash = userService.getCash(userId);
-
-		if (cash.getCashCurrent() < cashWithdraw) {
+		
+		if (cash == null || cash.getCashCurrent() < cashWithdraw) {
 			mav.addObject("cashMessage", "0");
 			return mav;
 		}
