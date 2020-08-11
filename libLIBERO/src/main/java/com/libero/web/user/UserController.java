@@ -504,4 +504,30 @@ public class UserController {
 		return modelAndView;
 	}
 	
+	//0811 태욱
+	@RequestMapping(value = "findId", method = RequestMethod.GET)
+	public ModelAndView findId() throws Exception{
+		
+		ModelAndView modelAndView = new ModelAndView();
+
+			modelAndView.setViewName("forward:/libero/view/user/findId.jsp");
+		
+		return modelAndView;
+		
+	}
+	
+	@RequestMapping(value = "findPwd", method = RequestMethod.GET)
+	public ModelAndView findPwd() throws Exception{
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+			modelAndView.setViewName("forward:/libero/view/user/findPwd.jsp");
+		
+		return modelAndView;
+		
+	}
+	
+
+	//===========================태욱
+	
 }

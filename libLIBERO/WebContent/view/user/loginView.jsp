@@ -53,6 +53,19 @@
 				        		<a href="/libero/user/addUser"><button type="button" class="btn btn-info brown lighten-1 btn-block" id="addUser">회원가입</button></a><br/>
 				        		<a href="${kakao_login}"><img src="/libero/resources/images/common/kakao_login_medium_narrow.png"></a>
 				      		</div>
+				      		<div class="text-right">
+							   				
+							  <p class="font-small blue-text d-flex justify-content-end"> 
+							  <a href="javascript:popupForId()" class="blue-text ml-1">아이디/</a>
+							  <a href="javascript:popupForPwd()" class="blue-text ml-1">비밀번호 찾기</a>
+							  
+							  
+							  </p> 				
+							   				
+							   				
+				      		
+				      		
+				      		</div>
 					    
 					  </div>
 					</div>
@@ -88,5 +101,24 @@
 		};
 		
 	}//=======================Web Socket End=========================	
+		
+		
+	//==============아이디/비밀번호찾기 팝업 ====================
+	function popupForId(){
+	
+        var url = "/libero/user/findId";
+        var name = "아이디 찾기";
+        var option = "width = 1000, height = 500, top = 50, left = 50, location = no"
+        window.open(url, name, option);
+    }	
+	
+	function popupForPwd(){
+		
+        var url = "/libero/user/findPwd";
+        var name = "비밀번호 찾기";
+        var option = "width = 1000, height = 500, top = 50, left = 50, location = no"
+        window.open(url, name, option);
+    }	
+		
 	</script>
 </html>
