@@ -233,7 +233,7 @@ public class ProductController{
 			 	List<Product> list=productService.getProductListBySearch(search, prodType);
 			 	System.out.println("컨트롤러 가져온것 :: "+list);
 			 	
-			 	modelAndView.addObject("Product", list);
+			 	modelAndView.addObject("product", list);
 			
 			 	modelAndView.setViewName("forward:/view/product/getProductListBySearch.jsp");
 			 	

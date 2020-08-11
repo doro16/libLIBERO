@@ -14,6 +14,9 @@
 		
 		<style type="text/css">
 			
+			body {
+				font-family:'GyeonggiBatang';
+			}
 			.formLabel {
 				font-size: 15px;
 				color: #795548;
@@ -307,7 +310,7 @@
 				</div>
 				<!-- 내지 재질 선택 End -->
 				<div class="form-group md-form" align="center">
-		      		<button type="button" class="btn btn-brown lighten-1 btn-block" 
+		      		<button type="button" class="btn btn-info brown lighten-1 btn-block" 
 		      			onclick="addPrintOption()">
 		      			원고 등록
 		      		</button>

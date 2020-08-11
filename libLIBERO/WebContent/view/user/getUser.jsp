@@ -11,6 +11,12 @@
 		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<!--  ///////////////////////// CSS ////////////////////////// -->
 		<link rel="stylesheet" href="../resources/css/common.css">
+		<style type="text/css">
+		
+			body {
+				font-family:'GyeonggiBatang';
+			}
+		</style>
 	</head>
 	<body>
 		<!-- ToolBar Start /////////////////////////////////////-->

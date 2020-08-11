@@ -26,7 +26,7 @@
 	   	<div class="container">
 	   		<jsp:include page="topButton.jsp"></jsp:include>
 	   		<div class="row">
-		   		<div class="col-lg-2">
+		   		<div class="col-lg-2" style="padding-top: 65px">
 		   			<a href="/libero/user/getUserPublishList?prodType=book" 
 		   				class="btn btn-outline-brown waves-effect btn-block" role="button" 
 		   				aria-pressed="true" style="margin-bottom: 10px">도서</a>
@@ -38,7 +38,9 @@
 		   		<form>
 		   			<input type="hidden" id="currentPage" name="currentPage" value="${search.currentPage}"/>
 		   		</form>
+		   		
 		   		<div id="prodList" class="col-lg-9">
+		   		<p style="padding-top: 20px; "> 전체  ${resultPage.totalCount } 건 </p>
 				  	<c:forEach var="prod" items="${list}">
 						<div class="card border-light mb-3" style="margin-bottom: 20px">
 							<div class="card-body">

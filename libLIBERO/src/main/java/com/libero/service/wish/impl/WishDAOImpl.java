@@ -40,5 +40,10 @@ public class WishDAOImpl implements WishDAO {
 	public void removeWish(HashMap<String, Object> hashMap) {
 			sqlSession.delete("ProductMapper.removeWish", hashMap);
 	}
+	@Override
+	public int countWish(String userId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("ProductMapper.countWish", userId);
+	}
 	
 }

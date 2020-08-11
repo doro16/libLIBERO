@@ -169,7 +169,7 @@
 							  						<td>:  ${buyList.receiverAddr}</td>
 							  					</tr>
 							  					<tr>
-							  					<th>수령 연락처</th>
+							  					<th>수령자 연락처</th>
 							  						<td>:  ${buyList.receiverPhone}</td>
 							  					</tr>
 							  					<tr>

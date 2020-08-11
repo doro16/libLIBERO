@@ -15,6 +15,8 @@ public interface WishDAO {
 
 	public Object checkWish(HashMap<String, Object> hashMap);
 
+	public int countWish(String userId);
+
 
 
 	
