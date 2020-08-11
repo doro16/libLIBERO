@@ -41,7 +41,7 @@ public class Product implements Serializable{
 	private int buyAmount;
 	
 	private int buyNo;
-	
+	private boolean reviewFlag;
 	public Product() {
 		
 	}
