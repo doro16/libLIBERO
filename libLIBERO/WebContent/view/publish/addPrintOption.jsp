@@ -104,12 +104,9 @@
 			}
 			.rightform {
 				float: right;
-				position: -webkit-sticky; /* Safari */
-				position: sticky;
 				top: 0;
 				min-height: 100%;
 				height: 100%;
-				background-color: red;
 			}
 			.detail {
 				height: auto;
