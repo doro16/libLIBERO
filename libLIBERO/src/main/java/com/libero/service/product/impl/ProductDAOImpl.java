@@ -142,10 +142,15 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 
 	@Override
-	public List<Review> getReview(int prodNo) {
-		System.out.println("Is the ProductDAOImpl.getReview " + prodNo);
+	public List<Review> getReview(HashMap<String, Object> reviewMap) {
+		System.out.println("Is the ProductDAOImpl.getReview " + reviewMap);
+		int currentPage = (int) reviewMap.get("currentPage");
+		int pageSize = (int)reviewMap.get("pageSize");
+		//OFFSET 값 계산
+		int offset = (currentPage-1)*(pageSize);
+			reviewMap.put("offset", offset);
 		
-		return sqlSession.selectList("ProductMapper.getReview", prodNo);
+		return sqlSession.selectList("ProductMapper.getReview", reviewMap);
 	}
 	
 	@Override
@@ -178,6 +183,11 @@ public class ProductDAOImpl implements ProductDAO{
 		hashMap.put("search", search);
 		hashMap.put("prodType", prodType);
 		return sqlSession.selectOne("ProductMapper.getProductTotalCountBySearch", hashMap);
+	}
+	
+	@Override
+	public int getReviewCount(int prodNo) {
+		return sqlSession.selectOne("ProductMapper.getReviewCount", prodNo);
 	}
 
 	@Override

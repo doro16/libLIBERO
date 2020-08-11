@@ -44,7 +44,9 @@ public interface ProductService {
 
 	public void addReviewImage(HashMap<String, Object> hashMap) throws Exception;
 
-	public List<Review> getReview(int prodNo) throws Exception;
+	public List<Review> getReview(HashMap<String, Object> reviewMap) throws Exception;
+	
+	public int getReviewCount(int prodNo) throws Exception;
 	
 	
 	

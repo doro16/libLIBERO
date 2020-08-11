@@ -169,6 +169,7 @@
 			WHERE prod_type = #{prodType}
 			ORDER BY reg_date DESC
 			LIMIT #{search.pageSize} OFFSET #{offset}
+			
 	</select>
 	
 	<select id="getProductTotalCount" parameterType="string" resultType="int">
@@ -356,13 +357,12 @@
 					WHERE buy_no = #{buyNo}
 	</update>
 	
-	<select id="getReview"	parameterType="int"	resultMap="reviewSelectMap">
+	<select id="getReview"	parameterType="hashMap"	resultMap="reviewSelectMap">
 					SELECT *
 					FROM review
 					WHERE prod_no = #{prodNo}
 					ORDER BY reg_date DESC
-					LIMIT #{search.pageSize} OFFSET #{offset}
-	
+					LIMIT #{pageSize} OFFSET #{offset}
 	</select>
 	 
 </mapper>

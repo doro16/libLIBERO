@@ -84,9 +84,10 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<Review> getReview(int prodNo) {
-		return productDAO.getReview(prodNo);
+	public List<Review> getReview(HashMap<String, Object> reviewMap) {
+		return productDAO.getReview(reviewMap);
 	}
+	
 
 	/////=======================카운팅
 
@@ -114,6 +115,12 @@ public class ProductServiceImpl implements ProductService{
 	public int getProductTotalCountBySearch(Search search, String prodType) throws Exception {
 		// TODO Auto-generated method stub
 		return productDAO.getProductTotalCountBySearch(search, prodType);
+	}
+
+	@Override
+	public int getReviewCount(int prodNo) throws Exception {
+		// TODO Auto-generated method stub
+		return productDAO.getReviewCount(prodNo);
 	}
 
 
