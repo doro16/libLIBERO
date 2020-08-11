@@ -341,7 +341,12 @@
 	 		comment_count = comment_count - 1
 		WHERE post_no = #{postNo}
 	</update>
-	
+	<update id="updateQnaCode" parameterType="int">
+	 	UPDATE post
+	 	SET
+	 		qna_code = 'o'
+		WHERE post_no = #{postNo}
+	</update>
 
 
 

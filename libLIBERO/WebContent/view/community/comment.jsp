@@ -10,16 +10,21 @@
 
 <script type="text/javascript">
 		$(function() { 
-
 			fncGetCommentList();	 
 		});	
 
 		$(function() { 
 			$("#addComment").on("click", function(){
-				var postNo = parseInt($("input[name='postNo']").val());
-    			var commentContent = $('#commentContent').val();
+				var postNo = parseInt($("input[name='postNo']").val());	
     			var menu = $("input[name='menu']").val(); 
     			
+    			if(menu!='q'){				
+    				var commentContent = $('#commentContent').val();
+				} else if(menu=='q'){
+					var commentContent = $('#commentContent2').val();
+				}
+    			
+    			$("#commentContent2").css("display", "none");
 				$.ajax(
 				    	{  		 	
 				        url : "/libero/community/json/addComment",
@@ -28,13 +33,15 @@
 						
 						data : JSON.stringify({
 	    					"postNo" : postNo,
-	    					"commentContent" : commentContent
+	    					"commentContent" : commentContent,
+	    					"menu" : menu
 	    				}),
 						headers : {
 							"Accept" : "application/json",
 							"Content-Type" : "application/json"
 						},
 						success : function(JSONData , status) {						 
+							
 						}	
 				    	});
 			})	
@@ -61,7 +68,7 @@
 								var totalCount = "<h6 style='margin-bottom:-24px'>댓글&nbsp;"+JSONData.totalCount+"</h6>";
 								for(i=0; i < JSONData.list.length; i++){
 									var date = new Date(Number(JSONData.list[i].regDate));
-									 
+									displayValue2 = JSONData.list[i].commentContent;
 									displayValue += "<h6>"
 										+"<input type='hidden' class='commentNo' name='commentNo' value=" + JSONData.list[i].commentNo + ">"
 										
@@ -88,12 +95,14 @@
 											+"<p style='font-size:13px; color:gray; font-weight: 500;'>삭제</p><br>"
 										+"</div></c:if>";		
 								}
-					if(menu!='q'){				
-						$( "#hh" ).html(displayValue);
-						$( "#totalCount" ).html(totalCount);
-					} else if(menu=='q'){
-						$( "#commentContent" ).html(JSONData.list[0].commentContent);	
-					}
+						if(menu!='q'){				
+							$( "#hh" ).html(displayValue);
+							$( "#totalCount" ).html(totalCount);
+						} else if(menu=='q'){
+							$('#commentContent2').val(displayValue2);
+						}	
+						
+					
 					}	
 			    	});
 			
@@ -183,19 +192,28 @@
 			<input type="hidden" id="postNo" name="postNo" value="${post.postNo}" />
 				
 				<div class="form-row d-fle">
-					<c:if test="${param.menu=='q'}"> 
-					<textarea class="form-control col-12 col-md-12 mr-1" id="commentContent" name="commentContent" rows="5" style="background-color: #d7ccc8;" 
-					>답변아직</textarea>
-					</c:if>
+					<c:if test="${param.menu!='q'}"> 
 					
-					<c:if test="${param.menu==null}"> 
 					<textarea class="form-control col-12 col-md-12 mr-1"
 						id="commentContent" name="commentContent" rows="3" maxlength="500">
 					</textarea>
-					</c:if> 	
 					<button class="btn btn-brown btn-sm" style="margin-left:742px;" id="addComment">등록</button>
+					</c:if> 		
+				
+					<c:if test="${user.role!='a' && param.menu=='q'}"> 
+					<textarea class="form-control col-12 col-md-12 mr-1" id="commentContent2" name="commentContent2" rows="6" style="background-color: #d7ccc8;" 
+					placeholder="답변이 아직 등록되지 않았습니다." readonly></textarea>
+					</c:if>
 					
-
+					<c:if test="${user.role=='a' && param.menu=='q'}"> 
+					<textarea class="form-control col-12 col-md-12 mr-1" id="commentContent2" name="commentContent2" rows="6" style="background-color: #d7ccc8;" 
+					placeholder="관리자님! 답변을 등록해주세요."></textarea>
+					<button class="btn btn-brown btn-sm" style="margin-left:742px;" id="addComment">등록</button>
+					</c:if>
+					
+						
+					
+					
 				</div>
 				</form>
 			</div>

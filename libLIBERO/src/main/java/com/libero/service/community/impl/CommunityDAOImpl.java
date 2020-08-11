@@ -13,6 +13,7 @@ import com.libero.common.Search;
 import com.libero.service.community.CommunityDAO;
 import com.libero.service.domain.Comment;
 import com.libero.service.domain.Post;
+import com.libero.service.domain.Report;
 import com.libero.service.domain.User;
 
 @Repository("communityDAOImpl")
@@ -139,4 +140,8 @@ public class CommunityDAOImpl implements CommunityDAO {
 		
 		return sqlSession.selectOne("CommunityMapper.getMyCommentListTotalCount",map);
 	}
+	public void updateQnaCode(int postNo) throws Exception{
+		sqlSession.update("CommunityMapper.updateQnaCode", postNo);	
+	}
+	
 }

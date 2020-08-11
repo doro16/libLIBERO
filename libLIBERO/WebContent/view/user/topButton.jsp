@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
@@ -13,13 +14,13 @@
 	}
 	
 	.buttonDiv > i {
-		color: #8d6e63;
+		color: #a1887f;
 		margin-bottom: 10px;
 	}
 	
 	.buttonDiv:hover {
 		cursor: pointer;
-		border: 2px #8d6e63 solid;
+		border: 2px #a1887f solid;
 	}
 	.brown-text {
 		font-size: 0.8em;
@@ -65,6 +66,10 @@
 					<i class="fas fa-users fa-3x"></i>
 					<p class="brown-text">전체 회원 조회</p>
 				</div>
+				<div class="buttonDiv col" onclick="location.href='/libero/user/getUserActivityList?menu=q'">
+					<i class="fas fa-clipboard-list fa-3x"></i>
+					<p class="brown-text">1:1문의 조회</p>
+				</div>
 				<div class="buttonDiv col" onclick="location.href='/libero/user/getUserReportList?menu=prod'">
 					<img id="siren" src="../resources/images/common/siren_brown.png" width="50px" height="50px" style="margin-bottom: 7px">
 					<p class="brown-text">신고 조회</p>
@@ -102,3 +107,4 @@
 	</c:if>
 	<!-- ///////////////////////////인쇄소 버튼 끝//////////////////////////////////// -->
 </div>
+

@@ -34,5 +34,6 @@ public interface CommunityService {
 		
 		public void deleteComment(Comment comment) throws Exception;
 		
+		public void updateQnaCode(int postNo) throws Exception;
 
 	}

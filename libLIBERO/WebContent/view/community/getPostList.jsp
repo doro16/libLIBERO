@@ -51,14 +51,14 @@
    
     <div class="container-doc">
         			
-					<h1 style="margin: 124px 278px 0; font-weight:bold;">공지사항</h1>   
-					<h4 style="margin: 24px 278px 0; font-weight:400;">리브리베로의 새 소식을 가장 먼저 만나보세요.</h4> 
+					<h1 style="margin: 124px 240px 0; font-weight:bold;">공지사항</h1>   
+					<h4 style="margin: 24px 240px 0; font-weight:400;">리브리베로의 새 소식을 가장 먼저 만나보세요.</h4> 
         <main class="doc-main">
             	
         		
 				
                 
-                <p style="margin: 10px 278px; float:left; "> 전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지 </p>
+                <p style="margin: 10px 240px; float:left; "> 전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지 </p>
 				 <form class="form-inline" style="margin: 84px 0 0 1040px;">
 		    
 					  <div class="form-group">
@@ -83,7 +83,7 @@
 					  
 								
 				</form>
-				    
+				    <br>
                     <div class="container my-5">
                     	
 					
@@ -108,7 +108,7 @@
 									
 						            <!-- Card -->
 						            <a class="card hoverable mb-4  border border-white" data-toggle="modal" data-target="#basicExampleModal" 
-						            onclick="location.href='/libero/community/getPost?postNo=${post.postNo}' ">
+						            onclick="location.href='/libero/community/getPost?postNo=${post.postNo}&menu=n' ">
 						
 						              <!-- Card image -->
 						              <c:if test="${ fn:contains(post.postContent, '<img') }">
