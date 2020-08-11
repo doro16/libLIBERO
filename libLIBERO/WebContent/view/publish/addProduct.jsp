@@ -117,6 +117,7 @@
 			  	</div>
 			</form>
 	   	</div>
+	   	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	</body>
 	
 	<!-- include summernote-lite css/js -->

@@ -31,7 +31,7 @@
 	   	
 	   	<!-- //////////// Bootstrap Container Start////////////////// -->
 	   	<div class="container">
-	   	
+	   	<jsp:include page="../user/topButton.jsp"></jsp:include>
 	   		<div class="row">
 		   		<div class="col-lg-12">
 		   			<div class="formLabel">인쇄옵션 가격 등록</div>
@@ -203,6 +203,7 @@
 	   		</div>
 	   	</div>
 	   	<!-- ///////////// Bootstrap Container End ////////////////// -->
+	   	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	</body>
 	<script type="text/javascript">
 		$(function(){

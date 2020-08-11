@@ -17,7 +17,7 @@
 		<result property="address"		column="address"			jdbcType="VARCHAR"/>
 		<result property="phone"		column="phone"				jdbcType="VARCHAR"/>
 		<result property="phoneCode"	column="phone_code"			jdbcType="SMALLINT"/>
-		<result property="userCode"		column="user-_code"			jdbcType="SMALLINT"/>
+		<result property="userCode"		column="user_code"			jdbcType="SMALLINT"/>
 		<result property="role" 		column="role" 				jdbcType="CHAR" />
 		<result property="regDate" 		column="reg_date" 			jdbcType="DATE" />
 		<result property="birthDate"	column="birth_date"			jdbcType="DATE"/>
@@ -94,6 +94,7 @@
 	 <insert id="addNewUser" parameterType="user">
 	 	INSERT INTO user (user_id,
 	 					  password,
+	 					  name,
 	 					  nickname,
 	 					  profile,
 	 					  gender_code,
@@ -107,6 +108,7 @@
 							)
 	 	VALUES(	#{userId},
 	 			#{password},
+	 			#{name},
 	 			#{nickname},
 	 			#{profile:VARCHAR},
 	 			#{genderCode},
@@ -219,6 +221,11 @@
 	WHERE user_id = #{kakaoId}
 	</delete>
 	
+	<update id="removeUser"	parameterType="user">
+		UPDATE user
+		SET user_code = '0'
+	</update>
+	
 	<update id="updateUser" parameterType="user">
 	UPDATE user
 	SET
@@ -245,5 +252,11 @@
 		</if>
 	WHERE user_id = #{userId}
 	</update> 
+	
+	<update id="updatePhoneCode" parameterType="string">
+		UPDATE user 
+		SET phone_code = 1
+		WHERE user_id = #{userId}
+	</update>
 	 
 </mapper>

@@ -24,14 +24,10 @@
 	.brown-text {
 		font-size: 0.8em;
 	}
-	
-	/* #siren {
-		-webkit-filter: opacity(.5) drop-shadow(0 0 0 #8d6e63);
-		filter: opacity(.5) drop-shadow(0 0 0 #8d6e63);
-	} */
 </style>
 <div class="row " style="margin-bottom: 20px">
 	<!-- ///////////////////////////////////유저 마이페이지 버튼 ////////////////////////// -->
+	<c:if test="${sessionScope.user.role == 'u'}">
 	<div class="col-lg-12 text-center d-flex justify-content-center">
 		<div class="row" style="width: 80%">
 			<div class="buttonDiv col" onclick="location.href='/libero/user/getUser'">
@@ -60,36 +56,49 @@
 			</div>
 		</div>
 	</div>
+	</c:if>
 	<c:if test="${sessionScope.user.role == 'a'}">
 	<!-- //////////////////관리자 마이페이지 버튼/////////////////////////////////  -->
 	<div class="col-lg-12 text-center d-flex justify-content-center">
 			<div class="row" style="width: 80%">
-				<div class="buttonDiv col" onclick="location.href='/libero/user/getUserReportList?menu=prod'">
-					<i class="fas fa-bell fa-3x"></i>
-					<p class="brown-text">신고 조회</p>
-				</div>
 				<div class="buttonDiv col" onclick="location.href='/libero/user/getUserList'">
 					<i class="fas fa-users fa-3x"></i>
 					<p class="brown-text">전체 회원 조회</p>
+				</div>
+				<div class="buttonDiv col" onclick="location.href='/libero/user/getUserReportList?menu=prod'">
+					<img id="siren" src="../resources/images/common/siren_brown.png" width="50px" height="50px" style="margin-bottom: 7px">
+					<p class="brown-text">신고 조회</p>
 				</div>
 			</div>
 	</div>
 	<!-- ///////////////////////////////관리자 버튼 끝 //////////////////////////////////// -->
 	</c:if>
 	<!-- /////////////////////////////인쇄소 마이페이지 버튼////////////////////////////// -->
-	<div class="col-lg-12 text-center">
-		<c:if test="${sessionScope.user.role == 'f'}">
-			<c:if test="${sessionScope.user.colorPrice==''}">
-				<a href="/libero/publish/addOptionPrice" 
-					class="btn btn-info brown lighten-1" role="button" 
-					aria-pressed="true">인쇄 가격 등록</a> 
-			</c:if>
-			<c:if test="${sessionScope.user.colorPrice!=''}">
-				<a href="/libero/publish/getOptionPrice" 
-					class="btn btn-info brown lighten-1" role="button" 
-					aria-pressed="true">인쇄 가격 조회</a> 
-			</c:if>
-	    </c:if>
-	</div>
+	<c:if test="${sessionScope.user.role == 'f'}">
+		<div class="col-lg-12 text-center d-flex justify-content-center">
+			<div class="row" style="width: 80%">
+				<div class="buttonDiv col" onclick="location.href='/libero/user/getUser'">
+					<i class="fas fa-user-edit fa-3x"></i>
+					<p class="brown-text">내정보 조회</p>
+				</div>
+				<div class="buttonDiv col" onclick="location.href='/libero/buy/getFactoryBuyList'">
+					<i class="fas fa-money-bill-alt fa-3x"></i>
+					<p class="brown-text">주문 조회</p>
+				</div>
+				<c:if test="${sessionScope.user.colorPrice==''}">
+					<div class="buttonDiv col" onclick="location.href='/libero/publish/addOptionPrice'">
+						<i class="fas fa-dollar-sign fa-3x"></i>
+						<p class="brown-text">인쇄 가격 등록</p>
+					</div>
+				</c:if>
+				<c:if test="${sessionScope.user.colorPrice!=''}">
+					<div class="buttonDiv col" onclick="location.href='/libero/publish/getOptionPrice'">
+						<i class="fas fa-dollar-sign fa-3x"></i>
+						<p class="brown-text">인쇄 가격 조회</p>
+					</div>
+				</c:if>
+			</div>
+		</div>
+	</c:if>
 	<!-- ///////////////////////////인쇄소 버튼 끝//////////////////////////////////// -->
 </div>
