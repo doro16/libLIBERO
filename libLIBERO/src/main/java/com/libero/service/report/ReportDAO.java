@@ -12,14 +12,11 @@ import com.libero.service.domain.Comment;
 public interface ReportDAO {
 	
 	
-	public List<Report> getPostReportList(Search search) throws Exception;	
-	public int getPostReportTotalCount(Search search) throws Exception;
-	
 	public List<Report> getUserReportList(Search search, User user, String menu) throws Exception;	
 	public int getUserReportTotalCount(Search search, User user, String menu) throws Exception;
 	
 	public void addReport(Report report) throws Exception;
-
+	public void updateBlindCode(Report report) throws Exception;
 
 	
 	
