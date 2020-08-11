@@ -132,7 +132,7 @@
 			</div>
             	<input type="hidden" id="k" value="${book[0].prodType}">
             	<input type="hidden" id="maxPage" value="${maxPage}">
-
+<jsp:include page="../../common/footer.jsp"></jsp:include>
 </body>
 
 
@@ -183,7 +183,7 @@
 							   "<div class='col-sm-2' style='margin:50px 0px 0px 30px;'>"
 							  +"<div style='padding:50px 10px 10px 20px;'>"
 							  +"<a class='card hoverable mb-4 z-depth-0 h-10' id='productcard' data-toggle='modal' data-target='#basicExampleModal'>"
-				              +"<img class='card-img-top z-depth-1' id='cardImage' src='../resources/images/publish/fileUpload/thumbnailFile"+product.prodThumbnail+"' alt='Card image cap' width='180px' height='250px'>"
+				              +"<img class='card-img-top z-depth-1' id='cardImage' src='../resources/images/publish/fileUpload/thumbnailFile/"+product.prodThumbnail+"' alt='Card image cap' width='180px' height='250px'>"
 				              +"<h6><a href=/libero/product/getProduct/"+product.prodNo+">"+product.prodName+"<a></h6>"
 				              +"<h6>"+product.author+"</h6>"
 				              +"<h6>"+product.retailPrice+"</h6>"
