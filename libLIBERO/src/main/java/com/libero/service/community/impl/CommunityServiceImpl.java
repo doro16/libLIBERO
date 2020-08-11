@@ -108,4 +108,8 @@ public class CommunityServiceImpl implements CommunityService {
 	public void deleteComment(Comment comment) throws Exception {
 		communityDAO.deleteComment(comment);
 	}
+	
+	public void updateQnaCode(int postNo) throws Exception{
+		communityDAO.updateQnaCode(postNo);
+	}
 }

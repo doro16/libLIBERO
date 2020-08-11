@@ -14,6 +14,9 @@
 		
 		<style type="text/css">
 			
+			body {
+				font-family:'GyeonggiBatang';
+			}
 			.formLabel {
 				font-size: 15px;
 				color: #795548;

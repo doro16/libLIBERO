@@ -78,7 +78,7 @@
 							<c:forEach var="post" items="${list}"> 
                             <c:set var="i" value="${ i+1 }" />
                             
-                            <li style="max-height: 183x;  overflow: hidden;" onclick="location.href='/libero/community/getPost?postNo=${post.postNo}' ">
+                            <li style="max-height: 183x;  overflow: hidden;" onclick="location.href='/libero/community/getPost?postNo=${post.postNo}&menu=f' ">
                                 <a class="link_news before_thumb">
                 				<strong class="tit_news">${ i }&nbsp;&nbsp;${post.postName}<span style="color: #FF7171;">&nbsp;[${post.commentCount}]</span></strong>
              					</a>

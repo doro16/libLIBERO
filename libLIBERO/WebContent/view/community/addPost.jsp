@@ -33,7 +33,7 @@
             	<div class="form-row my-3">
             		<div class="input-group col-lg-3">
             			<select name="qnaRegType" class="form-control">
-											<option hidden>문의 종류</option>
+											<option hidden>문의종류</option>
 											<option value="p">출판하기</option>
 											<option value="b">구매하기</option>
 											<option value="u">이용문의</option>
@@ -53,8 +53,8 @@
 			</div>
             <div class="form-row justify-content-center my-5">
                
-				<button type="button" class="btn btn-outline-info waves-effect" href="javascript:history.back();" role="button">취&nbsp;소</button>
-			    <button type="button" class="btn btn-cyan">등&nbsp;록</button>	
+				<button type="button" class="btn btn-outline-brown waves-effect" href="javascript:history.back();" role="button">취&nbsp;소</button>
+			    <button type="button" class="btn btn-brown">등&nbsp;록</button>	
             </div>
         </form>
 
@@ -69,16 +69,22 @@
 	function fncAddPost(){
 		$('textarea[name="postContent"]').val($('#summernote').summernote('code'));
 		var postName = $("input[name='postName']").val();
-		var postContent = $("textarea[name='postContent']").val();
+		var postContent = $("#postContent").val();
+		var qnaRegType = $("select[name=qnaRegType] option:selected").val();
 	
 		
 		if(postName == null || postName.length <1){
-			alert("제목을 입력해주세요.");
+			alert(qnaRegType );
 			return;
 		}
 		
 		if(postContent == null || postContent.length <1){
 			alert("내용을 입력해주세요.");
+			return;
+		}
+		
+		if(qnaRegType == "문의종류"){
+			alert("문의종류를 선택해주세요.");
 			return;
 		}
 		
