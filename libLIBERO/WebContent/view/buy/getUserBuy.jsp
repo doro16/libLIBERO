@@ -3,6 +3,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/common/cdn.jsp"></jsp:include>
+<link rel="stylesheet" href="../resources/css/common.css">
 <jsp:include page="../toolbar.jsp"></jsp:include>
 
 
@@ -13,7 +14,7 @@
 <title>Insert title here</title>
 
 <!--  ///////////////////////// CSS ////////////////////////// -->
-		<link rel="stylesheet" href="../resources/css/common.css">
+		
 <script type="text/javascript">
 function relocate(prodNo){
 	self.location="/libero/product/getProduct/"+prodNo;	
@@ -195,10 +196,10 @@ function relocate(prodNo){
 								<ul class="navbar-nav">
 									<li class="nav-item" id="review${i}">
 										<c:if test="${getProduct.reviewFlag == false }">
-										<button data-target="#addReviewModal${i}" data-toggle="modal" id="addReviewButton${i}" class="btn btn-outline-brown lighten-3 waves-effect" value="${getProduct.buyNo }">리뷰등록</button>
+										<button data-target="#addReviewModal${i}" data-toggle="modal" id="addReviewButton${i}" class="btn btn-outline-brown lighten-3 waves-effect float-left" value="${getProduct.buyNo }" >리뷰등록</button>
 										</c:if>
 										<c:if test="${getProduct.reviewFlag== true }">
-										<button data-target="#addReviewModal${i}" data-toggle="modal" id="addReviewButton${i}" class="btn btn-outline-brown lighten-3 waves-effect" value="${getProduct.buyNo }">리뷰수정</button>
+										<button data-target="#addReviewModal${i}" data-toggle="modal" id="addReviewButton${i}" class="btn btn-outline-brown lighten-3 waves-effect float-left" value="${getProduct.buyNo }">리뷰수정</button>
 										</c:if>
 									</li>
 								</ul>
@@ -297,4 +298,5 @@ function relocate(prodNo){
 
 
 </body>
+<jsp:include page="/common/footer.jsp"></jsp:include>
 </html>

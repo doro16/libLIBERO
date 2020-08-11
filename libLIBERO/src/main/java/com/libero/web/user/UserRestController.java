@@ -115,6 +115,16 @@ public class UserRestController {
 		return user;
 	}
 	
+	@RequestMapping( value="json/getUser", method=RequestMethod.POST )
+	public User getUser(@RequestBody User user) throws Exception{
+	
+		System.out.println("/user/json/getUser : GET");
+		//Business Logic
+		user = userService.getUser(user.getUserId());
+		
+		return user;
+	}
+	
 	@RequestMapping(value="json/emailSend",method=RequestMethod.GET)
 	public Map emailSend(@RequestParam("userId") String userId) throws Exception{
 		System.out.println(" ---------------------------------------");
