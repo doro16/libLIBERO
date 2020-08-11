@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
+	<link rel="stylesheet" href="../resources/css/common.css">
 </head>
 <body>
 		<!-- ToolBar Start /////////////////////////////////////-->
@@ -94,7 +95,7 @@
           
           <tr>
             <th scope="row">
-              <img src="../../resources/images/publish/fileUpload/thumbnailFile/${cartList.prodThumbnail }" alt="" class="img-fluid z-depth-0">
+              <img src="../resources/images/publish/fileUpload/thumbnailFile/${cartList.prodThumbnail }" alt="" class="img-fluid z-depth-0">
             </th>
             <td>
               <h5 class="mt-3">

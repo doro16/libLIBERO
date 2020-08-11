@@ -12,7 +12,7 @@
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
-	
+	<link rel="stylesheet" href="../resources/css/common.css">
 
 <title>도서  상세</title>
 		<!-- ToolBar Start /////////////////////////////////////-->
@@ -183,8 +183,19 @@
         			<c:if test="${wish == 1}"><i class="fas fa-heart" id="wish"></i></c:if>
 					<c:if test="${wish == 0}"><i class="far fa-heart" id="wish"></i></c:if>
 					</span>
-					<img src="../resources/images/community/">
+					<!-- 신고 추가 -->
+					<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>
+					<button type="button" class="btn btn-link btn-md" id="reportBtn" data-toggle="modal" data-target="#redModalSubscription" style="font-size: 17px;">
+					<p class="orange-text">신고</p>
+					</button>
+					<input type="hidden" id="prodPost" name="prodPost" value="prod"/>
 					</h2>
+					
+					
+					
+					
+					
+					
         			
         <span class="badge badge-danger product mb-4 ml-xl-0 ml-4">bestseller</span>
         <span class="badge badge-success product mb-4 ml-2">SALE</span>
@@ -248,11 +259,7 @@
 
 
 </div>		
-		<!-- 신고 추가 -->
-		<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>
-		<button type="button" class="btn btn-brown btn-md" id="reportBtn" data-toggle="modal" data-target="#redModalSubscription">신고
-		</button>
-		<input type="hidden" id="prodPost" name="prodPost" value="prod"/>
+		
 		
 		
 <div class="container">		
@@ -416,7 +423,8 @@
 		
 </body>
 
-<jsp:include page="../community/addReport.jsp"/>	
+<jsp:include page="../community/addReport.jsp"/>
+<jsp:include page="../../common/footer.jsp"/>		
 	
 <script type="text/javascript">
 	

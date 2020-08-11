@@ -201,12 +201,12 @@
         </h3>
 
         <div class="font-weight-normal">
-          <hr/>
-          <p class="ml-xl-0 ml-4"><span class="grey-text">배송일 : </span>영업일 기준 약 2~8일 소요됩니다. </p>
-          <p class="ml-xl-0 ml-4"><span class="grey-text">환불규정 : </span>주문 후 인쇄되므로 배송이 준비된 후에는 환불이 불가능합니다.</p>
+         
+          <p class="ml-xl-0 ml-4"><span class="grey-text"></p>
+          <p class="ml-xl-0 ml-4"><span class="grey-text">환불규정 : </span>작가서비스 환불은 libLIBERO 규정에 의거합니다.</p>
 		  <hr/>
           <p class="ml-xl-0 ml-4">
-            <strong><span class="grey-text">작가 : </span></strong>${product.author} </p>
+            <strong><span class="grey-text">작가/이메일 : </span></strong>${product.author}/${product.creator } </p>
           <p class="ml-xl-0 ml-4">
             <strong><span class="grey-text">상품종류 : </span></strong>${product.prodType} </p>
           <p class="ml-xl-0 ml-4">
