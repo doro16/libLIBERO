@@ -13,5 +13,7 @@ public interface WishService {
 
 	public List<Product> getWishList(String userId) throws Exception;
 
+	public int countWish(String userId);
+
 	
 }

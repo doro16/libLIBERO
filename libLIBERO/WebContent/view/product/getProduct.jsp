@@ -10,7 +10,7 @@
 	
 	
 	<style>
-									.number-input input[type="number"] {
+							.number-input input[type="number"] {
 							-webkit-appearance: textfield;
 							-moz-appearance: textfield;
 							appearance: textfield;
@@ -173,12 +173,12 @@
 
       <div class="col-lg-5 text-center text-md-left">
 
-        <h2 class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">${product.prodName}</h2>
+        <h2 class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">${product.prodName}
         			
         			<span>
         			<c:if test="${wish == 1}"><i class="fas fa-heart" id="wish"></i></c:if>
 					<c:if test="${wish == 0}"><i class="far fa-heart" id="wish"></i></c:if>
-					</span>
+					</span></h2>
         			
         <span class="badge badge-danger product mb-4 ml-xl-0 ml-4">bestseller</span>
         <span class="badge badge-success product mb-4 ml-2">SALE</span>
@@ -256,68 +256,7 @@
 
 
 </div>			
-					<div class="container my-5 w-400">
-
-					  <section>
-					    
-					    <div class="card mb-4 z-depth-0 w-200">
-					      
-					      <div class="row">
 					
-					        <div class="col-md-6">
-					          <img class="img-fluid rounded-left" src="../../resources/images/publish/fileUpload/thumbnailFile/${product.prodThumbnail}" alt="project image">
-					        </div>
-					
-					        <div class="col-md-6 p-5 align-self-center ">
-					
-					          <h5 class="font-weight-normal mb-3">상품명</h5>
-					
-					          <p class="text-muted">${product.prodName}</p>
-					
-					          <ul class="list-unstyled font-small mt-5 mb-0">
-					            <li>
-					              <p class="text-uppercase mb-2"><strong>작가</strong></p>
-					              <p class="text-muted mb-4">${product.creator}</p>
-					            </li>
-					
-					            <li>
-					              <p class="text-uppercase mb-2"><strong>등록일자</strong></p>
-					              <p class="text-muted mb-4">${product.regDate}</p>
-					            </li>
-					
-					            <li>
-					              <p class="text-uppercase mb-2"><strong>Skills</strong></p>
-					              <p class="text-muted mb-4">Design, HTML, CSS, Javascript</p>
-					            </li>
-					
-					            <li>
-					              <p class="text-uppercase mb-2"><strong>Address</strong></p>
-					              
-					            </li>
-					
-					            <li>
-					              <p class="text-uppercase mt-4 mb-2"><strong>Share</strong></p>
-					             		 
-					              		<div class="def-number-input number-input safari_only">
-										  <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-										  <input class="quantity" min="0" name="quantity" value="1" type="number" id="buyAmount" >
-										  <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
-										</div>
-										<button type="button" class="btn btn-so" onclick="addCart()"><i class="fas fa-cart-plus" ></i></button>
-					              
-					            </li>
-					
-					          </ul>
-					
-					        </div>
-					
-					      </div>
-					
-					    </div>
-
-  </section>
-
-</div>
 				
 
 </body>

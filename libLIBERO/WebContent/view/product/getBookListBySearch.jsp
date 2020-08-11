@@ -56,7 +56,7 @@
 	<div class="row">
 	<!-- 검색조건 -->
 			<div class="btn-group dropup">
-			  <button type="button" class="btn btn-brown lighten-1 h-75" id="searchConditionText">검색조건</button>
+			  <button type="button" class="btn btn-brown lighten-1 h-75" id="searchConditionText">${search.searchCondition}</button>
 			  <button type="button" class="btn btn-brown lighten-1 dropdown-toggle px-2 h-75" data-toggle="dropdown" aria-haspopup="true"
 			    aria-expanded="false">
 			    <span class="sr-only">Toggle Dropdown</span>
@@ -71,7 +71,7 @@
 	
 	<!-- Search form -->
 			<form class="form-inline mr-auto">
-			  <input type="hidden" id="searchCondition" name="searchCondition">
+			  <input type="hidden" id="searchCondition" name="searchCondition" value="${search.searchCondition}">
 			  <input class="form-control mr-sm-2" type="text" name="searchKeyword" >
 			  <button class="btn btn-brown btn-rounded btn-sm my-0" id="searchButton" >Search</button>
 			</form>
@@ -132,7 +132,6 @@
 			</div>
             	<input type="hidden" id="k" value="${book[0].prodType}">
             	<input type="hidden" id="maxPage" value="${resultPage.maxPage}">
-            	<input type="hidden" id="searchCondition" value="${search.searchCondition}">
             	<input type="hidden" id="searchKeyword"	  value="${search.searchKeyword}">
 
 </body>
