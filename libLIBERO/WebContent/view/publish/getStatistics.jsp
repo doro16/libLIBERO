@@ -9,13 +9,21 @@
 		<title>판매 통계 조회</title>
 		<jsp:include page="/common/cdn.jsp"></jsp:include>
 		<style type="text/css">
-			
+			body {
+				background-color: #f5f5f5;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="container">
-			<div style="padding-top: 20px"><h5 class="text-brown">월별 판매 통계</h5></div>
-			<canvas id="dayChart" class="row col-lg-12"></canvas>
+			<div class="row">
+				<div style="padding-top: 20px"><h5 class="text-brown">월별 판매 통계</h5></div>
+				<canvas id="dayChart" class="row col-lg-12"></canvas>
+			</div>
+			<div class="row">
+				<div class="col text-center" style="padding-top: 20px"><h5 class="text-brown">성별 통계</h5></div>
+				<div class="col text-center" style="padding-top: 20px"><h5 class="text-brown">연령대 통계</h5></div>
+			</div>
 			<div class="row">
 				<canvas id="genderChart" class="col-lg-6"></canvas>
 				<canvas id="ageChart" class="col-lg-6"></canvas>

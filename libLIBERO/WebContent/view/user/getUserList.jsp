@@ -12,6 +12,9 @@
 		<link rel="stylesheet" href="../resources/css/common.css">
 		<style type="text/css">
 		
+			body {
+				font-family:'GyeonggiBatang';
+			}
 		
 		</style>
 	</head>
@@ -44,10 +47,10 @@
 						<td align="center">${i}</td>
 						<td><a href="/libero/user/getUser?userId=${user.userId}">${user.userId}</a></td>
 						<td>
-							<c:if test="${user.userCode==0}">
+							<c:if test="${user.userCode==1}">
 								정상
 							</c:if>
-							<c:if test="${user.userCode==1}">
+							<c:if test="${user.userCode==0}">
 								탈퇴
 							</c:if>
 						</td>
