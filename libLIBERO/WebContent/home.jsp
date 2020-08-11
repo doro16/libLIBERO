@@ -129,7 +129,7 @@
 							
 								    <!--Card image-->
 								    <div class="view overlay">
-								    	<img class="card-img-top" src="/libero/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap">
+								    	<img class="card-img-top" src="/libero/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap" height="250px">
 							      		<a href="#!">
 							      			<div class="mask rgba-white-slight"></div>
 							      		</a>
@@ -158,7 +158,7 @@
 						
 							    <!--Card image-->
 							    <div class="view overlay">
-							    	<img class="card-img-top" src="/libero/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap">
+							    	<img class="card-img-top" src="/libero/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap" height="250px">
 						      		<a href="#!">
 						      			<div class="mask rgba-white-slight"></div>
 						      		</a>
@@ -187,7 +187,7 @@
 						
 							    <!--Card image-->
 							    <div class="view overlay">
-							    	<img class="card-img-top" src="/libero/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap">
+							    	<img class="card-img-top" src="/libero/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}" alt="Card image cap" height="250px">
 						      		<a href="#!">
 						      			<div class="mask rgba-white-slight"></div>
 						      		</a>

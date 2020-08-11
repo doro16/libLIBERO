@@ -51,15 +51,9 @@
 	      		</li>
 	      		
 	      		<!-- 책만들기 End -->
-	      		<li class="nav-item dropdown">
-	        		<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">작가서비스</a>
-	      			<div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
-	          			<a class="dropdown-item" href="/libero/product/getProductList/design">표지디자인</a>
-				        <a class="dropdown-item" href="/libero/product/getProductList/target">맞춤형 표지디자인</a>
-				        <div class="dropdown-divider"></div>
-				        <a class="dropdown-item" href="/libero/product/getProductList/correct">교정 교열</a>
-	        		</div>
-	      		</li>
+	      		<li class="nav-item">
+		        	<a class="nav-link" href="/libero/product/getProductList/design">서비스상점</a>
+		        </li>
 	      		<!-- 작가서비스 End -->
 	      		<li class="nav-item">
 		        	<a class="nav-link" href="/libero/product/getBookList">서점</a>
@@ -120,7 +114,7 @@
 	  	
 	</nav>
 	<!--/.Navbar -->
-	<!-- subnav here -->
+	<!-- getBookList subnav here -->
 	<div id="bookList" class="sticky-top" style="display: none;">
 		<nav class="mb-1 navbar navbar-expand-lg navbar-dark brown darken-1 z-depth-0 smart-scroll" style="padding-top: 65px;min-height: 30px">
 		
@@ -140,6 +134,26 @@
 		            </li>
 		            <li class="nav-item">
 		                <a class="nav-link py-0" href="/libero/product/getBookListByCategory/edu">교육</a>
+		            </li>
+		        </ul>
+		    </div>
+		</nav>
+	</div>
+	<!-- getBookList subnav End -->
+	<!-- getProductList subnav End -->
+	<div id="productList" class="sticky-top" style="display: none;">
+		<nav class="mb-1 navbar navbar-expand-lg navbar-dark brown darken-1 z-depth-0 smart-scroll" style="padding-top: 65px;min-height: 30px">
+		
+		    <div class="collapse navbar-collapse navbar1and2" id="navbarSupportedContent4">
+		        <ul class="navbar-nav mx-auto">
+		            <li class="nav-item">
+		                <a class="nav-link py-0" href="/libero/product/getProductList/design">표지디자인</a>
+		            </li>
+		            <li class="nav-item">
+		                <a class="nav-link py-0" href="/libero/product/getProductList/target">맞춤형 표지디자인</a>
+		            </li>
+		            <li class="nav-item">
+		                <a class="nav-link py-0" href="/libero/product/getProductList/correct">교정</a>
 		            </li>
 		        </ul>
 		    </div>
@@ -193,6 +207,11 @@
 			if (path=="/libero/product/getBookList" || path.includes("/libero/product/getBookListByCategory/")) {
 				$("#mainToolbar").attr("class","mb-1 navbar navbar-expand-lg navbar-dark brown lighten-1 smart-scroll z-depth-0");
 				$("#bookList").show();
+			}
+			
+			if (path.includes("getProductList")) {
+				$("#mainToolbar").attr("class","mb-1 navbar navbar-expand-lg navbar-dark brown lighten-1 smart-scroll z-depth-0");
+				$("#productList").show();
 			}
 			
 			// detect scroll top or down

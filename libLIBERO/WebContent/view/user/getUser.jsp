@@ -61,7 +61,7 @@
 				    	<span class="input-group-text md-addon" id="inputGroupMaterial-sizing-default">프로필 사진</span>
 				  	</div>
 				  	</div>
-				  	<div class="view overlay zoom" id="profileDiv" >
+				  	<div class="view overlay zoom" id="profileDiv" style="width: 200px; height:200px" >
 				  	<img src="/libero/resources/images/user/fileUpload/${user.profile}" class="img-thumbnail hoverable" id="profile"/>
 				  	<div class="mask flex-center waves-effect waves-light">
 									    <p class="white-text"></p>
@@ -338,6 +338,7 @@
 			);
 			
 			$("#profile").remove()
+			$("#profileDiv").css("width","").css("height","");
 			$("#profileDiv").html(
 					 	 '<div class="file-field">'+
 					 	 	''+
@@ -353,7 +354,7 @@
 				   					'<div id="titlePreview"></div>'+
 				   					'<div id="authorPreview"></div>'+
 				   					'<div id="liberoImg"></div>'+
-				   					'<img src="" id="uploadPreview" width="100%" height="100%" style="display:none;">'+
+				   					'<img src="" id="uploadPreview" width="200px" height="200px" style="display:none; padding-top:30px">'+
 			   					'</div>'+
 			   				'</div>'+
 			   			'</div>'+"<"+"script>"+
