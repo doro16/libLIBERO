@@ -138,7 +138,7 @@
 						</if>
 						
 		        ORDER BY c.comment_no DESC) inner_table
-		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum}
+		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num
 	</select>
 
 	<select id="getMyCommentListTotalCount" parameterType="map"	resultType="int">
@@ -210,7 +210,7 @@
 						</if>
 						AND blind_code LIKE "show"
 						ORDER BY p.post_no DESC) inner_table
-		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum}
+		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num desc
 	</select>
 	
 	<select  id="getPostTotalCount"  parameterType="map"	 resultType="int">
@@ -261,7 +261,7 @@
 						AND u.nickname like '%${search.searchKeyword}%'
 						</if>
 						ORDER BY p.post_no DESC) inner_table
-		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum}
+		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num desc
 		
 	</select>
 

@@ -119,7 +119,7 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value="addPost", method=RequestMethod.POST)
-	public ModelAndView addPost(HttpSession session, Post post) throws Exception {
+	public ModelAndView addPost(@RequestParam(value="postType", required=false) String postType, HttpSession session, Post post) throws Exception {
 		System.out.println("^^^^^^^"+ "/community/addPost");
 		
 		User user = ((User)session.getAttribute("user"));
@@ -128,7 +128,12 @@ public class CommunityController {
 		ModelAndView modelAndView = new ModelAndView();
 		communityService.addPost(post);
 		modelAndView.addObject("post", post);
-		modelAndView.setViewName("/view/community/getPost.jsp");
+		if(postType.equals("q")) {
+			modelAndView.setViewName("redirect:/user/getUserActivityList?menu=q");
+		} else {
+			modelAndView.setViewName("redirect:/community/getPostList?menu="+postType);
+		}
+		
 		
 		return modelAndView;
 	}					 

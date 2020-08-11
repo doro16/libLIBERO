@@ -3,6 +3,7 @@
 <!--  ///////////////////////// JSTL  ////////////////////////// -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,7 +21,7 @@
 			
 			
 			$(function() {
-				 $( "fas.fa-search" ).on("click" , function() {
+				 $( ".fas.fa-search" ).on("click" , function() {
 						fncGetUserList(1);
 				 });
 				 
@@ -68,6 +69,7 @@
 	   	<div class="container">
 	   		<jsp:include page="topButton.jsp"></jsp:include>
 	   		<div class="row">
+	   		<c:if test="${sessionScope.user.role != 'a'}">
 		   		<div class="col-lg-2">
 		   			<a href="/libero/user/getTempPublishList" 
 		   				class="btn btn-outline-brown waves-effect btn-block" role="button" 
@@ -90,8 +92,13 @@
 
 		   				aria-pressed="true" style="margin-bottom: 10px">나의 문의</a>
 		   		</div>
+
 		   		<div class="col-lg-9">
-		   		
+		   	</c:if>
+		   	<c:if test="${sessionScope.user.role == 'a'}">
+		   		<%--<div class="col-lg-11" style="margin-left: 60px;"> --%>
+		   		<div class="col-lg-12">
+		   	</c:if>
 		<%-- 공통 --%>  		
 		 		  <form class="form-inline" style="float:right;">
 				    
@@ -149,11 +156,12 @@
                             <c:if test="${fn:length(postName)>20}">
                                 ......
                             </c:if>
+                            <span style="color: #FF7171;">&nbsp;[${post.commentCount}]</span>
                             <%-- <font color='red'>(${post.comments})</font>--%>     
                         </td>
                         <input type="hidden" value="${post.postNo}"/>
                         <td>${post.user.nickname}</td>
-                        <td>${post.regDate}</td>
+                        <td><fmt:formatDate value="${post.regDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         <td>${post.viewCount}</td>
  
                     </tr>
@@ -201,7 +209,7 @@
                         <input type="hidden" value="${comment.postNo}"/>
                         
                         <td>${comment.user.nickname}</td>
-                        <td>${comment.regDate}</td>
+                        <td><fmt:formatDate value="${comment.regDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         
  
                     </tr>
@@ -261,7 +269,7 @@
                         <td><button type="button" class="btn btn-warning btn-rounded btn-sm my-0" style="border-radius: 20px;">&nbsp;&nbsp;대기중&nbsp;&nbsp;</button></td>
                   		</c:if>
                         <td>${post.user.nickname}</td>
-                        <td>${post.regDate}</td>
+                        <td><fmt:formatDate value="${post.regDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                  
                     </tr>
                     

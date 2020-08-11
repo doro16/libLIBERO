@@ -197,8 +197,7 @@ select::-ms-expand {
 .content-board .list_news .txt_news {
     display: block;
     display: -webkit-box;
-    overflow: hidden;
-    max-height: 50px;
+  
     margin: 8px 0 20px;
     font-size: 15px;
     font-weight: 300;

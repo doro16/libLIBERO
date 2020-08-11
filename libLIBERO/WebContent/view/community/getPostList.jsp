@@ -30,7 +30,7 @@
 		}   
 		
 		$(function() {
-			$( "fas.fa-search" ).on("click" , function() {
+			$( ".fas.fa-search" ).on("click" , function() {
 				fncGetUserList(1);
 			});
 			 
