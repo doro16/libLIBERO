@@ -41,7 +41,7 @@
 <div class="col">
 
   <c:set var="i" value="0" />
-  <c:if test="${empty product  }">
+  <c:if test="${empty buyList  }">
 		  <div class="card border-light mb-3" >
 		  <img  src="/libero/resources/images/common/tenor.gif" width= 400px class="rounded mx-auto d-block" alt="Responsive image">
 		  </div>

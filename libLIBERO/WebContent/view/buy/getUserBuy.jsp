@@ -192,7 +192,7 @@ function relocate(prodNo){
 							  					<tr><th><td>
 							  					
 <!-- 				리뷰 등록 버튼, 모달 내용 -->
-
+								<c:if test="${getProduct.deliveryStatus == 5 }">
 								<ul class="navbar-nav">
 									<li class="nav-item" id="review${i}">
 										<c:if test="${getProduct.reviewFlag == false }">
@@ -203,6 +203,7 @@ function relocate(prodNo){
 										</c:if>
 									</li>
 								</ul>
+								</c:if>
 				<!-- 리뷰등록 모달창 -->				
 				<div class="modal fade" id="addReviewModal${i}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
