@@ -311,7 +311,7 @@
 							  <c:set var="i" value="${ i+1 }" />
     
     <div class="media mb-3">
-      <img class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img (8).jpg" alt="Generic placeholder image">
+      <img class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3" src="../../resources/images/user/fileUpload/${review.user.profile}">
       <div class="media-body">
         <a>
           <h5 class="user-name font-weight-bold">${review.user.nickname}</h5>
@@ -488,10 +488,6 @@
 		
 		if (userId=="") {
 			alert("로그인 해주세요.");
-			return;
-		}
-		if (phoneCode!=1) {
-			alert("휴대폰 본인인증을 완료한 회원만 가능합니다.");
 			return;
 		}
 		if (buyAmount==0) {

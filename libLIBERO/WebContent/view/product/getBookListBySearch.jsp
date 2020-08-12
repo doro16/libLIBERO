@@ -163,9 +163,9 @@
 				
 				curPage = parseInt(curPage);
 				
-				alert("최대 출력페이지 : "+maxPage);
-				alert(searchCondition);
-				alert(searchKeyword);
+				//alert("최대 출력페이지 : "+maxPage);
+				//alert(searchCondition);
+				//alert(searchKeyword);
 				//alert(curPage);
 				
 				

@@ -363,7 +363,7 @@
 	
 	<select id="getReview"	parameterType="hashMap"	resultMap="reviewSelectMap">
 				SELECT * FROM(
-							SELECT r.review_no, r.user_id, r.buy_no, r.review_name, r.review_content, r.review_image, r.star_rate, r.reg_date, u.nickname
+							SELECT r.review_no, r.user_id, r.buy_no, r.review_name, r.review_content, r.review_image, r.star_rate, r.reg_date, u.nickname, u.profile
 							FROM review r
 							INNER JOIN user u
 							ON r.user_id = u.user_id

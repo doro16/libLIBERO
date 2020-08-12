@@ -310,7 +310,7 @@
 							  <c:set var="i" value="${ i+1 }" />
     
     <div class="media mb-3">
-      <img class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img (8).jpg" alt="Generic placeholder image">
+      <img class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3" src="../../resources/images/user/fileUpload/${review.user.profile}" alt="Generic placeholder image">
       <div class="media-body">
         <a>
           <h5 class="user-name font-weight-bold">${review.user.nickname}</h5>

@@ -150,7 +150,7 @@
 				
 				curPage = parseInt(curPage);
 				
-				alert("최대 출력페이지 : "+maxPage);
+				//alert("최대 출력페이지 : "+maxPage);
 				//alert(curPage);
 				
 				
