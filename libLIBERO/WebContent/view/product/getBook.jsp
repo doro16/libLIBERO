@@ -12,7 +12,7 @@
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
-	<link rel="stylesheet" href="../resources/css/common.css">
+	<link rel="stylesheet" href="../../resources/css/common.css">
 
 <title>도서  상세</title>
 		<!-- ToolBar Start /////////////////////////////////////-->
@@ -528,7 +528,7 @@
 				
 				
 				
-				var displayValue = "<img src='../../resources/images/product/fileUpload/review/"+reviewImage+"'>"
+				var displayValue = "<img src='../../resources/images/product/fileUpload/review/"+reviewImage+"' style='width:200px;height:200px'>"
 				
 				
 				$("#img"+i).append(displayValue);
