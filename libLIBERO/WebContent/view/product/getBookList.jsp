@@ -109,11 +109,12 @@
             <a class="card hoverable mb-4 z-depth-0 h-10" id="productcard" data-toggle="modal" data-target="#basicExampleModal">
 
             <!-- Card image -->
+            <div><a href="/libero/product/getProduct/${book.prodNo}">
             <img class="card-img-top z-depth-1" id="cardImage" src="../resources/images/publish/fileUpload/thumbnailFile/${book.prodThumbnail}" alt="Card image cap" width="180px" height="250px">
             
               <!-- Card content -->
-              
-             	<h6><a href="/libero/product/getProduct/${book.prodNo}">${book.prodName}</a></h6>
+              <br><br>
+             	<h6>${book.prodName}</h6></a></div>
                 <h6>${book.author}</h6>
              	<h6>￦<fmt:formatNumber value="${book.retailPrice}" pattern="#,###.###" type="currency"/>원</h6>
              

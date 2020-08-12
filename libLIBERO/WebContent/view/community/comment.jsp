@@ -3,17 +3,17 @@
 <%@ page import="com.libero.service.domain.*"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 
 <script type="text/javascript">
-		$(function() { 
-			fncGetCommentList();	 
-		});	
+		
 
 		$(function() { 
+			
 			$("#addComment").on("click", function(){
 				var postNo = parseInt($("input[name='postNo']").val());	
     			var menu = $("input[name='menu']").val(); 
@@ -25,6 +25,7 @@
 				}
     			
     			$("#commentContent2").css("display", "none");
+    			
 				$.ajax(
 				    	{  		 	
 				        url : "/libero/community/json/addComment",
@@ -41,72 +42,13 @@
 							"Content-Type" : "application/json"
 						},
 						success : function(JSONData , status) {						 
-							
+							$(".container").after("<div>dddd</div>");
 						}	
 				    	});
 			})	
 		});
 		
-		function fncGetCommentList(){
-			var menu = $("input[name='menu']").val(); 
-			var postNo = parseInt($("input[name='postNo']").val()); 
-			
-			//alert(postNo);
-			$.ajax(
-			    	{
-			    		 	
-			        url : "/libero/community/json/getCommentList/"+postNo,
-			        method : "GET" ,
-					dataType : "json" ,
-					headers : {
-						"Accept" : "application/json",
-						"Content-Type" : "application/json"
-					},
-					success : function(JSONData , status) {
-								
-								var displayValue = "";
-								var totalCount = "<h6 style='margin-bottom:-24px'>댓글&nbsp;"+JSONData.totalCount+"</h6>";
-								for(i=0; i < JSONData.list.length; i++){
-									var date = new Date(Number(JSONData.list[i].regDate));
-									displayValue2 = JSONData.list[i].commentContent;
-									displayValue += "<h6>"
-										+"<input type='hidden' class='commentNo' name='commentNo' value=" + JSONData.list[i].commentNo + ">"
-										
-										+ "<img src='../resources/images/user/fileUpload/"+JSONData.list[i].user.profile+"'  alt='프로필사진' style='height: 55px; width: 55px; float: left; margin:-5px 10px 10px 0;'>"
-										+"<p style='font-size: 14px; color:DodgerBlue; font-weight: 600; float: left;'>" +JSONData.list[i].user.nickname + "&nbsp;&nbsp;&nbsp;</p>"
-										+"<p style='font-size: 11px; color:gray; font-weight: 400;'>" + date.getFullYear()+".0"+parseInt(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+"</span>"
-										+"<p id= 'none"+ JSONData.list[i].commentNo+"' style='font-size: 15px; padding: 14px 0px; font-weight: 400;'>"
-										+ JSONData.list[i].commentContent
-										+"</p><br>"
-										
-										+"<div id='update"+ JSONData.list[i].commentNo+"' style='display: none;' class='updateComment'>" 
-										+"<input type='hidden' class='commentNo' value=" + JSONData.list[i].commentNo + ">"	
-										+"<textarea class='form-control col-11 col-md-11 mr-1' rows='3' maxlength='500' style='float:left'>"
-										+ JSONData.list[i].commentContent
-										+"</textarea>"
-										+"<button class='btn btn-outline-brown btn-sm' style='margin-left:670px;' onclick='history.go'>취소</button>"
-										+"<button class='btn btn-brown btn-sm'  id='updateComment'>등록</button>"
-										
-										+"</div>"
-										+"<c:if test='${sessionScope.user.userId == post.user.userId}'>"
-										+"<div class='commentUpdateDelete'>"
-											+"<input type='hidden' class='commentNo' value=" + JSONData.list[i].commentNo + ">"			
-											+"<p style='float:left; padding: 0px 10px 0px 65px; font-size: 13px; color:gray; font-weight: 500;'>수정 </p>"
-											+"<p style='font-size:13px; color:gray; font-weight: 500;'>삭제</p><br>"
-										+"</div></c:if>";		
-								}
-						if(menu!='q'){				
-							$( "#hh" ).html(displayValue);
-							$( "#totalCount" ).html(totalCount);
-						} else if(menu=='q'){
-							$('#commentContent2').val(displayValue2);
-						}	
-						
-					
-					}	
-			    	});
-			
-		}
+		
 		$(document).on("click", ".commentUpdateDelete p:nth-child(2)", function(){
 			commentNo = parseInt($(this).parent().find(".commentNo").val());
 			$(this).parent().find("p").hide();
@@ -152,7 +94,7 @@
 						"Content-Type" : "application/json"
 					},
 					success : function(JSONData , status) {
-						fncGetCommentList();
+						
 					
 					}	
 					
@@ -172,7 +114,7 @@
 						"Content-Type" : "application/json"
 					},
 					success : function(JSONData , status) {
-						fncGetCommentList();	
+					
 					}	
     		});
 		
@@ -188,7 +130,8 @@
 	<span id="totalCount"></span>
 		<div class="border-bottom mt-2 mb-4 py-4"></div>
 		<div class="container">
-			<form name="addCommentForm" id="addCommentForm">
+		
+			
 			<input type="hidden" id="postNo" name="postNo" value="${post.postNo}" />
 				
 				<div class="form-row d-fle">
@@ -209,16 +152,39 @@
 					placeholder="관리자님! 답변을 등록해주세요."></textarea>
 					<button class="btn btn-brown btn-sm" style="margin-left:742px;" id="addComment">등록</button>
 					</c:if>
-					
 						
-					
-					
 				</div>
-				</form>
-			</div>
-			
-			
 		
+			
+		</div>
+		<!-- /////////////// -->
+							  
+    						  <c:set var="i" value="0" />
+							  <c:forEach var="comment" items="${comment}">
+							  <c:set var="i" value="${ i+1 }" />
+    							<div class="commentNo" name="commentNo" value="${comment.commentNo}" style="display: none;"></div>
+   								
+   								<img src="../resources/images/user/fileUpload/${comment.user.profile}"  alt="프로필사진" style= "height: 55px; width: 55px; float: left; margin:-5px 10px 10px 0;">
+   								<p style="font-size: 14px; color:DodgerBlue; font-weight: 600; float: left;">${comment.user.nickname}&nbsp;&nbsp;&nbsp;</p>
+   								<p style="font-size: 11px; color:gray; font-weight: 400;">${comment.regDate}</p>
+								<p id= "none${comment.commentNo}" style="font-size: 15px; padding: 14px 0px; font-weight: 400;">
+								${comment.commentContent}</p><br>
+								<div id="update${comment.commentNo}" style="display: none;" class="updateComment"> 
+									<div class="commentNo" name="commentNo" value="${comment.commentNo}" style="display: none;"></div>
+									<textarea class="form-control col-11 col-md-11 mr-1" rows="3" maxlength="500" style="float:left">${comment.commentContent}</textarea>
+									<button class="btn btn-outline-brown btn-sm" style="margin-left:670px;" onclick="history.go()">취소</button>
+									<button class="btn btn-brown btn-sm"  id="updateComment">등록</button>
+								</div>
+								<c:if test="${sessionScope.user.userId == post.user.userId}">
+									<div class="commentUpdateDelete">
+									<div class="commentNo" name="commentNo" value="${comment.commentNo}" style="display: none;"></div>		
+									<p style="float:left; padding: 0px 10px 0px 65px; font-size: 13px; color:gray; font-weight: 500;">수정 </p>
+									<p style="font-size:13px; color:gray; font-weight: 500;">삭제</p><br>
+									</div>
+								</c:if>		
+
+								 </c:forEach>
+			
 	
 </body>
 

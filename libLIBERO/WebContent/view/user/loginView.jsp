@@ -57,8 +57,10 @@
 				      		
 				      		<div class="text-right">
 							  <p class="font-small blue-text d-flex justify-content-end">
-							  <a href="#" data-target="#findIdModal" data-toggle="modal" id="findId">아이디 찾기</a>
+							  <!--  <a href="#" data-target="#findIdModal" data-toggle="modal" id="findId">아이디 찾기</a>
 							  <a href="#" data-target="#findPwdModal" data-toggle="modal" id="findPwd">비밀번호 찾기</a>
+							   -->
+							 
 							  </p> 				
 				      		</div>
 				      		

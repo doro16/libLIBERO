@@ -75,14 +75,8 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDAO.getComment(commentNo);
 	}
 	
-	public Map<String, Object> getCommentList(int postNo) throws Exception {
-		List<Comment> list = communityDAO.getCommentList(postNo);
-		int totalCount = communityDAO.getCommentTotalCount(postNo);		
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("totalCount", totalCount);
-		return map;
+	public List<Comment> getCommentList(HashMap<String, Object> commentMap) throws Exception{
+		return communityDAO.getCommentList(commentMap);
 	}
 	
 	public Map<String,Object> getMyCommentList(Search search , String userId) throws Exception{
@@ -96,6 +90,11 @@ public class CommunityServiceImpl implements CommunityService {
 
 		return map;
 	}
+	
+	public int getCommentTotalCount(int postNo) throws Exception{
+		return communityDAO.getCommentTotalCount(postNo);
+	}
+	
 	
 	public void addComment(Comment comment) throws Exception {
 		communityDAO.addComment(comment);
@@ -111,5 +110,10 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	public void updateQnaCode(int postNo) throws Exception{
 		communityDAO.updateQnaCode(postNo);
+	}
+	
+	public int getFinalCommentNo() throws Exception{
+		// TODO Auto-generated method stub
+		return communityDAO.getFinalCommentNo();
 	}
 }

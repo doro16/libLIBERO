@@ -57,6 +57,7 @@
 		<result property="regDate"			column="reg_date"			jdbcType="TIMESTAMP"		/>	
 		<result property="parentCommentNo"	column="parent_comment_no"	jdbcType="INTEGER"/>
 		<result property="postNo"			column="post_no"			jdbcType="INTEGER"/>
+		<result property="postType" 	column="post_type"		jdbcType="CHAR" />
 	
 		
 		<association property="user"  	javaType="user">
@@ -98,19 +99,17 @@
 		AND c.comment_no = #{commentNo}
 	</select>
 	
-	<select id="getCommentList" parameterType="int" resultMap="commentSelectMap" >
-		SELECT *
-		FROM (
-		    SELECT inner_table.*
-		    FROM (
-		        SELECT p.post_no, u.user_id, u.nickname, u.profile, c.comment_no, c.comment_content, c.reg_date
-		        FROM comment c, user u, post p
-		        WHERE c.user_id = u.user_id 
-		        	  AND c.post_no = p.post_no
-		        	  AND p.post_no = #{postNo}
-		        ORDER BY c.comment_no
-		    ) inner_table  
-		) tmp
+	<select id="getCommentList" parameterType="hashMap" resultMap="commentSelectMap" >
+		SELECT * 
+		FROM(
+			SELECT c.user_id, c.post_no, c.comment_no, c.comment_content, c.reg_date, u.nickname, u.profile
+			FROM comment c
+			INNER JOIN user u
+			ON c.user_id = u.user_id
+			WHERE post_no = #{postNo}) tmp
+			ORDER BY reg_date DESC
+			LIMIT #{pageSize} OFFSET #{offset}	
+		
  	</select>
  	
  	
@@ -210,7 +209,7 @@
 						</if>
 						AND blind_code LIKE "show"
 						ORDER BY p.post_no DESC) inner_table
-		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num desc
+		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num
 	</select>
 	
 	<select  id="getPostTotalCount"  parameterType="map"	 resultType="int">
@@ -261,7 +260,7 @@
 						AND u.nickname like '%${search.searchKeyword}%'
 						</if>
 						ORDER BY p.post_no DESC) inner_table
-		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num desc
+		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num 
 		
 	</select>
 
@@ -347,7 +346,11 @@
 	 		qna_code = 'o'
 		WHERE post_no = #{postNo}
 	</update>
-
+	
+	<select id = "getFinalCommentNo" resultType="int">
+			SELECT comment_no FROM comment
+			ORDER BY reg_date DESC LIMIT 1
+	</select>
 
 
 </mapper>

@@ -1,8 +1,10 @@
 package com.libero.service.community;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.libero.service.domain.Post;
+import com.libero.service.domain.Review;
 import com.libero.service.domain.User;
 import com.libero.common.Search;
 import com.libero.service.domain.Comment;
@@ -32,8 +34,9 @@ public interface CommunityDAO {
 	
 	public Comment getComment(int commentNo) throws Exception;
 	
-	public List<Comment> getCommentList(int postNo) throws Exception;
+	public List<Comment> getCommentList(HashMap<String, Object> commentMap) throws Exception;
 	public int getCommentTotalCount(int postNo) throws Exception;
+		
 	
 	public List<Comment> getMyCommentList(Search search, String userId)throws Exception;
 	public int getMyCommentListTotalCount(Search search, String userId)throws Exception;
@@ -41,6 +44,8 @@ public interface CommunityDAO {
 	public void updateComment(Comment comment) throws Exception;
 	
 	public void deleteComment(Comment comment) throws Exception;
+	
+	public int getFinalCommentNo() throws Exception; 
 	
 	public void updateQnaCode(int postNo) throws Exception;
 	

@@ -78,7 +78,7 @@
 							<c:forEach var="post" items="${list}"> 
                             <c:set var="i" value="${ i+1 }" />
                             
-                            <li style="max-height: 183x;  overflow: hidden;" onclick="location.href='/libero/community/getPost?postNo=${post.postNo}&menu=f' ">
+                            <li style="max-height: 183x;  overflow: hidden;" onclick="location.href='/libero/community/getPost?postNo=${post.postNo}' ">
                                 <a class="link_news before_thumb">
                 				<strong class="tit_news">${ i }&nbsp;&nbsp;${post.postName}
                 				<c:if test = "${post.commentCount != 0}">
