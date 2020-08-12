@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
+	<link rel="stylesheet" href="../../resources/css/common.css">
 
 <style>
 
@@ -43,11 +45,16 @@
 <body>
 		<!-- ToolBar Start /////////////////////////////////////-->
 		<jsp:include page="../toolbar.jsp" />
+		
 	   	<!-- ToolBar End /////////////////////////////////////-->
 
 <br/><br/><br/><br/><br/><br/>
-<h6 class="font-weight-bold text-center grey-text text-uppercase small mb-4">서점</h6>
-    <h3 class="font-weight-bold text-center dark-grey-text pb-2">ALL</h3>
+<h6 class="font-weight-bold text-center grey-text text-uppercase small mb-4">작가서비스</h6>
+    <h3 class="font-weight-bold text-center dark-grey-text pb-2">
+    <c:if test="${product[0].prodType == 'design'}">표지 디자인</c:if>
+    <c:if test="${product[0].prodType == 'target'}">맞춤형 표지 디자인</c:if>
+    <c:if test="${product[0].prodType == 'correct'}">교정 교열</c:if>
+    </h3>
     <hr class="w-header my-4">
 
 	
@@ -113,7 +120,7 @@
               
              	<h6><a href="/libero/product/getProduct/${product.prodNo}">${product.prodName}</a></h6>
                 <h6>${product.author}</h6>
-             	<h6>${product.retailPrice}원</h6>
+             	<h6>￦<fmt:formatNumber value="${product.retailPrice}" pattern="#,###.###" type="currency"/>원</h6>
              
              
            		 <!--	<div class="card-text text-uppercase mb-1" style="padding:0px; margin:0px;"><a href="/libero/product/getProduct/${book.prodNo}">${book.prodName}</a></div>
@@ -148,7 +155,7 @@
 				
 				curPage = parseInt(curPage);
 				
-				alert("최대 출력페이지 : "+maxPage);
+				//alert("최대 출력페이지 : "+maxPage);
 				//alert(curPage);
 				
 				

@@ -125,11 +125,13 @@ public class ProductController{
 		 	int totalCount = productService.getBookTotalCount(category);
 			
 			Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
+			int maxPage = (totalCount - 11)/pageSize + 2; //처음페이지 10개 출력, 이후 5개 출력에 따른 최대페이지 수
 			
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject("resultPage", resultPage);
 			modelAndView.addObject("search", search);
 			modelAndView.addObject("totalCount", totalCount);
+			modelAndView.addObject("maxPage", maxPage);
 		 	
 		 	List<Product> list=productService.getBookListByCategory(category, search);
 		 	System.out.println("컨트롤러 가져온것 :: "+list);
@@ -137,6 +139,7 @@ public class ProductController{
 		 	//List<Product> product = (List<Product>) map.get("list");
 		 	//product[0].get()
 		 	//System.out.println(product.get(index).getBookCateogry);
+		 	search.setCurrentPage(2); //5개 더보기 할때 오프셋 10부터 시작하기 위함. 첫페이지가 10개 출력했음으로인해
 		 	modelAndView.addObject("book", list);
 		 	modelAndView.addObject("path", path);
 		 	modelAndView.setViewName("forward:/view/product/getBookListByCategory.jsp");

@@ -12,7 +12,7 @@
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
-	
+	<link rel="stylesheet" href="../resources/css/common.css">
 
 <title>도서  상세</title>
 		<!-- ToolBar Start /////////////////////////////////////-->
@@ -183,8 +183,19 @@
         			<c:if test="${wish == 1}"><i class="fas fa-heart" id="wish"></i></c:if>
 					<c:if test="${wish == 0}"><i class="far fa-heart" id="wish"></i></c:if>
 					</span>
-					<img src="../resources/images/community/">
+					<!-- 신고 추가 -->
+					<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>
+					<button type="button" class="btn btn-link btn-md" id="reportBtn" data-toggle="modal" data-target="#redModalSubscription" style="font-size: 17px;">
+					<p class="orange-text">신고</p>
+					</button>
+					<input type="hidden" id="prodPost" name="prodPost" value="prod"/>
 					</h2>
+					
+					
+					
+					
+					
+					
         			
         <span class="badge badge-danger product mb-4 ml-xl-0 ml-4">bestseller</span>
         <span class="badge badge-success product mb-4 ml-2">SALE</span>
@@ -248,11 +259,7 @@
 
 
 </div>		
-		<!-- 신고 추가 -->
-		<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>
-		<button type="button" class="btn btn-brown btn-md" id="reportBtn" data-toggle="modal" data-target="#redModalSubscription">신고
-		</button>
-		<input type="hidden" id="prodPost" name="prodPost" value="prod"/>
+		
 		
 		
 <div class="container">		
@@ -260,11 +267,11 @@
 <ul class="nav nav-tabs md-tabs nav-justified brown-color" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" data-toggle="tab" href="#panel555" role="tab">
-      <i class="fas fa-user pr-2"></i>상품상세</a>
+      상품상세</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#panel666" role="tab">
-      <i class="fas fa-heart pr-2"></i>리뷰</a>
+      리뷰</a>
   </li>
 </ul>
 <!-- Nav tabs -->
@@ -304,7 +311,7 @@
 							  <c:set var="i" value="${ i+1 }" />
     
     <div class="media mb-3">
-      <img class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img (8).jpg" alt="Generic placeholder image">
+      <img class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3" src="../../resources/images/user/fileUpload/${review.user.profile}">
       <div class="media-body">
         <a>
           <h5 class="user-name font-weight-bold">${review.user.nickname}</h5>
@@ -416,7 +423,8 @@
 		
 </body>
 
-<jsp:include page="../community/addReport.jsp"/>	
+<jsp:include page="../community/addReport.jsp"/>
+<jsp:include page="../../common/footer.jsp"/>		
 	
 <script type="text/javascript">
 	
@@ -480,10 +488,6 @@
 		
 		if (userId=="") {
 			alert("로그인 해주세요.");
-			return;
-		}
-		if (phoneCode!=1) {
-			alert("휴대폰 본인인증을 완료한 회원만 가능합니다.");
 			return;
 		}
 		if (buyAmount==0) {

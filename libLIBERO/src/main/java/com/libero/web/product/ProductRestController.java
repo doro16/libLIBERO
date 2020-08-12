@@ -225,6 +225,41 @@ public class ProductRestController {
 							
 							return obj.toJSONString();
 			}//end addReview
+					
+					
+					//리뷰 수정
+					@RequestMapping(value="json/updateReview", method = RequestMethod.POST)
+					public String updateReview(HttpSession session, String reviewContent, String userId, int starRate, int buyNo) throws Exception {
+							
+						System.out.println("/product/addReview : POST");
+						//User user = (User)session.getAttribute("user");
+						//String userId = user.getUserId();
+						System.out.println("아이디 : "+userId);
+						System.out.println("별점 : "+starRate);
+						System.out.println("내용 : "+reviewContent);
+						System.out.println("buyNo"+buyNo);
+						
+							
+							HashMap <String, Object> hashMap = new HashMap<String, Object>();
+							
+							hashMap.put("userId", userId);
+							hashMap.put("buyNo", buyNo);
+							hashMap.put("starRate", starRate);
+							hashMap.put("reviewContent", reviewContent);
+							productService.updateReview(hashMap);
+							
+							
+							//return obj.toJSONString();
+							JSONObject obj = new JSONObject();
+							String message = "리뷰가 수정";
+							obj.put("message", message);
+							
+							return obj.toJSONString();
+			}//end addReview		
+					
+					
+					
+					
 			
 			public String fileUpload(MultipartHttpServletRequest request) throws Exception{
 				

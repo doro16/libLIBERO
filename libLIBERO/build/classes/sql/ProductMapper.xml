@@ -266,7 +266,7 @@
 	
 	<select id="getWishList" parameterType="string" resultMap="productSelectMap">
 	
-					SELECT p.prod_name, p.prod_type, p.retail_price, p.prod_no, p.creator, p.author
+					SELECT p.prod_name, p.prod_type, p.retail_price, p.prod_no, p.creator, p.author, p.prod_thumbnail
 					FROM product p 
 					INNER JOIN wish w 
 					ON p.prod_no = w.prod_no AND user_id= #{userId}
@@ -355,9 +355,15 @@
 					WHERE buy_no = #{buyNo}
 	</update>
 	
+	<update id="updateReview" parameterType="hashMap">
+					UPDATE review
+					SET review_content = #{reviewContent}, star_rate = #{starRate}			
+					WHERE buy_no = #{buyNo}
+	</update>
+	
 	<select id="getReview"	parameterType="hashMap"	resultMap="reviewSelectMap">
 				SELECT * FROM(
-							SELECT r.review_no, r.user_id, r.buy_no, r.review_name, r.review_content, r.review_image, r.star_rate, r.reg_date, u.nickname
+							SELECT r.review_no, r.user_id, r.buy_no, r.review_name, r.review_content, r.review_image, r.star_rate, r.reg_date, u.nickname, u.profile
 							FROM review r
 							INNER JOIN user u
 							ON r.user_id = u.user_id
