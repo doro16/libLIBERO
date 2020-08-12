@@ -91,9 +91,18 @@ public class UserController {
 		
 		System.out.println("/user/login : POST");
 		//Business Logic
+		ModelAndView modelAndView = new ModelAndView();
+		if(user.getPassword().isEmpty()) {
+			
+			modelAndView.setViewName("redirect:/user/login");
+			return modelAndView;
+		}else if(user.getUserId().isEmpty()) {
+			modelAndView.setViewName("redirect:/user/login");
+			return modelAndView;
+		}else {
 		User dbUser=userService.getUser(user.getUserId());
 		
-		ModelAndView modelAndView = new ModelAndView();
+		
 		
 		if( user.getPassword().equals(dbUser.getPassword()) && dbUser.getUserCode() == 1){
 			session.setAttribute("user", dbUser);
@@ -105,6 +114,7 @@ public class UserController {
 		modelAndView.setViewName("redirect:/user/login");
 		}
 		return modelAndView;
+		}
 	}
 	
 	@RequestMapping( value="logout", method=RequestMethod.GET )
