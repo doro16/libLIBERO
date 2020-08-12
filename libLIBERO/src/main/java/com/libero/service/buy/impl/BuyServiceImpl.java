@@ -102,11 +102,13 @@ public class BuyServiceImpl implements BuyService{
 		for(int i=0;i<buyList.size();i++) {
 			Buy buy = new Buy();
 			Product prod = new Product();
+			Pay pay = new Pay();
 			buy = (Buy)buyList.get(i);
 			buy.getProdNo();
 			
 			System.out.println("======================buyNO,id\n\n\n\n"+buy.getBuyerId()+"\n"+buy.getBuyNo()+"\n\n\n=======================");
 			prod = productDao.getProduct(buy.getProdNo());
+			prod.setDeliveryStatus(buy.getDeliveryStatus());
 			prod.setBuyNo(buy.getBuyNo());
 			//System.out.println("======================\n\n\n\n"+prod+"\n\n\n=======================");
 			prod.setBuyAmount(buy.getBuyAmount());
