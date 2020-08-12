@@ -156,34 +156,35 @@ public class UserController {
 			
 			//user.setProfile(profile);
 			ModelAndView mdv = new ModelAndView();
-			for (MultipartFile multipartFile : file) {
+			if (!file.isEmpty()) {
+				for (MultipartFile multipartFile : file) {
+					
+					System.out.println(multipartFile.getOriginalFilename());
+					
+					String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
+					String extension=originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+					
+					String fileRoot = "C:/Users/user/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
+					String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+					
+					File f =new File(fileRoot+savedFileName);
+					
+					multipartFile.transferTo(f);
+					System.out.println(" ---------------------------------------");
+					System.out.println(f.getName());
+					System.out.println(" ---------------------------------------");
 				
-				System.out.println(multipartFile.getOriginalFilename());
-				
-				String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
-				String extension=originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-				
-				String fileRoot = "C:/Users/user/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
-				String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
-				
-				File f =new File(fileRoot+savedFileName);
-				
-				multipartFile.transferTo(f);
-				System.out.println(" ---------------------------------------");
-				System.out.println(f.getName());
-				System.out.println(" ---------------------------------------");
-			
-				user.setProfile(f.getName());
+					user.setProfile(f.getName());
+				}
 			}
-				
-				userService.addUser(user);
-				System.out.println("\n\n\n ---------------------------------------");
-				System.out.println(hashtagName);
-				System.out.println(" ---------------------------------------\n\n\n");
-				System.out.println("");
-				
-				
-				userService.addHashtag(user.getUserId(),hashtagName);
+			userService.addUser(user);
+			System.out.println("\n\n\n ---------------------------------------");
+			System.out.println(hashtagName);
+			System.out.println(" ---------------------------------------\n\n\n");
+			System.out.println("");
+			
+			
+			userService.addHashtag(user.getUserId(),hashtagName);
 		//File Upload End
 		
 		
