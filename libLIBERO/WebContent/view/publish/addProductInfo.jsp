@@ -583,7 +583,7 @@
 						return;
 					}
 				}else {
-					if ($("input[name='file']").val()==null) {
+					if (!$("input[name='imgFile']").val()) {
 						Swal.fire({
 							  icon: 'error',
 							  text: '표지를 업로드해주세요.'

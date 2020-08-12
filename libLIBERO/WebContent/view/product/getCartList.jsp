@@ -9,6 +9,15 @@
 <title>Insert title here</title>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
 	<link rel="stylesheet" href="../resources/css/common.css">
+	<style type="text/css">
+		.removeButton {
+			border-radius: 50%;
+			padding-left: 10px;
+			padding-right: 10px;
+			padding-top: 5px;
+			padding-bottom: 5px;
+		}
+	</style>
 </head>
 <body>
 		<!-- ToolBar Start /////////////////////////////////////-->
@@ -115,7 +124,7 @@
             </td>
             <td style="padding-bottom : 25px;">
               <!-- <button type="button" class="removeButton btn btn-brown" data-toggle="tooltip" data-placement="top" title="Remove item" name="buyAmount${i}" id="button${i}" value="${cartList.prodNo}">X </button> --> 
-               <button type="button" class="removeButton btn btn-sm btn-brown" data-toggle="tooltip" data-placement="top" title="Remove item" name="buyAmount${i}" id="button${i}" value="${cartList.prodNo}">X</button>
+               <button type="button" class="removeButton btn btn-brown" data-toggle="tooltip" data-placement="top" title="Remove item" name="buyAmount${i}" id="button${i}" value="${cartList.prodNo}"><i class="fas fa-times"></i></button>
               <input type="hidden" class="eachPrice" id="eachPrice${i}" name="eachPrice${i}"  value="${cartList.buyAmount * cartList.retailPrice}">
               <input type="hidden" class="prodNo" id="prodNo${i}" name="prodNo${i}" value="${cartList.prodNo}">
              

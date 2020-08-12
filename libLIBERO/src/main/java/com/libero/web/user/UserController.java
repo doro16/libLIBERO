@@ -112,6 +112,10 @@ public class UserController {
 			} else if (dbUser.getRole().contentEquals("f")) {
 				modelAndView.setViewName("redirect:/buy/getFactoryBuyList");
 			}
+		} else if (!user.getPassword().equals(dbUser.getPassword())&& dbUser.getUserCode() == 1) {
+			modelAndView.addObject("message","wrong");
+			modelAndView.setViewName("forward:/view/user/loginView.jsp");
+			return modelAndView;
 		} else {
 			modelAndView.addObject("message","right");
 		
