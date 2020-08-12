@@ -300,7 +300,7 @@ public class ProductController{
 						List<String> reviewCut = new ArrayList<String>();
 						
 						for(int i = 0 ; i<review.size() ; i++) {
-							String reviewContentCut = (review.get(i).getReviewContent()).substring(0, 15);
+							//String reviewContentCut = (review.get(i).getReviewContent()).substring(0, 15);
 							//System.out.println(reviewContentCut);
 							//reviewCut.add(reviewContentCut);
 							//reviewCut.add(i, reviewContentCut);

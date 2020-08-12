@@ -179,7 +179,7 @@ public class PublishController {
 		
 		if (publish.getCoverSelect().contentEquals("fileUpload")) {
 			
-			if (files!=null) {
+			if (!files.isEmpty()) {
 				
 				multiFile(files, publish);
 			}
@@ -193,11 +193,11 @@ public class PublishController {
 			Graphics g2 = cover.getGraphics();
 			int width = thumbnail.getWidth();
 			int cWidth = cover.getWidth();
-			Font titleFont = new Font("경기천년제목 Light", Font.PLAIN, 30);
+			Font titleFont = new Font("경기천년제목 Light", Font.BOLD, 30);
 			Font nameFont = new Font("경기천년제목 Light", Font.PLAIN, 15);
 			FontRenderContext frc = new FontRenderContext(null,true,true);
 			Rectangle2D r = titleFont.getStringBounds(publish.getProdName(), frc); 
-			Rectangle2D r2 = titleFont.getStringBounds(publish.getAuthor(), frc); 
+			Rectangle2D r2 = nameFont.getStringBounds(publish.getAuthor(), frc); 
 			
 			//썸네일 합성
 			g.setColor(Color.black);
@@ -209,9 +209,9 @@ public class PublishController {
 				g.drawImage(logo, 300, 555, 130, 40, null);
 			}else if (publish.getImgType().contentEquals("icon")) {
 				g.setFont(titleFont); 
-				g.drawString(publish.getProdName(), (width/2)-(int)((r.getWidth())/2)+20, 330);
+				g.drawString(publish.getProdName(), (width/2)-(int)((r.getWidth())/2), 330);
 				g.setFont(nameFont); 
-				g.drawString(publish.getAuthor(), (width/2)-(int)((r2.getWidth())/2)+35, 350); 
+				g.drawString(publish.getAuthor(), (width/2)-(int)((r2.getWidth())/2), 350); 
 				g.drawImage(logo, 300, 580, 130, 40, null);
 			}else if (publish.getImgType().contentEquals("img")) {
 				g.setFont(titleFont); 
@@ -235,9 +235,9 @@ public class PublishController {
 				g2.drawImage(logo, 740, 555, 130, 40, null);
 			}else if (publish.getImgType().contentEquals("icon")) {
 				g2.setFont(titleFont); 
-				g2.drawString(publish.getProdName(), (cWidth/4)*3-(int)((r.getWidth())/2)-50, 330);
+				g2.drawString(publish.getProdName(), (cWidth/4)*3-(int)((r.getWidth())/2), 330);
 				g2.setFont(nameFont); 
-				g2.drawString(publish.getAuthor(), (cWidth/4)*3-(int)((r2.getWidth())/2)+25, 350); 
+				g2.drawString(publish.getAuthor(), (cWidth/4)*3-(int)((r2.getWidth())/2), 350); 
 				g2.drawImage(logo, 740, 555, 130, 40, null);
 			}else if (publish.getImgType().contentEquals("img")) {
 				g2.setFont(titleFont); 
@@ -335,7 +335,7 @@ public class PublishController {
 		
 		
 		//File Upload Start
-		if (files!=null) {
+		if (!files.isEmpty()) {
 			
 			multiFile(files, publish);
 		}
@@ -371,7 +371,7 @@ public class PublishController {
 		System.out.println("/publish/updateProduct : POST");
 		
 		//File Upload Start
-		if (files!=null) {
+		if (!files.isEmpty()) {
 			
 			multiFile(files, publish);
 		}

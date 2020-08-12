@@ -222,7 +222,7 @@
     		return;
 		}
     	
-    	if ($("input[name='prodName']").val()==null) {
+    	if ($("input[name='prodName']").val()=="") {
     		Swal.fire({
 				  icon: 'error',
 				  text: '상품명을 입력해주세요.'
@@ -230,11 +230,12 @@
     		return;
 		}
     	
-    	if ($("input[name='retailPrice']").val()==null) {
+    	if ($("input[name='retailPrice']").val()=="") {
     		Swal.fire({
 				  icon: 'error',
 				  text: '가격을 입력해주세요.'
 				});
+    		return;
 		}
     	
     	
