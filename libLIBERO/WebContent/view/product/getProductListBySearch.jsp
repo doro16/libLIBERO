@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
+	<link rel="stylesheet" href="../resources/css/common.css">
+	
 
 <style>
 
@@ -112,7 +115,7 @@
               
              	<h6><a href="/libero/product/getProduct/${product.prodNo}">${product.prodName}</a></h6>
                 <h6>${product.author}</h6>
-             	<h6>${product.retailPrice}원</h6>
+             	<h6>￦<fmt:formatNumber value="${product.retailPrice}" pattern="#,###.###" type="currency"/>원</h6>
              
              
            		 <!--	<div class="card-text text-uppercase mb-1" style="padding:0px; margin:0px;"><a href="/libero/product/getProduct/${book.prodNo}">${book.prodName}</a></div>

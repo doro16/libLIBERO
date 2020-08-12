@@ -48,6 +48,8 @@ public interface ProductService {
 	
 	public int getReviewCount(int prodNo) throws Exception;
 	
+	public void updateReview(HashMap<String, Object> hashMap);
+	
 	
 	
 	

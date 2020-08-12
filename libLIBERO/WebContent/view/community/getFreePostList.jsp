@@ -19,7 +19,7 @@
 		}  
 
 		$(function() {
-			 $( "fas.fa-search" ).on("click" , function() {
+			 $( ".fas.fa-search" ).on("click" , function() {
 					fncGetUserList(1);
 			 });
 			 
@@ -80,7 +80,11 @@
                             
                             <li style="max-height: 183x;  overflow: hidden;" onclick="location.href='/libero/community/getPost?postNo=${post.postNo}&menu=f' ">
                                 <a class="link_news before_thumb">
-                				<strong class="tit_news">${ i }&nbsp;&nbsp;${post.postName}<span style="color: #FF7171;">&nbsp;[${post.commentCount}]</span></strong>
+                				<strong class="tit_news">${ i }&nbsp;&nbsp;${post.postName}
+                				<c:if test = "${post.commentCount != 0}">
+                				<span style="color: #FF7171;">&nbsp;[${post.commentCount}]</span>
+                				</c:if>
+                				</strong>
              					</a>
              					 
              					 <a class="link_thumb">
@@ -94,12 +98,12 @@
              					
              					
                                 </a>
-                                <div class="txt_news">
+                                <div class="txt_news" style="max-height: 87px; overflow: hidden;">
                                 ${post.postContent}
                                 </div>
 
                                 <span class="txt_date">${post.user.nickname}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <fmt:formatDate value="${post.regDate}" pattern="yyyy.MM.dd" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <fmt:formatDate value="${post.regDate}" pattern="yyyy-MM-dd HH:mm:ss" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <i class="far fa-eye">&nbsp;&nbsp;${post.viewCount}</i>
                                 </span>
                             </li>

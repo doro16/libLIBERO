@@ -25,15 +25,20 @@
 		<section class="wrap_content">
            <div class="tit_board">
            
+           	   <p style="font-size: 14px; margin-bottom:3px;">
+           	   <c:if test="${post.postType == 'f'}">자유게시판</c:if>
+           	   <c:if test="${post.postType == 'q'}">문의하기</c:if>
+           	   <c:if test="${post.postType == 'n'}">공지사항</c:if>
+           	   </p>
                <h4>
-               <c:if test="${post.qnaRegType == 'p'}">출판하기</c:if>
-               <c:if test="${post.qnaRegType == 'b'}">구매하기</c:if>
-               <c:if test="${post.qnaRegType == 'u'}">이용문의</c:if>
-               <c:if test="${post.qnaRegType == 'e'}">기타</c:if>
+               <c:if test="${post.qnaRegType == 'p'}">출판하기&nbsp;| &nbsp;</c:if>
+               <c:if test="${post.qnaRegType == 'b'}">구매하기&nbsp;| &nbsp;</c:if>
+               <c:if test="${post.qnaRegType == 'u'}">이용문의&nbsp;| &nbsp;</c:if>
+               <c:if test="${post.qnaRegType == 'e'}">기타&nbsp;| &nbsp;</c:if>
                
-               &nbsp;| &nbsp;${post.postName}</h4>
-               <img src='../resources/images/user/fileUpload/${post.user.profile}' style='height: 50px; width: 50px; float: left; margin:10px 10px 10px 0;'>
-               <span style="margin:6px 0 -18px 0; font-size: 16px; font-weight:bold;">${post.user.nickname}</span>
+               ${post.postName}</h4>
+               <img src='../resources/images/user/fileUpload/${post.user.profile}' style='height: 50px; width: 50px; float: left; margin:5px 10px 10px 0;'>
+               <span style="margin:0 0 -18px 0; font-size: 16px; font-weight:bold;">${post.user.nickname}</span>
                <span style="float:left;"> ${post.regDate} &nbsp;&nbsp;조회 &nbsp;${post.viewCount}&nbsp;&nbsp;댓글 &nbsp;${post.commentCount}</span>
          	   <div style="float:right;">
 	           <c:if test="${sessionScope.user.userId == post.user.userId}">
@@ -57,7 +62,7 @@
                <p>${post.postContent}</p>
            </div>
 		</section>
-		<br><br><br><br><br>
+		<br><br><br>
 
 		<button type="button" class="btn btn-outline-brown" style="margin-top:-30px; float: right;">목록으로</button>
 		<jsp:include page="comment.jsp"></jsp:include>
@@ -73,6 +78,7 @@
 		
 		
 		$(function() {
+			
 			$("button:contains('수정')").on("click", function(){
 				self.location = "/libero/community/updatePost?postNo=${post.postNo}"
 			})	
@@ -80,7 +86,11 @@
 			$("button:contains('목록')").on("click", function(){
 				
 				var menu = $("#menu").val();
-				self.location = "/libero/community/getPostList?menu="+menu; 
+				if(menu!='q'){
+					self.location = "/libero/community/getPostList?menu="+menu; 
+				} else if (menu=='q'){
+					self.location = "/libero/user/getUserActivityList?menu="+menu; 
+				}
 			})
 			
 		});

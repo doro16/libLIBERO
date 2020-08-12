@@ -183,9 +183,13 @@
 	
 	function login() {
 		$("form").attr("method" , "POST").attr("action" , "/libero/user/login").submit();
+
 		
 			
 		connect();
+
+		//connect();
+
 	}
 	
 	 //=======================Web Socket Start=========================		

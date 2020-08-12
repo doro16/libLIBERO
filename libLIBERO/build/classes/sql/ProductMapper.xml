@@ -266,7 +266,7 @@
 	
 	<select id="getWishList" parameterType="string" resultMap="productSelectMap">
 	
-					SELECT p.prod_name, p.prod_type, p.retail_price, p.prod_no, p.creator, p.author
+					SELECT p.prod_name, p.prod_type, p.retail_price, p.prod_no, p.creator, p.author, p.prod_thumbnail
 					FROM product p 
 					INNER JOIN wish w 
 					ON p.prod_no = w.prod_no AND user_id= #{userId}
@@ -352,6 +352,12 @@
 	<update id="addReviewImage" parameterType="hashMap">
 					UPDATE review
 					SET review_image = #{reviewImage}			
+					WHERE buy_no = #{buyNo}
+	</update>
+	
+	<update id="updateReview" parameterType="hashMap">
+					UPDATE review
+					SET review_content = #{reviewContent}, star_rate = #{starRate}			
 					WHERE buy_no = #{buyNo}
 	</update>
 	

@@ -28,7 +28,9 @@
 	   		<div class="row col-lg-12" style="margin: 10px">
 	   		<c:if test="${!empty cashCode && cashCode eq 'bf'}">
 	   			<h1>현재 정산 전</h1> &nbsp;&nbsp;
+	   			<c:if test="${!empty cash}">
 	   			<button type="button" class="btn btn-outline-warning waves-effect" id="reqWithdraw" name="reqWithdraw"><i class="fas fa-comments-dollar mr-1"></i> 정산 신청</button>
+	   			</c:if>
 	   		</c:if>
 	   		<c:if test="${!empty cashCode && cashCode eq 'af'}">
 	   			<h1>정산 신청 완료</h1><br/>
@@ -91,7 +93,7 @@
         
          <div class="md-form mb-4">
           <i class="fas fa-pen prefix grey-text"></i>
-          <input type="text" id="withDraw" name="withDraw" class="form-control validate">
+          <input type="text" id="cashWithdraw" name="cashWithdraw" class="form-control validate">
           <label data-error="wrong" data-success="right" for="defaultForm-pass">정산 금액 입력</label>
         </div>
 
@@ -137,9 +139,9 @@
 	</c:forEach>
 	
 	$(function(){
-		
 		var cashMessage = $("#cashMessage").val();
-		if(cashMessage ==  '0'){
+		
+		if(cashMessage == '0' || cashMessage == "0"){
 			
 			Swal.fire({
 				  icon: 'error',
@@ -162,7 +164,7 @@
 		$("#inputWithdraw").on("click", function(){
 			var bank = $("#bank option:selected").val();
 			var accNum = $("#accNum").val();
-			var withDraw = $("#withDraw").val();				
+			var cashWithdraw = $("#cashWithdraw").val();				
 
 			if(bank == ""){
 				alert("은행을 선택해주세요.");
@@ -172,12 +174,12 @@
 				alert("계좌번호를 입력해주세요.")
 				return;
 			}
-			if(withDraw == ""){
+			if(cashWithdraw == ""){
 				alert("정산 금액을 입력해주세요.")
 				return;
 			}
 			
-			window.location.href = "/libero/user/requestCash/"+withDraw;
+			window.location.href = "/libero/user/requestCash/"+cashWithdraw;
 		})
 	})
 	</script>
