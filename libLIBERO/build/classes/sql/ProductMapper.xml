@@ -22,6 +22,7 @@
 		<result property="discountCode"	 column="discount_code"		jdbcType="VARCHAR" />
 		<result property="bookPage"		 column="book_page"			jdbcType="INTEGER" />
 		<result property="printPrice"	 column="print_price"		jdbcType="INTEGER" />
+		<result property="factoryId"	 column="factory_id"		jdbcType="VARCHAR" />
 		<result property="creator"		 column="creator"			jdbcType="VARCHAR" />
 		<result property="colorType"	 column="color_type"		jdbcType="VARCHAR" />
 		<result property="sizeType"		 column="size_type"			jdbcType="VARCHAR" />
