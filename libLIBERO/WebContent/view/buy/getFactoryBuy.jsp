@@ -34,6 +34,11 @@ function relocate(prodNo){
 <div class="col">
  <c:set var="i" value="0" />
 		  <c:forEach var="product" items="${product}">
+		  <c:if test="${empty product  }">
+		  <div class="card border-light mb-3">
+		  <img src="/libero/common/nulla">
+		  </div>
+		  </c:if>
 			<c:set var="i" value="${ i+1 }"/>
 			<div class="card border-light mb-3" style="margin-bottom: 20px">
 				<div class="card-body">
