@@ -73,6 +73,7 @@
 	<jsp:include page="addReport.jsp"></jsp:include>
 
 </form>
+<jsp:include page="../../common/footer.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
 		

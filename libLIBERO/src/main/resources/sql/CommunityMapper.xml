@@ -92,7 +92,7 @@
 
 	<select id="getComment" parameterType="int" resultMap="commentSelectMap" >
 		SELECT *
-		FROM COMMENT c, user u, post p
+		FROM comment c, user u, post p
 		WHERE c.user_id = u.user_id 
 		AND c.post_no = p.post_no
 		AND c.comment_no = #{commentNo}
@@ -104,7 +104,7 @@
 		    SELECT inner_table.*
 		    FROM (
 		        SELECT p.post_no, u.user_id, u.nickname, u.profile, c.comment_no, c.comment_content, c.reg_date
-		        FROM COMMENT c, user u, post p
+		        FROM comment c, user u, post p
 		        WHERE c.user_id = u.user_id 
 		        	  AND c.post_no = p.post_no
 		        	  AND p.post_no = #{postNo}
@@ -118,7 +118,7 @@
  		SELECT COUNT(*)
  		FROM (
  			SELECT p.post_no, u.user_id, u.nickname, u.profile, c.comment_no, c.comment_content, c.reg_date
-	        FROM COMMENT c, user u, post p
+	        FROM comment c, user u, post p
 	        WHERE c.user_id = u.user_id 
 	        	  AND c.post_no = p.post_no
 	        	  AND p.post_no = #{postNo}
@@ -158,7 +158,7 @@
 	
 	<insert id="addComment"	parameterType="comment">
 		INSERT INTO
-		COMMENT(POST_NO, user_id, comment_content, parent_comment_no)
+		comment(post_no, user_id, comment_content, parent_comment_no)
 		VALUES(
 				#{postNo:NUMERIC},
 				#{user.userId:VARCHAR},
@@ -168,20 +168,20 @@
 	</insert>
 
 	<update id="updateComment"	parameterType="comment">
-		UPDATE COMMENT
+		UPDATE comment
 		SET comment_content=#{commentContent}
 		WHERE comment_no = #{commentNo:NUMERIC}
 	</update>
 	
 	<delete id="deleteComment" parameterType="int" >
 		DELETE
-		FROM COMMENT
+		FROM comment
 		WHERE comment_no = #{commentNo}
 	</delete>
 	
 	<delete id="deleteComment2" parameterType="int" >
 		DELETE
-		FROM COMMENT
+		FROM comment
 		WHERE post_no = #{postNo}
 	</delete>
 

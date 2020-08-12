@@ -120,6 +120,7 @@
         
     </div>
 <jsp:include page="../../common/pageNavigator_new.jsp"/>
+<jsp:include page="../../common/footer.jsp"></jsp:include>
 </body>
 
 </html>
