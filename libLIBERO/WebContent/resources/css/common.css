@@ -6,13 +6,21 @@
 }
             
     
-	body{
-		padding-top : 90px;
-		font-family: 'GyeonggiBatang';
-	}
-	
-	.hrColor {
-		border-color: #8DCCBF;
-	}
+body{
+	padding-top : 90px;
+	font-family: 'GyeonggiBatang';
+}
+
+.hrColor {
+	border-color: #8DCCBF;
+}
+
+a:link {
+	color: #000000;
+}
+
+a:visited {
+	color: #000000;
+}
 	
 	

@@ -99,7 +99,7 @@
 			#preview #liberoImg {
 				position: absolute;
 				bottom:5px;
-				right:0px;
+				right:5px;
 				background-image: url("../resources/images/common/logo.png");
 				background-size: cover;
 				width: 80px; height: 20px;
@@ -369,10 +369,11 @@
 					$("#titlePreview").css("top","200px");
 					$("#authorPreview").css("top","220px");
 				}else if (type=="img") {
-					$("#titlePreview").css("top","265px");
+					$("#titlePreview").css("top","278px");
 					$("#authorPreview").css("top","280px");
 				}
-				
+				addTitle();
+				addAuthor();
 			});
 			
 			$("input[name='imgSelect']").on("click", function(){
@@ -416,7 +417,7 @@
 			if (type!="img") {
 				var leftWidth = Math.ceil((divWidth/4)*3-(titleWidth/2)+5);
 			} else {
-				var leftWidth = Math.ceil((divWidth/2)+20);
+				var leftWidth = Math.ceil((divWidth/2)+30);
 			}
 			
 			$("#titlePreview").css("left",leftWidth);

@@ -17,5 +17,5 @@ public class Buy implements Serializable{
 	// 상품의 구매 상태 (장바구니 인지 결제 완료인지.)
 	private String payNo;
 	private String prodType;
-
+	private int deliveryStatus;
 }

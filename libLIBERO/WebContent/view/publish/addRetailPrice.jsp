@@ -167,7 +167,7 @@
 			  	<!-- Grid row -->
 			
 			  	<!-- Button trigger modal -->
-				<button type="button"  align="center" class="btn btn-info brown lighten-1 btn-block" data-toggle="modal" data-target="#centralModal" onclick="addModalContent()">
+				<button type="button"  align="center" class="btn btn-info brown lighten-1 btn-block" data-toggle="modal" onclick="addModalContent()">
 				  	최종 확인 및 등록
 				</button>
 				
@@ -376,8 +376,15 @@
 		}
 		
 		function addModalContent() {
+			var price = removeCommas($("#retailPrice").val());
 			var discount = $("input[name='discountCode']:checked").val();
 			var thumbnail = "${prod.prodThumbnail}";
+			var finalPrice = $("#finalPrice").html();
+			console.log(finalPrice);
+			finalPrice = removeCommas(finalPrice);
+			//finalPrice = Number(finalPrice.slice(0,-1));
+			console.log(finalPrice);
+			
 			if (discount=="x") {
 				$("#modalDiscount").html(": 할인제외");
 			}else {
@@ -388,6 +395,22 @@
 				$("#modalImg").attr("src","../resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}");
 			}else {
 				$("#modalImg").attr("src","../resources/images/publish/fileUpload/coverFile/${prod.coverFile}");
+			}
+			
+			if (price == "") {
+				Swal.fire({
+					  icon: 'error',
+					  text: '가격을 등록해주세요.'
+					});
+	    		return;
+			} else if (0>finalPrice) {
+				Swal.fire({
+					  icon: 'error',
+					  text: '수익금이 마이너스입니다. 가격을 높여주세요.'
+					});
+	    		return;
+			}else {
+				$("#centralModal").modal("show");
 			}
 			
 		}
@@ -413,22 +436,7 @@
 		
 		function addRetailPrice() {
 			var price = removeCommas($("#retailPrice").val());
-			var finalPrice = $("#finalPrice").html();
-			finalPrice = Number(finalPrice.slice(0,-1));
 			
-			if (price == "") {
-				alert("가격을 입력해주세요");
-				return;
-			}
-			
-			if (0>finalPrice) {
-				Swal.fire({
-					  icon: 'error',
-					  text: '수익금이 마이너스입니다. 가격을 높여주세요.'
-					});
-	    		return;
-			}
-
 			//sendMsg();			
 			$("input[name='retailPrice']").val(price);
 			$("form").attr("method" , "POST").attr("action" , "/libero/publish/addRetailPrice").submit();

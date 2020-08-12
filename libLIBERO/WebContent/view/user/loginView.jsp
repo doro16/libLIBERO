@@ -13,6 +13,7 @@
 				margin:0; 
 				padding:0; 
 				width:100%; height:100%;
+				font-family: 'GyeonggiBatang';
 			}
         	.box { 
         		width:100%; height:100%; 
@@ -37,11 +38,11 @@
 					  	<form>
 						    <h6 class="card-text">E-mail ID</h6>
 						    <div class="md-form">
-						    	<input type="text" class="form-control" name="userId">
+						    	<input type="text" class="form-control" name="userId" id="userId">
 						    </div>
 						    <h6 class="card-text">PASSWORD</h6>
 						    <div class="md-form">
-						    	<input type="password" class="form-control" name="password">
+						    	<input type="password" class="form-control" name="password" id="password">
 						    </div>
 						    <div align="right">
 							    <button type="button" class="btn btn-cyan brown lighten-1" onclick="login()">로그인</button>
@@ -182,10 +183,23 @@
 	</body>
 	
 	<script type="text/javascript">
+$(function(){
 	
+	if('${message}' == 'wrong')
+	swal('아이디 혹은 비밀번호를 확인해 주세요',"","error");
+})
 	function login() {
+		if($("#userId").val() ==''){
+			swal("아이디를 입력해 주세요","아이디 미입력","error");
+			return;
+		}else if($("#password").val() == ''){
+			swal("비밀번호를 입력해 주세요","비밀번호 미입력","error");
+			return;
+		}
+		
+		
 		$("form").attr("method" , "POST").attr("action" , "/libero/user/login").submit();
-
+	
 		
 			
 		connect();
