@@ -1,18 +1,21 @@
 package com.libero.web.user;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -92,19 +95,15 @@ public class UserController {
 		System.out.println("/user/login : POST");
 		//Business Logic
 		ModelAndView modelAndView = new ModelAndView();
-		if(user.getPassword().isEmpty()) {
-			
-			modelAndView.setViewName("redirect:/user/login");
-			return modelAndView;
-		}else if(user.getUserId().isEmpty()) {
-			modelAndView.setViewName("redirect:/user/login");
-			return modelAndView;
-		}else {
+		modelAndView.addObject("message","right");
+		
 		User dbUser=userService.getUser(user.getUserId());
-		
-		
-		
-		if( user.getPassword().equals(dbUser.getPassword()) && dbUser.getUserCode() == 1){
+		if(dbUser ==null ||dbUser.equals(null)) {
+			modelAndView.addObject("message","wrong");
+			modelAndView.setViewName("forward:/view/user/loginView.jsp");
+			return modelAndView;
+		}else if( user.getPassword().equals(dbUser.getPassword()) && dbUser.getUserCode() == 1){
+			modelAndView.addObject("message","right");
 			session.setAttribute("user", dbUser);
 			if (dbUser.getRole().contentEquals("u")) {
 				modelAndView.setViewName("redirect:/");
@@ -114,6 +113,7 @@ public class UserController {
 				modelAndView.setViewName("redirect:/buy/getFactoryBuyList");
 			}
 		} else {
+			modelAndView.addObject("message","right");
 		
 		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("user"));
 		
@@ -121,7 +121,7 @@ public class UserController {
 		}
 		return modelAndView;
 		}
-	}
+//	}
 	
 	@RequestMapping( value="logout", method=RequestMethod.GET )
 	public String logout(HttpSession session ) throws Exception{
@@ -290,9 +290,7 @@ public class UserController {
 	public ModelAndView getAdminCashList(HttpSession session, Search search) throws Exception{
 		
 		System.out.println("/user/getUserList : GET, POST"+search.getCurrentPage());
-		
 		String role = ((User)session.getAttribute("user")).getRole();
-		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		if (role.contentEquals("a")) {

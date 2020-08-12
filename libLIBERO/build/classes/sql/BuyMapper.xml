@@ -15,6 +15,7 @@
 		<result property="prodNo" column ="prod_no" jdbcType="INTEGER"/>
 		<result property="payNo" column="pay_no" jdbcType="VARCHAR"/>
 		<result property="prodType" column="prod_type" jdbcType="VARCHAR"/>
+		<result property="deliveryStatus" column="delivery_code" jdbcType="SMALLINT"/>
 	</resultMap>
 	
 	
@@ -31,7 +32,6 @@
 		<result property="payStatus" column="pay_code" jdbcType="VARCHAR"/>
 		<result property="payDate" column="pay_date" jdbcType="DATE"/>
 		<result property="buyerId" column="user_id" jdbcType="VARCHAR"/>
-		
 	</resultMap> 
 	
 
@@ -74,7 +74,8 @@
 			buy.pay_no,
 			buy.prod_type,
 			buy.buy_amount,
-			buy.user_id
+			buy.user_id,
+			pay.delivery_code
 			FROM pay , buy
 		WHERE pay.pay_no=#{payNo}
 			AND pay.pay_no = buy.pay_no
