@@ -94,6 +94,7 @@
                <button type="button" class="removeButton btn btn-sm btn-brown" data-toggle="tooltip" data-placement="top" title="Remove item" name="buyAmount${i}" id="button${i}" value="${cartList.prodNo}">X</button>
               <input type="hidden" class="eachPrice" id="eachPrice${i}" name="eachPrice${i}"  value="${cartList.buyAmount * cartList.retailPrice}">
               <input type="hidden" class="prodNo" id="prodNo${i}" name="prodNo${i}" value="${cartList.prodNo}">
+              <input type="hidden" class="factory" id="factory${i}" name="factory${i}" value="${cartList.factoryId}">
              
             </td>
           </tr>
@@ -108,9 +109,9 @@
             <td colspan="3"><h4 class="mt-2">총액</h4></td>
           </tr>
             <tr>
-            <td colspan="3" align="center"><h5 class="mt-2">주문금액</h5></td>
-            <td colspan="3"><h5 class="mt-2">배송비</h5></td>
-            <td colspan="3"><h5 class="mt-2">합계 : <fmt:formatNumber value="${totalPrice}" pattern="#,###.###" type="currency"/>원</h2></h5></td>
+            <td colspan="3" align="center"><h5 class="mt-2" id="productTotal"><fmt:formatNumber value="${totalPrice}" pattern="#,###.###" type="currency"/>원</h5></td>
+            <td colspan="3"><h5 class="mt-2" id="fee"></h5></td>
+            <td colspan="3"><h5 class="mt-2" id="finalTotal"></h5></td>
             <div align="right"><button type="button" id="button" class="btn btn-brown lighten-4" >구매</button></div>
           </tr>
          
@@ -125,7 +126,8 @@
       
       			<form>
 					<input type="hidden" name="buyNoList" value="${buyNoList}">
-					<input type="hidden" id="actualPrice" name="actualPrice" value="${totalPrice}">
+					<input type="hidden" id="prodPrice" name="prodPrice" value="${totalPrice}">
+					<input type="hidden" id="actualPrice" name="actualPrice" value="">
 				</form>
       
       
@@ -163,24 +165,76 @@
     		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		}
 
-
-	
-// 		$(function() {
-// 			var total = 0;
+		//도서의 인쇄소에 따른 배송비 계산
+		function getDeliveryFee(){
 			
+			var k = $(".form-control:Last").attr("id"); //상품 리스트 갯수 추출
+			var kk = parseInt(k)+1;
+			console.log(kk);
+			console.log($("#factory"+1).val());
 			
-// 			$("input:checkbox").on("click", function(){
-// 				if($("input:checkbox").is(":checked")==true){
-// 					alert("dd")
-// 				var i = $(this).next().val();
-// 				alert(i)
+			var deliveryFee = 0;
+			var factory = new Array();
+			
+			for (var i=1; i<kk ; i++){
+				
+				var factoryId = $("#factory"+i).val();
+				console.log(factoryId)
+				factory.push(factoryId);
+			}
+			console.log(factory)
+			removeDuplicatesArray(factory);
+			var factoryCount = factory.length;
+			console.log("factory 갯수는");
+			console.log(factoryCount);
+			var Fee = factoryCount*2500;
+			console.log(Fee)
+			return Fee;
 
+		}
+		
+		function removeDuplicatesArray(arr) {
+	        var tempArr = [];
+	        for (var i = 0; i < arr.length; i++) {
+	            if (tempArr.length == 0) {
+	                tempArr.push(arr[i]);
+	            } else {
+	                var duplicatesFlag = true;
+	                for (var j = 0; j < tempArr.length; j++) {
+	                    if (tempArr[j] == arr[i]) {
+	                        duplicatesFlag = false;
+	                        break;
+	                    }
+	                }
+	                if (duplicatesFlag) {
+	                    tempArr.push(arr[i]);
+	                }
+	            }
+	        }
+	        return tempArr;
+	    }	
 
-// 				total = total + parseInt(i);
-// 				alert(total)
-// 				})	
-// 			})
-// 		})
+		
+		$(function(){
+			var fee = getDeliveryFee();
+			console.log("배송비??")
+			console.log(fee)			
+			var pTotal = $("#prodPrice").val();
+			var pTotal = parseInt(pTotal);
+			console.log(pTotal);
+			var finalTotal = fee+pTotal;
+			console.log("총액은");
+			console.log(finalTotal);
+			$("#actualPrice").val(finalTotal);
+			console.log("결제금액은");
+			console.log(actualPrice);
+			
+			var fee = numberConvert(fee);
+			var finalTotal = numberConvert(finalTotal);
+			$("#fee").html(fee+"원");
+			$("#finalTotal").html(finalTotal+"원");
+			
+		})
 
 		$(function() {
 			
@@ -222,17 +276,22 @@
 				}
 				//$("#totalPrice").html("총액 : "+totalPrice);
 				//$("#totalPrice").val(totalPrice);
-				$("#actualPrice").val(totalPrice);
-				var actual = $("#actualPrice").val();
-				var actualPrice = numberConvert(actual);
+				$("#prodPrice").val(totalPrice);
+				var prodPrice = totalPrice;
+				var fee = getDeliveryFee();
+				var actualPrice = prodPrice+fee; 
+				$("#actualPrice").val(actualPrice);
+					
+				var prodPrice =	numberConvert(prodPrice);
+				var fee =	numberConvert(fee);
+				var actualPrice =	numberConvert(actualPrice);
 				
-
-
-				//alert(actualPrice);
-				$("#total").html("합계 : "+actualPrice+"원");
+				$("#productTotal").html(prodPrice+"원");
+				$("#fee").html(fee+"원");
+				$("#finalTotal").html(actualPrice+"원");
 				
 				//var prodNo = $("#prodNo"+i).val();//for 문 때문에 i 변한듯 위에서 선언해야됨
-				alert(prodNo);
+				//alert(prodNo);
 				$.ajax({
 					url : "/libero/product/json/addCart",
 					type: "POST",
