@@ -33,6 +33,7 @@
         </form>
 
     </div>
+<jsp:include page="../../common/footer.jsp"></jsp:include>
 </body>
 
 <link href="/libero/resources/css/summernote/summernote-lite.css" rel="stylesheet">
