@@ -179,7 +179,7 @@ public class PublishController {
 		
 		if (publish.getCoverSelect().contentEquals("fileUpload")) {
 			
-			if (!files.isEmpty()) {
+			if (files!=null) {
 				
 				multiFile(files, publish);
 			}
@@ -325,7 +325,7 @@ public class PublishController {
 	}
 	
 	@RequestMapping(value = "addProduct", method = RequestMethod.POST)
-	public ModelAndView addProduct(HttpSession session, Publish publish, @RequestParam("imgFile")List<MultipartFile> files) throws Exception {
+	public ModelAndView addProduct(HttpSession session, Publish publish, @RequestParam(value="imgFile",required = false)List<MultipartFile> files) throws Exception {
 		
 		System.out.println("/publish/addProduct : POST");
 		
@@ -335,7 +335,7 @@ public class PublishController {
 		
 		
 		//File Upload Start
-		if (!files.isEmpty()) {
+		if (files!=null) {
 			
 			multiFile(files, publish);
 		}
@@ -371,7 +371,7 @@ public class PublishController {
 		System.out.println("/publish/updateProduct : POST");
 		
 		//File Upload Start
-		if (!files.isEmpty()) {
+		if (files!=null) {
 			
 			multiFile(files, publish);
 		}

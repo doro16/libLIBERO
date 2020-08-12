@@ -214,7 +214,7 @@
     
     function addProd() {
     	
-    	if ($("input[id='prodThumbnail']").val()==null) {
+    	if (!$("input[id='prodThumbnail']").val()) {
     		Swal.fire({
 				  icon: 'error',
 				  text: '상품 썸네일을 등록해주세요.'

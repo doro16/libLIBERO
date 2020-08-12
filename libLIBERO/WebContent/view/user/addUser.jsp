@@ -413,7 +413,7 @@
 					    <div class="btn btn-brown lighten-1 btn-sm float-right">
 					    	
 					      <span>Choose file</span>
-					      <input type="file" id="file" name="file" multiple/>
+					      <input type="file" id="file" name="file"/>
 					     
 					    </div>
 					  </div>

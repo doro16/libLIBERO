@@ -156,6 +156,7 @@ public class UserController {
 			
 			//user.setProfile(profile);
 			ModelAndView mdv = new ModelAndView();
+			System.out.println(file);
 			if (!file.isEmpty()) {
 				for (MultipartFile multipartFile : file) {
 					
