@@ -27,11 +27,7 @@
 			var reportCount = parseInt($("input[name='reportCount']").val());
 			var index = parseInt($("#reportSelect option:selected").val());
 			var prodPost =  new String("post");
-			alert("신고가 완료되었습니다.");
-			if (reportCount >= 2) {
-				alert("3회 이상 신고되어 해당 글이 숨겨집니다. \n관리자에게 문의하세요");
-			}
-			location.reload();
+			
 	
 		$.ajax({
 					url : "/libero/report/json/addReport",
@@ -48,7 +44,40 @@
 						"Content-Type" : "application/json"
 					},
 					success : function(JSONData, status) {
-	
+						
+						if (reportCount >= 2) {
+							swal({
+								  title: "신고하시겠습니까?",
+								  text: "해당 글은 3회 이상 신고되어, 게시판에서 숨겨집니다. ",
+								  icon: "warning",
+								  buttons: true,
+								  dangerMode: true,
+								})
+								.then((willDelete) => {
+								  if (willDelete) {
+								    swal("신고가 처리되었습니다.", {
+								      icon: "success",
+								    });
+								    setTimeout(function() {
+								    	self.location = "/libero/community/getPostList?menu=f";
+								    	}, 1000);
+								    
+								  } else {
+									  setTimeout(function() {
+											location.reload();
+									  }, 200);
+								  }
+								});
+							 
+						} else {
+							swal({
+								  title: "신고 완료",
+								  icon: "success",	
+								});
+							setTimeout(function() {
+								location.reload();
+						    	}, 1000);
+						}
 					}
 				});
 			}) //addPostReport
@@ -58,11 +87,7 @@
 				var reportCount = parseInt($("input[name='reportCount']").val());
 				var index = parseInt($("#reportSelect option:selected").val());
 				var prodPost =  new String("prod");
-				alert("신고가 완료되었습니다.");
-				if (reportCount >= 2) {
-					alert("3회 이상 신고되어 서점에서 도서가 숨겨집니다. \n관리자에게 문의하세요");
-				}
-				location.reload();
+
 			$.ajax({
 						url : "/libero/report/json/addReport",
 						method : "POST",
@@ -78,7 +103,40 @@
 							"Content-Type" : "application/json"
 						},
 						success : function(JSONData, status) {
-		
+							
+							if (reportCount >= 2) {
+								swal({
+									  title: "신고하시겠습니까?",
+									  text: "해당 도서는 3회 이상 신고되어, 서점에서 숨겨집니다. ",
+									  icon: "warning",
+									  buttons: true,
+									  dangerMode: true,
+									})
+									.then((willDelete) => {
+									  if (willDelete) {
+									    swal("신고가 처리되었습니다.", {
+									      icon: "success",
+									    });
+									    setTimeout(function() {
+									    	self.location = "/libero/product/getBookList";
+									    	}, 1000);
+									    
+									  } else {
+										  setTimeout(function() {
+												location.reload();
+										  }, 200);
+									  }
+									});
+								 
+							} else {
+								swal({
+									  title: "신고 완료",
+									  icon: "success",	
+									});
+								setTimeout(function() {
+									location.reload();
+							    	}, 1000);
+							}
 						}
 					});
 				}) //addProdReport	

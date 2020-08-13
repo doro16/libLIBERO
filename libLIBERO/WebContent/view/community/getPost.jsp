@@ -41,7 +41,7 @@
 		           	<button type="button" class="btn btn-brown btn-md">수정</button>
 				   	<a href="/libero/community/deletePost?postNo=${post.postNo}" class="btn btn-outline-brown btn-md" role="button" aria-pressed="true">삭제</a>	
 		       </c:if>
-		       <c:if test="${sessionScope.user.userId != post.user.userId}">     
+		       <c:if test="${sessionScope.user.userId != post.user.userId and post.postType == 'f' and post.user.role != 'a'}">     
 		       <button type="button" class="btn btn-brown btn-md" id="reportBtn" data-toggle="modal" data-target="#orangeModalSubscription">신고
 		       </button>
 		       </c:if>    
@@ -69,7 +69,7 @@
 <input type="hidden" id="userId" name="userId" value="${post.user.userId}"/>
 <input type="hidden" id="prodPost" name="prodPost" value="post"/>
 <input type="hidden" id="postType" name="postType" value="${post.postType}"/> 
-
+<input type="hidden" id="reportCount" name="reportCount" value="${post.reportCount}"/> 
 
 	<jsp:include page="addReport.jsp"></jsp:include>
 
@@ -89,9 +89,9 @@
 				
 				var postType = $("#postType").val();
 				if(postType!='q'){
-					self.location = "/libero/community/getPostList?menu="+menu; 
+					self.location = "/libero/community/getPostList?menu="+postType; 
 				} else if (postType=='q'){
-					self.location = "/libero/user/getUserActivityList?menu="+menu; 
+					self.location = "/libero/user/getUserActivityList?menu="+postType; 
 				}
 			})
 			

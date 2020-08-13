@@ -58,7 +58,7 @@ public class ReportRestController {
 	int pageSize;
 	
 	@RequestMapping(value="/json/addReport", method=RequestMethod.POST)
-	public void addReport(@RequestBody Map<String, Object> map2, Report report, HttpSession session) throws Exception{
+	public int addReport(@RequestBody Map<String, Object> map2, Report report, HttpSession session) throws Exception{
 		System.out.println("^^^^^^^^"+ "/report/json/addReport : POST");
 		User user = ((User)session.getAttribute("user"));
 		String prodPost = ((String)map2.get("prodPost"));
@@ -79,7 +79,7 @@ public class ReportRestController {
 		
 	
 		reportService.addReport(report);
-		
+		return 2;
 		
 	}
 	
