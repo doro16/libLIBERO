@@ -77,9 +77,10 @@
 							  		</div>
 							  		
 							  		<div class="col-lg-3">
-							  			<a href="javascript:popup(${prod.prodNo})" 
-							   				class="btn btn-info brown lighten-1 btn-block" role="button" 
-							   				aria-pressed="true" style="margin-bottom: 10px">판매 통계 조회</a>
+							   			<button type="button" class="btn btn-brown brown lighten-1 btn-block" 
+							  					onclick = "popup(${prod.prodNo})" 
+							  					aria-pressed="true" style="margin-bottom: 10px">판매 통계 조회
+							  			</button>
 							   			<c:if test="${prod.blindCode=='show'}">
 							  				<button class="btn btn-outline-brown waves-effect btn-block" onclick="updateCode('${prod.prodNo}','hide',this)">판매 중지하기</button>
 							  			</c:if>
@@ -87,9 +88,10 @@
 							  				<button class="btn btn-info brown lighten-1 btn-block" onclick="updateCode('${prod.prodNo}','show',this)">판매 재개</button>
 							  			</c:if>
 							  			<c:if test="${param.prodType=='prod'}">
-							  				<a href="/libero/publish/updateProduct?prodNo=${prod.prodNo}"
-												class="btn btn-info brown lighten-1 btn-block" role="button" 
-												aria-pressed="true" style="margin-top: 10px">상품 수정</a>
+							  				<button type="button" class="btn btn-brown brown lighten-1 btn-block" 
+							  					onclick = "location.href='/libero/publish/updateProduct?prodNo=${prod.prodNo}'" 
+							  					aria-pressed="true" style="margin-top: 10px">상품 수정
+							  				</button>
 							  			</c:if>
 							  		</div>
 						  		</div>

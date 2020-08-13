@@ -186,7 +186,7 @@
 		$.ajax({
 			data : data,
 			type : "POST",
-			url : "/libero/publish/json/addProduct",
+			url : "/libero/publish/json/imgUpload",
 			//cache: false,
 			contentType : false,
 			processData : false,

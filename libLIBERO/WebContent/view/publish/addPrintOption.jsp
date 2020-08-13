@@ -48,9 +48,8 @@
 		       	-moz-appearance:none;
 		        appearance:none;
 			}
-			.black {
+			.blackColor {
 				background-image: url(../resources/images/publish/book_black.png);
-				background-color: #FFFFFF;
 			}
 			.color {
 				background-image: url(../resources/images/publish/book_color.png);
@@ -80,7 +79,7 @@
 			    display:inline-block;
 			    width:182px; height:125px;
 			    margin-top: 10px;
-			    padding-top: 130px;
+			    padding-top: 128px;
 			}
 			.sizeType{
 			    cursor:pointer;
@@ -110,7 +109,6 @@
 			}
 			.detail {
 				height: auto;
-				background-color: #FFFFFF;
 				border: #a1887f 1px solid;
 				padding: 20px;
 				font-size: 15px;
@@ -240,7 +238,7 @@
 				    <div class="row col-lg-7 justify-content-center d-flex">
 					    <div class="p-3">
 	                    	<input type="radio" name="colorType" value="black" id="black" checked>
-	                        <label class="colorType black text-center" for="black"><b>흑백</b><br/>(표지:컬러  내지:흑백)</label>
+	                        <label class="colorType blackColor text-center" for="black"><b>흑백</b><br/>(표지:컬러  내지:흑백)</label>
 	                    </div>
 	                    <div class="p-3">
 	                        <input type="radio" name="colorType" value="color" id="color">
@@ -424,7 +422,7 @@
 					});
 				return;
 			}
-			if (pages==null) {
+			if (pages=='') {
 				Swal.fire({
 					  icon: 'error',
 					  text: '페이지 수를 입력해주세요.'

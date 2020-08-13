@@ -37,10 +37,10 @@ public class PublishRestController {
 	@Value("#{commonProperties['path']}")
 	String path;
 	
-	@RequestMapping(value="json/addProduct", method=RequestMethod.POST)
+	@RequestMapping(value="json/imgUpload", method=RequestMethod.POST)
 	public Map addProduct(@RequestParam("file") MultipartFile multipartFile) throws Exception {
 
-		System.out.println("/publish/json/addProduct : POST");
+		System.out.println("/publish/json/imgUpload : POST");
 		
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자

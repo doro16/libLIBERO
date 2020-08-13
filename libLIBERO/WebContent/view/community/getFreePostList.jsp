@@ -10,7 +10,7 @@
     <meta charset="utf-8">
    	<jsp:include page="../../common/cdn.jsp" />
     <link rel="stylesheet" href="../resources/css/lyk.css" type="text/css">
-
+	<link rel="stylesheet" href="../resources/css/common.css">
     <script type="text/javascript">
 		
 		function fncGetUserList(currentPage) {

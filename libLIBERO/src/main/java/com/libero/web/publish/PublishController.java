@@ -254,7 +254,9 @@ public class PublishController {
 		
 		publishService.updateProductInfo(publish);
 		List<String> hashtagName = Arrays.asList(publish.getHashtagName().split(","));
-		publishService.addHashtag(publish.getProdNo(), hashtagName);
+		if (hashtagName.size()>0) {
+			publishService.addHashtag(publish.getProdNo(), hashtagName);
+		}
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("redirect:/publish/addRetailPrice?prodNo="+publish.getProdNo());
 		
@@ -380,8 +382,7 @@ public class PublishController {
 		publishService.updateProduct(publish);
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("prod", publish);
-		modelAndView.setViewName("forward:/view/product/getProduct.jsp");
+		modelAndView.setViewName("redirect:/product/getProduct/"+publish.getProdNo());
 		
 		return modelAndView;
 	}
