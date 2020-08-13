@@ -15,11 +15,7 @@
 </head>
 <body>
 <jsp:include page="../toolbar.jsp" />
-<form>
-<input type="hidden" id="postNo" name="postNo" value="${post.postNo}"/>
-<input type="hidden" id="userId" name="userId" value="${post.user.userId}"/>
-<input type="hidden" id="prodPost" name="prodPost" value="post"/>
-<input type="hidden" id="menu" name="menu" value="${param.menu}" />
+
 
 		<article id="mainContent" class="content-board">
 		<section class="wrap_content">
@@ -69,10 +65,15 @@
 		<div class="border-bottom mt-2 mb-4 py-4" id="hh"></div>  
 		</article>
 
+<input type="hidden" id="postNo" name="postNo" value="${post.postNo}"/>
+<input type="hidden" id="userId" name="userId" value="${post.user.userId}"/>
+<input type="hidden" id="prodPost" name="prodPost" value="post"/>
+<input type="hidden" id="postType" name="postType" value="${post.postType}"/> 
+
 
 	<jsp:include page="addReport.jsp"></jsp:include>
 
-</form>
+
 <jsp:include page="../../common/footer.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
@@ -86,10 +87,10 @@
 			
 			$("button:contains('목록')").on("click", function(){
 				
-				var menu = $("#menu").val();
-				if(menu!='q'){
+				var postType = $("#postType").val();
+				if(postType!='q'){
 					self.location = "/libero/community/getPostList?menu="+menu; 
-				} else if (menu=='q'){
+				} else if (postType=='q'){
 					self.location = "/libero/user/getUserActivityList?menu="+menu; 
 				}
 			})

@@ -128,14 +128,8 @@
 				
 					})
 				})
-			})
-			
+			})			
 			</script>
-			
-			<tr>
-								<td align="left"  title="Click : 주문정보 확인">
-				
-					
 		 <div class="card border-light mb-3" style="margin-bottom: 20px">
 				<div class="card-body">
 					<div class="row">
@@ -184,15 +178,10 @@
 							  						<th>결제 날짜</th>
 							  						<td>:  ${buyList.payDate}</td>
 							  					</tr>
-							  					
 							  					<tr>
-							  						
 							  					</tr>
-							  					
 							  				</tbody>
-							  				
 							  			</table>
-							  			
 							  		</div>
 <!-- 							  		여기는 테이블옆부분 -->
 									<div class="col-lg-4">
@@ -208,18 +197,12 @@
 							  		<c:if test="${buyList.deliveryStatus != 4 && buyList.deliveryStatus != 5}">
 					  				<button class="btn btn-brown lighten-3 btn-lg btn-block"value="${buyList.deliveryStatus }" id="forajaxDeliverystat${i}" disabled><i class="fas fa-receipt"></i>물품 수령</button>
 							  		</c:if>
-							  		
 							  		</div>
-							  		
 							</div>	
 					  		<!-- row End -->
-					  		
-							
 						</div>
 					</div>
 					<!-- 결제 완료 후, 제작 준비 중 -->
-					
-</tr>
 <div class="row${i}">
 
   <div class="col-md-8${i}">

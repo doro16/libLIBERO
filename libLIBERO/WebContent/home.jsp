@@ -74,6 +74,7 @@
 		</style>
 	</head>
 	<body>
+	<script id="embeddedChatbot" data-botId="Bdvqem" src="https://www.closer.ai/js/webchat.min.js"> </script>
 		<!-- Toolbar Start -->
 		<jsp:include page="/view/toolbar.jsp" />
 		<!-- Toolbar End -->

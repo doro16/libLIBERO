@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Insert title here</title>
+<title>libLIBERO</title>
 
 <!--  ///////////////////////// CSS ////////////////////////// -->
 		
@@ -131,7 +131,7 @@ function relocate(prodNo){
 				window.location.reload();
 				//alert("성공");
 				
-			}//end success
+			}//end succes
 		});//end ajax
 		
 	var formData = new FormData();
@@ -248,9 +248,7 @@ function relocate(prodNo){
 												      <span><i class="fas fa-cloud-upload-alt mr-2" aria-hidden="true"></i>리뷰 사진</span>
 												      <input type="file" name='uploadFile' multiple>
 												    </div>
-												    <div class="file-path-wrapper">
-												      <input class="file-path validate" type="text" placeholder="Upload one or more files">
-												    </div>
+												    
 												  </div>
 												</div>
 										</form>

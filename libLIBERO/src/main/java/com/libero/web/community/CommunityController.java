@@ -1,6 +1,8 @@
 package com.libero.web.community;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -21,8 +23,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.libero.common.Page;
 import com.libero.common.Search;
 import com.libero.service.community.CommunityService;
+import com.libero.service.domain.Comment;
 import com.libero.service.domain.Post;
 import com.libero.service.domain.Publish;
+import com.libero.service.domain.Review;
 import com.libero.service.domain.User;
 import com.libero.service.user.UserService;
 
@@ -54,8 +58,8 @@ public class CommunityController {
 	//@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
-	@RequestMapping(value="getPost", method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView getPost(@RequestParam("postNo") int postNo, @RequestParam(value="menu", required=false) String menu) throws Exception {
+	@RequestMapping(value="getPost", method= {RequestMethod.GET})
+	public ModelAndView getPost(@RequestParam("postNo") int postNo) throws Exception {
 		
 		System.out.println("^^^^^^^^"+ "/community/getPost : GET");
 		
@@ -64,9 +68,23 @@ public class CommunityController {
 		Post post = communityService.getPost(postNo);
 		//post.setRegDate(post.getRegDate().replace("-", "")); 
 		
-		modelAndView.setViewName("/view/community/getPost.jsp");
+		modelAndView.setViewName("forward:/view/community/getPost.jsp");
 		modelAndView.addObject("post", post);
+		System.out.println("postType이야"+ post.getPostType());
 		//System.out.println("toString^^^" + post.toString());
+		
+		
+		HashMap commentMap = new HashMap();
+		commentMap.put("currentPage", 1);
+		commentMap.put("pageSize", 10);
+		commentMap.put("postNo", postNo);
+		
+		List<Comment> comment = communityService.getCommentList(commentMap);
+		int commentCount = communityService.getCommentTotalCount(postNo);
+		
+		modelAndView.addObject("comment", comment);
+		modelAndView.addObject("commentCount", commentCount);
+
 		
 		return modelAndView;
 	}

@@ -140,10 +140,21 @@
 				</div>
 			</form>
 			
-			<div class="justify-content-right" style="width: 100%">
-				<div align="right" id="btnDiv">
+			<div class="justify-content-left" style="width: 100%">
+			
+			<c:if test="${empty user.kakaoId and user.role ne 'f'}">
+						<span style="float:left">
+							<a href="${kakao_url}" style="text-decoration:none; color: black;"><img src="/libero/resources/images/common/kakao.png" style="width:50px; height:50px; left-margin:50px;">
+							&nbsp; 카카오 로그인 연동
+							</a>
+						</span>
+					</c:if>
+					
+				<span id="btnDiv" style="float:right">
+				
 					<button type="button" id="modifyBtn" class="btn btn-info brown lighten-1" onclick="updateUser()">수정</button>
-				</div>
+			
+				</span>
 			</div>
 			
 		</div>

@@ -13,9 +13,9 @@
 <meta charset="UTF-8">
 <title>회원 가입</title>
 <jsp:include page="/common/cdn.jsp"></jsp:include>
-
+<link rel="stylesheet" href="../resources/css/common.css">
+<jsp:include page="../toolbar.jsp"></jsp:include>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
 
 
  
@@ -62,10 +62,10 @@
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById("postCode").value = data.zonecode;
-                document.getElementById("address").value = addr+extraAddr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("postCode").focus();
+                //document.getElementById("postCode").value = data.zonecode;
+                document.getElementById("address").value = data.zonecode+" "+addr;
+                // 커서를 상세주소 필드로 이동한다.""
+               // document.getElementById("postCode").focus();
             }
         }).open();
     }
@@ -366,7 +366,7 @@
             </div>
          
             <!-- Phone number  3 줄로 다 못받겠어서 1줄로만 받겠심-->
-           <div class="md-form col-12">         	
+           <div class="md-form mt-0">         	
 	                <input type="text" id="phone1" name="phone" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock" maxlength="14">
 	                <label for="phone1">연락처</label>
 		   </div>
@@ -374,20 +374,18 @@
                     	
 	         <div class="md-form mt-0">
 	         <div class="md-form row-8">
-	                <input type="text" id="postCode" name="address" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock">
+	                <input type="text" id="postCode" name="address" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock" readOnly>
 	                <label for="adress">주소</label>
 	                <small id="adress" class="form-text text-muted mb-4"> 
 	                </small>
-	            </div>
-	          
-	               
+	            </div>  
 	        </div>
 	            <div class="md-form col">
 	                <input type="text" id="address" name="address" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock">
 	            </div>
 	            
 	             <div class="md-form col">
-	                <input type="text" id="extraAddress" name="address" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock">
+	                <input type="text" id="extraAddress" name="address" placeholder="상세주소 입력" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock">
 	             </div>
 	             <input type="hidden" name="address" >
 	           <div class="md-form row-4">
@@ -410,10 +408,11 @@
 				 <div class="md-form col">
 					  <div class="file-field">
 					  <label for="profile">프로필 사진</label>
-					    <div class="btn btn-brown lighten-1 btn-sm float-right">
+					    <div class="btn btn-brown lighten-1 btn-sm float-center">
 					    	
 					      <span>Choose file</span>
-					      <input type="file" id="file" name="file"/>
+					      
+					      <input type="file" id="file" name="file" multiple/>
 					     
 					    </div>
 					  </div>
@@ -433,8 +432,8 @@
 			
 			  <!-- Birth Date -->
 			  
-			 	<div class="md-form col">
-			 		<input type="date" id="birthDate" name="birthDate" aria-describedby="materialRegisterFormPhoneHelpBlock">
+			 	<div class="md-form mt-0">
+			 		<input type="date" id="birthDate" name="birthDate" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock">
 			 		 <label for="birthDate">생년월일</label>
 	               	
 			 	</div>
@@ -452,11 +451,6 @@
 					  	<label class="form-check-label" for="women"><i class="fas fa-venus"></i></label>
 					</div>
 			  </div>
-			  
-			  
-
-
-
 		
            	 	<button class="btn btn-outline-brown lighten-1 btn-rounded btn-block my-4 waves-effect z-depth-0" type="button" id="addBtn" onClick="addUser()">Sign in</button>
 
