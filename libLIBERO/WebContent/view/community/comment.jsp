@@ -42,7 +42,32 @@
 							"Content-Type" : "application/json"
 						},
 						success : function(JSONData , status) {						 
-							$(".container").after("<div>dddd</div>");
+							//alert(JSONData.commentContent);
+							var date = new Date(Number(JSONData.regDate));
+							var displayValue ="<div class='wow"+ JSONData.commentNo+"'>"
+								
+								+"<img src='../resources/images/user/fileUpload/"+JSONData.user.profile+"'  alt='프로필사진' style='height: 55px; width: 55px; float: left; margin:-4px 10px 10px 0;'>"
+								+"<p style='font-size: 14px; color:DodgerBlue; font-weight: 600; float:left;'>" +JSONData.user.nickname + "&nbsp;&nbsp;&nbsp;</p>"
+								+"<p style='font-size: 11px; color:gray; font-weight: 400;'>" + date.getFullYear()+".0"+parseInt(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+"</span>"
+								+"<p id= 'none"+ JSONData.commentNo+"' style='font-size: 15px; padding: 14px 0px; font-weight: 400;'>"+JSONData.commentContent
+								+"</p><br>"
+								+"<div id='update"+ JSONData.commentNo+"' style='display: none;' class='updateComment'>" 
+								+"<input type='hidden' class='commentNo' value=" + JSONData.commentNo + ">"	
+								+"<textarea class='form-control col-11 col-md-11 mr-1' rows='3' maxlength='500' style='float:left'>"
+								+ JSONData.commentContent
+								+"</textarea>"
+								+"<button class='btn btn-outline-brown btn-sm' style='margin-left:670px;' onclick='history.go'>취소</button>"
+								+"<button class='btn btn-brown btn-sm'  id='updateComment'>등록</button>"
+								+"</div>"
+								+"<div class='commentUpdateDelete'>"
+									+"<input type='hidden' class='commentNo' value=" + JSONData.commentNo + ">"			
+									+"<p style='float:left; padding: 0px 10px 0px 65px; font-size: 13px; color:gray; font-weight: 500;'>수정 </p>"
+									+"<p style='font-size:13px; color:gray; font-weight: 500;'>삭제</p><br>"
+								+"</div></div>";	
+								
+								
+							$('#commentContent').val("");
+							$(".container").after(displayValue);
 						}	
 				    	});
 			})	
@@ -52,6 +77,7 @@
 		$(document).on("click", ".commentUpdateDelete p:nth-child(2)", function(){
 			commentNo = parseInt($(this).parent().find(".commentNo").val());
 			$(this).parent().find("p").hide();
+			
 			$.ajax(
 			    	{
 			        url : "/libero/community/json/updateComment/"+commentNo,
@@ -62,9 +88,12 @@
 						"Content-Type" : "application/json"
 					},
 					success : function(JSONData , status) {
-								
+						
+						var displayValue =JSONData.commentContent;
 						$("#update"+commentNo+"").show(); 
+						
 						$("#none"+commentNo+"").hide(); 
+						
 			   
 					}	
     		});
@@ -75,8 +104,7 @@
 			var commentNo = $(this).parent().find(".commentNo").val();
 			var commentContent = $(this).parent().find("textarea").val();
 			
-			$("#update"+commentNo+"").hide(); 
-			$("#none"+commentNo+"").show(); 
+			
 			//alert(commentNo+commentContent);	
 			
 			$.ajax(
@@ -94,8 +122,17 @@
 						"Content-Type" : "application/json"
 					},
 					success : function(JSONData , status) {
+						$("#update"+commentNo+"").hide(); 
+						var displayValue = "<p style='font-size: 15px; padding: 14px 0px; font-weight: 400;'>"
+						+JSONData.commentContent+"</p>"
+						+"<div class='commentUpdateDelete'>"
+						+"<input type='hidden' class='commentNo' value=" + JSONData.commentNo + ">"			
+						+"<p style='float:left; padding: 0px 10px 0px 65px; font-size: 13px; color:gray; font-weight: 500;'>수정 </p>"
+						+"<p style='font-size:13px; color:gray; font-weight: 500;'>삭제</p><br>"
+						+"</div>";	
+						$("#none"+commentNo+"").after(displayValue); 
 						
-					
+						
 					}	
 					
 			});
@@ -103,7 +140,6 @@
 		
 		$(document).on("click", ".commentUpdateDelete p:nth-child(3)", function(){
 			commentNo = parseInt($(this).parent().find(".commentNo").val());
-			
 			$.ajax(
 			    	{
 			        url : "/libero/community/json/deleteComment/"+commentNo,
@@ -114,7 +150,7 @@
 						"Content-Type" : "application/json"
 					},
 					success : function(JSONData , status) {
-					
+						$(".wow"+commentNo+"").remove();
 					}	
     		});
 		
@@ -162,27 +198,27 @@
     						  <c:set var="i" value="0" />
 							  <c:forEach var="comment" items="${comment}">
 							  <c:set var="i" value="${ i+1 }" />
-    							<div class="commentNo" name="commentNo" value="${comment.commentNo}" style="display: none;"></div>
+    							<div class="wow${comment.commentNo}">
    								
-   								<img src="../resources/images/user/fileUpload/${comment.user.profile}"  alt="프로필사진" style= "height: 55px; width: 55px; float: left; margin:-5px 10px 10px 0;">
+   								<img src="../resources/images/user/fileUpload/${comment.user.profile}"  alt="프로필사진" style= "height: 55px; width: 55px; float: left; margin:-4px 10px 10px 0;">
    								<p style="font-size: 14px; color:DodgerBlue; font-weight: 600; float: left;">${comment.user.nickname}&nbsp;&nbsp;&nbsp;</p>
    								<p style="font-size: 11px; color:gray; font-weight: 400;">${comment.regDate}</p>
 								<p id= "none${comment.commentNo}" style="font-size: 15px; padding: 14px 0px; font-weight: 400;">
 								${comment.commentContent}</p><br>
 								<div id="update${comment.commentNo}" style="display: none;" class="updateComment"> 
-									<div class="commentNo" name="commentNo" value="${comment.commentNo}" style="display: none;"></div>
+									<input type='hidden' class="commentNo" name="commentNo" value="${comment.commentNo}" style="display: none;">
 									<textarea class="form-control col-11 col-md-11 mr-1" rows="3" maxlength="500" style="float:left">${comment.commentContent}</textarea>
 									<button class="btn btn-outline-brown btn-sm" style="margin-left:670px;" onclick="history.go()">취소</button>
 									<button class="btn btn-brown btn-sm"  id="updateComment">등록</button>
 								</div>
-								<c:if test="${sessionScope.user.userId == post.user.userId}">
+								<c:if test="${sessionScope.user.userId == comment.user.userId}">
 									<div class="commentUpdateDelete">
-									<div class="commentNo" name="commentNo" value="${comment.commentNo}" style="display: none;"></div>		
+									<input type='hidden' class="commentNo" name="commentNo" value="${comment.commentNo}" style="display: none;">	
 									<p style="float:left; padding: 0px 10px 0px 65px; font-size: 13px; color:gray; font-weight: 500;">수정 </p>
 									<p style="font-size:13px; color:gray; font-weight: 500;">삭제</p><br>
 									</div>
 								</c:if>		
-
+								</div>
 								 </c:forEach>
 			
 	
