@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Insert title here</title>
+<title>libLIBERO</title>
 
 <!--  ///////////////////////// CSS ////////////////////////// -->
 		
@@ -131,7 +131,7 @@ function relocate(prodNo){
 				window.location.reload();
 				//alert("성공");
 				
-			}//end success
+			}//end succes
 		});//end ajax
 		
 	var formData = new FormData();

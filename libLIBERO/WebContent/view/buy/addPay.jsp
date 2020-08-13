@@ -5,13 +5,16 @@
 <html>
 <head>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
+	<link rel="stylesheet" href="../resources/css/common.css">
 	<jsp:include page="/view/toolbar.jsp"></jsp:include>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>libLIBERO</title>
 
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<link href="/libero/resources/css/taginput/jquery.tagsinput.min.css" rel="stylesheet">
+	<script src="/libero/resources/javascript/taginput/jquery.tagsinput.min.js"></script>
 <script type="text/javascript">
 //카카오 주소 API 사용
 function daumjuso() {
@@ -128,8 +131,32 @@ function daumjuso() {
                         	alert(msg);
                         }
                     });
+                    swal({
+                		text : "결제 완료",
+                		icon : "info",
+                		buttons:{
+                			Home : {
+                				text:"홈 으로",
+                				value:"Home",
+                			},
+                			BuyList :{
+                				text:"구매목록",
+                				value:"BuyList",
+                			},
+                				},
+                		
+                	}).then((value) =>{
+                		switch (value)     {
+                			case "Home" :
+                	 			window.location.href="/libero";
+                				break;
+                			
+                			case "BuyList" : 
+                				window.location.href="/libero/buy/getUserBuyList?userId=${user.userId}";
+                		}
+                	});
                     //성공시 이동할 페이지
-                    location.href='/libero';
+                   // location.href='/libero';
                 } else {
                     msg = '결제에 실패하였습니다.';
                     msg += '에러내용 : ' + rsp.error_msg;
@@ -138,33 +165,11 @@ function daumjuso() {
                     alert(msg);
                 }
             });    
-            swal({
-        		text : "결제 완료",
-        		icon : "info",
-        		buttons:{
-        			Home : {
-        				text:"홈 으로",
-        				value:"Home",
-        			},
-        			BuyList :{
-        				text:"구매목록",
-        				value:"BuyList",
-        			},
-        				},
-        		
-        	}).then((value) =>{
-        		switch (value)     {
-        			case "Home" :
-        	 			window.location.href="/libero";
-        				break;
-        			
-        			case "BuyList" : 
-        				window.location.href="/libero/buy/getUserBuyList?userId=${user.userId}";
-        		}
-        	});
+ 
     		
     	})
     });    
+    
   $(document).ready(function() {
 	  
 	  
@@ -296,27 +301,54 @@ function daumjuso() {
 <c:set var="i" value="0" />
 		  <c:forEach var="prod" items="${productList}">
 			<c:set var="i" value="${ i+1 }" />
-				 <br/>
-				 <div class="md-form row">
-				 <div class="md-from col">
-		<div class="card">
-		  <div class="card-body">
-		    <h5 class="card-title">상품 정보</h5><h6 class="card-subtitle mb-2 text-muted">${i }</h6>   
-		    <p class="card-text">
-		    	상품 명	: ${prod.prodName}<br>
-		    	상품 가격 	: ${prod.retailPrice}<br>
-		    	저자		: ${prod.author} <br>
-		    	상품종류	: ${prod.prodType} <br>
-		    	페이지 수	: ${prod.bookPage}<br>
-		    	구매 수량	: ${prod.buyAmount}<br>
-		    </p>
-		  </div>
-		</div>		
-		</div>
-		</div>
+			
+			<h4>상품 정보</h4>
+						 <div class="card border-light mb-3" style="margin-bottom: 20px">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-lg-7 align-self-center">
+							  			<table>
+							  			<thead valign="top">
+							  				<tbody>
+								  				<tr>
+							  						<th>상품 이름</th>
+							  						<td>: ${prod.prodName}</td>
+								  					</tr>
+							  					<tr>
+							  						<th>상품 가격</th>
+							  						<td>:  ${prod.retailPrice }</td>
+							  					</tr>
+							  					<tr>
+							  						<th>상품 종류</th>
+							  						<td>:  ${prod.prodType}</td>
+							  					</tr>
+							  					<tr>
+							  						<th>구매 수량</th>
+							  						<td>:  ${prod.buyAmount}</td>
+							  					</tr>
+							  					<tr><th><td>
+							  									  					
+							  					</tr>
+							  				</tbody>
+							  			</table>
+<%-- 							  			<br><br><br><jsp:include page="/view/product/addReview.jsp"/> --%>
+							  		</div>
+<!-- 							  		여기는 테이블옆부분 -->
+									<div class="view overlay zoom" >
+									 <img src="/libero/resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail }" class="img-thumbnail hoverable" alt="Responsive image" width= 200px onClick="relocate(${prod.prodNo})">
+									  <div class="mask flex-center waves-effect waves-light" id="prodImg${i}">
+									   
+									  </div>
+									</div>
+								</div>	
+					  		<!-- row End -->
+					  		
+						</div>
+					</div>
+	
 </c:forEach>
 					<!-- 결제 버튼 여기 -->
-<br><br>
+
 
 <div class="mx-auto" style="width: 200px; background-color: rgba(86,61,124,.15);">
  <button id ="payment" class="btn btn-brown" value="${actualPrice}"> 총 결제 금액 &nbsp; : &nbsp; ${actualPrice} &nbsp; ￦</button>
@@ -330,4 +362,5 @@ function daumjuso() {
 
 </body>
 <jsp:include page="/common/footer.jsp"></jsp:include>
+
 </html>
