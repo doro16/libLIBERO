@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.libero.common.Search;
@@ -24,6 +25,9 @@ public class UserDAOImpl implements UserDAO {
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
+	
+	@Value("#{userProperties['listTable']}")
+	String[] listTable;
 	
 	///Constructor
 	public UserDAOImpl() {
@@ -122,8 +126,8 @@ public class UserDAOImpl implements UserDAO {
 		sqlSession.update("UserMapper.addKakaoId", map);
 	}
 	
-	public void delUser(String userId) {
-		sqlSession.delete("UserMapper.delUser", userId);
+	public void delUser(String kEmail) {
+		sqlSession.delete("UserMapper.delUser", kEmail);
 	}
 	
 	@Override
@@ -145,6 +149,16 @@ public class UserDAOImpl implements UserDAO {
 		// TODO Auto-generated method stub
 		sqlSession.update("UserMapper.removeUser", user);
 		
+	}
+	
+	public void updateKakaoToUser(String userId, String kEmail) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userId", userId);
+		map.put("kEmail", kEmail);
+		
+		for(int i=0; i<listTable.length; i++) {
+			sqlSession.update("UserMapper.updateUserFrom"+listTable[i], map);
+		}
 	}
 
 }
