@@ -13,6 +13,7 @@
 <meta charset="UTF-8">
 <title>회원 가입</title>
 <jsp:include page="/common/cdn.jsp"></jsp:include>
+<link rel="stylesheet" href="../resources/css/common.css">
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
