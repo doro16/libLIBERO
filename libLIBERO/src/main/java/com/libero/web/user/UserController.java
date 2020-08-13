@@ -453,7 +453,10 @@ public class UserController {
 		}
 		ModelAndView modelAndView = new ModelAndView();
 		
+		String kakaoUrl = SNSloginController.getAuthorizationUrl(session);
+		
 		modelAndView.addObject("user",user);
+		modelAndView.addObject("kakao_url", kakaoUrl);
 		modelAndView.setViewName("forward:/view/user/getUser.jsp");
 		return modelAndView;
 		

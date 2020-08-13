@@ -15,10 +15,6 @@
 </head>
 <body>
 <jsp:include page="../toolbar.jsp" />
-<!-- <input type="hidden" id="postNo" name="postNo" value="${post.postNo}"/>
-<input type="hidden" id="userId" name="userId" value="${post.user.userId}"/>
-<input type="hidden" id="prodPost" name="prodPost" value="post"/>
-<input type="hidden" id="postType" name="postType" value="${post.postType}"/> -->
 
 
 		<article id="mainContent" class="content-board">
@@ -68,6 +64,11 @@
 		<jsp:include page="comment.jsp"></jsp:include>
 		<div class="border-bottom mt-2 mb-4 py-4" id="hh"></div>  
 		</article>
+
+<input type="hidden" id="postNo" name="postNo" value="${post.postNo}"/>
+<input type="hidden" id="userId" name="userId" value="${post.user.userId}"/>
+<input type="hidden" id="prodPost" name="prodPost" value="post"/>
+<input type="hidden" id="postType" name="postType" value="${post.postType}"/> 
 
 
 	<jsp:include page="addReport.jsp"></jsp:include>
