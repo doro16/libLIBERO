@@ -27,8 +27,7 @@
 			var reportCount = parseInt($("input[name='reportCount']").val());
 			var index = parseInt($("#reportSelect option:selected").val());
 			var prodPost =  new String("post");
-			
-	
+			alert(reportCount);
 		$.ajax({
 					url : "/libero/report/json/addReport",
 					method : "POST",
@@ -87,7 +86,6 @@
 				var reportCount = parseInt($("input[name='reportCount']").val());
 				var index = parseInt($("#reportSelect option:selected").val());
 				var prodPost =  new String("prod");
-
 			$.ajax({
 						url : "/libero/report/json/addReport",
 						method : "POST",

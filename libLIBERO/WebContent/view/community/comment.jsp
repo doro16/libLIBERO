@@ -16,15 +16,13 @@
 			
 			$("#addComment").on("click", function(){
 				var postNo = parseInt($("input[name='postNo']").val());	
-    			var menu = $("input[name='menu']").val(); 
-    			
+    			var menu = $("input[name='postType']").val(); 
     			if(menu!='q'){				
     				var commentContent = $('#commentContent').val();
 				} else if(menu=='q'){
 					var commentContent = $('#commentContent2').val();
 				}
     			
-    			$("#commentContent2").css("display", "none");
     			
 				$.ajax(
 				    	{  		 	
@@ -43,6 +41,7 @@
 						},
 						success : function(JSONData , status) {						 
 							//alert(JSONData.commentContent);
+							if(menu!='q'){		
 							var date = new Date(Number(JSONData.regDate));
 							var displayValue ="<div class='wow"+ JSONData.commentNo+"'>"
 								
@@ -68,6 +67,10 @@
 								
 							$('#commentContent').val("");
 							$(".container").after(displayValue);
+							} else if(menu=='q'){
+								$("#commentContent2" ).html(JSONData.commentContent);
+								$("#addComment").remove();
+							}
 						}	
 				    	});
 			})	
@@ -169,21 +172,20 @@
 		
 			
 			<input type="hidden" id="postNo" name="postNo" value="${post.postNo}" />
-				
+
 				<div class="form-row d-fle">
 					<c:if test="${param.menu!='q'}"> 
-					
 					<textarea class="form-control col-12 col-md-12 mr-1"
 						id="commentContent" name="commentContent" rows="3" maxlength="500" style="text-align: left;"></textarea>
 					<button class="btn btn-brown btn-sm" style="margin-left:742px;" id="addComment">등록</button>
 					</c:if> 		
-				
-					<c:if test="${user.role!='a' && param.menu=='q'}"> 
+
+					<c:if test="${user.role!='a' && param.menu=='q' && post.commentCount == 0}"> 
 					<textarea class="form-control col-12 col-md-12 mr-1" id="commentContent2" name="commentContent2" rows="6" style="background-color: #d7ccc8;" 
 					placeholder="답변이 아직 등록되지 않았습니다." readonly></textarea>
 					</c:if>
 					
-					<c:if test="${user.role=='a' && param.menu=='q'}"> 
+					<c:if test="${user.role=='a' && param.menu=='q' && post.commentCount == 0}">  
 					<textarea class="form-control col-12 col-md-12 mr-1" id="commentContent2" name="commentContent2" rows="6" style="background-color: #d7ccc8;" 
 					placeholder="관리자님! 답변을 등록해주세요."></textarea>
 					<button class="btn btn-brown btn-sm" style="margin-left:742px;" id="addComment">등록</button>
@@ -194,10 +196,15 @@
 			
 		</div>
 		<!-- /////////////// -->
-							  
-    						  <c:set var="i" value="0" />
-							  <c:forEach var="comment" items="${comment}">
-							  <c:set var="i" value="${ i+1 }" />
+				
+		  <c:set var="i" value="0" />
+		  <c:forEach var="comment" items="${comment}">
+		  <c:set var="i" value="${ i+1 }" />
+					<c:if test="${param.menu=='q'}"> 	
+						<textarea class="form-control col-12 col-md-12 mr-1" id="commentContent2" name="commentContent2" 
+						rows="6" style="background-color: #d7ccc8;" >${comment.commentContent}</textarea>
+					</c:if>	  
+					<c:if test="${param.menu!='q'}">    
     							<div class="wow${comment.commentNo}">
    								
    								<img src="../resources/images/user/fileUpload/${comment.user.profile}"  alt="프로필사진" style= "height: 55px; width: 55px; float: left; margin:-4px 10px 10px 0;">
@@ -219,9 +226,9 @@
 									</div>
 								</c:if>		
 								</div>
-								 </c:forEach>
-			
-	
+								 
+					</c:if>
+		</c:forEach>
 </body>
 
 </html>

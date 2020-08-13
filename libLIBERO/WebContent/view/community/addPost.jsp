@@ -130,7 +130,7 @@
 			}
 			
 			if (postType != 'q'){
-				swal("글이 등록되었습니다.", "", "success");
+				swal("게시글이 등록되었습니다.", "", "success");
 			} else if (postType == 'q'){
 				swal("문의가 등록되었습니다.", "근무시간 내에 답변해드립니다.", "success");
 			}
@@ -160,13 +160,8 @@
 			processData : false,
 			success : function(data) {
             	//항상 업로드된 파일의 url이 있어야 한다.
-            	console.log("img"+$("<img>"));
-            	
-            	console.log("img1"+$("<img>"));
            		$(editor).summernote('insertImage', data.url);
            		
-           		$("img").css("width","100%");
-           		console.log("img2"+$("img"));
 			}
 		});
 	}

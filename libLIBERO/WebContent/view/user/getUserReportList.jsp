@@ -49,7 +49,7 @@
 		var prodPostNo =  $("input[name='prodPostNo']").val(); 
 		var blindCode =  $("button[name='blindCode']").val(); 
 		var prodPost =  $("input[name='prodPost']").val(); 
-		//alert(blindCode+"랑"+prodPostNo+"랑"+prodPost);
+		alert("왜눌러");
 		$.ajax(
 		    	{
 		        url : "/libero/user/json/updateBlindCode/",
@@ -66,7 +66,7 @@
 				},
 				success : function(JSONData , status) {
 					alert("요청성공");
-					window.location.reload();
+					if(blindCode == 'report'))
 				}	
 				});
 		})	

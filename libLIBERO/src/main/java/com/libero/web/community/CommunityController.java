@@ -175,8 +175,11 @@ public class CommunityController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		communityService.updatePost(post);
-		//int postNo = post.getPostNo();
-		modelAndView.setViewName("/view/community/getPost.jsp");
+		
+		//System.out.println("그만post"+post);
+		//String postType = post.getPostType();
+	
+		modelAndView.setViewName("redirect:/community/getPost?postNo="+post.getPostNo());
 		
 		return modelAndView;
 		
