@@ -16,6 +16,7 @@ public class Comment implements Serializable{
 	
 	private User user;
 	private int postNo;
+	private char postType;
 	
 	public Comment() {
 		

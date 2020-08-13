@@ -96,8 +96,16 @@ public class CommunityDAOImpl implements CommunityDAO {
 		return sqlSession.selectOne("CommunityMapper.getComment", commentNo);
 	}
 	
-	public List<Comment> getCommentList(int postNo) throws Exception{
-		return sqlSession.selectList("CommunityMapper.getCommentList", postNo);
+	public List<Comment> getCommentList(HashMap<String, Object> commentMap) throws Exception{
+		
+		int currentPage = (int)commentMap.get("currentPage");
+		
+		int pageSize = (int)commentMap.get("pageSize");
+		
+		int offset = (currentPage-1)*(pageSize);
+			commentMap.put("offset", offset);
+		
+		return sqlSession.selectList("CommunityMapper.getCommentList", commentMap);
 	}
 	
 	public List<Comment> getMyCommentList(Search search, String userId){
@@ -140,8 +148,14 @@ public class CommunityDAOImpl implements CommunityDAO {
 		
 		return sqlSession.selectOne("CommunityMapper.getMyCommentListTotalCount",map);
 	}
+	
 	public void updateQnaCode(int postNo) throws Exception{
 		sqlSession.update("CommunityMapper.updateQnaCode", postNo);	
+	}
+	
+	public int getFinalCommentNo() throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("CommunityMapper.getFinalCommentNo");
 	}
 	
 }

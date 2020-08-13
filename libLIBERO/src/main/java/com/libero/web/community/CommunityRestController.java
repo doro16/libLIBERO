@@ -57,7 +57,7 @@ public class CommunityRestController {
 	@Value("#{commonProperties['pageSize']}")
 	//@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
-
+/*
 	@RequestMapping(value="/json/getComment/{commentNo}", method=RequestMethod.GET)
 	public Comment getComment( @PathVariable("commentNo") int commentNo) throws Exception {
 		
@@ -70,29 +70,7 @@ public class CommunityRestController {
 		// Controller는 View Page 리턴 
 		// RestController는 객체(VO,DTO) 반환하기만 하면, 객체데이터는 application/json 형식의 HTTP ResponseBody에 직접 작성됨
 	}
-	
-	@RequestMapping(value="/json/getCommentList/{postNo}", method=RequestMethod.GET)
-	public Map<String, Object> getCommentList( @PathVariable("postNo") int postNo) throws Exception {
-		
-		System.out.println("^^^^^^^^"+ "/community/json/getCommentList : GET");
-		
-		Map<String, Object> map = communityService.getCommentList(postNo);
-		
-		ObjectMapper objectMapper = new ObjectMapper();
-		String jsonManyValue = objectMapper.writeValueAsString(map.get("list"));
-		
-		List<Comment> list =  objectMapper.readValue(jsonManyValue, new TypeReference<List<Comment>>() {});
-		
-		for (int i=0; i<list.size(); i++) {
-			Comment str = list.get(i);
-			System.out.println("000"+str.getUser().getNickname());
-		}
-
-		map.put("list", map.get("list"));
-		map.put("totalCount", map.get("totalCount"));
-		
-		return map;
-	}
+	*/
 	
 	@RequestMapping(value="/json/addComment", method=RequestMethod.POST)
 	public Comment addComment(@RequestBody Map<String, Object> map2,  HttpSession session, Comment comment) throws Exception{
@@ -101,16 +79,22 @@ public class CommunityRestController {
 		comment.setPostNo((int) map2.get("postNo"));
 		comment.setCommentContent((String) map2.get("commentContent"));
 		comment.setUser(user);
+		
 		communityService.addComment(comment);
 		
-		System.out.println("comment찍어보자"+comment);
-		String menu = ((String) map2.get("menu"));
+		int commentNo = communityService.getFinalCommentNo();
+		
+		Comment firstComment = new Comment();
+		firstComment = communityService.getComment(commentNo);
+		System.out.println("comment찍어보자"+firstComment);
+		char menu = comment.getPostType();
 		System.out.println("menu찍어보자"+menu);
-		if(menu.equals("q")) {
+		//System.out.println("야 임마"+firstComment);
+		if(menu == 'q') {
 			communityService.updateQnaCode(comment.getPostNo());
 		}
 		
-		return comment;
+		return firstComment;
 			
 	}
 	

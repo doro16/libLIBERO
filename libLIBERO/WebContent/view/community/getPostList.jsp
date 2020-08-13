@@ -108,7 +108,7 @@
 									
 						            <!-- Card -->
 						            <a class="card hoverable mb-4  border border-white" data-toggle="modal" data-target="#basicExampleModal" 
-						            onclick="location.href='/libero/community/getPost?postNo=${post.postNo}&menu=n' ">
+						            onclick="location.href='/libero/community/getPost?postNo=${post.postNo}' ">
 						
 						              <!-- Card image -->
 						              <c:if test="${ fn:contains(post.postContent, '<img') }">

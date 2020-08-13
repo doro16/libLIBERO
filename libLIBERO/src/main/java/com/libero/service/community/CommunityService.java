@@ -1,5 +1,7 @@
 package com.libero.service.community;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.libero.service.domain.Post;
@@ -26,7 +28,11 @@ public interface CommunityService {
 		
 		public Comment getComment(int commentNo) throws Exception;
 		
-		public Map<String, Object> getCommentList(int postNo) throws Exception;
+		public List<Comment> getCommentList(HashMap<String, Object> commentMap) throws Exception;
+		
+		public int getFinalCommentNo() throws Exception; 
+		
+		public int getCommentTotalCount(int postNo) throws Exception;
 		
 		public Map<String , Object> getMyCommentList(Search search , String userId)throws Exception;
 		
