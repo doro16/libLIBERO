@@ -312,14 +312,15 @@ public class UserRestController {
 			User kUser = userService.getUser(kEmail);
 			if(kUser == null) {
 				userService.addKakaoId(user.getUserId(), kId);				
-			}else {
-				//user_id가 kakao_id인 모든 테이블을 user.getUserId()로 바꿔주기
-				userService.delUser(kId);
+			}else {			
+				  userService.updateKakaoToUser(user.getUserId(), kEmail);
+				  userService.delUser(kEmail);
+				  userService.addKakaoId(user.getUserId(), kId);	  			 
 			}
 		}
 					
 		session.setAttribute("user", user);
-		session.setAttribute("kakao", "true"); // 수린수린수린 0807
+		session.setAttribute("kakao", "true"); 
 		mav.setViewName("redirect:/");
 		
 		return mav; 
@@ -415,9 +416,16 @@ public class UserRestController {
 		return 2;
 	}
 		
+	@RequestMapping(value="json/findId",method=RequestMethod.POST)
+	public int findId(HttpServletRequest request, String receiver) {
+		System.out.println("/user/json/findId : POST");
 	
-	
-	
-	
+		HttpSession session = request.getSession(true);
+		User user = (User) session.getAttribute("user");
+		
+		
+		
+		return 0;
+	}
 	
 }

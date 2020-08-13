@@ -109,8 +109,8 @@ public class UserServiceImpl implements UserService{
 		userDAO.addKakaoId(userId, kakaoId);
 	}
 	
-	public void delUser(String userId) {
-		userDAO.delUser(userId);
+	public void delUser(String kEmail) {
+		userDAO.delUser(kEmail);
 	}
 
 	@Override
@@ -121,6 +121,10 @@ public class UserServiceImpl implements UserService{
 	public int updatePhoneCode(String userId) {
 		
 		return userDAO.updatePhoneCode(userId);
+	}
+	
+	public void updateKakaoToUser(String userId, String kEmail) {
+		userDAO.updateKakaoToUser(userId, kEmail);
 	}
 
 }

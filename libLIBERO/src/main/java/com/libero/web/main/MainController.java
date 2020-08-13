@@ -41,26 +41,22 @@ public class MainController {
 	    for (int i = 0; i < book.size(); i++) {
 	    	System.out.println(book.get("list"));
 		}
+
+	    String kakao_login = "";
+	    String kakao_logout = "";
 	    
-	    String kakaoUrl ="";
-	    		
-//	    if(session.getAttribute("user") == null) {
-//	    	kakaoUrl = SNSloginController.getAuthorizationUrl(session);
-//	    }else {
-//	    	kakaoUrl = SNSloginController.getLogoutUrl(session);
-//	    }
-	    
-	    //수린수린수린 0807
 	    if(session.getAttribute("user") == null) {
-	    	kakaoUrl = SNSloginController.getAuthorizationUrl(session);
+	    	kakao_login = SNSloginController.getAuthorizationUrl(session);
 	    }else {
 	    	if(session.getAttribute("kakao") != null &&  session.getAttribute("kakao").equals("true")) {
-	    	kakaoUrl = SNSloginController.getLogoutUrl(session);
+	    	kakao_logout = SNSloginController.getLogoutUrl(session);
 	    	}
-	    }
+	    }	  
 	    
-	    ModelAndView modelAndView = new ModelAndView();
-	    modelAndView.addObject("kakao_url", kakaoUrl);
+	    session.setAttribute("kakao_login", kakao_login);
+	    session.setAttribute("kakao_logout", kakao_logout);
+	    
+	    ModelAndView modelAndView = new ModelAndView();    
 	    modelAndView.addObject("list", list);
 	    modelAndView.addObject("book", book.get("list"));
 		modelAndView.setViewName("forward:/home.jsp");
