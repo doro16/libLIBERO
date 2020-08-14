@@ -426,8 +426,8 @@ public class UserController {
 		return mav;
 	}
 
-	@RequestMapping(value = "updateCash/{userId}", method = RequestMethod.GET)
-	public ModelAndView updateCash(@PathVariable("userId") String userId) throws Exception {
+	@RequestMapping(value = "updateCash", method = RequestMethod.GET)
+	public ModelAndView updateCash(@RequestParam("userId") String userId) throws Exception {
 		System.out.println("/user/updateCash : GET");
 
 		Cash cash = userService.getCash(userId);
@@ -474,12 +474,13 @@ public class UserController {
 		System.out.println(" ---------------------------------------");
 		
 		System.out.println("===============\n\n\n"+user+"\n\n\n===============");
-		if (file!=null) {
-			for (MultipartFile multipartFile : file) {
-				
-				System.out.println(multipartFile.getOriginalFilename());
-				
-				String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
+		
+		for (MultipartFile multipartFile : file) {
+			
+			System.out.println(multipartFile.getOriginalFilename());
+			
+			String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
+			if (originalFileName!="") {
 				String extension=originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 				
 				String fileRoot = "C:/Users/user/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
@@ -494,6 +495,7 @@ public class UserController {
 			
 				user.setProfile(f.getName());
 			}
+			
 		}
 		
 		userService.updateUser(user);

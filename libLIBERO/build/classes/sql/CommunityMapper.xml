@@ -137,7 +137,7 @@
 						</if>
 						
 		        ORDER BY c.comment_no DESC) inner_table
-		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num 
+		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num desc
 	</select>
 
 	<select id="getMyCommentListTotalCount" parameterType="map"	resultType="int">
@@ -191,9 +191,12 @@
 	</select>
 	
 	<select id="getPostList" parameterType="map" resultMap="postSelectMap" >
-		SELECT * FROM (SELECT 
-						@rownum:=@rownum+1 num, p.*, u.nickname
-						FROM post p, user u, (SELECT @rownum:=0) init2
+		SELECT * FROM
+			(SELECT @rownum:=@rownum+1 num, inner_table.* 
+				FROM (SELECT 
+						p.*, u.nickname
+						FROM post p, user u
+						JOIN (SELECT @rownum:=0) init2
 						where p.user_id = u.user_id
 						<if test='post.postType=="n"'>
 						AND p.post_type LIKE "n"
@@ -208,8 +211,8 @@
 						AND u.nickname like '%${search.searchKeyword}%'
 						</if>
 						AND blind_code LIKE "show"
-						ORDER BY p.post_no DESC) inner_table
-		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num
+						ORDER BY p.post_no DESC) inner_table ) a
+		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum}
 	</select>
 	
 	<select  id="getPostTotalCount"  parameterType="map"	 resultType="int">
@@ -260,7 +263,7 @@
 						AND u.nickname like '%${search.searchKeyword}%'
 						</if>
 						ORDER BY p.post_no DESC) inner_table
-		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num 
+		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num desc
 		
 	</select>
 

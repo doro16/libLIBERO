@@ -40,7 +40,6 @@
 				        fncGetUserList(1);
 				    }
 			 });
-			
 		});
         
     </script>
@@ -50,17 +49,17 @@
 	<jsp:include page="../toolbar.jsp" />
 	
    
-    <div class="container-doc">
+    <div class="container-doc container">
         			
-					<h1 style="margin: 0px 240px 0; font-weight:bold;">공지사항</h1>   
-					<h4 style="margin: 24px 240px 0; font-weight:400;">리브리베로의 새 소식을 가장 먼저 만나보세요.</h4> 
+					<h1 style=" font-weight:bold;">공지사항</h1>   
+					<h4 style="margin-bottom:70px; font-weight:400;">리브리베로의 새 소식을 가장 먼저 만나보세요.</h4> 
         <main class="doc-main">
             	
         		
 				
                 
-                <p style="margin: 10px 240px; float:left; "> 전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지 </p>
-				 <form class="form-inline" style="margin: 84px 0 0 1040px;">
+                <p style="float:left; "> 전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지 </p>
+				 <form class="form-inline" style="float:right;">
 		    
 					  <div class="form-group">
 					    <select class="form-control" name="searchCondition" >
@@ -129,7 +128,7 @@
                             			<c:if test="${fn:length(postName)>20}">......</c:if>
 						                </h5>
 						                
-						                <div style= "max-height: 84px;  margin: -14px 0px; overflow: hidden;">
+						                <div class="content" style= "max-height: 84px;  margin: -14px 0px; overflow: hidden;">
 						                <p class="card-text text-uppercase mb-3" >${post.postContent}</p>
 						                </div> 
 						                     <div style="margin: 32px 0 0 274px; color: #5587ED; font-size: 14px;">

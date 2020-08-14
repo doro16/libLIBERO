@@ -93,7 +93,7 @@
 			alert("정산 완료");
 				
 			var userId = $(this).next().val();
-			window.location.href = "/libero/user/updateCash/"+userId;
+			window.location.href = "/libero/user/updateCash?userId="+userId;
 		});	
 	})
 	</script>

@@ -181,12 +181,12 @@
 					</c:if> 		
 
 					<c:if test="${user.role!='a' && param.menu=='q' && post.commentCount == 0}"> 
-					<textarea class="form-control col-12 col-md-12 mr-1" id="commentContent2" name="commentContent2" rows="6" style="background-color: #d7ccc8;" 
+					<textarea class="form-control col-12 col-md-12 mr-1" id="commentContent2" name="commentContent2" rows="10" style="background-color: #d7ccc8;" 
 					placeholder="답변이 아직 등록되지 않았습니다." readonly></textarea>
 					</c:if>
 					
 					<c:if test="${user.role=='a' && param.menu=='q' && post.commentCount == 0}">  
-					<textarea class="form-control col-12 col-md-12 mr-1" id="commentContent2" name="commentContent2" rows="6" style="background-color: #d7ccc8;" 
+					<textarea class="form-control col-12 col-md-12 mr-1" id="commentContent2" name="commentContent2" rows="10" style="background-color: #d7ccc8;" 
 					placeholder="관리자님! 답변을 등록해주세요."></textarea>
 					<button class="btn btn-brown btn-sm" style="margin-left:742px;" id="addComment">등록</button>
 					</c:if>
@@ -202,7 +202,7 @@
 		  <c:set var="i" value="${ i+1 }" />
 					<c:if test="${param.menu=='q'}"> 	
 						<textarea class="form-control col-12 col-md-12 mr-1" id="commentContent2" name="commentContent2" 
-						rows="6" style="background-color: #d7ccc8;" >${comment.commentContent}</textarea>
+						rows="10" style="background-color: #d7ccc8;" >${comment.commentContent}</textarea>
 					</c:if>	  
 					<c:if test="${param.menu!='q'}">    
     							<div class="wow${comment.commentNo}">

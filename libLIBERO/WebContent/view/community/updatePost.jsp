@@ -28,8 +28,8 @@
 			</div>
             <div class="form-row justify-content-center my-5">
                
-				<button type="button" class="btn btn-outline-info waves-effect" href="javascript:history.back();" role="button">취&nbsp;소</button>
-			    <button type="button" class="btn btn-cyan">등&nbsp;록</button>	
+				<button type="button" class="btn btn-outline-brown waves-effect" href="javascript:history.back();" role="button">취&nbsp;소</button>
+			    <button type="button" class="btn btn-brown">등&nbsp;록</button>	
             </div>
         </form>
 

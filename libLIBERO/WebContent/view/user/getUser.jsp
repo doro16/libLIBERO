@@ -6,16 +6,11 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>libLIBERO : 내정보 조회</title>
 		<jsp:include page="/common/cdn.jsp"></jsp:include>
 		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<!--  ///////////////////////// CSS ////////////////////////// -->
 		<link rel="stylesheet" href="../resources/css/common.css">
 		<style type="text/css">
-		
-			body {
-				font-family:'GyeonggiBatang';
-			}
 		</style>
 	</head>
 	<body>
@@ -144,7 +139,7 @@
 			
 			<c:if test="${empty user.kakaoId and user.role ne 'f'}">
 						<span style="float:left">
-							<a href="${kakao_url}" style="text-decoration:none; color: black;"><img src="/libero/resources/images/common/kakao.png" style="width:50px; height:50px; left-margin:50px;">
+							<a onclick="window.open('${kakao_url}','카카오 로그인','width=400, height=500');" style="text-decoration:none; color: black;"><img src="/libero/resources/images/common/kakao.png" style="width:50px; height:50px; left-margin:50px;">
 							&nbsp; 카카오 로그인 연동
 							</a>
 						</span>
@@ -153,7 +148,7 @@
 				<span id="btnDiv" style="float:right">
 				
 					<button type="button" id="modifyBtn" class="btn btn-info brown lighten-1" onclick="updateUser()">수정</button>
-			
+					<button type="button" id="modifyBtn" class="btn btn-info brown lighten-1" onclick="location.href=('/libero/user/removeUser')">탈퇴</button>
 				</span>
 			</div>
 			
