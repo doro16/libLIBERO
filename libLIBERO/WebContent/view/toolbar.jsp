@@ -65,7 +65,12 @@
 	          			<a class="dropdown-item" href="/libero/community/getPostList?menu=n">공지사항</a>
 				        <a class="dropdown-item" href="/libero/community/getPostList?menu=f">자유게시판</a>
 				        <div class="dropdown-divider"></div>
+				        <c:if test="${sessionScope.user.role!='a'}">
 				        <a class="dropdown-item" href="/libero/community/addPost?postType=q">1:1문의</a>
+				        </c:if>
+				        <c:if test="${sessionScope.user.role=='a'}">
+				        <a class="dropdown-item" href="/libero/user/getUserActivityList?menu=q">1:1문의</a>
+				        </c:if>
 	        		</div>
 	      		</li>
 	    	</ul>

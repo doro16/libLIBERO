@@ -7,7 +7,8 @@
 		<meta charset="UTF-8">
 		<title>libLIBERO : 로그인</title>
 		<jsp:include page="/common/cdn.jsp"></jsp:include>
-		
+		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<link rel="stylesheet" href="../resources/css/common.css">
 		<style type="text/css">
 			html,body { 
 				margin:0; 
@@ -180,14 +181,186 @@
 			</div>
 			<!-- Bootstrap Container End -->
 		</div>
+		
+<div id="modalBoxId" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h3 class="modal-title" id="myModalLabel" style="float:center; text-align:center">ID 찾기</h3>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+</div>
+<div class="modal-body">	
+			
+			<div class="col-xs-6 col-md-12">	
+    		
+    		<div id="inputPhone">
+    		<div class="md-form">
+			  <input type="text" id="phone" name="phone" class="form-control">
+			  <label for="form1">휴대폰 번호 입력</label>
+			</div>
+    		
+    		<button type="button" id="phoneVerif" class="btn btn-info brown lighten-1">휴대폰 번호 인증</button>
+    		</div>
+    		
+    		<div style="display:none" id="verifDiv">
+    		<div class="md-form">
+			  <input type="text" id="verifCode" name="verifCode" class="form-control">
+			  <label for="form1">인증 번호 입력</label>
+			</div>
+			
+			<button type="button" id="verifBtn" class="btn btn-info brown lighten-1">인증 하기</button>		
+			
+
+    		<input type="hidden" value="" id="hiddenVerif">
+    		<input type="hidden" id="findUserId" name="findUserId" value=""/>
+		</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="modalBoxPw" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h3 class="modal-title" id="myModalLabel" style="float:center">Password 찾기</h3>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+</div>
+<div class="modal-body">	
+			
+			<div class="col-xs-6 col-md-12">	
+    		
+    		<div id="inputPhone">
+    		<div class="md-form">
+			  <input type="email" id="findPassword" name="findPassword" class="form-control">
+			  <label for="form1">ID(E-mail) 입력</label>
+			</div>
+    		
+    		<button id="emailcheck" class="btn btn-cyan brown lighten-1" type="button">이메일 인증</button>
+    		</div>
+    		
+</div>
+</div>
+</div>
+</div>
+</div>
+		
 	</body>
 	
 	<script type="text/javascript">
 $(function(){
 	
-	if('${message}' == 'wrong')
-	swal('아이디 혹은 비밀번호를 확인해 주세요',"","error");
-})
+	if('${message}' == 'wrong'){
+		swal({
+			text : "아이디 혹은 비밀번호를 확인해 주세요",
+			icon : "error",
+			position : "center",
+			buttons:{
+				Id : {
+					text:"ID 찾기",
+					value:"id",
+					
+				},
+				Password :{
+					text:"PASSWORD 찾기",
+					value:"password",
+				},
+					},
+			
+		}).then((value) =>{
+			switch (value)     {
+				case "id" :
+					$('#modalBoxId').modal('show');
+					break;
+				
+				case "password" : 
+					$('#modalBoxPw').modal('show');
+			}
+		});
+	}
+	
+	//==============아이디/비밀번호찾기 팝업 ====================
+	$("#phoneVerif").on("click",function(){
+				
+			
+			$.ajax({ url: "/libero/user/json/findId",
+					data: {
+						receiver: $("#phone").val()
+						},
+					type: "post",
+					success: function(result) {
+						if(result.certifiNum > 0 && result.certifiNum != 1111111){
+							swal("인증번호가 발송되었습니다.","휴대폰을 확인해 주세요 :>","success");
+						$("#verifDiv").show();
+						$("#inputPhone").hide();
+						$("#hiddenVerif").attr("value",result.certifiNum);
+						$("#findUserId").val(result.userId);
+						}else if(result.certifiNum == 0){
+							swal("유효한 번호를 입력해 주세요","error");
+							return;
+						}else if(result.certifiNum == 1111111){
+							swal("회원가입 시 입력한 핸드폰 번호를 입력해주세요.");
+							return;
+						}
+					}			
+					});
+			
+			})	
+		
+	$("#verifBtn").on("click",function(){
+		
+		var userId = $("#findUserId").val();
+		var subUserId = userId.substring(0,3);
+		var star = "";
+		
+		for(var i=0; i<userId.length-3; i++){
+		alert(userId.length+" "+userId.length-3)
+		star += "*";
+		}
+		
+				if($("#hiddenVerif").val() != $("#verifCode").val()){
+					swal("인증번호를 확인해 주세요","","error");		
+					return;
+				}else if($("#verifCode").val()== null || $("#verifCode").val()== ''){
+					swal("인증번호를 입력하지 않으셨습니다.","","error");
+					return;
+				}else{						
+					swal("인증이 완료되었습니다!","회원님의 ID는 "+subUserId+star+" 입니다.","success")
+					$('#modalBoxId').modal("hide");
+					return;
+						}						
+					})
+					
+					//////////////////////////이메일 인증
+		$("#emailcheck").on("click",function(){
+			if( $("#findPassword").val() == '' ){
+				swal("이메일을 입력해 주세요.","이메일을 입력하지 않으셨습니다.","error")
+			}else{
+			$.ajax(
+					{	url : "/libero/user/json/findPassword?findPassword="+$("#findPassword").val(),
+						method : "GET" ,
+						/* dataType : "json" , */
+						headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+									}
+						,success : function vcode() {
+						swal("메일이 발송 되었습니다!", "임시 비밀번호를 확인해주세요.", "success");			
+						$('#modalBoxPw').modal("hide");
+						},
+						error : function( error ) {
+							swal("유효한 이메일을 입력해 주세요.","이메일을 잘못 입력하셨습니다.","error")
+						}
+						
+						
+						});//$.ajax 끝
+					}	
+										
+				});//$("#emailcheck").on끝
+												
+			}); // End Of Load Function
+
 	function login() {
 		if($("#userId").val() ==''){
 			swal("아이디를 입력해 주세요","아이디 미입력","error");
@@ -227,24 +400,7 @@ $(function(){
 		};
 		
 	}//=======================Web Socket End=========================	
-		
-		
-	//==============아이디/비밀번호찾기 팝업 ====================
-	function popupForId(){
-	
-        var url = "/libero/user/findId";
-        var name = "아이디 찾기";
-        var option = "width = 1000, height = 500, top = 50, left = 50, location = no"
-        window.open(url, name, option);
-    }	
-	
-	function popupForPwd(){
-		
-        var url = "/libero/user/findPwd";
-        var name = "비밀번호 찾기";
-        var option = "width = 1000, height = 500, top = 50, left = 50, location = no"
-        window.open(url, name, option);
-    }	
+				
 		
 	</script>
 </html>

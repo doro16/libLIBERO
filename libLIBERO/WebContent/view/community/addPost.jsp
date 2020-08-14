@@ -67,30 +67,7 @@
 <script src="/libero/resources/javascript/summernote/lang/summernote-ko-KR.min.js"></script>
 
 <script type="text/javascript">
-	function fncAddPost(){
-		$('textarea[name="postContent"]').val($('#summernote').summernote('code'));
-		var postName = $("input[name='postName']").val();
-		var postContent = $("#postContent").val();
-		var qnaRegType = $("select[name=qnaRegType] option:selected").val();
-	
-		
-		if(postName == null || postName.length <1){
-			alert(qnaRegType );
-			return;
-		}
-		
-		if(postContent == null || postContent.length <1){
-			alert("내용을 입력해주세요.");
-			return;
-		}
-		
-		if(qnaRegType == "문의종류"){
-			alert("문의종류를 선택해주세요.");
-			return;
-		}
-		
-		$("form").attr("method" , "POST").attr("action" , "/libero/community/addPost").attr("enctype","multipart/form-data").submit();
-	}
+
 
 	$(function() {
 
@@ -131,8 +108,36 @@
   		});
   	  	
 		$("button:contains('등')").on("click", function(){
+			$('textarea[name="postContent"]').val($('#summernote').summernote('code'));
+			var postName = $("input[name='postName']").val();
+			var postContent = $("#postContent").val();
+			var qnaRegType = $("select[name=qnaRegType] option:selected").val();
+			var postType = $("input[name='postType']").val();
 			
-			fncAddPost()
+			if(postName == null || postName.length <1){
+				alert("제목을 입력해주세요.");
+				return;
+			}
+			
+			if(postContent == "<p><br></p>"){
+				alert("내용을 입력해주세요.");
+				return;
+			}
+			
+			if(qnaRegType == "문의종류"){
+				alert("문의종류를 선택해주세요.");
+				return;
+			}
+			
+			if (postType != 'q'){
+				swal("게시글이 등록되었습니다.", "", "success");
+			} else if (postType == 'q'){
+				swal("문의가 등록되었습니다.", "근무시간 내에 답변해드립니다.", "success");
+			}
+			setTimeout(function() {
+				$("form").attr("method" , "POST").attr("action" , "/libero/community/addPost").attr("enctype","multipart/form-data").submit();
+		    }, 1500);
+			
 		});
 		
 		
@@ -155,13 +160,8 @@
 			processData : false,
 			success : function(data) {
             	//항상 업로드된 파일의 url이 있어야 한다.
-            	console.log("img"+$("<img>"));
-            	
-            	console.log("img1"+$("<img>"));
            		$(editor).summernote('insertImage', data.url);
            		
-           		$("img").css("width","100%");
-           		console.log("img2"+$("img"));
 			}
 		});
 	}

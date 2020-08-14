@@ -263,10 +263,10 @@
                         </td>
                         <input type="hidden" value="${post.postNo}"/>
                         <c:if test="${post.qnaCode == 'o'}">
-                        <td><button type="button" class="btn btn-primary btn-rounded btn-sm my-0" style="border-radius: 20px;">답변완료</button></td>
+                        <td><button type="button" class="btn brown lighten-1 btn-rounded btn-sm my-0" style="border-radius: 20px; color: white;">답변완료</button></td>
                   		</c:if>
                         <c:if test="${post.qnaCode == 'x'}">
-                        <td><button type="button" class="btn btn-warning btn-rounded btn-sm my-0" style="border-radius: 20px;">&nbsp;&nbsp;대기중&nbsp;&nbsp;</button></td>
+                        <td><button type="button" class="btn brown lighten-5 btn-rounded btn-sm my-0" style="border-radius: 20px;">&nbsp;&nbsp;대기중&nbsp;&nbsp;</button></td>
                   		</c:if>
                         <td>${post.user.nickname}</td>
                         <td><fmt:formatDate value="${post.regDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>

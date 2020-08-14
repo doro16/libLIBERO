@@ -15,7 +15,8 @@
 	<div class="container">
     <h1>게시글 작성</h1>
         <form class="form-group my-5 py-5">
-            <input type="hidden" name="postType" value="0">
+            <input type="hidden" name="postType" value="${post.postType}">
+            <input type="hidden" name="postNo" value="${post.postNo}">
             <div class="form-row my-3">
                 <div class="input-group col-lg-12">
                     <input type="text" class="form-control" name="postName" value="${post.postName}">
@@ -41,25 +42,7 @@
 <script src="/libero/resources/javascript/summernote/lang/summernote-ko-KR.min.js"></script>
 
 <script type="text/javascript">
-	function fncUpdatePost(){
-		$('textarea[name="postContent"]').val($('#summernote').summernote('code'));
-		var postName = $("input[name='postName']").val();
-		var postContent = $("textarea[name='postContent']").val();
-	
-		
-		if(postName == null || postName.length <1){
-			alert("제목을 입력해주세요.");
-			return;
-		}
-		
-		if(postContent == null || postContent.length <1){
-			alert("내용을 입력해주세요.");
-			return;
-		}
-		
-		$("form").attr("method" , "POST").attr("action" , "/libero/community/updatePost").attr("enctype","multipart/form-data").submit();
-		alert("게시글이 수정되었습니다.");
-	}
+
 
 	$(function() {
 
@@ -100,8 +83,25 @@
   		});
   	  	
 		$("button:contains('등')").on("click", function(){
+			$('textarea[name="postContent"]').val($('#summernote').summernote('code'));
+			var postName = $("input[name='postName']").val();
+			var postContent = $("textarea[name='postContent']").val();
+		
 			
-			fncUpdatePost()
+			if(postName == null || postName.length <1){
+				alert("제목을 입력해주세요.");
+				return;
+			}
+			
+			if(postContent == "<p><br></p>"){
+				alert("내용을 입력해주세요.");
+				return;
+			}
+			
+			swal("게시글이 수정되었습니다.", "", "success");
+			setTimeout(function() {
+				$("form").attr("method" , "POST").attr("action" , "/libero/community/updatePost").attr("enctype","multipart/form-data").submit();
+			 }, 1500);
 		});
 		
 		
