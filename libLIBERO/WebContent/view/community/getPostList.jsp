@@ -8,6 +8,7 @@
 <head>
     <meta charset="utf-8">
    	<jsp:include page="../../common/cdn.jsp" />
+   	<link rel="stylesheet" href="../resources/css/common.css">
 	<style>
       .md-pills .nav-link.active {
         color: #fff;
@@ -51,7 +52,7 @@
    
     <div class="container-doc">
         			
-					<h1 style="margin: 124px 240px 0; font-weight:bold;">공지사항</h1>   
+					<h1 style="margin: 0px 240px 0; font-weight:bold;">공지사항</h1>   
 					<h4 style="margin: 24px 240px 0; font-weight:400;">리브리베로의 새 소식을 가장 먼저 만나보세요.</h4> 
         <main class="doc-main">
             	

@@ -340,7 +340,7 @@
             <div class="md-form mt-0">
                 <input type="email" id="userId" class="form-control" name="userId">
                 <label for="userId">아이디(이메일)</label>
-                <button id="emailcheck" class="btn btn-cyan brown lighten-1" type="button">이메일 인증</button>
+                <button id="emailcheck" class="btn btn-brown brown lighten-1" type="button">이메일 인증</button>
             </div>
                <input type="hidden" id="inputVerification" name ="inputVerification">
 			<!--인증번호 -->
@@ -389,7 +389,7 @@
 	             </div>
 	             <input type="hidden" name="address" >
 	           <div class="md-form row-4">
-	             	<button type="button" class="btn btn-cyan brown lighten-1" onClick="daumjuso()">우편번호 찾기</button>
+	             	<button type="button" class="btn btn-brown brown lighten-1" onClick="daumjuso()">우편번호 찾기</button>
 			</div>   
 				
 			<!-- HashTag -->
@@ -408,7 +408,7 @@
 				 <div class="md-form col">
 					  <div class="file-field">
 					  <label for="profile">프로필 사진</label>
-					    <div class="btn btn-brown lighten-1 btn-sm float-center">
+					    <div class="btn btn-brown brown lighten-1 btn-sm float-center">
 					    	
 					      <span>Choose file</span>
 					      
