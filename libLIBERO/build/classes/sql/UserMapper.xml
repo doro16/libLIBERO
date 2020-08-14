@@ -176,6 +176,7 @@
 	product.prod_no,
 	product.creator,
 	product.retail_price,
+	product.print_price,
 	buy.buy_no
 	FROM product, pay, buy
 	WHERE 

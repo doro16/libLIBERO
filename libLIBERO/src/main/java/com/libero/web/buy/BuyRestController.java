@@ -71,11 +71,11 @@ public class BuyRestController {
 			  cash = new Cash();
 			  
 			  cash.setUserId(listAuthor.get(i).getCreator());
-			  cash.setCashCurrent(listAuthor.get(i).getRetailPrice());
+			  cash.setCashCurrent((int)(listAuthor.get(i).getRetailPrice()*0.7-listAuthor.get(i).getPrintPrice()));
 			  cash.setBuyNo(listAuthor.get(i).getBuyNo());
 			  buyService.addCash(cash);
 		  }else{
-			  cash.setCashCurrent(cash.getCashCurrent()+listAuthor.get(i).getRetailPrice());
+			  cash.setCashCurrent((int)(cash.getCashCurrent()+listAuthor.get(i).getRetailPrice()*0.7-listAuthor.get(i).getPrintPrice()));
 			  cash.setBuyNo(listAuthor.get(i).getBuyNo());
 			  buyService.addCash(cash);
 		  	}

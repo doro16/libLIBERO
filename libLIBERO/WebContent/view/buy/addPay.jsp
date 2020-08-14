@@ -82,7 +82,8 @@ function daumjuso() {
                 pay_method : $("#paymentOption").val(),
                 merchant_uid : 'merchant_' + new Date().getTime(),
                 name : '리브리베로 결제창',
-                amount : $("#payment").val(),
+                /* amount : $("#payment").val(), */
+                amount : 100,
                 buyer_email : $("#userId").val(),
                 buyer_name : $("#receiverName").val(),
                 buyer_tel : $("#receiverPhone").val(),

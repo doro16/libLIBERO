@@ -4,6 +4,7 @@
 
 
 <head>
+	<title>libLIBERO</title>
 <!--  ///////////////////////// CSS ////////////////////////// -->
 <style type="text/css">
 	nav {
