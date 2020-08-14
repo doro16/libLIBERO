@@ -426,8 +426,8 @@ public class UserController {
 		return mav;
 	}
 
-	@RequestMapping(value = "updateCash/{userId}", method = RequestMethod.GET)
-	public ModelAndView updateCash(@PathVariable("userId") String userId) throws Exception {
+	@RequestMapping(value = "updateCash", method = RequestMethod.GET)
+	public ModelAndView updateCash(@RequestParam("userId") String userId) throws Exception {
 		System.out.println("/user/updateCash : GET");
 
 		Cash cash = userService.getCash(userId);
