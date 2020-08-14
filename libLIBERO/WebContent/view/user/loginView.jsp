@@ -53,7 +53,7 @@
 	        				<hr/>
 	        				<div class="text-center">
 				        		<a href="/libero/user/addUser"><button type="button" class="btn btn-info brown lighten-1 btn-block" id="addUser">회원가입</button></a><br/>
-				        		<a href="${kakao_login}"><img src="/libero/resources/images/common/kakao_login_medium_narrow.png"></a>
+				        		<a onclick="window.open('${kakao_login}','카카오 로그인','width=400, height=500');"><img src="/libero/resources/images/common/kakao_login_medium_narrow.png"></a>
 				      		</div>
 				      		
 				      		
@@ -249,36 +249,36 @@
 	</body>
 	
 	<script type="text/javascript">
-$(function(){
-	
-	if('${message}' == 'wrong'){
-		swal({
-			text : "아이디 혹은 비밀번호를 확인해 주세요",
-			icon : "error",
-			position : "center",
-			buttons:{
-				Id : {
-					text:"ID 찾기",
-					value:"id",
-					
-				},
-				Password :{
-					text:"PASSWORD 찾기",
-					value:"password",
-				},
+	$(function(){
+		
+		if('${message}' == 'wrong'){
+			swal({
+				text : "아이디 혹은 비밀번호를 확인해 주세요",
+				icon : "error",
+				position : "center",
+				buttons:{
+					Id : {
+						text:"ID 찾기",
+						value:"id",
+						
 					},
-			
-		}).then((value) =>{
-			switch (value)     {
-				case "id" :
-					$('#modalBoxId').modal('show');
-					break;
+					Password :{
+						text:"PASSWORD 찾기",
+						value:"password",
+					},
+						},
 				
-				case "password" : 
-					$('#modalBoxPw').modal('show');
-			}
-		});
-	}
+			}).then((value) =>{
+				switch (value)     {
+					case "id" :
+						$('#modalBoxId').modal('show');
+						break;
+					
+					case "password" : 
+						$('#modalBoxPw').modal('show');
+				}
+			});
+		}
 	
 	//==============아이디/비밀번호찾기 팝업 ====================
 	$("#phoneVerif").on("click",function(){
