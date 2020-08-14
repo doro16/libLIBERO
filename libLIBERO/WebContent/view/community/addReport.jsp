@@ -24,10 +24,9 @@
 		
 		$("#addPostReport").on("click", function() {
 			var postNo = parseInt($("input[name='postNo']").val());
-			var reportCount = parseInt($("input[name='reportCount']").val());
-			var index = parseInt($("#reportSelect option:selected").val());
+			var reportCount = parseInt($("input[name='reportCount1']").val());
+			var index = parseInt($("#reportSelect1 option:selected").val());
 			var prodPost =  new String("post");
-			alert(reportCount);
 		$.ajax({
 					url : "/libero/report/json/addReport",
 					method : "POST",
@@ -229,7 +228,7 @@
 						</div>
 						<hr style='border: solid 1px gray;'>
 				        <input type="hidden" id="postNo" name="postNo" value="${post.postNo}">
-						<input type="hidden" id="reportCount" name="reportCount"
+						<input type="hidden" id="reportCount1" name="reportCount1"
 							value="${post.reportCount}">
 						<p style='float: left; font-weight: 600; padding: 0px 10px 0px 0px;'>제
 							&nbsp;&nbsp;&nbsp;목 :</p>
@@ -238,7 +237,7 @@
 							:</p>
 						<p>${post.user.nickname} (${post.user.userId})</p>
 						<hr>
-						<select class="custom-select d-block w-100" id="reportSelect">
+						<select class="custom-select d-block w-100" id="reportSelect1">
 						<option value="3">근거없는 욕설 및 비방</option>
 						<option value="4">반복적 광고 및 홍보</option>
 						<option value="5">타인의 명예인격권 침해</option>

@@ -69,7 +69,7 @@
 <input type="hidden" id="userId" name="userId" value="${post.user.userId}"/>
 <input type="hidden" id="prodPost" name="prodPost" value="post"/>
 <input type="hidden" id="postType" name="postType" value="${post.postType}"/> 
-<input type="hidden" id="reportCount" name="reportCount" value="${post.reportCount}"/> 
+
 
 	<jsp:include page="addReport.jsp"></jsp:include>
 

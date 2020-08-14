@@ -49,7 +49,7 @@
 		var prodPostNo =  $("input[name='prodPostNo']").val(); 
 		var blindCode =  $("button[name='blindCode']").val(); 
 		var prodPost =  $("input[name='prodPost']").val(); 
-		alert("왜눌러");
+
 		$.ajax(
 		    	{
 		        url : "/libero/user/json/updateBlindCode/",
@@ -64,9 +64,17 @@
 					"Accept" : "application/json",
 					"Content-Type" : "application/json"
 				},
-				success : function(JSONData , status) {
-					alert("요청성공");
-					if(blindCode == 'report'))
+				success : function(JSONData , status) {				
+					if(blindCode == 'report'){
+						swal("신청 완료", "심사후  공개로 전환됩니다.", "success");
+					} else if(blindCode == 'require'){
+						swal("승인 완료", "다시 공개됩니다", "success");
+						setTimeout(function() {
+							window.location.reload();
+					    }, 1500);
+						
+
+					}
 				}	
 				});
 		})	
@@ -263,14 +271,14 @@
 								<c:if test="${report.post.blindCode == 'show'}"><td>공개</td></c:if>
 								<c:if test="${user.role!='a' && report.product.blindCode == 'report'}">
                         		<td>
-                        		<button type="button" class="btn btn-warning btn-rounded btn-sm my-0 ss" 
+                        		<button type="button" class="btn brown lighten-1 btn-rounded btn-sm my-0 ss" 
                         		name="blindCode" value="${report.post.blindCode}" style="border-radius: 20px;">숨김 해제
                         		</button></td>
                   				</c:if>
                   				
                   				<c:if test="${user.role!='a' && report.post.blindCode == 'require'}">
                         		<td>
-                        		<button type="button" class="btn btn-light btn-rounded btn-sm my-0 ss" 
+                        		<button type="button" class="btn btn-light btn-rounded btn-sm my-0" 
                         		name="blindCode" value="${report.post.blindCode}"  disabled style="border-radius: 20px;">숨김 해제
                         		</button></td>
                   				</c:if>
@@ -282,7 +290,7 @@
                         		</td>
                   				</c:if>
                   				<c:if test="${user.role=='a' && report.post.blindCode == 'require'}">							
-                        		<td><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 ss" 
+                        		<td><button type="button" class="btn brown lighten-1 btn-rounded btn-sm my-0 ss" 
                         		name="blindCode" value="${report.post.blindCode}" style="border-radius: 20px;">공개 승인</button></td>
                   				</c:if>
 								

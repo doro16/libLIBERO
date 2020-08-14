@@ -148,7 +148,7 @@
 							<c:forEach var="list" items="${list}">
 						      <div class="col-md-6 col-lg-3 mb-4 text-center">
 						        <h4 class="h1 font-weight-normal mb-3">
-						          <i class="fas fa-file-alt brown-text"></i>
+						          <i class="fas fa-file-alt"></i>
 						          <span class="d-inline-block count-up" data-from="0" data-to="${list.prodCount}" data-time="2000">${list.prodCount}</span>
 						        </h4>
 						        <p class="font-weight-normal text-muted"><br/><br/><h4>등록된 도서</h4><br/><br/>리브리베로에 등록된<br/>도서의 개수입니다.</p>
@@ -156,7 +156,7 @@
 						
 						      <div class="col-md-6 col-lg-3 mb-4 text-center">
 						        <h4 class="h1 font-weight-normal mb-3">
-						          <i class="fas fa-book-reader brown-text"></i>
+						          <i class="fas fa-book-reader"></i>
 						          <span class="d-inline-block count1" data-from="0" data-to="${list.creatorCount}" data-time="2000">${list.creatorCount}</span>
 						        </h4>
 						        <p class="font-weight-normal text-muted"><br/><br/><h4>활동중인 작가</h4><br/><br/>리브리베로에는 이미<br/>많은 작가분들이 활동하고 있습니다.</p>
@@ -164,7 +164,7 @@
 						
 						      <div class="col-md-6 col-lg-3 mb-4 text-center">
 						        <h4 class="h1 font-weight-normal mb-3">
-						          <i class="fas fa-pencil-ruler brown-text"></i>
+						          <i class="fas fa-pencil-ruler"></i>
 						          <span class="d-inline-block count2" data-from="0" data-to="${list.salesCount}" data-time="2000">${list.salesCount}</span>
 						        </h4>
 						        <p class="font-weight-normal text-muted"><br/><br/><h4>도서 판매 부수</h4><br/><br/>이만큼의 <br/>도서가 판매되었습니다.</p>
@@ -172,7 +172,7 @@
 						      
 						      <div class="col-md-6 col-lg-3 mb-4 text-center">
 						        <h4 class="h1 font-weight-normal mb-3">
-						          <i class="fas fa-book brown-text"></i>
+						          <i class="fas fa-book"></i>
 						          <span class="d-inline-block count3" data-from="0" data-to="${list.nowCount}" data-time="2000">${list.nowCount}</span>
 						        </h4>
 						        <p class="font-weight-normal text-muted"><br/><br/><h4>오늘 출간된 책</h4><br/><br/>오늘 <br/>등록된 도서를 확인하세요.</p>
