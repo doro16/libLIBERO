@@ -359,7 +359,7 @@ public class UserRestController {
 		String url = "https://" + hostname + "/smscenter/v1.0/sendsms";
 		CredentialsProvider credsProvider = new BasicCredentialsProvider();
 		credsProvider.setCredentials(new AuthScope(hostname, 443, AuthScope.ANY_REALM),// 청기와랩에 등록한 Application Id 와 API key 를 입력합니다. 
-				new UsernamePasswordCredentials("libeLIBERO", "8ec6b9cad95611eab5140cc47a1fcfae"));
+				new UsernamePasswordCredentials("libero", "79087a92ddfc11eaaa100cc47a1fcfae"));
 		AuthCache authCache = new BasicAuthCache(); 
 		authCache.put(new HttpHost(hostname, 443, "https"), new BasicScheme());
 		HttpClientContext context = HttpClientContext.create();
@@ -369,7 +369,7 @@ public class UserRestController {
 		try {
 			HttpPost httpPost = new HttpPost(url);
 		httpPost.setHeader("Content-type", "application/json; charset=utf-8");//문자에 대한 정보 
-		String json = "{\"sender\":\"01035939410\",\"receivers\":[\"" + receiver + "\"],\"content\":\""+randomNo+"\"}"; 
+		String json = "{\"sender\":\"01042796268\",\"receivers\":[\"" + receiver + "\"],\"content\":\""+randomNo+"\"}"; 
 		StringEntity se = new StringEntity(json, "UTF-8"); 
 		httpPost.setEntity(se); 
 		HttpResponse httpResponse = client.execute(httpPost, context);

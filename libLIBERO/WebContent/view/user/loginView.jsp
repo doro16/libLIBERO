@@ -315,7 +315,7 @@ $(function(){
 		var star = "";
 		
 		for(var i=0; i<userId.length-3; i++){
-		alert(userId.length+" "+userId.length-3)
+		//alert(userId.length-3)//userId.length+""+
 		star += "*";
 		}
 		

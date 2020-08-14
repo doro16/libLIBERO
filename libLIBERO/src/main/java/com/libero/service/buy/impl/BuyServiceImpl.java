@@ -147,13 +147,13 @@ public class BuyServiceImpl implements BuyService{
 	}
 
 	@Override
-	public Map<String, Object> getFactoryBuy(String payNo) {
-		System.out.println("BUYSERVICEIMPL!!");System.out.println("BUYSERVICEIMPL!!");System.out.println("BUYSERVICEIMPL!!");
+	public Map<String, Object> getFactoryBuy(String payNo,String factoryId) {
+		//System.out.println("BUYSERVICEIMPL!!");System.out.println("BUYSERVICEIMPL!!");System.out.println("BUYSERVICEIMPL!!");
 		List buyList = new ArrayList();
 		List prodList = new ArrayList();
 		Map map= new HashMap();
 		
-		buyList = buyDao.getFactoryBuy(payNo);
+		buyList = buyDao.getFactoryBuy(payNo,factoryId);
 		
 
 			for(int i=0;i<buyList.size();i++) {
@@ -162,10 +162,10 @@ public class BuyServiceImpl implements BuyService{
 				buy = (Buy)buyList.get(i);
 				prod = productDao.getProduct(buy.getProdNo());
 				prod.setBuyAmount(buy.getBuyAmount());
-				System.out.println("====\n\n\n"+prod+"\n\n\n====");
+				//System.out.println("====\n\n\n"+prod+"\n\n\n====");
 				prodList.add(prod);
 			}
-			System.out.println("prodList\n\n\n"+prodList+"\n\n\n");
+			//System.out.println("prodList\n\n\n"+prodList+"\n\n\n");
 			map.put("product",prodList);
 			
 			return map;
@@ -173,11 +173,31 @@ public class BuyServiceImpl implements BuyService{
 	}
 
 	@Override
-	public Map<String, Object> getFactoryBuyList() {
+	public Map<String, Object> getFactoryBuyList(String factoryId) {
 		// TODO Auto-generated method stub
 		Map map = new HashMap();
-
-		map.put("factorylist", buyDao.getFactoryBuyList());
+		List<Pay> payList = buyDao.getFactoryBuyList(factoryId);
+		
+		for(int i =0; i < payList.size(); i++) {
+			Pay pay = new Pay();
+			pay = payList.get(i);
+			
+			
+			
+			
+			
+			List<Pay> payListByFactory = new ArrayList<Pay>();
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+		
+		map.put("factorylist", buyDao.getFactoryBuyList(factoryId));
 //		map.put("factoryProdNo", buyDao.getFactoryProdNo(payNo));
 		
 		return map;
