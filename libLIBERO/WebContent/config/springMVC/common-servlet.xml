@@ -51,6 +51,8 @@
 			<mvc:exclude-mapping path="/echo/**"/>
 			<mvc:exclude-mapping path="/ws/**"/>
 			<mvc:exclude-mapping path="/user/json/kakaologin"/>
+			<mvc:exclude-mapping path="/user/json/findId"/>
+			<mvc:exclude-mapping path="/user/json/findPassword"/>
 			<bean class="com.libero.common.web.LogonCheckInterceptor" />
    		</mvc:interceptor>
 

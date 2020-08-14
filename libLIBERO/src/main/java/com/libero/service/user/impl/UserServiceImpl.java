@@ -126,5 +126,12 @@ public class UserServiceImpl implements UserService{
 	public void updateKakaoToUser(String userId, String kEmail) {
 		userDAO.updateKakaoToUser(userId, kEmail);
 	}
-
+	
+	public String findUserIdByPhone(String phone) {
+		return userDAO.findUserIdByPhone(phone);
+	}
+	
+	public void updatePassword(String userId, String verCode) {
+		userDAO.updatePassword(userId, verCode);
+	}
 }

@@ -42,4 +42,8 @@ public interface UserDAO {
 	public void removeUser(User user) throws Exception;
 
 	public void updateKakaoToUser(String userId, String kEmail);
+	
+	public String findUserIdByPhone(String phone);
+	
+	public void updatePassword(String userId, String verCode);
 }

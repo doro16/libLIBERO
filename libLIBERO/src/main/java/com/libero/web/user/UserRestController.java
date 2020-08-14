@@ -131,30 +131,40 @@ public class UserRestController {
 		System.out.println("[ /user/json/emailCheck/"+userId+" : GET]");
 		System.out.println(" ---------------------------------------");
 		
-		////email보내는 함수 작성
+		Map map = new HashMap();
 		
-		String verCode = mailSender(userId);
+		////email보내는 함수 작성
+		String verCode = mailSender(userId, null);
 		
 		System.out.println("\n\n[ "+verCode+" ]\n\n");
-		
-		Map map = new HashMap();
+
 		map.put("verifCode", verCode);
+
 		
 		////리턴 값 설정 해주기.
 		return map;
 	}
 	
-	public String mailSender(String userId) throws AddressException, MessagingException {
+	public String mailSender(String userId, String isFind) throws AddressException, MessagingException {
 		
 		String host = "smtp.naver.com"; 
+		int port=465; 
 		final String username = "wjddbstp"; //네이버 아이이디 
 		final String password = "mnbv48451"; //네이버 비번 
-		int port=465; 
 		String verCode=UserRestController.getAlphaNumericString();
 		String recipient = userId; //받는 사람 이메일 주소 
-		String subject = "이메일 인증입니다."; //메일 제목 
-		String body = "libLIBERO Email Verification Code\n\t\t"+"[ "+ verCode+" ]"; //메일 내용
 		Properties props = System.getProperties(); // 메일 제목, 내용을 담을 properties 만들기. 
+		
+		String subject = null;
+		String body = null;
+		
+		if(isFind == null) {	
+			subject = "[libLIBERO] 회원가입 이메일 인증"; //메일 제목 
+			body = "libLIBERO Email Verification Code\n\t\t"+"[ "+ verCode+" ]"; //메일 내용		
+		}else {
+			subject = "[libLIBERO] 비밀번호 변경 안내"; //메일 제목 
+			body = "임시 비밀번호 발급 \n\n 임시 비밀번호 :  "+"[ "+ verCode+" ] \n\n 회원님의 비밀번호를 변경해주세요."; //메일 내용		
+		}
 		
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.port", port);
@@ -417,15 +427,33 @@ public class UserRestController {
 	}
 		
 	@RequestMapping(value="json/findId",method=RequestMethod.POST)
-	public int findId(HttpServletRequest request, String receiver) {
+	public Map findId(String receiver) {
 		System.out.println("/user/json/findId : POST");
 	
-		HttpSession session = request.getSession(true);
-		User user = (User) session.getAttribute("user");
+		String userId = userService.findUserIdByPhone(receiver);
+		
+		Map<String, Object> map = new HashMap<String, Object>();		
+		
+		int certifiNum = 0;
+		
+		if(userId == null) {			
+			map.put("certifiNum", 1111111);
+			return map;
+		}
 		
 		
+		map.put("certifiNum", sendSms(receiver));
+		map.put("userId", userId);
+		return map;
+	}
+	
+	@RequestMapping(value="json/findPassword",method=RequestMethod.GET)
+	public void findPassword(@RequestParam("findPassword") String userId) throws Exception, MessagingException {
+		System.out.println("/user/json/findPassword : POST");
 		
-		return 0;
+		String verCode = mailSender(userId, "FIND");			
+		userService.updatePassword(userId, verCode);
+		
 	}
 	
 }
