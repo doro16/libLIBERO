@@ -3,6 +3,7 @@
 <%@ page import="com.libero.service.domain.*" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html lang="ko">
 <head>
@@ -36,7 +37,14 @@
                ${post.postName}</h4>
                <img src='../resources/images/user/fileUpload/${post.user.profile}' style='height: 50px; width: 50px; float: left; margin:5px 10px 10px 0;'>
                <span style="margin:0 0 -18px 0; font-size: 16px; font-weight:bold;">${post.user.nickname}</span>
-               <span style="float:left;"> ${post.regDate} &nbsp;&nbsp;조회 &nbsp;${post.viewCount}&nbsp;&nbsp;댓글 &nbsp;${post.commentCount}</span>
+               <c:if test="${post.postType != 'q'}">
+               		<span style="float:left;"><fmt:formatDate value="${post.regDate}" pattern="yyyy-MM-dd HH:mm:ss" />&nbsp;&nbsp;조회 &nbsp;${post.viewCount}&nbsp;&nbsp;댓글 &nbsp;${post.commentCount}</span>
+               </c:if>
+               <c:if test="${post.postType == 'q'}">
+               		<span style="float:left;"><fmt:formatDate value="${post.regDate}" pattern="yyyy-MM-dd HH:mm:ss" /></span>
+               </c:if> 
+                
+               
          	   <div style="float:right;">
 	           <c:if test="${sessionScope.user.userId == post.user.userId}">
 		           	<button type="button" class="btn btn-brown btn-md">수정</button>
