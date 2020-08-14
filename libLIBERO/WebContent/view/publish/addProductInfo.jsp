@@ -226,7 +226,7 @@
 		   			</div>
 		   			<div class="form-group md-form" align="center">
 		   				<div class="formLabel" style="text-align: left">도서 표지파일</div>
-		   				<input type="file" id="file" name="imgFile" onchange="checkFile(this)"><br/>
+		   				<input type="file" name="imgFile" onchange="checkFile(this)"><br/>
 		   			</div>
 	   			</div>
 	   			<!-- 직접 올리기 End -->
@@ -282,7 +282,8 @@
 				</div>
 	   			<div class="form-group">
 	   				<div>
-	   					<div class="formLabel">해시태그</div>
+	   					<div><span class="formLabel">해시태그</span><span style="font-size: 10px"> (입력후 엔터를 누르면 등록됩니다.)</span></div>
+	   					
 	   					<div class="bs-example">
 							<input type="text" value="${prod.hashtagName}" id="hashtagName" class="tags" name="hashtagName" placeholder="">
 						</div>
@@ -490,7 +491,7 @@
 			$.ajax({
 				data : data,
 				type : "POST",
-				url : "/libero/publish/json/addProduct",
+				url : "/libero/publish/json/imgUpload",
 				//cache: false,
 				contentType : false,
 				enctype: 'multipart/form-data',
@@ -553,12 +554,11 @@
 	    function addInfo() {
 	    	var hash = $("input[name=hashtagName]").val();
 			var title = $("input[name='prodName']").val();
-			console.log(title);
 			var author = $("input[name='author']").val();
 			var imgSelect = $("input[name='imgSelect']:checked").val();
 			var thumbnail = "${prod.prodThumbnail}";
 			
-			if (title==null) {
+			if (title=='') {
 				Swal.fire({
 					  icon: 'error',
 					  text: '제목을 입력해주세요.'
@@ -566,7 +566,7 @@
 				return;
 			}
 			
-			if (author==null) {
+			if (author=='') {
 				Swal.fire({
 					  icon: 'error',
 					  text: '저자를 입력해주세요.'
@@ -583,7 +583,7 @@
 						return;
 					}
 				}else {
-					if ($("input[name='file']").val()==null) {
+					if (!$("input[name='imgFile']").val()) {
 						Swal.fire({
 							  icon: 'error',
 							  text: '표지를 업로드해주세요.'

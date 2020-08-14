@@ -186,7 +186,7 @@
 		$.ajax({
 			data : data,
 			type : "POST",
-			url : "/libero/publish/json/addProduct",
+			url : "/libero/publish/json/imgUpload",
 			//cache: false,
 			contentType : false,
 			processData : false,
@@ -214,7 +214,7 @@
     
     function addProd() {
     	
-    	if ($("input[id='prodThumbnail']").val()==null) {
+    	if (!$("input[id='prodThumbnail']").val()) {
     		Swal.fire({
 				  icon: 'error',
 				  text: '상품 썸네일을 등록해주세요.'

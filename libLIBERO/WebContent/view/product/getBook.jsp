@@ -14,7 +14,6 @@
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
 	<link rel="stylesheet" href="../../resources/css/common.css">
 
-<title>도서  상세</title>
 		<!-- ToolBar Start /////////////////////////////////////-->
 		<jsp:include page="../toolbar.jsp" />
 	   	<!-- ToolBar End /////////////////////////////////////-->
@@ -109,7 +108,7 @@
 </head>
 <body>
 
-<div class="container my-5 py-5 z-depth-0">
+<div class="container z-depth-0">
 
 
   <!--Section: Content-->

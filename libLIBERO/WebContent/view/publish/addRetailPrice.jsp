@@ -225,7 +225,15 @@
 					      					</tr>
 					      					<tr>
 					      						<th><b>제작목적</b></th>
-					      						<td>: ${prod.purposeCode}</td>
+					      						<td>: 
+					      							<c:if test="${prod.purposeCode =='sale'}">
+					      								판매용
+					      							</c:if>
+					      							<c:if test="${prod.purposeCode =='have'}">
+					      								소장용
+					      							</c:if>
+					      						
+					      						</td>
 					      					</tr>
 					      					<tr>
 					      						<th><b>카테고리</b></th>
@@ -410,6 +418,36 @@
 					});
 	    		return;
 			}else {
+				//SweetAlert Timer 
+				let timerInterval
+				Swal.fire({
+				  title: '썸네일 생성중...',
+				  html: '',
+				  timer: 2000,
+				  timerProgressBar: true,
+				  onBeforeOpen: () => {
+				    Swal.showLoading()
+				    timerInterval = setInterval(() => {
+				      const content = Swal.getContent()
+				      if (content) {
+				        const b = content.querySelector('b')
+				        if (b) {
+				          b.textContent = Swal.getTimerLeft()
+				        }
+				      }
+				    }, 100)
+				  },
+				  onClose: () => {
+				    clearInterval(timerInterval)
+				  }
+				}).then((result) => {
+				  /* Read more about handling dismissals below */
+				  if (result.dismiss === Swal.DismissReason.timer) {
+				    console.log('I was closed by the timer')
+				  }
+				});
+				//SweetAlert End
+				
 				$("#centralModal").modal("show");
 			}
 			

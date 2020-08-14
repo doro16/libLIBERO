@@ -37,7 +37,7 @@
 	   	<jsp:include page="../user/topButton.jsp"></jsp:include>
 	   		<div class="row">
 		   		<div class="col-lg-12">
-		   			<div class="formLabel">인쇄옵션 가격 조회</div>
+		   			<div id="labelName" class="formLabel">인쇄옵션 가격 조회</div>
 		   			<hr class="hrColor">
 		   		</div>
 	   		</div>
@@ -233,9 +233,10 @@
 		
 		function update() {
 			$("input").show();
-			$("p").hide();
+			$('input').next('p').hide();
 			$("button[name='updateGet']").hide();
 			$("button[name='updatePost']").show();
+			$("#labelName").html("인쇄옵션 가격 수정");
 		}
 		
 		function submit() {

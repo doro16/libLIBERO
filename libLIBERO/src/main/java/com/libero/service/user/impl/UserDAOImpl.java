@@ -160,5 +160,17 @@ public class UserDAOImpl implements UserDAO {
 			sqlSession.update("UserMapper.updateUserFrom"+listTable[i], map);
 		}
 	}
+	
+	public String findUserIdByPhone(String phone) {
+		return sqlSession.selectOne("UserMapper.findUserIdByPhone", phone);
+	}
+	
+	public void updatePassword(String userId, String verCode) {
+		Map<String, Object> map = new HashMap<String,  Object>();
+		map.put("userId", userId);
+		map.put("verCode", verCode);
+		
+		sqlSession.update("UserMapper.updatePassword", map);
+	}
 
 }

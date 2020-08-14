@@ -179,7 +179,7 @@ public class PublishController {
 		
 		if (publish.getCoverSelect().contentEquals("fileUpload")) {
 			
-			if (!files.isEmpty()) {
+			if (files!=null) {
 				
 				multiFile(files, publish);
 			}
@@ -254,7 +254,9 @@ public class PublishController {
 		
 		publishService.updateProductInfo(publish);
 		List<String> hashtagName = Arrays.asList(publish.getHashtagName().split(","));
-		publishService.addHashtag(publish.getProdNo(), hashtagName);
+		if (hashtagName.size()>0) {
+			publishService.addHashtag(publish.getProdNo(), hashtagName);
+		}
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("redirect:/publish/addRetailPrice?prodNo="+publish.getProdNo());
 		
@@ -325,7 +327,7 @@ public class PublishController {
 	}
 	
 	@RequestMapping(value = "addProduct", method = RequestMethod.POST)
-	public ModelAndView addProduct(HttpSession session, Publish publish, @RequestParam("imgFile")List<MultipartFile> files) throws Exception {
+	public ModelAndView addProduct(HttpSession session, Publish publish, @RequestParam(value="imgFile")List<MultipartFile> files) throws Exception {
 		
 		System.out.println("/publish/addProduct : POST");
 		
@@ -335,7 +337,7 @@ public class PublishController {
 		
 		
 		//File Upload Start
-		if (!files.isEmpty()) {
+		if (files!=null) {
 			
 			multiFile(files, publish);
 		}
@@ -371,7 +373,7 @@ public class PublishController {
 		System.out.println("/publish/updateProduct : POST");
 		
 		//File Upload Start
-		if (!files.isEmpty()) {
+		if (files!=null) {
 			
 			multiFile(files, publish);
 		}
@@ -380,8 +382,7 @@ public class PublishController {
 		publishService.updateProduct(publish);
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("prod", publish);
-		modelAndView.setViewName("forward:/view/product/getProduct.jsp");
+		modelAndView.setViewName("redirect:/product/getProduct/"+publish.getProdNo());
 		
 		return modelAndView;
 	}
@@ -486,34 +487,37 @@ public class PublishController {
 			System.out.println(multipartFile.getOriginalFilename());
 			
 			String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
-			String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-			String fileRoot = path+"publish/fileUpload/"; // 파일 경로
-			String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
-			
-			
-			if (i==1) {
-				File f =new File(fileRoot+"thumbnailFile/"+savedFileName);
+			if (originalFileName!="") {
+
+				String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+				String fileRoot = path+"publish/fileUpload/"; // 파일 경로
+				String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 				
-				multipartFile.transferTo(f);
-				publish.setProdThumbnail(f.getName());
-				System.out.println("파일 업로드 성공 : "+f.getName());
-			}
-			
-			
-			if(i==2) {
-				File f =new File(fileRoot+"coverFile/"+savedFileName);
 				
-				multipartFile.transferTo(f);
-				publish.setCoverFile(f.getName());
-				System.out.println("파일 업로드 성공 : "+f.getName());
+				if (i==1) {
+					File f =new File(fileRoot+"thumbnailFile/"+savedFileName);
+					
+					multipartFile.transferTo(f);
+					publish.setProdThumbnail(f.getName());
+					System.out.println("파일 업로드 성공 : "+f.getName());
+				}
+				
+				
+				if(i==2) {
+					File f =new File(fileRoot+"coverFile/"+savedFileName);
+					
+					multipartFile.transferTo(f);
+					publish.setCoverFile(f.getName());
+					System.out.println("파일 업로드 성공 : "+f.getName());
+				}
+				
+				if (publish.getProdType().contentEquals("target")||publish.getProdType().contentEquals("correct")) {
+					break;
+				}
+				//맞춤형표지, 교정교열은 2일시 for문 빠져나옴
+
 			}
-			
-			if (publish.getProdType().contentEquals("target")||publish.getProdType().contentEquals("correct")) {
-				break;
-			}
-			//맞춤형표지, 교정교열은 2일시 for문 빠져나옴
 		}
-		
 		return publish;
 	}
 }
