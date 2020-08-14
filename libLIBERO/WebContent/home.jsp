@@ -9,6 +9,47 @@
 		<title>libLIBERO</title>
 		
 		<jsp:include page="/common/cdn.jsp"></jsp:include>
+		<script type="text/javascript">
+		(function ($){
+			  $.fn.counter = function() {
+			    const $this = $(this),
+			    numberFrom = parseInt($this.attr('data-from')),
+			    numberTo = parseInt($this.attr('data-to')),
+			    delta = numberTo - numberFrom,
+			    deltaPositive = delta > 0 ? 1 : 0,
+			    time = parseInt($this.attr('data-time')),
+			    changeTime = 10;
+			    
+			    let currentNumber = numberFrom,
+			    value = delta*changeTime/time;
+			    var interval1;
+			    const changeNumber = () => {
+			      currentNumber += value;
+			      //checks if currentNumber reached numberTo
+			      (deltaPositive && currentNumber >= numberTo) || (!deltaPositive &&currentNumber<= numberTo) ? currentNumber=numberTo : currentNumber;
+			      this.text(parseInt(currentNumber));
+			      currentNumber == numberTo ? clearInterval(interval1) : currentNumber;  
+			    }
+
+			    interval1 = setInterval(changeNumber,changeTime);
+			  }
+			}(jQuery));
+
+			$(document).ready(function(){
+
+			  $('.count-up').counter();
+			  $('.count1').counter();
+			  $('.count2').counter();
+			  $('.count3').counter();
+			  
+			  new WOW().init();
+			  
+			  setTimeout(function () {
+			    $('.count5').counter();
+			  }, 3000);
+			});
+		
+		</script>
 		
 		<!--  ///////////////////////// CSS ////////////////////////// -->
 		<link rel="stylesheet" href="resources/css/common.css">
@@ -74,6 +115,7 @@
 		</style>
 	</head>
 	<body>
+	<script id="embeddedChatbot" data-botId="Bdvqem" src="https://www.closer.ai/js/webchat.min.js"> </script>
 		<!-- Toolbar Start -->
 		<jsp:include page="/view/toolbar.jsp" />
 		<!-- Toolbar End -->
@@ -91,15 +133,58 @@
 	    	<table>
 	    		<tbody>
 	    			<tr>
-	    				<td colspan="4"><div class="title2" align="center" ><b>Writer</b></div></td>
+	    				<td colspan="4"><div class="title2" align="center" style="margin-botton:140px;" ><b>Writer</b></div></td>
 	    			</tr>
 	    			<tr style="height: 100px; text-align: center;">
-	    				<c:forEach var="list" items="${list}">
-		    				<td class="contentText"><h5>${list.prodCount}<br/><br/>등록된 도서</h5><br/><br/>리브리베로에 등록된<br/>도서의 개수입니다.</td>
-		    				<td class="contentText"><h5>${list.creatorCount}<br/><br/>활동중인 작가</h5><br/>리브리베로에는<br/>이미 많은 작가분들이<br/>활동하고 있습니다.</td>
-		    				<td class="contentText"><h5>${list.salesCount}<br/><br/>도서 판매 부수</h5><br/><br/>이만큼의 <br/>도서가 판매되었습니다.</td>
-		    				<td class="contentText"><h5>${list.nowCount}<br/><br/>오늘 출간된 책</h5><br/><br/>오늘 <br/>등록된 도서를 확인하세요.</td>
-	    				</c:forEach>
+	    				<!--  -->
+	    				<div class="container my-5">
+
+
+						  <!--Section: Content-->
+						 
+						    
+						
+						    <div class="row d-flext-cen" style="color:white; margin-top:310px;">
+							<c:forEach var="list" items="${list}">
+						      <div class="col-md-6 col-lg-3 mb-4 text-center">
+						        <h4 class="h1 font-weight-normal mb-3">
+						          <i class="fas fa-file-alt"></i>
+						          <span class="d-inline-block count-up" data-from="0" data-to="${list.prodCount}" data-time="2000">${list.prodCount}</span>
+						        </h4>
+						        <p class="font-weight-normal text-muted"><br/><br/><h4>등록된 도서</h4><br/><br/>리브리베로에 등록된<br/>도서의 개수입니다.</p>
+						      </div>
+						
+						      <div class="col-md-6 col-lg-3 mb-4 text-center">
+						        <h4 class="h1 font-weight-normal mb-3">
+						          <i class="fas fa-book-reader"></i>
+						          <span class="d-inline-block count1" data-from="0" data-to="${list.creatorCount}" data-time="2000">${list.creatorCount}</span>
+						        </h4>
+						        <p class="font-weight-normal text-muted"><br/><br/><h4>활동중인 작가</h4><br/><br/>리브리베로에는 이미<br/>많은 작가분들이 활동하고 있습니다.</p>
+						      </div>
+						
+						      <div class="col-md-6 col-lg-3 mb-4 text-center">
+						        <h4 class="h1 font-weight-normal mb-3">
+						          <i class="fas fa-pencil-ruler"></i>
+						          <span class="d-inline-block count2" data-from="0" data-to="${list.salesCount}" data-time="2000">${list.salesCount}</span>
+						        </h4>
+						        <p class="font-weight-normal text-muted"><br/><br/><h4>도서 판매 부수</h4><br/><br/>이만큼의 <br/>도서가 판매되었습니다.</p>
+						      </div>
+						      
+						      <div class="col-md-6 col-lg-3 mb-4 text-center">
+						        <h4 class="h1 font-weight-normal mb-3">
+						          <i class="fas fa-book"></i>
+						          <span class="d-inline-block count3" data-from="0" data-to="${list.nowCount}" data-time="2000">${list.nowCount}</span>
+						        </h4>
+						        <p class="font-weight-normal text-muted"><br/><br/><h4>오늘 출간된 책</h4><br/><br/>오늘 <br/>등록된 도서를 확인하세요.</p>
+						      </div>
+							</c:forEach>
+						    </div>
+						
+						</div>
+	    			
+	    			
+
+	    				
 	    			</tr>
 	    		</tbody>
 	    	</table>
@@ -111,6 +196,7 @@
 		    		리브리베로는 출판과정을 4단계로 나누어<br/>저자가 직접 출판하는 과정을 쉽게 만들었습니다.<br/>
 		    		간단한 출판방식으로 ${list.prodCount}종의 도서가 출판중인<br/>리브리베로의 가장 쉬운 출판서비스를 만나보세요!<br/><br/>
 		    	</c:forEach>
+		    	
 	    		<div class="container">
 	    			<button id="publishBtn" type="button" class="btn btn-outline-black waves-effect z-depth-0" onclick="publish()">책만들기</button>
 	    		</div>

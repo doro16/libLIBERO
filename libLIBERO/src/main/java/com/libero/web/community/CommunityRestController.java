@@ -87,11 +87,11 @@ public class CommunityRestController {
 		Comment finalComment = new Comment();
 		finalComment = communityService.getComment(commentNo);
 		System.out.println("comment찍어보자"+finalComment);
-		char menu = comment.getPostType();
+		char menu = finalComment.getPostType();
 		System.out.println("menu찍어보자"+menu);
 		//System.out.println("야 임마"+finalComment);
 		if(menu == 'q') {
-			communityService.updateQnaCode(comment.getPostNo());
+			communityService.updateQnaCode(finalComment.getPostNo());
 		}
 		
 		return finalComment;

@@ -31,15 +31,10 @@
 		   				
 		   			<a href="/libero/user/getUserActivityList?menu=c" 
 		   				class="btn btn-outline-brown waves-effect btn-block" role="button" 
-		   				aria-pressed="true" style="margin-bottom: 10px">작성한 댓글</a>
-		   				
-		   			<a href="#" 
-		   				class="btn btn-outline-brown waves-effect btn-block" role="button" 
-		   				aria-pressed="true" style="margin-bottom: 10px">리뷰</a>
+		   				aria-pressed="true" style="margin-bottom: 10px">작성한 댓글</a>		   				
 		   				
 		   			<a href="/libero/user/getUserActivityList?menu=q" 
 		   				class="btn btn-outline-brown waves-effect btn-block" role="button" 
-
 		   				aria-pressed="true" style="margin-bottom: 10px">나의 문의</a>
 		   		</div>
 	   			<div class="row col-lg-9">

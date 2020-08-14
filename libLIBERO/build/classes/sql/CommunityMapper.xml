@@ -137,7 +137,7 @@
 						</if>
 						
 		        ORDER BY c.comment_no DESC) inner_table
-		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num
+		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num 
 	</select>
 
 	<select id="getMyCommentListTotalCount" parameterType="map"	resultType="int">
