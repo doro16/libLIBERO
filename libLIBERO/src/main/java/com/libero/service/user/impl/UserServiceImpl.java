@@ -134,4 +134,8 @@ public class UserServiceImpl implements UserService{
 	public void updatePassword(String userId, String verCode) {
 		userDAO.updatePassword(userId, verCode);
 	}
+	
+	public String getUserNickname(String userNickname) {
+		return userDAO.getUserNickname(userNickname);
+	}
 }

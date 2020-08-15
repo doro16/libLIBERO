@@ -134,7 +134,7 @@ public class UserRestController {
 		Map map = new HashMap();
 		
 		////email보내는 함수 작성
-		String verCode = mailSender(userId, null);
+		String verCode = mailSender(userId, "add");
 		
 		System.out.println("\n\n[ "+verCode+" ]\n\n");
 
@@ -158,10 +158,10 @@ public class UserRestController {
 		String subject = null;
 		String body = null;
 		
-		if(isFind == null) {	
+		if(isFind.equals("add")) {	
 			subject = "[libLIBERO] 회원가입 이메일 인증"; //메일 제목 
 			body = "libLIBERO Email Verification Code\n\t\t"+"[ "+ verCode+" ]"; //메일 내용		
-		}else {
+		}else if(isFind.equals("find")) {
 			subject = "[libLIBERO] 비밀번호 변경 안내"; //메일 제목 
 			body = "임시 비밀번호 발급 \n\n 임시 비밀번호 :  "+"[ "+ verCode+" ] \n\n 회원님의 비밀번호를 변경해주세요."; //메일 내용		
 		}
@@ -298,6 +298,9 @@ public class UserRestController {
 		String kId = userInfo.path("id").asText();	
 		String kEmail = kakaoAccount.path("email").asText();
 		String kNickname = properties.path("nickname").asText(); 		
+		if(userService.getUserNickname(kNickname) != null) {
+			kNickname = kEmail+"_"+kNickname;
+		}
 		String kGender = kakaoAccount.path("gender").asText();
 
 		
@@ -313,7 +316,8 @@ public class UserRestController {
 				user.setPassword((UUID.randomUUID().toString().replaceAll("-", "")).substring(0, 14));
 				user.setKakaoId(kId);
 				user.setNickname(kNickname);
-				user.setGenderCode(kGender.substring(0,1));
+				user.setName(kNickname);
+				user.setGenderCode(kGender.substring(0,1));		
 				
 				userService.addUser(user);				
 				user = userService.getUser(user.getUserId());
@@ -359,7 +363,7 @@ public class UserRestController {
 		String url = "https://" + hostname + "/smscenter/v1.0/sendsms";
 		CredentialsProvider credsProvider = new BasicCredentialsProvider();
 		credsProvider.setCredentials(new AuthScope(hostname, 443, AuthScope.ANY_REALM),// 청기와랩에 등록한 Application Id 와 API key 를 입력합니다. 
-				new UsernamePasswordCredentials("libero", "79087a92ddfc11eaaa100cc47a1fcfae"));
+				new UsernamePasswordCredentials("libeLIBERO", "8ec6b9cad95611eab5140cc47a1fcfae"));
 		AuthCache authCache = new BasicAuthCache(); 
 		authCache.put(new HttpHost(hostname, 443, "https"), new BasicScheme());
 		HttpClientContext context = HttpClientContext.create();
@@ -369,7 +373,7 @@ public class UserRestController {
 		try {
 			HttpPost httpPost = new HttpPost(url);
 		httpPost.setHeader("Content-type", "application/json; charset=utf-8");//문자에 대한 정보 
-		String json = "{\"sender\":\"01042796268\",\"receivers\":[\"" + receiver + "\"],\"content\":\""+randomNo+"\"}"; 
+		String json = "{\"sender\":\"01035939410\",\"receivers\":[\"" + receiver + "\"],\"content\":\""+randomNo+"\"}"; 
 		StringEntity se = new StringEntity(json, "UTF-8"); 
 		httpPost.setEntity(se); 
 		HttpResponse httpResponse = client.execute(httpPost, context);
@@ -451,7 +455,9 @@ public class UserRestController {
 	public void findPassword(@RequestParam("findPassword") String userId) throws Exception, MessagingException {
 		System.out.println("/user/json/findPassword : POST");
 		
-		String verCode = mailSender(userId, "FIND");			
+		System.out.println(">>"+userId);
+		
+		String verCode = mailSender(userId, "find");			
 		userService.updatePassword(userId, verCode);
 		
 	}
