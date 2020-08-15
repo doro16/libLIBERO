@@ -209,7 +209,8 @@
    								
    								<img src="../resources/images/user/fileUpload/${comment.user.profile}"  alt="프로필사진" style= "height: 55px; width: 55px; float: left; margin:-4px 10px 10px 0;">
    								<p style="font-size: 14px; color:DodgerBlue; font-weight: 600; float: left;">${comment.user.nickname}&nbsp;&nbsp;&nbsp;</p>
-   								<p style="font-size: 11px; color:gray; font-weight: 400;">${comment.regDate}</p>
+   								
+   								<p style="font-size: 11px; color:gray; font-weight: 400;"><fmt:formatDate value="${comment.regDate}" pattern="yyyy.MM.dd HH:mm:ss" /></p>
 								<p id= "none${comment.commentNo}" style="font-size: 15px; padding: 14px 0px; font-weight: 400;">
 								${comment.commentContent}</p><br>
 								<div id="update${comment.commentNo}" style="display: none;" class="updateComment"> 
