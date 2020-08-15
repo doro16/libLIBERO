@@ -116,6 +116,14 @@
 			th {
 				padding: 10px;
 			}
+			.swal-button 
+			{
+				background-color: #FFD73C;
+				color : #ffffff;
+				font-size : 12px;
+				text-shadow : 0px -1px 0px rgba(0, 0, 0, 0.3);
+				margin:0;
+			}
 		</style>
 	</head>
 	
@@ -335,7 +343,7 @@
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header">
-<h3 class="modal-title w-100 font-weight-bold" id="myModalLabel"> 본인 인증 </h3>
+<h3 class="modal-title w-100 font-weight-bold" id="myModalLabel"><img src="../resources/images/common/identity.png" width="40px" height="40px"/> 본인 인증 </h3>
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">	
@@ -550,11 +558,11 @@
 						},
 					type: "post",
 					success: function(result) {
-						if(result.certifiNum > 0){
+						if(result > 0){
 							swal("인증번호가 발송되었습니다.","휴대폰을 확인해 주세요 :>","success");
 						$("#verifDiv").show();
 						$("#inputPhone").hide();
-						$("#hiddenVerif").attr("value",result.certifiNum);
+						$("#hiddenVerif").attr("value",result);
 						$("#findUserId").val(result.userId);
 						}else{
 							swal("인증 실패","유효한 번호를 입력해 주세요.","error");
