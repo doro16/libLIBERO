@@ -144,7 +144,7 @@
        							  
        							  </c:forEach>
        							  <c:if test="${sessionScope.user.role == 'a'}">
-							     <button type="button" class="btn btn-brown" style="margin: -40px 0 0 1020px;" onclick="location.href='/libero/community/addPost?postType=n'">글쓰기</button>
+							     <button type="button" class="btn btn-brown" style="margin: -40px 0 0 1000px;" onclick="location.href='/libero/community/addPost?postType=n'">글쓰기</button>
 							     </c:if>
        							</div><!-- Grid row -->
        						  </div><!--Panel 1-->

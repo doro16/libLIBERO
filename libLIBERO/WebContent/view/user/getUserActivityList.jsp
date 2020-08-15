@@ -152,7 +152,9 @@
                             <c:if test="${fn:length(postName)>20}">
                                 ......
                             </c:if>
+                            <c:if test = "${post.commentCount != 0}">
                             <span style="color: #FF7171;">&nbsp;[${post.commentCount}]</span>
+                            </c:if>
                             <%-- <font color='red'>(${post.comments})</font>--%>     
                         </td>
                         <input type="hidden" value="${post.postNo}"/>

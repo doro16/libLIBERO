@@ -126,9 +126,12 @@
  	</select>
  	
  	<select id="getMyCommentList" parameterType="map"	resultMap="commentSelectMap">
-		SELECT * FROM ( SELECT 
-					@rownum:=@rownum+1 num, c.*, u.nickname, u.profile
-		    		FROM comment c, post p, user u, (SELECT @rownum:=0) init2
+		SELECT * FROM 
+		( SELECT @rownum:=@rownum+1 num, inner_table.*
+			FROM ( SELECT 
+					c.*, u.nickname, u.profile
+		    		FROM comment c, post p, user u
+					JOIN (SELECT @rownum:=0) init2
 		        	  WHERE c.user_id = u.user_id 
 		        	  AND c.post_no = p.post_no
 		        	  AND c.user_id = #{userId}
@@ -136,8 +139,8 @@
 						AND c.comment_content like '%${search.searchKeyword}%'
 						</if>
 						
-		        ORDER BY c.comment_no DESC) inner_table
-		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num desc
+		        ORDER BY c.comment_no DESC) inner_table )a
+		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum}
 	</select>
 
 	<select id="getMyCommentListTotalCount" parameterType="map"	resultType="int">
@@ -207,6 +210,9 @@
 						<if test="search.searchCondition==0">
 						AND p.post_name like '%${search.searchKeyword}%'
 						</if>
+						<if test="search.searchCondition==1">
+						AND p.post_content like '%${search.searchKeyword}%'
+						</if>
 						<if test="search.searchCondition==2">
 						AND u.nickname like '%${search.searchKeyword}%'
 						</if>
@@ -238,9 +244,12 @@
 	</select>
 	
 	<select id="getMyPostList" parameterType="map"	resultMap="postSelectMap">
-		SELECT * FROM (SELECT 
-						@rownum:=@rownum+1 num, p.*, u.nickname
-						FROM post p, user u, (SELECT @rownum:=0) init2
+		SELECT * FROM 
+			(SELECT @rownum:=@rownum+1 num, inner_table.*
+				FROM (SELECT 
+						p.*, u.nickname
+						FROM post p, user u
+						JOIN (SELECT @rownum:=0) init2
 						where p.user_id = u.user_id
 						<if test='menu == "q" and user.role == "a"'>
 						AND p.post_type IN("q")
@@ -262,8 +271,9 @@
 						<if test="search.searchCondition==2">
 						AND u.nickname like '%${search.searchKeyword}%'
 						</if>
-						ORDER BY p.post_no DESC) inner_table
-		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num desc
+						ORDER BY p.post_no DESC) inner_table ) a
+		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum}
+		
 		
 	</select>
 
