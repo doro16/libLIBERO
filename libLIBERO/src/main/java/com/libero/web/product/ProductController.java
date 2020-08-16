@@ -25,6 +25,7 @@ import com.libero.service.domain.Product;
 import com.libero.service.domain.Review;
 import com.libero.service.domain.User;
 import com.libero.service.product.ProductService;
+import com.libero.service.publish.PublishService;
 import com.libero.service.wish.WishService;
 
 @Controller
@@ -43,6 +44,10 @@ public class ProductController{
 	@Autowired
 	@Qualifier("cartServiceImpl")
 	private CartService cartService;
+	
+	@Autowired
+	@Qualifier("publishServiceImpl")
+	private PublishService publishService;
 	
 	//Constructor
 	public ProductController() {
@@ -295,6 +300,10 @@ public class ProductController{
 							modelAndView.setViewName("forward:/view/product/getProduct.jsp");
 						}
 						
+						//hash
+						List<String> hashtag = publishService.getHashtagList(prodNo);
+						modelAndView.addObject("hashtag", hashtag);
+						System.out.println("해쉬태그는 : "+hashtag);
 						
 						//리뷰 데이터
 						
