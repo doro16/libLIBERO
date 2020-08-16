@@ -205,7 +205,9 @@ public class ProductDAOImpl implements ProductDAO{
 		
 	}
 
-	
+	public String getCartState(HashMap<String, Object> hashMap) {
+		return sqlSession.selectOne("ProductMapper.getCartState", hashMap);
+	}
 
 	
 }//end class

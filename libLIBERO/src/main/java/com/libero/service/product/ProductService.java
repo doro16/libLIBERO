@@ -50,7 +50,7 @@ public interface ProductService {
 	
 	public void updateReview(HashMap<String, Object> hashMap);
 	
-	
+	public String getCartState(HashMap<String, Object> hashMap) throws Exception;
 	
 	
 	

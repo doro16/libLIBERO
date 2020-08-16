@@ -274,7 +274,7 @@
 	
 	</select>
 	
-	<select id="checkWish" parameterType="hashMap" resultMap="productSelectMap">
+	<select id="checkWish" parameterType="map" resultType="int"> <!-- selectMap -> int &&  hashmap -> map -->
 	
 					SELECT wish_no
 					FROM wish
@@ -304,6 +304,13 @@
 	
 	<select id="checkCart"	parameterType="hashMap"	resultMap="productSelectMap">
 					SELECT buy_amount
+					FROM buy
+					WHERE prod_no = #{prodNo} AND user_id = #{userId} AND buy_code = 'ready'
+	
+	</select>
+	
+	<select id="getCartState"	parameterType="hashMap"	resultType="string">
+					SELECT user_id
 					FROM buy
 					WHERE prod_no = #{prodNo} AND user_id = #{userId} AND buy_code = 'ready'
 	

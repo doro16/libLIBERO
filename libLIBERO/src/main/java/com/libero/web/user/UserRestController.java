@@ -111,7 +111,6 @@ public class UserRestController {
 		if( ((String)params.get("password")).equals(user.getPassword())){
 			session.setAttribute("user", user);
 		}
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("user"));
 		return user;
 	}
 	
@@ -299,7 +298,7 @@ public class UserRestController {
 		String kEmail = kakaoAccount.path("email").asText();
 		String kNickname = properties.path("nickname").asText(); 		
 		if(userService.getUserNickname(kNickname) != null) {
-			kNickname = kEmail+"_"+kNickname;
+			kNickname = (UUID.randomUUID().toString().replaceAll("-", "")).substring(0, 5)+"_"+kNickname;
 		}
 		String kGender = kakaoAccount.path("gender").asText();
 
