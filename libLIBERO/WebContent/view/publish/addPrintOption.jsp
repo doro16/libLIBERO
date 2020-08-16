@@ -116,6 +116,14 @@
 			th {
 				padding: 10px;
 			}
+			.swal-button 
+			{
+				background-color: #FFD73C;
+				color : #ffffff;
+				font-size : 12px;
+				text-shadow : 0px -1px 0px rgba(0, 0, 0, 0.3);
+				margin:0;
+			}
 		</style>
 	</head>
 	
@@ -331,6 +339,42 @@
 				</form>
 			</c:if>
 	   	</div>
+	   	<div id="modalBoxPhone" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h3 class="modal-title w-100 font-weight-bold" id="myModalLabel"><img src="../resources/images/common/identity.png" width="40px" height="40px"/> 본인 인증 </h3>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+</div>
+<div class="modal-body">	
+			
+			<div class="col-xs-6 col-md-12">	
+    		
+    		<div id="inputPhone">
+    		<div class="md-form">
+			  <input type="text" id="phone" name="phone" class="form-control">
+			  <label for="form1">휴대폰 번호 입력</label>
+			</div>
+    		
+    		<button type="button" id="phoneVerif" class="btn btn-info brown lighten-1">휴대폰 번호 인증</button>
+    		</div>
+    		
+    		<div style="display:none" id="verifDiv">
+    		<div class="md-form">
+			  <input type="text" id="verifCode" name="verifCode" class="form-control">
+			  <label for="form1">인증 번호 입력</label>
+			</div>
+			
+			<button type="button" id="verifBtn" class="btn btn-info brown lighten-1">인증 하기</button>		
+			
+
+    		<input type="hidden" value="" id="hiddenVerif">
+		</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 	   	<!-- ///////////// Bootstrap Container End ////////////////// -->
 	   	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	</body>
@@ -416,9 +460,30 @@
 			}
 			if (phoneCode!=1) {
 				console.log(phoneCode);
-				Swal.fire({
-					  icon: 'error',
-					  text: '휴대폰 본인인증을 완료한 회원만 가능합니다.'
+				swal({
+					  icon: "error",
+					  text: '휴대폰 본인인증을 완료한 회원만 가능합니다.',
+					  buttons:{
+								phone : {
+									text:"본인 인증",
+									value:"phone",
+									
+								},
+								cancle :{
+									text:"취소",
+									value:"cancle",
+								},
+									},
+							
+						}).then((value) =>{
+							switch (value)     {
+								case "phone" :
+									$('#modalBoxPhone').modal('show');
+									break;
+								
+								case "cancle" : 
+									break;
+							}
 					});
 				return;
 			}
@@ -483,6 +548,56 @@
 				$("#price"+i).html(parseInt(color)+parseInt(cover)+((parseInt(size)+parseInt(inner))*pages)+"원");
 			}
 		}
+		
+	$("#phoneVerif").on("click",function(){
+				
+			
+			$.ajax({ url: "/libero/user/json/sendSms",
+					data: {
+						receiver: $("#phone").val()
+						},
+					type: "post",
+					success: function(result) {
+						if(result > 0){
+							swal("인증번호가 발송되었습니다.","휴대폰을 확인해 주세요 :>","success");
+						$("#verifDiv").show();
+						$("#inputPhone").hide();
+						$("#hiddenVerif").attr("value",result);
+						$("#findUserId").val(result.userId);
+						}else{
+							swal("인증 실패","유효한 번호를 입력해 주세요.","error");
+							return;
+							}
+						}			
+					});
+			
+			})	
+		
+	$("#verifBtn").on("click",function(){
+		
+				if($("#hiddenVerif").val() != $("#verifCode").val()){
+					swal("인증번호를 확인해 주세요","","error");		
+					return;
+				}else if($("#verifCode").val()== null || $("#verifCode").val()== ''){
+					swal("인증번호를 입력하지 않으셨습니다.","","error");
+					return;
+				}else{						
+					$.ajax({
+						url:"/libero/user/json/updatePhoneCode",
+						data:{
+							phoneCode : true
+						},
+						type:"POST",
+						success:function(result){
+							if(result > 0){
+								swal("인증이 완료되었습니다!","감사합니다!","success")
+								window.location.reload();							
+							}						
+						}
+						
+					})
+				}						
+			})
 		
 		
 	</script>

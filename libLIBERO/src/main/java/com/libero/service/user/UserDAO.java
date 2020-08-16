@@ -46,4 +46,6 @@ public interface UserDAO {
 	public String findUserIdByPhone(String phone);
 	
 	public void updatePassword(String userId, String verCode);
+	
+	public String getUserNickname(String userNickname);
 }

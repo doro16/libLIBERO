@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.libero.service.domain.Product;
+import com.libero.service.product.ProductDAO;
 import com.libero.service.wish.WishDAO;
 import com.libero.service.wish.WishService;
 
