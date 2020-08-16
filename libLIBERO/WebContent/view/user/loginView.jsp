@@ -61,8 +61,8 @@
 	        				<hr/>
 	        				<div class="text-center">
 				        		<a href="/libero/user/addUser"><button type="button" class="btn btn-info brown lighten-1 btn-block" id="addUser">회원가입</button></a><br/>
-				      			<a onclick="window.open('${kakao_login}','카카오 로그인','width=400, height=500'); window.self.close(); window.location.href = '/libero/'; "><img src="../resources/images/common/kakao_login_medium_narrow.png"></a>
-				      		</div> <!-- opener.opener.document.location.reload(); -->
+				      			<a id="click_kakao_login"><img src="../resources/images/common/kakao_login_medium_narrow.png"></a>
+				      		</div>
 				      		
 				      		
 				      		<div class="text-right">
@@ -259,12 +259,13 @@
 	<script type="text/javascript">
 	$(function(){
 		
-		$("kakaoLogin").on("click", function(){
+		if('${kakao}' == 'true'){
+			window.opener.location.href = '/libero/';
+			window.close(); 
+			}
+		
+		$("#click_kakao_login").on("click", function(){
 			window.open('${kakao_login}','카카오 로그인','width=400, height=500'); 
-			
-			opener.location.reload();
-			
-			window.self.close();
 		})
 		
 		if('${message}' == 'wrong'){

@@ -334,7 +334,7 @@ public class UserRestController {
 					
 		session.setAttribute("user", user);
 		session.setAttribute("kakao", "true"); 
-		mav.setViewName("redirect:/");
+		mav.setViewName("redirect:/view/user/loginView.jsp");
 		
 		return mav; 
 		}
