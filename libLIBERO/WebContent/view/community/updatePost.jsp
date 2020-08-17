@@ -13,10 +13,11 @@
 
 	<div class="mt-5">&nbsp;</div>
 	<div class="container">
-    <h1>게시글 작성</h1>
+    
         <form class="form-group my-5 py-5">
             <input type="hidden" name="postType" value="${post.postType}">
             <input type="hidden" name="postNo" value="${post.postNo}">
+            <h1>게시글 작성</h1><br>
             <div class="form-row my-3">
                 <div class="input-group col-lg-12">
                     <input type="text" class="form-control" name="postName" value="${post.postName}">
