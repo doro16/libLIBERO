@@ -14,7 +14,6 @@
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
 	
 
-<title>도서  상세</title>
 		<!-- ToolBar Start /////////////////////////////////////-->
 		<jsp:include page="../toolbar.jsp" />
 	   	<!-- ToolBar End /////////////////////////////////////-->

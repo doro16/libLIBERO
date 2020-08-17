@@ -7,13 +7,6 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		
-		<c:if test="${prod.prodType=='design'||'target'}">
-			<title>libLIBERO : 표지 디자인 수정</title>
-		</c:if>
-		<c:if test="${prod.prodType=='correct'}">
-			<title>libLIBERO : 교정교열 수정</title>
-		</c:if>
 		<jsp:include page="/common/cdn.jsp"></jsp:include>
 		<!--  ///////////////////////// CSS ////////////////////////// -->
 		<link rel="stylesheet" href="../resources/css/common.css">

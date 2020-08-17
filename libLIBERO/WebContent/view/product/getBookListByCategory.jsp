@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
 	<link rel="stylesheet" href="../../resources/css/common.css">
 

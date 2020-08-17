@@ -6,7 +6,6 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>libLIBERO : 임시 저장 도서 조회</title>
 		<jsp:include page="/common/cdn.jsp"></jsp:include>
 		<!--  ///////////////////////// CSS ////////////////////////// -->
 		<link rel="stylesheet" href="../resources/css/common.css">

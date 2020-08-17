@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -67,7 +68,7 @@ public class UserController {
 		System.out.println(this.getClass());
 	}
 	
-	@Value("#{commonProperties['path3']}")
+	@Value("#{commonProperties['path']}")
 	String path;
 	
 	@Value("#{userProperties['pageUnit']}")
@@ -151,8 +152,8 @@ public class UserController {
 	@RequestMapping(value="addUser", method=RequestMethod.POST)
 	public ModelAndView addUser(@ModelAttribute User user,
 								@RequestParam List<String> hashtagName,
-								@RequestParam("file") List<MultipartFile> file
-								) throws Exception{
+								@RequestParam("file") List<MultipartFile> file,
+								HttpServletRequest request) throws Exception{
 			
 			System.out.println(" ---------------------------------------");
 			System.out.println("/user/addUser : POST");
@@ -169,11 +170,13 @@ public class UserController {
 					String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 					String extension=originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 					
-					String fileRoot = "C:/Users/user/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
+					String fileRoot = path+"user/fileUpload/"; // 파일 경로
 					String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+					String root_path = request.getSession().getServletContext().getRealPath("/"); 
+					savedFileName = uploadFile(fileRoot,savedFileName,multipartFile.getBytes());
 					
 					File f =new File(fileRoot+savedFileName);
-					
+					multipartFile.transferTo(new File(root_path+"\\resources\\images\\user\\fileUpload\\"+savedFileName));
 					multipartFile.transferTo(f);
 					System.out.println(" ---------------------------------------");
 					System.out.println(f.getName());
@@ -468,7 +471,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "updateUser", method = RequestMethod.POST)
-	public ModelAndView updateUser(@ModelAttribute User user,@RequestParam("file") List<MultipartFile> file) throws Exception {
+	public ModelAndView updateUser(@ModelAttribute User user,@RequestParam("file") List<MultipartFile> file, HttpServletRequest request) throws Exception {
 		System.out.println(" ---------------------------------------");
 		System.out.println("/user/update : POST");
 		System.out.println(" ---------------------------------------");
@@ -485,9 +488,11 @@ public class UserController {
 				
 				String fileRoot = "C:/Users/user/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
 				String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+				String root_path = request.getSession().getServletContext().getRealPath("/"); 
+				savedFileName = uploadFile(fileRoot,savedFileName,multipartFile.getBytes());
 				
 				File f =new File(fileRoot+savedFileName);
-				
+				multipartFile.transferTo(new File(root_path+"\\resources\\images\\user\\fileUpload\\"+savedFileName));
 				multipartFile.transferTo(f);
 				System.out.println(" ---------------------------------------");
 				System.out.println(f.getName());
@@ -528,4 +533,13 @@ public class UserController {
 		
 		return modelAndView;
 	}	
+	
+	public String uploadFile(String uploadPath, String savedName, byte[] fileData) throws Exception{
+
+        File target = new File(uploadPath, savedName);
+
+        FileCopyUtils.copy(fileData, target);
+        
+        return savedName;
+     }
 }

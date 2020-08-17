@@ -11,7 +11,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 가입</title>
 <jsp:include page="/common/cdn.jsp"></jsp:include>
 <link rel="stylesheet" href="../resources/css/common.css">
 <jsp:include page="../toolbar.jsp"></jsp:include>
