@@ -170,6 +170,7 @@
 			SELECT * 
 			FROM product 
 			WHERE prod_type = #{prodType}
+			AND blind_code = 'show' 
 			ORDER BY reg_date DESC
 			LIMIT #{search.pageSize} OFFSET #{offset}
 			
