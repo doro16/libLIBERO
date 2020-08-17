@@ -31,7 +31,7 @@
 	<!--Navbar -->
 	<nav id="mainToolbar" class="mb-1 navbar navbar-expand-lg navbar-dark brown lighten-1  smart-scroll z-depth-1">
 		<a href="/libero/" class="navbar-brand">
-	  		<img src="http://127.0.0.1:8080/libero/resources/images/common/logo_white.png" width="80" height="23" alt="" loading="lazy" id="logoImg">
+	  		<img src="http://127.0.0.1:8080/libero/resources/images/common/logo_white.png" width="65" alt="" loading="lazy" id="logoImg">
 	  	</a>
 	  	<!-- 모바일 navbar -->
 	  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333" aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
