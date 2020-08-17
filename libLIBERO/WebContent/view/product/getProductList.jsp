@@ -179,7 +179,7 @@
 							}
 						if(data.product != ""){
 							
-							var displayValue = "<div class='row'>";
+							var displayValue = "<div class='row m-0'>";
 							
 							$.each(data.product, function(index,product){
 								
