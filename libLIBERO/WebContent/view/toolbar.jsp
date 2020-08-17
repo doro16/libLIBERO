@@ -96,10 +96,10 @@
 	      		</li>
 	      		<li class="nav-item dropdown userDropdown">
 	        		<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	        			<c:if test="${sessionScope.user.profile==null}">
+	        			<c:if test="${empty sessionScope.user.profile}">
 	        				<i class="fas fa-user-circle"></i>
 	        			</c:if>
-	          			<img alt="" src="http://127.0.0.1:8080/libero/resources/images/user/fileUpload/${sessionScope.user.profile}" class="rounded-circle" width="25px" height="25px">
+	          			<img alt="" src="http://127.0.0.1:8080/libero/resources/images/user/fileUpload/${user.profile}" class="rounded-circle" width="25px" height="25px">
 	        		</a>
 	        		<div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
 	        		<c:if test="${sessionScope.user.role =='f' }"><a class="dropdown-item" href="/libero/buy/getFactoryBuyList">마이페이지</a></c:if>

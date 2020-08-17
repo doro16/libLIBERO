@@ -58,7 +58,7 @@
 				  	</div>
 				  	</div>
 				  	<div class="view overlay zoom" id="profileDiv" style="width: 200px; height:200px" >
-				  	<img src="/libero/resources/images/user/fileUpload/${user.profile}" class="img-thumbnail hoverable" id="profile"/>
+				  	<img src="../resources/images/user/fileUpload/${user.profile}" class="img-thumbnail hoverable" id="profile"/>
 				  	<div class="mask flex-center waves-effect waves-light">
 									    <p class="white-text"></p>
 									  </div>
@@ -122,6 +122,7 @@
 				<input type="hidden" value="" id="hiddenVerif">
 				</div>
 				<!-- ///////////////////////////// 생년월일 ///////////////////////////////// -->
+				<c:if test="${user.role ne 'f'}">
 				<div class="row">
 				<div class="md-form input-group mb-3">
 				<div class="col-3">
@@ -133,6 +134,7 @@
 				  	<input type="hidden" value="${user.birthDate }" name="birthDate">
 				</div>
 				</div>
+				</c:if>
 			</form>
 			
 			<div class="justify-content-left" style="width: 100%">

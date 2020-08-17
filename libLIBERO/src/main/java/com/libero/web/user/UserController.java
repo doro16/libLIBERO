@@ -169,7 +169,7 @@ public class UserController {
 					String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 					String extension=originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 					
-					String fileRoot = "C:/Users/user/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
+					String fileRoot = "C:/Users/LG/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
 					String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 					
 					File f =new File(fileRoot+savedFileName);
@@ -468,7 +468,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "updateUser", method = RequestMethod.POST)
-	public ModelAndView updateUser(@ModelAttribute User user,@RequestParam("file") List<MultipartFile> file) throws Exception {
+	public ModelAndView updateUser(@ModelAttribute User user,@RequestParam("file") List<MultipartFile> file, HttpServletRequest request) throws Exception {
 		System.out.println(" ---------------------------------------");
 		System.out.println("/user/update : POST");
 		System.out.println(" ---------------------------------------");
@@ -483,7 +483,7 @@ public class UserController {
 			if (originalFileName!="") {
 				String extension=originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 				
-				String fileRoot = "C:/Users/user/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
+				String fileRoot = "C:/Users/LG/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
 				String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 				
 				File f =new File(fileRoot+savedFileName);
@@ -492,16 +492,22 @@ public class UserController {
 				System.out.println(" ---------------------------------------");
 				System.out.println(f.getName());
 				System.out.println(" ---------------------------------------");
-			
+				
 				user.setProfile(f.getName());
 			}
 			
 		}
 		
 		userService.updateUser(user);
+		user = userService.getUser(user.getUserId());
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("user", userService.getUser(user.getUserId()));
 		modelAndView.setViewName("forward:/view/user/getUser.jsp");
+		
+		HttpSession session = request.getSession(true);
+		session.removeAttribute("user");
+		session.setAttribute("user", user);
 		
 		return modelAndView;
 	}
