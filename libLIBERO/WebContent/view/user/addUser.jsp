@@ -373,7 +373,7 @@
                     	
 	         <div class="md-form mt-0">
 	         <div class="md-form row-8">
-	                <input type="text" id="postCode" name="address" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock" readOnly>
+	                <input type="text" id="postCode"  class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock" readOnly>
 	                <label for="adress">주소</label>
 	                <small id="adress" class="form-text text-muted mb-4"> 
 	                </small>

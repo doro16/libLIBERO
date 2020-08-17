@@ -194,7 +194,7 @@ public class ProductRestController {
 						
 						
 						
-						if(!multipartFile.isEmpty()) {
+						if(!multipartFile.isEmpty() && multipartFile!=null) {
 									//String fileName = fileUpload(request);
 									//System.out.println(fileName);
 							HashMap <String, Object> hashMap = new HashMap<String, Object>();
@@ -231,14 +231,15 @@ public class ProductRestController {
 					@RequestMapping(value="json/updateReview", method = RequestMethod.POST)
 					public String updateReview(HttpSession session, String reviewContent, String userId, int starRate, int buyNo) throws Exception {
 							
-						System.out.println("/product/addReview : POST");
+						System.out.println("/product/updateReview : POST");
 						//User user = (User)session.getAttribute("user");
 						//String userId = user.getUserId();
+						System.out.println("\n=========================");
 						System.out.println("아이디 : "+userId);
 						System.out.println("별점 : "+starRate);
 						System.out.println("내용 : "+reviewContent);
 						System.out.println("buyNo"+buyNo);
-						
+						System.out.println("=========================\n");
 							
 							HashMap <String, Object> hashMap = new HashMap<String, Object>();
 							
