@@ -59,7 +59,7 @@
 		
 		$.ajax(
 		    	{
-		        url : "/libero/user/json/updateBlindCode/",
+		        url : "/libero/report/json/updateBlindCode/",
 		        method : "POST" ,
 				dataType : "json" ,
 				data : JSON.stringify({
