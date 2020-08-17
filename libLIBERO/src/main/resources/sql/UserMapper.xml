@@ -105,7 +105,8 @@
 	 					  role,
 	 					  reg_date,
 	 					  birth_date,
-	 					  kakao_id
+	 					  kakao_id,
+	 					  factory_no
 							)
 	 	VALUES(	#{userId},
 	 			#{password},
@@ -119,7 +120,8 @@
 	 			'u',
 	 			CURRENT_TIMESTAMP,
 	 			#{birthDate:VARCHAR},
-	 			#{kakaoId:VARCHAR}
+	 			#{kakaoId:VARCHAR},
+	 			#{factoryNo:VARCHAR}
 	 			)
 	 
 	 </insert>

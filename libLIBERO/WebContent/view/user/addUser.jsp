@@ -146,7 +146,7 @@
 	 		  
 
 	$(function (){
-		
+		$("#factoryNumber").hide();
 		
 		function readURL(input) {
             if (input.files && input.files[0]) {
@@ -292,7 +292,8 @@
 				
 				///////////////////////////////////////////////////////////////////////////////////////////////////////
 					
-
+		
+		
 
 	 	
 				
@@ -300,8 +301,16 @@
 		 
 		});	//$(function)끝
 		
-		
-		
+		function checkFactory() {
+			////////////////사업자 체크
+			var fCheck = $("#factoryCheck:checked").val();
+			
+			if (fCheck == 'true') {
+				$("#factoryNumber").show();
+			}else {
+				$("#factoryNumber").hide();
+			}
+		}
 		    	
 		    
 	</script> 
@@ -322,15 +331,23 @@
     <!--Card content-->
     <div class="card-body px-lg-5 pt-0">
 
- 
+ 		<div class="custom-control custom-checkbox" style="padding-top: 40px">
+			<input type="checkbox" class="custom-control-input" id="factoryCheck" value="true" onclick="checkFactory()">
+			<label class="custom-control-label" for="factoryCheck">인쇄소 회원</label>
+		</div>
 
-
-
+		
 
         <!-- Form -->
         <form class="text-center" style="color: #bcaaa4;" enctype="multipart/form-data" >
                    
                    <br><br>
+            
+            <!-- 사업자번호 -->
+            <div class="md-form mt-0" id="factoryNumber">
+                <input type="text" id="factoryNo" class="form-control" name="factoryNo">
+                <label for="factoryNo">사업자번호</label>
+            </div>
 			<!--  이름 -->
             <div class="md-form mt-0">
                 <input type="text" id="name" class="form-control" name="name">

@@ -38,7 +38,7 @@ public class PublishRestController {
 	String path;
 	
 	@RequestMapping(value="json/imgUpload", method=RequestMethod.POST)
-	public Map addProduct(@RequestParam("file") MultipartFile multipartFile) throws Exception {
+	public Map imgUpload(@RequestParam("file") MultipartFile multipartFile) throws Exception {
 
 		System.out.println("/publish/json/imgUpload : POST");
 		
