@@ -269,23 +269,15 @@ public class ProductController{
 						hashMap.put("prodNo", prodNo);
 						hashMap.put("userId", userId);
 						
-						if(wishService.checkWish(hashMap) == true) {					
+						if(wishService.checkWish(hashMap) == true) {
+							
 							modelAndView.addObject("wish", 0);
 						}else {
 							modelAndView.addObject("wish", 1);
 						}
-						
-						if(productService.getCartState(hashMap) == null) {	//수린			
-							modelAndView.addObject("cart", 0);
-						}else {
-							modelAndView.addObject("cart", 1);
-						}
-
 					}else{
 						   modelAndView.addObject("wish", 0);
-						   modelAndView.addObject("cart", 0);
 					}
-					
 						
 						//상품타입에 따른 출력페이지
 						System.out.println("상품타입은?"+product.getProdType());

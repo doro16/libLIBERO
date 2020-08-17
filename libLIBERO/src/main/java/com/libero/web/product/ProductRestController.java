@@ -123,6 +123,7 @@ public class ProductRestController {
 					String message = "장바구니에 등록되었습니다.";
 					
 					obj.put("result", message);
+					
 					return obj.toJSONString();
 			}//end addCart
 			
@@ -142,10 +143,11 @@ public class ProductRestController {
 					hashMap.put("userId", userId);
 					
 					cartService.removeCart(hashMap);
-					
+			
 					String message = "장바구니에서 삭제되었습니다.";
 					
 					obj.put("result", message);
+					
 					return obj.toJSONString();
 			}//end addCart
 			

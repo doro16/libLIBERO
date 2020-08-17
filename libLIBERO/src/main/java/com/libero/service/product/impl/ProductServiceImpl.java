@@ -129,9 +129,7 @@ public class ProductServiceImpl implements ProductService{
 		
 	}
 
-	public String getCartState(HashMap<String, Object> hashMap) throws Exception {
-		return productDAO.getCartState(hashMap);
-	}
+
 
 
 

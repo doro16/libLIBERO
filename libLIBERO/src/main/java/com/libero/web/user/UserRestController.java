@@ -125,12 +125,12 @@ public class UserRestController {
 	}
 	
 	@RequestMapping(value="json/emailSend",method=RequestMethod.GET)
-	public Map emailSend(@RequestParam("userId") String userId) throws Exception{
+	public Map<String, Object> emailSend(@RequestParam("userId") String userId) throws Exception{
 		System.out.println(" ---------------------------------------");
 		System.out.println("[ /user/json/emailCheck/"+userId+" : GET]");
 		System.out.println(" ---------------------------------------");
 		
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		////email보내는 함수 작성
 		String verCode = mailSender(userId, "add");
@@ -150,7 +150,7 @@ public class UserRestController {
 		int port=465; 
 		final String username = "wjddbstp"; //네이버 아이이디 
 		final String password = "mnbv48451"; //네이버 비번 
-		String verCode=UserRestController.getAlphaNumericString();
+		String verCode=userService.getAlphaNumericString();
 		String recipient = userId; //받는 사람 이메일 주소 
 		Properties props = System.getProperties(); // 메일 제목, 내용을 담을 properties 만들기. 
 		
@@ -222,41 +222,9 @@ public class UserRestController {
 		
 		return result;
 	}
-///////////////////////////////////////////랜덤 코드 생성기
-	static int randomNumber() {
-		int rand = (int) (Math.random() * 899999) + 100000; 
-		return rand;	
-	}
-	
-	static String getAlphaNumericString() { 
-		
-		
-		 int n = 10; //length of the number
-        
-		
-		// chose a Character random from this String 
-        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                                    + "0123456789"
-                                    + "abcdefghijklmnopqrstuvxyz"; 
-  
-        // create StringBuffer size of AlphaNumericString 
-        StringBuilder sb = new StringBuilder(n); 
-  
-        for (int i = 0; i < n; i++) { 
-            // generate a random number between 
-            // 0 to AlphaNumericString variable length 
-            int index 
-                = (int)(AlphaNumericString.length() 
-                        * Math.random()); 
-  
-            // add Character one by one in end of sb 
-            sb.append(AlphaNumericString.charAt(index)); 
-        }
-        return sb.toString(); 
-    } 
 	
 	@RequestMapping(value="json/getUserPublishList/{prodType}")
-	public Map getUserPublishList(HttpSession session, @PathVariable("prodType") String prodType, Publish publish,@RequestBody Search search) throws Exception {
+	public Map<String, Object> getUserPublishList(HttpSession session, @PathVariable("prodType") String prodType, Publish publish,@RequestBody Search search) throws Exception {
 		
 		System.out.println("/user/json/getUserPublishList : GET, POST");
 		
@@ -272,7 +240,7 @@ public class UserRestController {
 		Page resultPage = new Page(search.getCurrentPage(),
 				((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		
-		Map map01 = new HashMap();
+		Map<String, Object> map01 = new HashMap<String, Object>();
 		map01.put("list", map.get("list"));
 		map01.put("resultPage", resultPage);
 		map01.put("search", search);
@@ -355,7 +323,7 @@ public class UserRestController {
 	@RequestMapping(value="json/sendSms",method=RequestMethod.POST)
 	public int sendSms(String receiver) {
 		// 6자리 인증 코드 생성 
-		int randomNo = UserRestController.randomNumber();
+		int randomNo = userService.randomNumber();
 		// 인증 코드를 데이터베이스에 저장하는 코드는 생략했습니다. 
 		// 문자 보내기 
 		String hostname = "api.bluehouselab.com";
@@ -430,14 +398,12 @@ public class UserRestController {
 	}
 		
 	@RequestMapping(value="json/findId",method=RequestMethod.POST)
-	public Map findId(String receiver) {
+	public Map<String, Object> findId(String receiver) {
 		System.out.println("/user/json/findId : POST");
 	
 		String userId = userService.findUserIdByPhone(receiver);
 		
 		Map<String, Object> map = new HashMap<String, Object>();		
-		
-		int certifiNum = 0;
 		
 		if(userId == null) {			
 			map.put("certifiNum", 1111111);

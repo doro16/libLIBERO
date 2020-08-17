@@ -26,14 +26,9 @@ public class WishDAOImpl implements WishDAO {
 			return sqlSession.selectList("ProductMapper.getWishList", userId);
 	}
 	
-	public String checkWish(HashMap<String, Object> hashMap) {
+	public Product checkWish(HashMap<String, Object> hashMap) {
 		System.out.println("여기는 wishDAOImpl.checkWishList 가져온것은"+hashMap);
-
-		if (sqlSession.selectOne("ProductMapper.checkWish", hashMap) != null) {
-			return Integer.toString(sqlSession.selectOne("ProductMapper.checkWish", hashMap)); //수린 int to String
-		}else {
-			return null;
-		}	
+		return sqlSession.selectOne("ProductMapper.checkWish", hashMap);
 	}
 	
 	@Override

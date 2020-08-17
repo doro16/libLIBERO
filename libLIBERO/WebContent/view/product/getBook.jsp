@@ -241,15 +241,9 @@
 										  <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
 										  </span>
               </div>
-              							<span class="col-6"> <!-- 수린 -->	
-										   <c:if test="${! empty cart and cart eq 0}">		
-                 						    <button class="btn btn-brown btn-rounded" onclick="addCart()" style="margin-top:5px;">								 
-                 						  	<i class="fas fa-cart-plus mr-2" aria-hidden="true"></i> Add to cart</button>
-                 						  </c:if>
-                 						  <c:if test="${! empty cart and cart eq 1}">
-                 						   <button class="btn btn-brown btn-rounded" onclick="removeCart()" style="margin-top:5px;">
-                 						 	 <i class="fas fa-cart-plus mr-2" aria-hidden="true"></i> Delete from cart</button>
-										</c:if>								
+              							<span class="col-6">
+										  <button class="btn btn-brown btn-rounded" onclick="addCart()" style="margin-top:5px;">
+                 						  <i class="fas fa-cart-plus mr-2" aria-hidden="true"></i> Add to cart</button>
 										</span>
             </div>
           </div>
@@ -512,31 +506,11 @@
 			success : function(data){
 						var message = data.result
 						alert(message);
-						window.location.reload();
 			}
 		});//end ajax
 		
 	}//end addCart
 	
-	function removeCart() {
-		
-		$.ajax({
-			url : "/libero/product/json/removeCart",
-			type: "POST",
-			dataType: "json",
-			header : {
-					"Accept" : "application/json",
-					"Content-Type" : "application/json"
-			},
-			data: {"prodNo": ${product.prodNo}, "userId": "${sessionScope.user.userId}"},
-			success : function(data){
-						var message = data.result
-						alert(message);
-						window.location.reload();
-			}
-		});//end ajax
-		
-	}//end addCart
 	
 	$(function(){
 		$(".more").on("click",function(){
