@@ -170,11 +170,11 @@ public class UserController {
 					String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 					String extension=originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 					
-<<<<<<< HEAD
-					String fileRoot = "C:/Users/LG/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
-=======
+
+					//String fileRoot = "C:/Users/LG/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
+
 					String fileRoot = path+"user/fileUpload/"; // 파일 경로
->>>>>>> refs/remotes/origin/master
+
 					String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 					String root_path = request.getSession().getServletContext().getRealPath("/"); 
 					savedFileName = uploadFile(fileRoot,savedFileName,multipartFile.getBytes());
