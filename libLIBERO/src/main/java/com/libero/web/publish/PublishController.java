@@ -478,7 +478,8 @@ public class PublishController {
 				String fileRoot = path+"publish/fileUpload/"; // 파일 경로
 				String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 				String root_path = request.getSession().getServletContext().getRealPath("/"); 
-				savedFileName = uploadFile(fileRoot,savedFileName,multipartFile.getBytes());
+				String thumbnailRoot = fileRoot+"thumbnailFile/";
+				savedFileName = uploadFile(thumbnailRoot,savedFileName,multipartFile.getBytes());
 				
 				if (i==1) {
 					File f =new File(fileRoot+"thumbnailFile/"+savedFileName);
