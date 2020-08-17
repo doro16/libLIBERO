@@ -113,6 +113,7 @@
 							<if test="search.searchCondition==2">
 							AND p1.creator like '%${search.searchKeyword}%'
 							</if>
+						ORDER BY r.report_no DESC) inner_table
 						</if>
 						
 						<if test='menu== "post"'>
@@ -130,10 +131,11 @@
 							<if test="search.searchCondition==2">
 							AND p2.user_id like '%${search.searchKeyword}%'
 							</if>
+						ORDER BY r.report_no DESC) inner_table
 						</if>		
 						
-						ORDER BY r.report_no DESC) inner_table
-		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY num
+						
+		WHERE num BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
 		
 	</select>
 	
@@ -181,7 +183,7 @@
 	 	UPDATE post
 	 	SET
 	 		report_count = report_count + 1
-	 		<if test='reportCount== 2'>
+	 		<if test='reportCount>= 2'>
 			, blind_code = 'report'
 			</if>
 		WHERE post_no = #{postNo:INTEGER}
@@ -192,7 +194,7 @@
 	 	UPDATE product
 	 	SET
 	 		report_count = report_count + 1
-	 		<if test='reportCount== 2'>
+	 		<if test='reportCount>= 2'>
 			, blind_code = 'report'
 			</if>
 		WHERE prod_no = #{prodNo:INTEGER}

@@ -21,7 +21,7 @@
             <c:if test = "${param.postType == 'f' }" ><input type="hidden" name="postType" value="f"></c:if>
             <c:if test = "${param.postType == 'q' }" ><input type="hidden" name="postType" value="q"></c:if>
             <c:if test = "${param.postType != 'q' }" >	
-              <h1>게시글 작성</h1>
+              <h1>게시글 작성</h1><br>
               <div class="form-row my-3">
                   <div class="input-group col-lg-12">
                       <input type="text" class="form-control" name="postName" placeholder="제목을 입력해주세요">
@@ -29,7 +29,7 @@
               </div>
             </c:if>
             <c:if test = "${param.postType == 'q' }" >	
-            	<h1>문의하기</h1>
+            	<h1>문의하기</h1><br>
             	<div class="form-row my-3">
             		<div class="input-group col-lg-3">
             			<select name="qnaRegType" class="form-control">

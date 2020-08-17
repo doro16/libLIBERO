@@ -106,6 +106,7 @@
 							</option>
 							<c:if test="${param.menu=='q'}"> 	
 							<option value="2" ${! empty search.searchCondition && search.searchCondition==2 ? "selected" : ""}>닉네임</option>
+							
 							</c:if>
 						</select>
 					  </div>
@@ -199,14 +200,14 @@
                         
                   		<td align="center">${ i }</td>
                         <c:set var="commentContent" value="${comment.commentContent}" />
-                        <td align="left">${fn:substring(commentContent,0,20)}
-                            <c:if test="${fn:length(commentContent)>20}">
+                        <td align="left">${fn:substring(commentContent,0,30)}
+                            <c:if test="${fn:length(commentContent)>30}">
                                 ......
                             </c:if>
                         </td>
                         <input type="hidden" value="${comment.postNo}"/>
                         
-                        <td>${comment.user.nickname}</td>
+                        <td><img src="../resources/images/user/fileUpload/${comment.user.profile}" style= "height: 40px; width: 40px; margin-top:-5px;">&nbsp;${comment.user.nickname}</td>
                         <td><fmt:formatDate value="${comment.regDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         
  
