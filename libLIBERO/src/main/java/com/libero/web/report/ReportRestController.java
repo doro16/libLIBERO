@@ -83,4 +83,28 @@ public class ReportRestController {
 		
 	}
 	
+	@RequestMapping(value = "/json/updateBlindCode",  method=RequestMethod.POST)
+	public int updateBlindCode(@RequestBody Map<String, String> map2, Report report) throws Exception{
+		
+		System.out.println("updateBlineCode입니다");
+		String prodPost = ((String)map2.get("prodPost"));
+		report.setProdPost(prodPost);
+		//System.out.println("prodpost봅시다"+prodPost);
+		if(prodPost.equals("post")) {
+			Post post = communityService.getPost(Integer.valueOf(map2.get("prodPostNo")));
+			post.setBlindCode(map2.get("blindCode"));
+			report.setPost(post);
+		} else if (prodPost.equals("prod")) {
+			Product product = productService.getProduct(Integer.valueOf(map2.get("prodPostNo")));
+			product.setBlindCode(map2.get("blindCode"));
+			report.setProduct(product);
+		}
+		
+		System.out.println(map2);
+		System.out.println("넘겨");
+			
+		reportService.updateBlindCode(report);
+		return 2;
+	}
+	
 }
