@@ -130,10 +130,12 @@
               <img style="margin-bottom: 0px;" src="../../resources/images/publish/fileUpload/thumbnailFile/${product.prodThumbnail}"
                 alt="First slide" class="img-fluid">
             </div>
+            <c:if test="${product.coverFile != null }">
             <div class="carousel-item">
               <img src="../../resources/images/publish/fileUpload/coverFile/${product.coverFile}"
                 alt="Second slide" class="img-fluid">
             </div>
+            </c:if>
           </div>
           <!--/.Slides-->
 
@@ -162,13 +164,15 @@
                     class="img-fluid z-depth-1" style="height: 200px; width:170px;">
                 </a>
               </figure>
-              <figure class="col-md-4" style="margin: 22px; padding: 0px;">
-                <a href="../../resources/images/publish/fileUpload/coverFile/${product.coverFile}"
-                  data-size="1600x1067">
-                  <img src="../../resources/images/publish/fileUpload/coverFile/${product.coverFile}"
-                    class="img-fluid z-depth-1" style="height: 200px; width:170px;">
-                </a>
-              </figure>
+              <c:if test="${product.coverFile != null }">
+	              <figure class="col-md-4" style="margin: 22px; padding: 0px;">
+	                <a href="../../resources/images/publish/fileUpload/coverFile/${product.coverFile}"
+	                  data-size="1600x1067">
+	                  <img src="../../resources/images/publish/fileUpload/coverFile/${product.coverFile}"
+	                    class="img-fluid z-depth-1" style="height: 200px; width:170px;">
+	                </a>
+	              </figure>
+              </c:if>
             </div>
           </div>
         </div>
@@ -211,7 +215,7 @@
           <p class="ml-xl-0 ml-4"><span class="grey-text">환불규정 : </span>작가서비스 환불은 libLIBERO 규정에 의거합니다.</p>
 		  <hr/>
           <p class="ml-xl-0 ml-4">
-            <strong><span class="grey-text">작가/이메일 : </span></strong>${product.author}/${product.creator } </p>
+            <strong><span class="grey-text">작가 이메일 : </span></strong>${product.creator } </p>
           <p class="ml-xl-0 ml-4">
             <strong><span class="grey-text">상품종류 : </span></strong>${product.prodType} </p>
           <p class="ml-xl-0 ml-4">
