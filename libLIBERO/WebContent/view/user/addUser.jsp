@@ -11,7 +11,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 가입</title>
 <jsp:include page="/common/cdn.jsp"></jsp:include>
 <link rel="stylesheet" href="../resources/css/common.css">
 <jsp:include page="../toolbar.jsp"></jsp:include>
@@ -374,7 +373,11 @@
                     	
 	         <div class="md-form mt-0">
 	         <div class="md-form row-8">
+<<<<<<< HEAD
 	                <input type="text" id="postCode" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock" readOnly>
+=======
+	                <input type="text" id="postCode"  class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock" readOnly>
+>>>>>>> refs/remotes/origin/master
 	                <label for="adress">주소</label>
 	                <small id="adress" class="form-text text-muted mb-4"> 
 	                </small>

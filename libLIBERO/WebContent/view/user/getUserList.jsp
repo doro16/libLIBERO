@@ -6,7 +6,6 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>libLIBERO : 전체 회원 조회</title>
 		<jsp:include page="/common/cdn.jsp"></jsp:include>
 		<!--  ///////////////////////// CSS ////////////////////////// -->
 		<link rel="stylesheet" href="../resources/css/common.css">

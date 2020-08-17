@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>libLIBERO : 로그인</title>
+		<title>libLIBERO</title>
 		<jsp:include page="/common/cdn.jsp"></jsp:include>
 		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<link rel="stylesheet" href="../resources/css/common.css">

@@ -4,7 +4,6 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>libLIBERO : 인쇄옵션 가격 등록</title>
 		<jsp:include page="/common/cdn.jsp"></jsp:include>
 		<!--  ///////////////////////// CSS ////////////////////////// -->
 		<link rel="stylesheet" href="../resources/css/common.css">

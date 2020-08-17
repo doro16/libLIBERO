@@ -144,8 +144,8 @@
 	<insert		id="addProduct"		parameterType="publish">
 		INSERT
 		INTO
-		product(prod_type, prod_name, prod_thumbnail, cover_file, prod_detail, retail_price, creator, discount_code)
-		VALUES (#{prodType}, #{prodName}, #{prodThumbnail}, #{coverFile:VARCHAR}, #{prodDetail}, #{retailPrice}, #{creator}, "x")
+		product(prod_type, prod_name, prod_thumbnail, cover_file, prod_detail, retail_price, creator, discount_code, author)
+		VALUES (#{prodType}, #{prodName}, #{prodThumbnail}, #{coverFile:VARCHAR}, #{prodDetail}, #{retailPrice}, #{creator}, "x", #{author})
 	</insert>
 	
 	<update	id="updateProduct"	parameterType="publish">
@@ -249,11 +249,10 @@
 	<select id="getTotalCount" parameterType="publish" resultType="int">
 		SELECT COUNT(*) 
 		FROM product p
-		LEFT JOIN hashtag h 
-		on p.prod_no = h.prod_no 
 		where creator IN(#{creator})
 		<if test='prodType=="book"'>
 			AND p.prod_type IN("paper","ebook")
+			AND p.blind_code IN("show")
 		</if> 
 		<if test='prodType=="prod"'>
 			AND p.prod_type IN("design","target","correct")

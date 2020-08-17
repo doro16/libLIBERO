@@ -6,7 +6,6 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>libLIBERO : 도서정보 등록</title>
 		<jsp:include page="/common/cdn.jsp"></jsp:include>
 		<!--  ///////////////////////// CSS ////////////////////////// -->
 		<link rel="stylesheet" href="../resources/css/common.css">
@@ -99,10 +98,10 @@
 			#preview #liberoImg {
 				position: absolute;
 				bottom:5px;
-				right:5px;
+				right:0px;
 				background-image: url("../resources/images/common/logo.png");
 				background-size: cover;
-				width: 80px; height: 20px;
+				width: 80px; height: 30px;
 			}
 		</style>
 	</head>
