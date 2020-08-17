@@ -70,10 +70,6 @@ public class PublishServiceImpl implements PublishService{
 		publishDAO.updateProduct(publish);
 	}
 	
-	public void addOptionPrice() throws Exception{
-		
-	}
-	
 	public User getOptionPrice(String userId) throws Exception{
 		return publishDAO.getOptionPrice(userId);
 	}

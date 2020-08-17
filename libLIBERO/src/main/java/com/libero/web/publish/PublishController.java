@@ -60,17 +60,6 @@ public class PublishController {
 	String path;
 	
 	//method
-	@RequestMapping(value="selectProdType", method = RequestMethod.GET)
-	public ModelAndView selectProdType() throws Exception {
-		
-		System.out.println("/publish/selectProdType : GET");
-		
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("forward:/view/publish/selectProductType.jsp");
-		
-		return modelAndView;
-	}
-	
 	@RequestMapping(value = "addPrintOption", method = RequestMethod.GET)
 	public ModelAndView addPrintOption() throws Exception {
 		
@@ -171,11 +160,9 @@ public class PublishController {
 	}
 	
 	@RequestMapping(value = "addProductInfo", method = RequestMethod.POST)
-	public ModelAndView addProductInfo(Publish publish, @RequestParam("imgFile")List<MultipartFile> files, HttpServletRequest request) throws Exception {
+	public ModelAndView addProductInfo(Publish publish, @RequestParam("imgFile")List<MultipartFile> files) throws Exception {
 		
 		System.out.println("/publish/addProductInfo : POST");
-		
-		String root = request.getSession().getServletContext().getRealPath("/");
 		
 		if (publish.getCoverSelect().contentEquals("fileUpload")) {
 			

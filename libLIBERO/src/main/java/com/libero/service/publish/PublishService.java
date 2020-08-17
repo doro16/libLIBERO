@@ -26,8 +26,6 @@ public interface PublishService {
 	
 	public void updateProduct(Publish publish) throws Exception;
 	
-	public void addOptionPrice() throws Exception;
-	
 	public User getOptionPrice(String userId) throws Exception;
 	
 	public void updateOptionPrice(User user) throws Exception;

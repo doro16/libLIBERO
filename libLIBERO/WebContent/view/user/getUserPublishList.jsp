@@ -117,6 +117,11 @@
 		//===============blindCode 수정 =================
 		function updateCode(prodNo,blindCode,e) {
 			
+			Swal.fire({
+				  icon: 'success',
+				  text: '요청 성공'
+			});
+			
 			$.ajax({
      			type     	: 'GET',
         		url			: '/libero/publish/json/updateBlindCode/'+prodNo+'/'+blindCode,

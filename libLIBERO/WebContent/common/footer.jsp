@@ -23,7 +23,7 @@
 <footer>
    
     <div class="footer-text" style="font-size: 13px;color:gray;">
-        <a href="/"><img src='http://127.0.0.1:8080/libero/resources/images/common/logo.png' style='width: 130px;height: auto;float:left;opacity: 90%;z-index: 400px;'></a>
+        <img src='http://127.0.0.1:8080/libero/resources/images/common/logo.png' style='width: 130px;height: auto;float:left;opacity: 90%;z-index: 400px;'>
         서울시 서초구 강남대로 459 (서초동, 백암빌딩) ｜ 사업자등록번호 : 214-85-24928<br />
         (주)libLIBERO 대표이사 : 정윤세 ｜ 문의 : 02-3486-9600 ｜ 팩스 : 02-6007-1245<br />
         통신판매업 신고번호 : 제 서초-00098호 ｜ 개인정보보호관리책임자 : 정윤세<br />
