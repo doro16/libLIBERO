@@ -217,7 +217,21 @@
           <p class="ml-xl-0 ml-4">
             <strong><span class="grey-text">등록일자 : </span></strong>${product.regDate} </p>
             <hr/>
-          
+            
+             <p class="ml-xl-0 ml-4">
+            <strong><span class="grey-text"></span></strong>
+              <c:set var="i" value="0" />
+							  <c:forEach var="hashtag" items="${hashtag}">
+							  <c:set var="i" value="${ i+1 }" />
+			
+			 <a href="/libero/product/getProductListBySearch?searchCondition=hashTag&searchKeyword=${hashtag}"><strong><span class="grey-text">#${hashtag}, </span></strong></a> 
+
+            				  </c:forEach>
+            </p>
+            
+            
+            
+         
           <p class="ml-xl-0 ml-4">  
             <strong><span class="grey-text" style="font-size : 20px;">상품형태</span></strong><br/>
           <p class="ml-xl-0 ml-3">

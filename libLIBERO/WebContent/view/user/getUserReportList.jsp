@@ -44,12 +44,19 @@
 		})
 
 	});
-	$(function() { 
-		$(".ss").on("click", function(){
-		var prodPostNo =  $("input[name='prodPostNo']").val(); 
+	
+	$(document).on("click", ".updateProdPost button", function(){	
 		var blindCode =  $("button[name='blindCode']").val(); 
-		var prodPost =  $("input[name='prodPost']").val(); 
+		var prodPost =  $("input[name='menu']").val(); 
+		if(prodPost ==  'prod'){
+			var prodPostNo =  parseInt($(this).parent().find(".prodNo").val());
+		} else if (prodPost =='post'){
+			var prodPostNo =  parseInt($(this).parent().find(".postNo").val());
+		}
+		
 
+	
+		
 		$.ajax(
 		    	{
 		        url : "/libero/user/json/updateBlindCode/",
@@ -69,15 +76,14 @@
 						swal("신청 완료", "심사후  공개로 전환됩니다.", "success");
 					} else if(blindCode == 'require'){
 						swal("승인 완료", "다시 공개됩니다", "success");
-						setTimeout(function() {
-							window.location.reload();
-					    }, 1500);
-						
-
 					}
+					
+					setTimeout(function() {
+						window.location.reload();
+				    }, 500);
 				}	
-				});
-		})	
+			});
+
 	});
 </script>
 </head>
@@ -129,6 +135,7 @@
 					</form>
 
 				<p style="padding-top: 20px; "> 전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지 </p>
+				
 
 			<c:if test="${param.menu=='prod'}"> 
 				<table class="table table-hover" id="reportProd" style="font-size: 14px;text-align: center;">
@@ -152,9 +159,7 @@
 							<tr> 
 
 								<td align="center">${ i }
-								<input type="hidden" name="reportNo" value="${report.reportNo}"/>
-								<input type="hidden"  name="prodPostNo" value="${report.product.prodNo}" />
-								<input type="hidden" id="prodPost" name="prodPost" value="prod"/>
+								<input type="hidden" name="reportNo2" value="${report.reportNo}"/>	
 								</td>
 								<c:set var="prodName" value="${report.product.prodName}" />
 								<td align="left">${fn:substring(prodName,0,20)}
@@ -178,32 +183,31 @@
 										<a>기타</a>
 									</c:if></td>
 								<td><fmt:formatDate value="${report.regDate}" pattern="yyyy.MM.dd" /></td>
-								<c:if test="${report.product.blindCode == 'show'}"><td>공개</td></c:if>
 								
-								<c:if test="${user.role!='a' && report.product.blindCode == 'report'}">
-                        		<td>
-                        		<button type="button" class="btn btn-warning btn-rounded btn-sm my-0 ss" 
-                        		name="blindCode" value="${report.product.blindCode}" style="border-radius: 20px;">숨김 해제
-                        		</button></td>
+								<td id="update${report.product.prodNo}" class="updateProdPost"> 
+                        		
+                        		<c:if test="${report.product.blindCode == 'show'}">공개</c:if>
+                        		<c:if test="${user.role!='a' && report.product.blindCode == 'report'}">
+                        		<input type='hidden' class="prodNo" name="prodNo" value="${report.product.prodNo}" style="display: none;">
+                        		<button type="button" class="btn brown lighten-2 btn-rounded btn-sm my-0 ss" 
+                        		name="blindCode" value="${report.product.blindCode}" style="border-radius: 20px; color: white;">숨김 해제
+                        		</button>
+                        		</c:if>
+                        		
+                        		<c:if test="${user.role!='a' && report.product.blindCode == 'require'}">
+                        		<button type="button" class="btn btn-light btn-rounded btn-sm my-0" 
+                        		name="blindCode" value="${report.product.blindCode}"  disabled style="border-radius: 20px;">숨김 해제
+                        		</button>
                   				</c:if>
                   				
-                  				<c:if test="${user.role!='a' && report.product.blindCode == 'require'}">
-                        		<td>
-                        		<button type="button" class="btn btn-light btn-rounded btn-sm my-0 ss" 
-                        		name="blindCode" value="${report.product.blindCode}" disabled style="border-radius: 20px;">숨김 해제
-                        		</button></td>
-                  				</c:if>
+                  				<c:if test="${user.role=='a' && report.product.blindCode == 'report'}">숨김</c:if>
                   				
-                  				
-                  				<c:if test="${user.role=='a' && report.product.blindCode == 'report'}">
-                        		<td>
-                        		숨김
+                  				<c:if test="${user.role=='a' && report.product.blindCode == 'require'}">	
+                  				<input type='hidden' class="prodNo" name="prodNo" value="${report.product.prodNo}" style="display: none;">		
+                  				<button type="button" class="btn brown lighten-2 btn-rounded btn-sm my-0 ss" 
+                        		name="blindCode" value="${report.product.blindCode}" style="border-radius: 20px; color: white">공개 승인</button>
+                  				</c:if>                     		
                         		</td>
-                  				</c:if>
-                  				<c:if test="${user.role=='a' && report.product.blindCode == 'require'}">							
-                        		<td><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 ss" 
-                        		name="blindCode" value="${report.product.blindCode}" style="border-radius: 20px;">공개 승인</button></td>
-                  				</c:if>
 								
 								<td>${report.product.creator}</td>
 
@@ -239,16 +243,14 @@
 						<c:forEach var="report" items="${list}">
 							<c:set var="i" value="${ i+1 }" />
 
-							<!-- <tr onClick="location.href='/libero/community/getPost?postNo=${report.post.postNo}'">  -->
 							<tr>
 
 								<td align="center">${ i }
-								<input type="hidden" name="reportNo" value="${report.reportNo}"/>
-								<input type="hidden"  name="prodPostNo" value="${report.post.postNo}" />
-								<input type="hidden" id="prodPost" name="prodPost" value="post"/>
+								<input type="hidden" name="reportNo1" value="${report.reportNo}"/>
+					
 								</td>
 								<c:set var="postName" value="${report.post.postName}" />
-								<td align="left">${fn:substring(postName,0,20)}
+								<td align="left" onClick="location.href='/libero/community/getPost?postNo=${report.post.postNo}'">${fn:substring(postName,0,20)}
 								<c:if test="${fn:length(postName)>20}">
                                 ......
                             	</c:if> 
@@ -268,34 +270,39 @@
 										<a>기타</a>
 									</c:if></td>
 								<td><fmt:formatDate value="${report.regDate}" pattern="yyyy.MM.dd" /></td>
-								<c:if test="${report.post.blindCode == 'show'}"><td>공개</td></c:if>
-								<c:if test="${user.role!='a' && report.product.blindCode == 'report'}">
-                        		<td>
-                        		<button type="button" class="btn brown lighten-1 btn-rounded btn-sm my-0 ss" 
-                        		name="blindCode" value="${report.post.blindCode}" style="border-radius: 20px;">숨김 해제
-                        		</button></td>
-                  				</c:if>
-                  				
-                  				<c:if test="${user.role!='a' && report.post.blindCode == 'require'}">
-                        		<td>
+								
+								
+							
+								
+	
+								
+                        		<td id="update${report.post.postNo}" class="updateProdPost"> 
+                        		
+                        		<c:if test="${report.post.blindCode == 'show'}">공개</c:if>
+                        		<c:if test="${user.role!='a' && report.post.blindCode == 'report'}">
+                        		<input type='hidden' class="postNo" name="postNo" value="${report.post.postNo}" style="display: none;">
+                        		<button type="button" class="btn brown lighten-2 btn-rounded btn-sm my-0 ss" 
+                        		name="blindCode" value="${report.post.blindCode}" style="border-radius: 20px; color: white;">숨김 해제
+                        		</button>
+                        		</c:if>
+                        		
+                        		<c:if test="${user.role!='a' && report.post.blindCode == 'require'}">
                         		<button type="button" class="btn btn-light btn-rounded btn-sm my-0" 
                         		name="blindCode" value="${report.post.blindCode}"  disabled style="border-radius: 20px;">숨김 해제
-                        		</button></td>
+                        		</button>
                   				</c:if>
                   				
+                  				<c:if test="${user.role=='a' && report.post.blindCode == 'report'}">숨김</c:if>
                   				
-                  				<c:if test="${user.role=='a' && report.post.blindCode == 'report'}">
-                        		<td>
-                        		숨김
+                  				<c:if test="${user.role=='a' && report.post.blindCode == 'require'}">	
+                  				<input type='hidden' class="postNo" name="postNo" value="${report.post.postNo}" style="display: none;">		
+                  				<button type="button" class="btn brown lighten-2 btn-rounded btn-sm my-0 ss" 
+                        		name="blindCode" value="${report.post.blindCode}" style="border-radius: 20px; color: white">공개 승인</button>
+                  				</c:if>                     		
                         		</td>
-                  				</c:if>
-                  				<c:if test="${user.role=='a' && report.post.blindCode == 'require'}">							
-                        		<td><button type="button" class="btn brown lighten-1 btn-rounded btn-sm my-0 ss" 
-                        		name="blindCode" value="${report.post.blindCode}" style="border-radius: 20px;">공개 승인</button></td>
-                  				</c:if>
-								
+                  				
 								<td>${report.user.userId}</td>
-
+								
 							</tr>
 
 

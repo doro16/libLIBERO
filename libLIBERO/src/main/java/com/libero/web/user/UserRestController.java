@@ -111,7 +111,6 @@ public class UserRestController {
 		if( ((String)params.get("password")).equals(user.getPassword())){
 			session.setAttribute("user", user);
 		}
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("user"));
 		return user;
 	}
 	
@@ -126,15 +125,15 @@ public class UserRestController {
 	}
 	
 	@RequestMapping(value="json/emailSend",method=RequestMethod.GET)
-	public Map emailSend(@RequestParam("userId") String userId) throws Exception{
+	public Map<String, Object> emailSend(@RequestParam("userId") String userId) throws Exception{
 		System.out.println(" ---------------------------------------");
 		System.out.println("[ /user/json/emailCheck/"+userId+" : GET]");
 		System.out.println(" ---------------------------------------");
 		
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		////email보내는 함수 작성
-		String verCode = mailSender(userId, null);
+		String verCode = mailSender(userId, "add");
 		
 		System.out.println("\n\n[ "+verCode+" ]\n\n");
 
@@ -151,17 +150,17 @@ public class UserRestController {
 		int port=465; 
 		final String username = "wjddbstp"; //네이버 아이이디 
 		final String password = "mnbv48451"; //네이버 비번 
-		String verCode=UserRestController.getAlphaNumericString();
+		String verCode=userService.getAlphaNumericString();
 		String recipient = userId; //받는 사람 이메일 주소 
 		Properties props = System.getProperties(); // 메일 제목, 내용을 담을 properties 만들기. 
 		
 		String subject = null;
 		String body = null;
 		
-		if(isFind == null) {	
+		if(isFind.equals("add")) {	
 			subject = "[libLIBERO] 회원가입 이메일 인증"; //메일 제목 
 			body = "libLIBERO Email Verification Code\n\t\t"+"[ "+ verCode+" ]"; //메일 내용		
-		}else {
+		}else if(isFind.equals("find")) {
 			subject = "[libLIBERO] 비밀번호 변경 안내"; //메일 제목 
 			body = "임시 비밀번호 발급 \n\n 임시 비밀번호 :  "+"[ "+ verCode+" ] \n\n 회원님의 비밀번호를 변경해주세요."; //메일 내용		
 		}
@@ -223,41 +222,9 @@ public class UserRestController {
 		
 		return result;
 	}
-///////////////////////////////////////////랜덤 코드 생성기
-	static int randomNumber() {
-		int rand = (int) (Math.random() * 899999) + 100000; 
-		return rand;	
-	}
-	
-	static String getAlphaNumericString() { 
-		
-		
-		 int n = 10; //length of the number
-        
-		
-		// chose a Character random from this String 
-        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                                    + "0123456789"
-                                    + "abcdefghijklmnopqrstuvxyz"; 
-  
-        // create StringBuffer size of AlphaNumericString 
-        StringBuilder sb = new StringBuilder(n); 
-  
-        for (int i = 0; i < n; i++) { 
-            // generate a random number between 
-            // 0 to AlphaNumericString variable length 
-            int index 
-                = (int)(AlphaNumericString.length() 
-                        * Math.random()); 
-  
-            // add Character one by one in end of sb 
-            sb.append(AlphaNumericString.charAt(index)); 
-        }
-        return sb.toString(); 
-    } 
 	
 	@RequestMapping(value="json/getUserPublishList/{prodType}")
-	public Map getUserPublishList(HttpSession session, @PathVariable("prodType") String prodType, Publish publish,@RequestBody Search search) throws Exception {
+	public Map<String, Object> getUserPublishList(HttpSession session, @PathVariable("prodType") String prodType, Publish publish,@RequestBody Search search) throws Exception {
 		
 		System.out.println("/user/json/getUserPublishList : GET, POST");
 		
@@ -273,7 +240,7 @@ public class UserRestController {
 		Page resultPage = new Page(search.getCurrentPage(),
 				((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		
-		Map map01 = new HashMap();
+		Map<String, Object> map01 = new HashMap<String, Object>();
 		map01.put("list", map.get("list"));
 		map01.put("resultPage", resultPage);
 		map01.put("search", search);
@@ -298,6 +265,9 @@ public class UserRestController {
 		String kId = userInfo.path("id").asText();	
 		String kEmail = kakaoAccount.path("email").asText();
 		String kNickname = properties.path("nickname").asText(); 		
+		if(userService.getUserNickname(kNickname) != null) {
+			kNickname = (UUID.randomUUID().toString().replaceAll("-", "")).substring(0, 5)+"_"+kNickname;
+		}
 		String kGender = kakaoAccount.path("gender").asText();
 
 		
@@ -313,7 +283,8 @@ public class UserRestController {
 				user.setPassword((UUID.randomUUID().toString().replaceAll("-", "")).substring(0, 14));
 				user.setKakaoId(kId);
 				user.setNickname(kNickname);
-				user.setGenderCode(kGender.substring(0,1));
+				user.setName(kNickname);
+				user.setGenderCode(kGender.substring(0,1));		
 				
 				userService.addUser(user);				
 				user = userService.getUser(user.getUserId());
@@ -331,7 +302,7 @@ public class UserRestController {
 					
 		session.setAttribute("user", user);
 		session.setAttribute("kakao", "true"); 
-		mav.setViewName("redirect:/");
+		mav.setViewName("redirect:/view/user/loginView.jsp");
 		
 		return mav; 
 		}
@@ -352,14 +323,14 @@ public class UserRestController {
 	@RequestMapping(value="json/sendSms",method=RequestMethod.POST)
 	public int sendSms(String receiver) {
 		// 6자리 인증 코드 생성 
-		int randomNo = UserRestController.randomNumber();
+		int randomNo = userService.randomNumber();
 		// 인증 코드를 데이터베이스에 저장하는 코드는 생략했습니다. 
 		// 문자 보내기 
 		String hostname = "api.bluehouselab.com";
 		String url = "https://" + hostname + "/smscenter/v1.0/sendsms";
 		CredentialsProvider credsProvider = new BasicCredentialsProvider();
 		credsProvider.setCredentials(new AuthScope(hostname, 443, AuthScope.ANY_REALM),// 청기와랩에 등록한 Application Id 와 API key 를 입력합니다. 
-				new UsernamePasswordCredentials("libeLIBERO", "8ec6b9cad95611eab5140cc47a1fcfae"));
+				new UsernamePasswordCredentials("libero", "79087a92ddfc11eaaa100cc47a1fcfae"));
 		AuthCache authCache = new BasicAuthCache(); 
 		authCache.put(new HttpHost(hostname, 443, "https"), new BasicScheme());
 		HttpClientContext context = HttpClientContext.create();
@@ -369,7 +340,7 @@ public class UserRestController {
 		try {
 			HttpPost httpPost = new HttpPost(url);
 		httpPost.setHeader("Content-type", "application/json; charset=utf-8");//문자에 대한 정보 
-		String json = "{\"sender\":\"01035939410\",\"receivers\":[\"" + receiver + "\"],\"content\":\""+randomNo+"\"}"; 
+		String json = "{\"sender\":\"01042796268\",\"receivers\":[\"" + receiver + "\"],\"content\":\""+randomNo+"\"}"; 
 		StringEntity se = new StringEntity(json, "UTF-8"); 
 		httpPost.setEntity(se); 
 		HttpResponse httpResponse = client.execute(httpPost, context);
@@ -427,14 +398,12 @@ public class UserRestController {
 	}
 		
 	@RequestMapping(value="json/findId",method=RequestMethod.POST)
-	public Map findId(String receiver) {
+	public Map<String, Object> findId(String receiver) {
 		System.out.println("/user/json/findId : POST");
 	
 		String userId = userService.findUserIdByPhone(receiver);
 		
 		Map<String, Object> map = new HashMap<String, Object>();		
-		
-		int certifiNum = 0;
 		
 		if(userId == null) {			
 			map.put("certifiNum", 1111111);
@@ -451,7 +420,9 @@ public class UserRestController {
 	public void findPassword(@RequestParam("findPassword") String userId) throws Exception, MessagingException {
 		System.out.println("/user/json/findPassword : POST");
 		
-		String verCode = mailSender(userId, "FIND");			
+		System.out.println(">>"+userId);
+		
+		String verCode = mailSender(userId, "find");			
 		userService.updatePassword(userId, verCode);
 		
 	}

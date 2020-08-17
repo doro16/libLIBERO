@@ -28,9 +28,9 @@ public interface BuyService {
 	
 	public Map<String,Object> getUserBuyList(String userId);
 	
-	public Map<String,Object> getFactoryBuy(String payNo);
+	public Map<String,Object> getFactoryBuy(String payNo,String factoryId);
 	
-	public Map<String,Object> getFactoryBuyList();
+	public Map<String,Object> getFactoryBuyList(String factoryId);
 	
 	public int getBuyArray(int buyNo);
 	

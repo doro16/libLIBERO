@@ -24,6 +24,14 @@
         	.card {
         		position: absolute;
         	}
+        	.swal-button 
+			{
+				background-color: #FFCD00;
+				color : #ffffff;
+				font-size : 12px;
+				text-shadow : 0px -1px 0px rgba(0, 0, 0, 0.3);
+				margin:0;
+			}
 		</style>
 	</head>
 	<body>
@@ -53,7 +61,7 @@
 	        				<hr/>
 	        				<div class="text-center">
 				        		<a href="/libero/user/addUser"><button type="button" class="btn btn-info brown lighten-1 btn-block" id="addUser">회원가입</button></a><br/>
-				        		<a onclick="window.open('${kakao_login}','카카오 로그인','width=400, height=500');"><img src="/libero/resources/images/common/kakao_login_medium_narrow.png"></a>
+				      			<a id="click_kakao_login"><img src="../resources/images/common/kakao_login_medium_narrow.png"></a>
 				      		</div>
 				      		
 				      		
@@ -186,7 +194,7 @@
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header">
-<h3 class="modal-title" id="myModalLabel" style="float:center; text-align:center">ID 찾기</h3>
+<h3 class="modal-title w-100 font-weight-bold" id="myModalLabel"> <img src="../resources/images/common/block.png" width="30px" height="30px"/> ID 찾기</h3>
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">	
@@ -224,7 +232,7 @@
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header">
-<h3 class="modal-title" id="myModalLabel" style="float:center">Password 찾기</h3>
+<h3 class="modal-title w-100 font-weight-bold" id="myModalLabel"><img src="../resources/images/common/block.png" width="30px" height="30px"/> Password 찾기</h3>
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">	
@@ -251,11 +259,19 @@
 	<script type="text/javascript">
 	$(function(){
 		
+		if('${kakao}' == 'true'){
+			window.opener.location.href = '/libero/';
+			window.close(); 
+			}
+		
+		$("#click_kakao_login").on("click", function(){
+			window.open('${kakao_login}','카카오 로그인','width=400, height=500'); 
+		})
+		
 		if('${message}' == 'wrong'){
 			swal({
 				text : "아이디 혹은 비밀번호를 확인해 주세요",
 				icon : "error",
-				position : "center",
 				buttons:{
 					Id : {
 						text:"ID 찾기",
@@ -315,7 +331,6 @@
 		var star = "";
 		
 		for(var i=0; i<userId.length-3; i++){
-		alert(userId.length+" "+userId.length-3)
 		star += "*";
 		}
 		

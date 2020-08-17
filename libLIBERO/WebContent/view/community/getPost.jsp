@@ -46,7 +46,7 @@
                 
                
          	   <div style="float:right;">
-	           <c:if test="${sessionScope.user.userId == post.user.userId}">
+	           <c:if test="${sessionScope.user.userId == post.user.userId and post.postType != 'q'}">
 		           	<button type="button" class="btn btn-brown btn-md">수정</button>
 				   	<a href="/libero/community/deletePost?postNo=${post.postNo}" class="btn btn-outline-brown btn-md" role="button" aria-pressed="true">삭제</a>	
 		       </c:if>

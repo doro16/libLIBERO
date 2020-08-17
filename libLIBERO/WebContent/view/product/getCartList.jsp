@@ -67,7 +67,7 @@
            <c:set var="totalPrice" value="0"/>
 		  <c:set var="i" value="0" />
 		  <c:forEach var="cartList" items="${cartList}">
-			<c:set var="i" value="${ i+1 }" />
+			
 			<c:set var="totalPrice" value="${totalPrice + cartList.buyAmount * cartList.retailPrice }"/>
           	<form id="form${i}" value="${i}">
           
@@ -107,7 +107,9 @@
              
             </td>
           </tr>
+          <c:set var="i" value="${ i+1 }" />
 				</form>
+				
           </c:forEach>
           
           <!-- /.First row -->

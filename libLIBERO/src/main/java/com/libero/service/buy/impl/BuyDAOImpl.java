@@ -68,16 +68,18 @@ public class BuyDAOImpl implements BuyDAO{
 //	}
 
 	@Override
-	public List getFactoryBuyList() {
+	public List getFactoryBuyList(String factoryId) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("BuyMapper.getFactoryBuyList");
+		return sqlSession.selectList("BuyMapper.getFactoryBuyList",factoryId);
 	}
 
 	@Override
-	public List getFactoryBuy(String payNo) {
+	public List getFactoryBuy(String payNo,String factoryId) {
+		Map map = new HashMap();
+		map.put("factoryId", factoryId);
+		map.put("payNo", payNo);
 		
-		
-		return sqlSession.selectList("BuyMapper.getFactoryBuy", payNo);
+		return sqlSession.selectList("BuyMapper.getFactoryBuy", map);
 	}
 
 	@Override

@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <!--  ///////////////////////// JSTL  ////////////////////////// -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -41,13 +43,13 @@
 	   		</div>
 	   		<div class="row text-center" style="text-align:center; float:center;margin: 10px">
 	   			<div class="col-lg-3">
-	   				<h6><strong>누적 정산금</strong></h6>${cash.cashAmount}원
+	   				<h6><strong>누적 정산금</strong></h6> <fmt:formatNumber value="${cash.cashAmount}" pattern="#,###" />원
 	   			</div>
 	   			<div class="col-lg-3">
-	   				<h6><strong>현재 정산 가능한 가격</strong></h6>${cash.cashCurrent}원
+	   				<h6><strong>현재 정산 가능한 가격</strong></h6> <fmt:formatNumber value="${cash.cashCurrent}" pattern="#,###" />원
 	   			</div>
 	   			<div class="col-lg-3">
-	   				<h6><strong>신청한 정산 가격</strong></h6>${cash.cashWithdraw}원
+	   				<h6><strong>신청한 정산 가격</strong></h6> <fmt:formatNumber value="${cash.cashWithdraw}" pattern="#,###" />원
 	   				
 	   			</div>
 	   		</div>
@@ -63,7 +65,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">정산 신청</h4>
+        <h4 class="modal-title w-100 font-weight-bold"><img src="../resources/images/common/money.png" width="30px" height="30px"/> 정산 신청</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

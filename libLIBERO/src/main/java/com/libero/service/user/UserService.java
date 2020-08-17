@@ -22,7 +22,7 @@ public interface UserService {
 	
 	public boolean duplicationNick(String nickname) throws Exception;
 	
-	public List<String> addHashtag(String userId,List<String> hashtagName) throws Exception;
+	public List<String> addHashtag(String userId, List<String> hashtagName) throws Exception;
 	
 	public void requestCash(String userId, String cashCode);
 	
@@ -45,4 +45,10 @@ public interface UserService {
 	public String findUserIdByPhone(String phone);
 	
 	public void updatePassword(String userId, String verCode);
+	
+	public String getUserNickname(String userNickname);
+	
+	public int randomNumber();
+	
+	public String getAlphaNumericString();
 }

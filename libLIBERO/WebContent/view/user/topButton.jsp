@@ -33,7 +33,7 @@
 		<div class="row" style="width: 80%">
 			<div class="buttonDiv col" onclick="location.href='/libero/user/getUser'">
 				<i class="fas fa-user-edit fa-3x"></i>
-				<p class="brown-text">내정보 조회</p>
+				<p class="brown-text">내 정보 조회</p>
 			</div>
 			<div class="buttonDiv col" onclick="location.href='/libero/user/getTempPublishList'">
 				<i class="fas fa-clipboard-list fa-3x"></i>
@@ -84,7 +84,7 @@
 			<div class="row" style="width: 80%">
 				<div class="buttonDiv col" onclick="location.href='/libero/user/getUser'">
 					<i class="fas fa-user-edit fa-3x"></i>
-					<p class="brown-text">내정보 조회</p>
+					<p class="brown-text">내 정보 조회</p>
 				</div>
 				<div class="buttonDiv col" onclick="location.href='/libero/buy/getFactoryBuyList'">
 					<i class="fas fa-money-bill-alt fa-3x"></i>

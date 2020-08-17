@@ -18,11 +18,11 @@ public interface BuyDAO {
 	
 //	public List getUserProdNo(Map forProdNo);
 	
-	public List getFactoryBuyList();
+	public List getFactoryBuyList(String factoryId);
 	
 //	public List getFactoryProdNo(String payNo);
 	
-	public List getFactoryBuy(String payNo);
+	public List getFactoryBuy(String payNo,String factoryId);
 	
 	public boolean updateDeliveryStatus(String payNo, int deliveryStatus);
 	

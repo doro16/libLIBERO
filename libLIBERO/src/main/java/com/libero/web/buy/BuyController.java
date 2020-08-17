@@ -26,6 +26,7 @@ import com.libero.service.domain.Product;
 import com.libero.service.domain.User;
 import com.libero.service.product.ProductService;
 import com.libero.service.user.UserService;
+import com.sun.xml.internal.fastinfoset.util.StringArray;
 
 @Controller
 @RequestMapping("/buy/*")
@@ -160,21 +161,44 @@ public class BuyController {
 
 	// 인쇄소 메인
 	@RequestMapping(value = "getFactoryBuyList", method = RequestMethod.GET)
-	public String getFactoryBuyList(Model model) throws Exception {
+	public String getFactoryBuyList(Model model,HttpSession session) throws Exception {
 		// factoryId session 으로 받아오기
 		System.out.println(" ---------------------------------------");
 		System.out.println("/buy/getFactoryBuyList : GET");
 		System.out.println(" ---------------------------------------");
-
-		Map<String, Object> map = buyService.getFactoryBuyList();
-
+		User user = (User)session.getAttribute("user");
+		String factoryId = user.getUserId();
+//		List<Pay> payList = (List<Pay>)buyService.getFactoryBuyList(factoryId).get("factorylist");
+//		List<String> payNoList= new ArrayList();
+//		List<Product> prodList= new ArrayList();
+//		for(int i=0; i<payList.size();i++) {
+//			//System.out.println("\n\n====="+payList.get(i)+"=======\n\n\n");
+//			Pay pay = new Pay();
+//			pay = payList.get(i);
+//			payNoList.add(pay.getPayNo());
+//			//System.out.println("\n~~~~~~~~~~~~~~~~~~~~\n"+buyService.getFactoryBuy(pay.getPayNo())+"\n~~~~~~~~~~~~~~~~~~~~\n");
+//			
+//			
+//			//System.out.println("\n~~~~~~~~~~~~~~~~~~~~\n"+pay.getPayNo()+"\n~~~~~~~~~~~~~~~~~~~~\n");
+//		}
+//		for(int j=0; j<payNoList.size();j++) {
+//			//System.out.println("\n~~~~~~~~~~~~~~~~~~~~\n"+payNoList.get(j)+"\n~~~~~~~~~~~~~~~~~~~~\n");
+//			//System.out.println("\n~~~~~~~~~~~~~~~~~~~~\n"+buyService.getFactoryBuy(payNoList.get(j))+"\n~~~~~~~~~~~~~~~~~~~~\n");
+//			prodList = (List<Product>) buyService.getFactoryBuy(payNoList.get(j)).get("product");						
+//		}
+//		
+//		
+//		for(int i =0; i<prodList.size();i++) {
+//			System.out.println("\n~~~~~~~~~~~~~~~~~~~~\n"+prodList.get(i)+"\n~~~~~~~~~~~~~~~~~~~~\n");
+//		}
+			Map<String, Object> map = buyService.getFactoryBuyList(factoryId);
 		model.addAttribute("factorylist", map.get("factorylist"));
 
 		return "forward:/view/buy/getFactoryBuyList.jsp";
 	}
 
 	@RequestMapping(value = "getFactoryBuy", method = RequestMethod.GET)
-	public String getFactoryBuy(@Param("payNo") String payNo, Model model) throws Exception {
+	public String getFactoryBuy(@Param("payNo") String payNo,HttpSession session,Model model) throws Exception {
 		System.out.println(" ---------------------------------------");
 		System.out.println("/buy/getFactoryBuy : GET");
 		System.out.println(" ---------------------------------------");
@@ -183,10 +207,13 @@ public class BuyController {
 		System.out.println(""+payNo);
 		System.out.println(" ---------------------------------------");
 		
-		Map<String, Object> map = buyService.getFactoryBuy(payNo);
+		User user = (User)session.getAttribute("user");
+		String factoryId = user.getUserId();
+		
+		
+		Map<String, Object> map = buyService.getFactoryBuy(payNo,factoryId);
 		
 		model.addAttribute("payNo", payNo);
-
 		model.addAttribute("product", map.get("product"));
 		return "forward:/view/buy/getFactoryBuy.jsp";
 	}

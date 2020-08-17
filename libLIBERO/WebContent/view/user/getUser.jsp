@@ -22,7 +22,7 @@
 		<div class="container">
 			<jsp:include page="topButton.jsp"></jsp:include>
 			
-			<h1>내정보 조회</h1>
+			<h1>내 정보 조회</h1>
 			
 			<form  enctype="multipart/form-data" >
 				<!-- ///////////////////////////// 아이디 ///////////////////////////////// -->

@@ -172,5 +172,9 @@ public class UserDAOImpl implements UserDAO {
 		
 		sqlSession.update("UserMapper.updatePassword", map);
 	}
+	
+	public String getUserNickname(String userNickname) {
+		return sqlSession.selectOne("UserMapper.getUserNickname", userNickname);
+	}
 
 }

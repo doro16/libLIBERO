@@ -31,8 +31,39 @@
 		<result property="cancelReason" column="cancel_type" jdbcType="VARCHAR"/>
 		<result property="payStatus" column="pay_code" jdbcType="VARCHAR"/>
 		<result property="payDate" column="pay_date" jdbcType="DATE"/>
-		<result property="buyerId" column="user_id" jdbcType="VARCHAR"/>
+		<result property="buyerId" column="user_id" jdbcType="VARCHAR"/>	
 	</resultMap> 
+	
+	
+	<resultMap id="productSelectMap" type="product">
+		<result property="prodNo" 		column="prod_no" 			jdbcType="VARCHAR" />
+		<result property="prodType" 	column="prod_type" 			jdbcType="VARCHAR" />
+		<result property="prodName"		column="prod_name" 			jdbcType="VARCHAR" />
+		<result property="prodDetail" 	column="prod_detail" 		jdbcType="LONGVARCHAR" />
+		<result property="retailPrice" 	column="retail_price" 		jdbcType="INTEGER" />
+		<result property="blindCode" 	column="blind_code" 		jdbcType="VARCHAR" />
+		<result property="prodThumbnail" column="prod_thumbnail" 	jdbcType="VARCHAR" />
+		<result property="coverFile" 	column="cover_file" 		jdbcType="VARCHAR" />
+		<result property="purposeCode" 	column="purpose_code" 		jdbcType="VARCHAR" />
+		<result property="manuFile"		column="manu_file"			jdbcType="VARCHAR" />
+		<result property="regDate"		column="reg_date"			jdbcType="TIMESTAMP" />
+		<result property="discountCode"	 column="discount_code"		jdbcType="VARCHAR" />
+		<result property="bookPage"		 column="book_page"			jdbcType="INTEGER" />
+		<result property="printPrice"	 column="print_price"		jdbcType="INTEGER" />
+		<result property="factoryId"	 column="factory_id"		jdbcType="VARCHAR" />
+		<result property="creator"		 column="creator"			jdbcType="VARCHAR" />
+		<result property="colorType"	 column="color_type"		jdbcType="VARCHAR" />
+		<result property="sizeType"		 column="size_type"			jdbcType="VARCHAR" />
+		<result property="coverType"	 column="cover_type"		jdbcType="VARCHAR" />
+		<result property="innerType"	 column="inner_type"		jdbcType="VARCHAR" />
+		<result property="bookCategory"	 column="book_category"		jdbcType="VARCHAR" />
+		<result property="likeCount"	 column="like_count"		jdbcType="INTEGER" />
+		<result property="wishNo"		 column="wish_no"			jdbcType="INTEGER" />
+		<result property="cartNo"		 column="cart_no"			jdbcType="INTEGER" />
+		<result property="buyAmount"	 column="buy_amount"		jdbcType="INTEGER" />
+		<result property="buyNo" 	 	 column="buy_no" 			jdbcType="INTEGER" />
+		<result property="reportCount"	 column="report_count"		jdbcType="INTEGER" />			
+	</resultMap>
 	
 
 	<insert id="addBuy" parameterType="pay">
@@ -84,6 +115,9 @@
 			AND pay.user_id= #{userId}
 	</select>	
 	 
+
+	 
+	 
 	<select id="getUserBuyList" parameterType="String" resultMap="paySelectMapper">
 	SELECT
 	 pay_no,payment_type,
@@ -95,7 +129,9 @@
 	FROM pay
 	WHERE user_id = #{value}
 	AND pay_code = 'paid'
-	ORDER BY pay_date DESC </select>
+	ORDER BY pay_date DESC 
+	</select>
+
 	<select id="getProdNo" parameterType="int" resultType="int">
 		SELECT prod_no 
 		FROM buy 
@@ -123,69 +159,84 @@
 		FROM buy 
 		WHERE buy_no = ${value}
 	</select>
-<!-- 	<select id="getUserProdNo" parameterType="Map" resultType="String"> -->
-<!-- 	SELECT buy.prod_no  -->
-<!-- 	 FROM buy ,pay  -->
-<!-- 	 WHERE buy_code = 1  -->
-<!-- 	 AND pay.pay_no = buy.pay_no  -->
-<!-- 	 AND buy.user_id=#{userId} -->
-<!-- 	 AND pay.pay_no=#{payNo} -->
-<!-- 	 AND pay_code= '1'  -->
+
+	
+<!-- 	<select id="getFactoryBuyList" parameterType="String" resultMap="paySelectMapper"> -->
+<!-- 	SELECT  -->
+<!-- 			pay.pay_no , -->
+<!-- 			pay.pay_code, -->
+<!-- 			receiver_name, -->
+<!-- 			receiver_addr, -->
+<!-- 			receiver_phone, -->
+<!-- 			delivery_code, -->
+<!-- 			pay_date, -->
+<!-- 			actual_price, -->
+<!-- 			pay.user_id, -->
+<!-- 			payment_type -->
+			
+<!-- 		FROM pay,buy -->
+<!-- 		WHERE  buy.buy_code= 'paid' -->
+<!-- 		 AND pay.pay_no = buy.pay_no -->
+<!-- 		 AND buy.prod_type ='paper' -->
+<!-- 		 GROUP BY pay.pay_no -->
+<!-- 		 ORDER BY pay_date DESC -->
 <!-- 	</select> -->
 	
 	
-
+<select id="getFactoryBuyList" parameterType="String" resultMap="paySelectMapper">
+	SELECT 
+		pay.pay_no,
+		pay.pay_code,
+		pay.payment_type,
+		pay.receiver_name,
+		pay.receiver_addr,
+		pay.receiver_phone,
+		pay.pay_date,
+		pay.delivery_code,
+		pay.actual_price
+	FROM pay,buy, product
+	WHERE product.factory_id= #{factoryId}
+		AND product.prod_no = buy.prod_no
+		AND buy.pay_no = pay.pay_no
+		AND pay.pay_code='paid'
+		AND buy.prod_type='paper'
+		GROUP BY pay.pay_no
+		ORDER BY pay.pay_date DESC 
+</select>
 	
-<!-- 	<select id="getFactoryProdNo" parameterType="String" resultType ="String"> -->
+	
+	
+<!-- 	<select id="getFactoryBuy" parameterType="String" resultMap="buySelectMapper"> -->
 <!-- 		SELECT  -->
 <!-- 		DISTINCT -->
-<!-- 		buy.prod_no -->
-		
+<!-- 		buy.prod_no,  -->
+<!-- 		buy.pay_no, -->
+<!-- 		buy.buy_amount -->
 		
 <!-- 		FROM pay  , buy -->
 <!-- 		WHERE pay.pay_no=#{payNo} -->
 <!-- 		AND pay.pay_no = buy.pay_no -->
 <!-- 		AND buy.user_id = pay.user_id -->
-<!-- 		AND buy.buy_code=1 -->
-		
+<!-- 		AND buy.buy_code='paid' -->
+<!-- 		AND buy.prod_type="paper"  -->
+			 
 <!-- 	</select> -->
-	
-	<select id="getFactoryBuyList" parameterType="String" resultMap="paySelectMapper">
-	SELECT 
-			pay.pay_no ,
-			pay.pay_code,
-			receiver_name,
-			receiver_addr,
-			receiver_phone,
-			delivery_code,
-			pay_date,
-			actual_price,
-			pay.user_id,
-			payment_type
-			
-		FROM pay,buy
-		WHERE  buy.buy_code= 'paid'
-		 AND pay.pay_no = buy.pay_no
-		 AND buy.prod_type ='paper'
-		 GROUP BY pay.pay_no
-		 ORDER BY pay_date DESC
-	</select>
-	
-	<select id="getFactoryBuy" parameterType="String" resultMap="buySelectMapper">
-		SELECT 
-		DISTINCT
-		buy.prod_no, 
+	 
+	 
+<select id="getFactoryBuy" parameterType="hashmap" resultMap="buySelectMapper">
+	 SELECT
+		buy.prod_no,
 		buy.pay_no,
 		buy.buy_amount
 		
-		FROM pay  , buy
-		WHERE pay.pay_no=#{payNo}
-		AND pay.pay_no = buy.pay_no
-		AND buy.user_id = pay.user_id
+	FROM pay,buy,product
+	WHERE pay.pay_no=#{payNo}
+		AND buy.pay_no=pay.pay_no
+		AND buy.prod_no=product.prod_no
+		AND product.factory_id=#{factoryId}
+		AND buy.prod_type='paper'
 		AND buy.buy_code='paid'
-		AND buy.prod_type="paper" 
-			 
-	</select>
+	 </select>
 	 
 	 
 	 <select id="getReviewFlag" parameterType="map" resultType="String">
