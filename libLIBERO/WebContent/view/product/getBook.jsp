@@ -179,8 +179,8 @@
         <h2 class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">${product.prodName}
         			
         			<span>
-        			<c:if test="${wish == 1}"><i class="fas fa-heart" id="wish"></i></c:if>
-					<c:if test="${wish == 0}"><i class="far fa-heart" id="wish"></i></c:if>
+        			<c:if test="${wish == 1}"><i class="fas fa-heart fa-xs red-text" id="wish"></i></c:if>
+					<c:if test="${wish == 0}"><i class="far fa-heart fa-xs red-text" id="wish"></i></c:if>
 					</span>
 					<!-- 신고 추가 -->
 					<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>
@@ -427,6 +427,44 @@
 
 </div>
 <!-- Tab panels -->
+
+<!-- 장바구니 모달 -->
+<div class="modal fade right" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+
+  <!-- Add class .modal-side and then add class .modal-top-right (or other classes from list above) to set a position to the modal -->
+  <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-warning" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100 text-white" id="myModalLabel">장바구니 등록 완료</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<div class="row">
+      		<div class="col-3">
+      			<p></p>
+      			<p class="text-center">
+      				<i class="fas fa-shopping-cart fa-4x"></i>
+      			</p>
+      		</div>
+      		<div class="col-9">
+            	<p>장바구니에 물건이 담겼습니다.</p>
+            	<span class="badge">${product.prodName}</span>
+            </div>
+      	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-warning waves-effect btn-md" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-warning lighten-1 btn-md" onclick="location.href='/libero/product/getCartList'">장바구니 이동</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Side Modal Top Right -->
 		
 </div>		
 		
@@ -471,9 +509,9 @@
 				success : function(data){
 					
 					if(data.wish == "y"){
-						var wishwish = "fas fa-heart";
+						var wishwish = "fas fa-heart fa-xs red-text";
 					}else if(data.wish == "n"){
-						var wishwish = "far fa-heart";
+						var wishwish = "far fa-heart fa-xs red-text";
 					}
 					
 					
@@ -515,7 +553,7 @@
 			data: {"prodNo": ${product.prodNo}, "prodType": "${product.prodType}", "userId": "${sessionScope.user.userId}", "buyAmount": buyAmount, "from": "product"},
 			success : function(data){
 						var message = data.result
-						alert(message);
+						$("#cartModal").modal("show");
 			}
 		});//end ajax
 		

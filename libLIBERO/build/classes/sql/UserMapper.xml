@@ -105,8 +105,7 @@
 	 					  role,
 	 					  reg_date,
 	 					  birth_date,
-	 					  kakao_id,
-	 					  factory_no
+	 					  kakao_id
 							)
 	 	VALUES(	#{userId},
 	 			#{password},
@@ -120,8 +119,7 @@
 	 			'u',
 	 			CURRENT_TIMESTAMP,
 	 			#{birthDate:VARCHAR},
-	 			#{kakaoId:VARCHAR},
-	 			#{factoryNo:VARCHAR}
+	 			#{kakaoId:VARCHAR}
 	 			)
 	 
 	 </insert>
@@ -334,11 +332,5 @@
 	SET password = #{verCode}
 	WHERE user_id = #{userId}
 	</update>
-	
-	<select id="getUserNickname" parameterType="String" resultType="String">
-	SELECT user_id
-	FROM user
-	WHERE nickname = #{userNickname}
-	</select>
 	 
 </mapper>

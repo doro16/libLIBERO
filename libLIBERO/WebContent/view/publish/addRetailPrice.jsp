@@ -330,7 +330,7 @@
 			      	
 				      	<div class="modal-footer">
 				      		<div class="col-lg-12">
-			      			<button type="button" class="btn btn-info brown lighten-1 btn-md btn-block col-lg-5" style="position: relative; float: left;" onclick="addRetailPrice()">등록</button>
+			      			<button type="button" class="btn btn-brown brown lighten-1 btn-md btn-block col-lg-5" style="position: relative; float: left;" onclick="addRetailPrice()">등록</button>
 			        		<button type="button" class="btn btn-outline-brown waves-effect btn-md btn-block col-lg-5" style="position: relative; float: right;" data-dismiss="modal">취소</button>
 				      		</div>
 				      	</div>

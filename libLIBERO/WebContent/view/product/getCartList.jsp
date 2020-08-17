@@ -123,9 +123,11 @@
             <td colspan="3" align="center"><h5 class="mt-2" id="productTotal"><fmt:formatNumber value="${totalPrice}" pattern="#,###.###" type="currency"/>원</h5></td>
             <td colspan="3"><h5 class="mt-2" id="fee"></h5></td>
             <td colspan="3"><h5 class="mt-2" id="finalTotal"></h5></td>
-            <div align="right"><button type="button" id="button" class="btn btn-brown lighten-4" >구매</button></div>
+            
           </tr>
-         
+          <tr>
+          	<td colspan="9"><button type="button" id="button" class="btn btn-brown brown lighten-1 btn-block" >구매</button></td>
+          </tr>
         
           
              

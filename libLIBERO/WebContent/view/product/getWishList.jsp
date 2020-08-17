@@ -83,13 +83,13 @@
               <strong></strong>
             </td>
             <td>
-              	<button class="btn btn-brown btn-rounded" id="addCart" style="margin-top:5px;" value="${i}">
+              	<button class="btn btn-brown btn-rounded" name="addCart" style="margin-top:5px;" value="${i}">
               	<i class="fas fa-cart-plus mr-2" aria-hidden="true"></i> Add to cart</button>
               	<input type="hidden" id="prodType${i}" value="${wishList.prodType}"/>
               	<input type="hidden" id="prodNo${i}" value="${wishList.prodNo}"/>
             </td>
             <td>
-              <button type="button" id="deleteWish" class="btn btn-sm btn-brown" data-toggle="tooltip" data-placement="top"
+              <button type="button" name="deleteWish" class="btn btn-sm btn-brown" data-toggle="tooltip" data-placement="top"
                 title="Remove item" value="${i}">X
               </button>
             </td>
@@ -110,6 +110,45 @@
 
 
 </div>
+<div class="container">
+	<!-- 장바구니 모달 -->
+<div class="modal fade right" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+
+  <!-- Add class .modal-side and then add class .modal-top-right (or other classes from list above) to set a position to the modal -->
+  <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-warning" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100 text-white" id="myModalLabel">장바구니 등록 완료</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<div class="row">
+      		<div class="col-3">
+      			<p></p>
+      			<p class="text-center">
+      				<i class="fas fa-shopping-cart fa-4x"></i>
+      			</p>
+      		</div>
+      		<div class="col-9">
+            	<p>장바구니에 물건이 담겼습니다.</p>
+            	<span class="badge">${product.prodName}</span>
+            </div>
+      	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-warning waves-effect btn-md" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-warning lighten-1 btn-md" onclick="location.href='/libero/product/getCartList'">장바구니 이동</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Side Modal Top Right -->
+</div>
 
 </body>
 
@@ -117,7 +156,7 @@
 <script type="text/javascript">
 
 					$(document).ready(function(){
-							$('#deleteWish').on("click", function(){
+							$("button[name='deleteWish']").on("click", function(){
 								var i = $(this).val();
 								console.log(i);
 								var userId = "${sessionScope.user.userId}";
@@ -152,8 +191,9 @@
 					});//end ready
 					
 				$(document).ready(function(){
-					$('#addCart').on("click", function(){
+					$("button[name='addCart']").on("click", function(){
 						var i = $(this).val();
+						console.log(i);
 						var userId = "${sessionScope.user.userId}";
 						var phoneCode = "${sessionScope.user.phoneCode}";
 						var buyAmount = 1;
@@ -188,7 +228,7 @@
 									data: {"prodNo": prodNo, "prodType": prodType, "userId": "${sessionScope.user.userId}", "buyAmount": buyAmount, "from": "wish"},
 									success : function(data){
 												var message = data.result
-												alert(message);
+												$("#cartModal").modal("show");
 									}
 								});//end ajax
 					})
