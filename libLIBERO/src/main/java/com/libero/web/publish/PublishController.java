@@ -13,12 +13,14 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -156,7 +158,7 @@ public class PublishController {
 	}
 	
 	@RequestMapping(value = "addProductInfo", method = RequestMethod.POST)
-	public ModelAndView addProductInfo(Publish publish, @RequestParam("imgFile")List<MultipartFile> files) throws Exception {
+	public ModelAndView addProductInfo(Publish publish, @RequestParam("imgFile")List<MultipartFile> files, HttpServletRequest request) throws Exception {
 		
 		System.out.println("/publish/addProductInfo : POST");
 		
@@ -164,7 +166,7 @@ public class PublishController {
 			
 			if (files!=null) {
 				
-				multiFile(files, publish);
+				multiFile(files, publish,request);
 			}
 			
 		}else if (publish.getCoverSelect().contentEquals("freeTemplate") && publish.getImgType()!=null && publish.getImgSelect()!=null) {
@@ -189,19 +191,19 @@ public class PublishController {
 				g.drawString(publish.getProdName(), (width/2)-(int)((r.getWidth())/2), 130);
 				g.setFont(nameFont); 
 				g.drawString(publish.getAuthor(), (width/2)-(int)((r2.getWidth())/2)+160, 170); 
-				g.drawImage(logo, 300, 555, 130, 40, null);
+				g.drawImage(logo, 330, 580, 100, 40, null);
 			}else if (publish.getImgType().contentEquals("icon")) {
 				g.setFont(titleFont); 
 				g.drawString(publish.getProdName(), (width/2)-(int)((r.getWidth())/2), 330);
 				g.setFont(nameFont); 
 				g.drawString(publish.getAuthor(), (width/2)-(int)((r2.getWidth())/2), 350); 
-				g.drawImage(logo, 300, 580, 130, 40, null);
+				g.drawImage(logo, 330, 580, 100, 40, null);
 			}else if (publish.getImgType().contentEquals("img")) {
 				g.setFont(titleFont); 
 				g.drawString(publish.getProdName(), (width/2)-180, 530);
 				g.setFont(nameFont); 
-				g.drawString(publish.getAuthor(), (width/2)-(int)(r2.getWidth())+225, 550); 
-				g.drawImage(logo, 290, 560, 130, 40, null);
+				g.drawString(publish.getAuthor(), (width/2)-(int)(r2.getWidth())+180, 550); 
+				g.drawImage(logo, 300, 560, 100, 40, null);
 			}
 			g.dispose(); 
 			UUID savedFileName = UUID.randomUUID();	
@@ -215,19 +217,19 @@ public class PublishController {
 				g2.drawString(publish.getProdName(), (cWidth/4)*3-(int)((r.getWidth())/2), 130);
 				g2.setFont(nameFont); 
 				g2.drawString(publish.getAuthor(), (cWidth/4)*3-(int)((r2.getWidth())/2)+160, 170); 
-				g2.drawImage(logo, 740, 555, 130, 40, null);
+				g2.drawImage(logo, 770, 555, 100, 40, null);
 			}else if (publish.getImgType().contentEquals("icon")) {
 				g2.setFont(titleFont); 
 				g2.drawString(publish.getProdName(), (cWidth/4)*3-(int)((r.getWidth())/2), 330);
 				g2.setFont(nameFont); 
 				g2.drawString(publish.getAuthor(), (cWidth/4)*3-(int)((r2.getWidth())/2), 350); 
-				g2.drawImage(logo, 740, 555, 130, 40, null);
+				g2.drawImage(logo, 770, 555, 100, 40, null);
 			}else if (publish.getImgType().contentEquals("img")) {
 				g2.setFont(titleFont); 
 				g2.drawString(publish.getProdName(), (cWidth/4)*3-170, 520);
 				g2.setFont(nameFont); 
 				g2.drawString(publish.getAuthor(), (cWidth/4)*3-(int)((r2.getWidth())/2)+190, 550); 
-				g2.drawImage(logo, 745, 565, 130, 40, null);
+				g2.drawImage(logo, 780, 565, 100, 40, null);
 			}
 			g2.dispose(); 
 			savedFileName = UUID.randomUUID();	
@@ -310,7 +312,7 @@ public class PublishController {
 	}
 	
 	@RequestMapping(value = "addProduct", method = RequestMethod.POST)
-	public ModelAndView addProduct(HttpSession session, Publish publish, @RequestParam(value="imgFile")List<MultipartFile> files) throws Exception {
+	public ModelAndView addProduct(HttpSession session, Publish publish, @RequestParam(value="imgFile")List<MultipartFile> files, HttpServletRequest request) throws Exception {
 		
 		System.out.println("/publish/addProduct : POST");
 		
@@ -322,7 +324,7 @@ public class PublishController {
 		//File Upload Start
 		if (files!=null) {
 			
-			multiFile(files, publish);
+			multiFile(files, publish,request);
 		}
 		//File Upload End
 		
@@ -351,14 +353,14 @@ public class PublishController {
 	}
 	
 	@RequestMapping(value = "updateProduct", method = RequestMethod.POST)
-	public ModelAndView updateProduct(Publish publish, @RequestParam("imgFile")List<MultipartFile> files) throws Exception {
+	public ModelAndView updateProduct(Publish publish, @RequestParam("imgFile")List<MultipartFile> files, HttpServletRequest request) throws Exception {
 		
 		System.out.println("/publish/updateProduct : POST");
 		
 		//File Upload Start
 		if (files!=null) {
 			
-			multiFile(files, publish);
+			multiFile(files, publish, request);
 		}
 		//File Upload End
 		
@@ -460,7 +462,7 @@ public class PublishController {
 		return savedFileName;
 	}
 	//============================== 다중 파일 업로드 ==============================
-	public Publish multiFile(List<MultipartFile> files, Publish publish) throws Exception {
+	public Publish multiFile(List<MultipartFile> files, Publish publish, HttpServletRequest request) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("파일 업로드 진입 : "+publish.getProdType());
 		int i = 0;
@@ -475,14 +477,15 @@ public class PublishController {
 				String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 				String fileRoot = path+"publish/fileUpload/"; // 파일 경로
 				String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
-				
+				String root_path = request.getSession().getServletContext().getRealPath("/"); 
+				savedFileName = uploadFile(fileRoot,savedFileName,multipartFile.getBytes());
 				
 				if (i==1) {
 					File f =new File(fileRoot+"thumbnailFile/"+savedFileName);
 					
-					multipartFile.transferTo(f);
-					publish.setProdThumbnail(f.getName());
+					publish.setProdThumbnail(savedFileName);
 					System.out.println("파일 업로드 성공 : "+f.getName());
+					multipartFile.transferTo(new File(root_path+"\\resources\\images\\publish\\fileUpload\\thumbnailFile\\"+savedFileName));
 				}
 				
 				
@@ -503,4 +506,13 @@ public class PublishController {
 		}
 		return publish;
 	}
+	
+	public String uploadFile(String uploadPath, String savedName, byte[] fileData) throws Exception{
+
+        File target = new File(uploadPath, savedName);
+
+        FileCopyUtils.copy(fileData, target);
+        
+        return savedName;
+     }
 }

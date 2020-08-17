@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
 	<link rel="stylesheet" href="../resources/css/common.css">
 	<style type="text/css">
@@ -81,6 +80,7 @@
               <h5 class="mt-3">
                 <strong><a href="/libero/product/getProduct/${cartList.prodNo}">${cartList.prodName}</a></strong>
               </h5>
+              ${cartList.factoryId}
             </td>
               <p class="text-muted"></p>
             </td>
@@ -189,14 +189,14 @@
 			var deliveryFee = 0;
 			var factory = new Array();
 			
-			for (var i=1; i<kk ; i++){
+			for (var i=0; i<kk ; i++){
 				
 				var factoryId = $("#factory"+i).val();
 				console.log(factoryId)
 				factory.push(factoryId);
 			}
 			console.log(factory)
-			removeDuplicatesArray(factory);
+			var factory = removeDuplicatesArray(factory);
 			var factoryCount = factory.length;
 			console.log("factory 갯수는");
 			console.log(factoryCount);
@@ -214,7 +214,7 @@
 	            } else {
 	                var duplicatesFlag = true;
 	                for (var j = 0; j < tempArr.length; j++) {
-	                    if (tempArr[j] == arr[i]) {
+	                    if (tempArr[j] == arr[i] || arr[i] == "") {
 	                        duplicatesFlag = false;
 	                        break;
 	                    }
@@ -347,7 +347,7 @@
 					data: {"prodNo": prodNo, "userId": "${sessionScope.user.userId}" },
 					success : function(data){
 						var message = data.result
-						alert(message);
+						//swal 자리 
 						window.location.reload();
 					}//end success
 				});//end ajax

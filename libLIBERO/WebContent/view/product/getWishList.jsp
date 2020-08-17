@@ -5,9 +5,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
 	<link rel="stylesheet" href="../resources/css/common.css">
+	<style type="text/css">
+		.removeButton {
+			border-radius: 50%;
+			padding-left: 10px;
+			padding-right: 10px;
+			padding-top: 5px;
+			padding-bottom: 5px;
+		}
+	</style>
 </head>
 <body>
 		<!-- ToolBar Start /////////////////////////////////////-->
@@ -89,8 +97,8 @@
               	<input type="hidden" id="prodNo${i}" value="${wishList.prodNo}"/>
             </td>
             <td>
-              <button type="button" name="deleteWish" class="btn btn-sm btn-brown" data-toggle="tooltip" data-placement="top"
-                title="Remove item" value="${i}">X
+              <button type="button" name="deleteWish" class="btn btn-brown removeButton" data-toggle="tooltip" data-placement="top"
+                title="Remove item" value="${i}"><i class="fas fa-times"></i>
               </button>
             </td>
           </tr>

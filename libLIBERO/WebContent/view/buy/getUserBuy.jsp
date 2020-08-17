@@ -83,7 +83,7 @@ function relocate(prodNo){
 					self.location="/libero/product/getProduct/"+${getProduct.prodNo};
 				})
 			
-			
+		
 			
 			//alert($("#addReviewButton${i}").val()+"태욱스")
 				//별점 설정 이벤트
@@ -101,6 +101,8 @@ function relocate(prodNo){
 					  return false;
 				});//end starRev click function
 				
+		
+				
 				//등록 버튼 클릭 이벤트
 		$('#addButton${i}').click(function(){
 					
@@ -108,10 +110,6 @@ function relocate(prodNo){
 				//alert(starRate);
 			var content = $("#textarea-char-counter${i}").val(); // 입력한 리뷰내용
 				//alert(content);
-					
-					
-					
-		
 		//리뷰 내용, 별점
 		$.ajax({
 			url : "/libero/product/json/addReview",
@@ -161,9 +159,70 @@ function relocate(prodNo){
 			}//end success
 		});//end ajax	
 	
-})//end addbutton click
+		});
+		
+		
+
+//////////////////////////UPDATE REVIEW
+			$("#updateButton${i}").on("click",function(){
+				var starRate = $('span[class*=on]:last').attr("id"); //별점이 찍힌 가장 마지막 span의 아이디값
+				//alert(starRate);
+				var content = $("#textarea-char-counter${i}").val(); // 입력한 리뷰내용
+				//alert(content);
+				
+			$.ajax({
+				url : "/libero/product/json/updateReview",
+				type: "POST",
+				dataType: "json",
+				header : {
+							"Accept" : "application/json",
+							"Content-Type" : "application/json"
+						 },
+				data: {"userId": "${sessionScope.user.userId}", "starRate" : starRate, "reviewContent" : content, "buyNo" : ${getProduct.buyNo} },
+				success : function(data, success){
+					
+					
+					var message = data.message;
+					//alert(message);
+					$('#addReviewModal${i}').modal("hide");
+					window.location.reload();
+					//alert("성공");
+					
+				}//end succes
+			});//end ajax
+			
+			var formData = new FormData();
+			var inputFile = $("input[name='uploadFile']");
+			var files = inputFile[0].files;
+			formData.append('files', files[0]);
+			formData.append('buyNo', $("#updateReviewButton${i}").val());
+			
+			//alert(files);
+			//alert(formData.get('buyNo'));
+			
+			
+			$.ajax({
+				url : "/libero/product/json/addReviewImage",
+				processData : false,
+				contentType : false,
+				data : formData,
+				type: "POST",
+				success : function(data, success){
+					
+					
+					var message = data.message;
+					//alert(message);
+					window.location.reload();
+					//alert("성공2");
+					
+				}//end success
+			});//end ajax	
+
 
 			})
+			
+			})	
+			
 			</script>
 			
 			
@@ -199,7 +258,7 @@ function relocate(prodNo){
 										<button data-target="#addReviewModal${i}" data-toggle="modal" id="addReviewButton${i}" class="btn btn-outline-brown lighten-3 waves-effect float-left" value="${getProduct.buyNo }" >리뷰등록</button>
 										</c:if>
 										<c:if test="${getProduct.reviewFlag== true }">
-										<button data-target="#addReviewModal${i}" data-toggle="modal" id="addReviewButton${i}" class="btn btn-outline-brown lighten-3 waves-effect float-left" value="${getProduct.buyNo }">리뷰수정</button>
+										<button  data-target="#addReviewModal${i}" data-toggle="modal" id="updateReviewButton${i}" class="btn btn-outline-brown lighten-3 waves-effect float-left" value="${getProduct.buyNo }">리뷰수정</button>
 										</c:if>
 									</li>
 								</ul>
@@ -257,7 +316,14 @@ function relocate(prodNo){
 								
 								
 								<div class="modal-footer">
+								
+								<c:if test="${getProduct.reviewFlag == false }">
 										<button type="button" class="btn btn-cyan" id="addButton${i}">등록</button>
+								</c:if>		
+								<c:if test="${getProduct.reviewFlag == true }">
+										<button type="button" class="btn btn-cyan" id="updateButton${i}">수정</button>
+								</c:if>
+										
 										<button type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">취소</button>
 								</div>
 							</div>
