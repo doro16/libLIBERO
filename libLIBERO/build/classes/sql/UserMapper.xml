@@ -250,7 +250,7 @@
 		, phone = #{phone}
 		</if>
 		<if test="birthDate !=null and !birthDate.equals('')">
-		 ,birth_date = #{birthDate}
+		 ,birth_date = #{birthDate:DATE}
 		</if>
 	WHERE user_id = #{userId}
 	</update> 
@@ -332,5 +332,11 @@
 	SET password = #{verCode}
 	WHERE user_id = #{userId}
 	</update>
+	
+	<select id="getUserNickname" parameterType="String" resultType="String">
+	SELECT user_id
+	FROM user
+	WHERE nickname = #{userNickname}
+	</select>
 	 
 </mapper>

@@ -179,9 +179,9 @@
 			//alert( $("inputVerification").val())
 			//alert($("#verification").val())
 			if( $("#inputVerification").val() != $("#verification").val()){
-				swal("인증번호가 다릅니다 다시 확인해 주세요!","헤헤 바보 :p","error")
+				swal("인증 번호가 틀렸습니다.","다시 확인해 주세요.","error")
 			}else{
-				swal("인증 되었습니다!","\\YAY/","success")
+				swal("인증 되었습니다!","감사합니다.","success")
 			}
 		})
 		
@@ -373,7 +373,11 @@
                     	
 	         <div class="md-form mt-0">
 	         <div class="md-form row-8">
+<<<<<<< HEAD
+	                <input type="text" id="postCode" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock" readOnly>
+=======
 	                <input type="text" id="postCode"  class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock" readOnly>
+>>>>>>> refs/remotes/origin/master
 	                <label for="adress">주소</label>
 	                <small id="adress" class="form-text text-muted mb-4"> 
 	                </small>
