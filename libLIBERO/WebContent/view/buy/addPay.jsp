@@ -74,6 +74,41 @@ function daumjuso() {
   $(function(){
 	  
     	$("#payment").on("click",function(){
+    		if ($("input[id='receiverAddr']").val()=="") {
+    			Swal.fire({
+  				  icon: 'error',
+  				  text: '주소를 입력해주세요.'
+  				});
+    			return;
+			}
+    		if ($("input[id='extraAddress']").val()=="") {
+    			Swal.fire({
+  				  icon: 'error',
+  				  text: '상세주소를 입력해주세요.'
+  				});
+    			return;
+			}
+    		if ($("input[id='receiverName']").val()=="") {
+    			Swal.fire({
+  				  icon: 'error',
+  				  text: '수령자 이름을 입력해주세요.'
+  				});
+    			return;
+			}
+    		if ($("input[id='receiverPhone']").val()=="") {
+    			Swal.fire({
+  				  icon: 'error',
+  				  text: '수령자 연락처를 입력해주세요.'
+  				});
+    			return;
+			}
+    		if ($("#paymentOption").val()==null) {
+    			Swal.fire({
+    				  icon: 'error',
+    				  text: '결제 방식을 선택해주세요.'
+    				});
+      			return;
+			}
             var IMP = window.IMP; // 생략가능
             IMP.init('imp17527359'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
             var msg;
@@ -123,13 +158,19 @@ function daumjuso() {
                 			msg += '카드 승인번호 : ' + rsp.apply_num;
                 			msg += '결제 일시 : '+rsp.paid_at;
                             
-                            alert(msg);
+                			Swal.fire({
+                				icon: 'error',
+                				text: msg
+                			});
                         } else {
                             //[3] 아직 제대로 결제가 되지 않았습니다.
                             //[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
                         	msg = '결제에 실패하였습니다. 다시 시도해 주세요.';
                             
-                        	alert(msg);
+                        	Swal.fire({
+                				icon: 'error',
+                				text: msg
+                			});
                         }
                     });
                     swal({
@@ -163,7 +204,11 @@ function daumjuso() {
                     msg += '에러내용 : ' + rsp.error_msg;
                     //실패시 이동할 페이지
                    	<%-- location.href="<%=request.getContextPath()%>/order/payFail"; --%>
-                    alert(msg);
+                    //alert(msg);
+                    Swal.fire({
+      				  icon: 'error',
+      				  text: msg
+      				});
                 }
             });    
  
