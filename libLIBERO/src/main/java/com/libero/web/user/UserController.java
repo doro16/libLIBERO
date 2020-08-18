@@ -452,7 +452,7 @@ public class UserController {
 	
 	
 	@RequestMapping(value="getUser", method=RequestMethod.GET)
-	public ModelAndView updateUser(HttpSession session, @RequestParam(required = false) String userId) throws Exception{
+	public ModelAndView getUser(HttpSession session, @RequestParam(required = false) String userId) throws Exception{
 		System.out.println(" ---------------------------------------");
 		System.out.println("/user/getUser : GET");
 		System.out.println(" ---------------------------------------");
@@ -497,7 +497,7 @@ public class UserController {
 				
 				File f =new File(fileRoot+savedFileName);
 				multipartFile.transferTo(new File(root_path+"\\resources\\images\\user\\fileUpload\\"+savedFileName));
-				multipartFile.transferTo(f);
+				//multipartFile.transferTo(f);
 				System.out.println(" ---------------------------------------");
 				System.out.println(f.getName());
 				System.out.println(" ---------------------------------------");
