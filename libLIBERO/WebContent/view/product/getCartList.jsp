@@ -188,7 +188,6 @@
 			
 			var deliveryFee = 0;
 			var factory = new Array();
-			
 			for (var i=0; i<kk ; i++){
 				
 				var factoryId = $("#factory"+i).val();

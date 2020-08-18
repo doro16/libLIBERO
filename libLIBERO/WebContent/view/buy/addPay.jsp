@@ -168,8 +168,6 @@ function daumjuso() {
                     alert(msg);
                 }
             });    
-    	});
-
  
   $(document).ready(function() {
 	  
