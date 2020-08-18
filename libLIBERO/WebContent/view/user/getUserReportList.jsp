@@ -155,18 +155,21 @@
 						<c:forEach var="report" items="${list}">
 							<c:set var="i" value="${ i+1 }" />
 
-							<!-- <tr onClick="location.href='/libero/product/getProduct/${report.product.prodNo}'">  -->
 							<tr> 
 
 								<td align="center">${ i }
 								<input type="hidden" name="reportNo2" value="${report.reportNo}"/>	
 								</td>
 								<c:set var="prodName" value="${report.product.prodName}" />
-								<td align="left">${fn:substring(prodName,0,15)}
+								<td align="left" onClick="location.href='/libero/product/getProduct/${report.product.prodNo}'">${fn:substring(prodName,0,15)}
 								<c:if test="${fn:length(prodName)>15}">
                                 ......
                             	</c:if> 
 								</td>
+								
+								
+								
+                              
 								
 								
 								<td><c:if test="${report.reportType == 1}">
