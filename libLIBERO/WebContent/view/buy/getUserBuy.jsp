@@ -62,13 +62,8 @@ function relocate(prodNo){
 <jsp:include page="/view/user/topButton.jsp"></jsp:include>
 <div class="row">
 <div class="col-lg-2">
-		   			<a href="/libero/user/getUserPublishList?prodType=book" 
-		   				class="btn btn-outline-brown waves-effect btn-block" role="button" 
-		   				aria-pressed="true" style="margin-bottom: 10px">도서</a>
-		   				
-		   			<a href="/libero/user/getUserPublishList?prodType=prod" 
-		   				class="btn btn-outline-brown waves-effect btn-block" role="button" 
-		   				aria-pressed="true">서비스상품</a>
+		   			<button class="btn btn-outline-brown waves-effect btn-block" role="button" 
+		   				aria-pressed="true" style="margin-bottom: 10px" disabled>주문 상품 상세</button>
 </div>
 <div class="col">
 
