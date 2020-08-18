@@ -39,20 +39,20 @@
           <tr>
             <th></th>
             <th class="font-weight-bold">
-              <strong>Product</strong>
+              <strong>상품명</strong>
             </th>
             <th class="font-weight-bold">
-              <strong>Type</strong>
+              <strong>상품 종류</strong>
             </th>
             <th></th>
             <th class="font-weight-bold">
-              <strong>Price</strong>
+              <strong>상품 가격</strong>
             </th>
             <th class="font-weight-bold">
-              <strong>QTY</strong>
+              <strong>갯수</strong>
             </th>
             <th class="font-weight-bold">
-              <strong>Amount</strong>
+              <strong>총 상품 가격</strong>
             </th>
             <th></th>
           </tr>

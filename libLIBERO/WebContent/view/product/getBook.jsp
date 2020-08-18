@@ -492,7 +492,8 @@
 		$('#wish').on("click", function(){
 			var userId = "${sessionScope.user.userId}";
 			if (userId=="") {
-				alert("로그인 해주세요.");
+				//alert("로그인 해주세요.");
+				swal("로그인 해주세요!","","warning")
 				return;
 			}
 
@@ -516,7 +517,7 @@
 					
 					
 					if(data.message != null){
-						alert(data.message);
+						//alert(data.message);
 					}
 					
 					
@@ -534,11 +535,13 @@
 		//alert(buyAmount);
 		
 		if (userId=="") {
-			alert("로그인 해주세요.");
+			//alert("로그인 해주세요.");
+			swal("로그인 해주세요!","","warning")
 			return;
 		}
 		if (buyAmount==0) {
-			alert("수량을 선택해주세요.");
+			//alert("수량을 선택해주세요.");
+			swal("수량을 선택해 주세요","","warning")
 			return;
 		}
 		

@@ -555,15 +555,18 @@
 		//alert(buyAmount);
 		
 		if (userId=="") {
-			alert("로그인 해주세요.");
+			//alert("로그인 해주세요.");
+			swal("로그인 해주세요!","","warning")
 			return;
 		}
 		if (phoneCode!=1) {
-			alert("휴대폰 본인인증을 완료한 회원만 가능합니다.");
+			//alert("휴대폰 본인인증을 완료한 회원만 가능합니다.");
+			swal("휴대폰인증을 완료한 회원만 가능합니다.","","warning")
 			return;
 		}
 		if (buyAmount==0) {
-			alert("수량을 선택해주세요.");
+			//alert("수량을 선택해주세요.");
+			swal("수량을 선택해 주세요","","warning")
 			return;
 		}
 		

@@ -172,7 +172,9 @@
 							//alert(currentPage);
 							
 						if(data.product == ""){
-								alert("더이상 상품이 없습니다");
+								//alert("더이상 상품이 없습니다");
+								swal("더이상 상품이 없습니다.","","warning");
+								
 							}
 						if(data.product != ""){
 							
