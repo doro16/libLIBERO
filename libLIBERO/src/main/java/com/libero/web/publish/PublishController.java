@@ -191,7 +191,7 @@ public class PublishController {
 				g.drawString(publish.getProdName(), (width/2)-(int)((r.getWidth())/2), 130);
 				g.setFont(nameFont); 
 				g.drawString(publish.getAuthor(), (width/2)-(int)((r2.getWidth())/2)+160, 170); 
-				g.drawImage(logo, 330, 580, 100, 40, null);
+				g.drawImage(logo, 330, 555, 100, 40, null);
 			}else if (publish.getImgType().contentEquals("icon")) {
 				g.setFont(titleFont); 
 				g.drawString(publish.getProdName(), (width/2)-(int)((r.getWidth())/2), 330);

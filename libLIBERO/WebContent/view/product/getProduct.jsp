@@ -13,7 +13,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
 	
-
+		<link rel="stylesheet" href="../resources/css/common.css">
 		<!-- ToolBar Start /////////////////////////////////////-->
 		<jsp:include page="../toolbar.jsp" />
 	   	<!-- ToolBar End /////////////////////////////////////-->
@@ -127,12 +127,12 @@
           <div class="carousel-inner text-center text-md-left z-depth-1" style="width: 400px; height: 450px; margin-bottom: 0px; padding-bottom: 0px" role="listbox">
             <div class="carousel-item active">
               <img style="margin-bottom: 0px;" src="../../resources/images/publish/fileUpload/thumbnailFile/${product.prodThumbnail}"
-                alt="First slide" class="img-fluid">
+                alt="First slide" width="400px" height="450px">
             </div>
             <c:if test="${product.coverFile != null }">
             <div class="carousel-item">
               <img src="../../resources/images/publish/fileUpload/coverFile/${product.coverFile}"
-                alt="Second slide" class="img-fluid">
+                alt="Second slide" width="400px" height="450px">
             </div>
             </c:if>
           </div>
@@ -476,7 +476,7 @@
 </div>		
 		
 		
-		
+<jsp:include page="../../common/footer.jsp"></jsp:include>	
 		
 		
 		
