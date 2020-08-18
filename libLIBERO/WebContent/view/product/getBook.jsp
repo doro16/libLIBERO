@@ -127,11 +127,11 @@
           <div class="carousel-inner text-center text-md-left z-depth-1" style="width: 400px; height: 450px; margin-bottom: 0px; padding-bottom: 0px" role="listbox">
             <div class="carousel-item active">
               <img style="margin-bottom: 0px;" src="../../resources/images/publish/fileUpload/thumbnailFile/${product.prodThumbnail}"
-                alt="First slide" class="img-fluid">
+                alt="First slide" width="400px" height="450px">
             </div>
             <div class="carousel-item">
               <img src="../../resources/images/publish/fileUpload/coverFile/${product.coverFile}"
-                alt="Second slide" class="img-fluid">
+                alt="Second slide" width="400px" height="450px">
             </div>
           </div>
           <!--/.Slides-->
@@ -492,7 +492,8 @@
 		$('#wish').on("click", function(){
 			var userId = "${sessionScope.user.userId}";
 			if (userId=="") {
-				alert("로그인 해주세요.");
+				//alert("로그인 해주세요.");
+				swal("로그인 해주세요!","","warning")
 				return;
 			}
 
@@ -516,7 +517,7 @@
 					
 					
 					if(data.message != null){
-						alert(data.message);
+						//alert(data.message);
 					}
 					
 					
@@ -534,11 +535,13 @@
 		//alert(buyAmount);
 		
 		if (userId=="") {
-			alert("로그인 해주세요.");
+			//alert("로그인 해주세요.");
+			swal("로그인 해주세요!","","warning")
 			return;
 		}
 		if (buyAmount==0) {
-			alert("수량을 선택해주세요.");
+			//alert("수량을 선택해주세요.");
+			swal("수량을 선택해 주세요","","warning")
 			return;
 		}
 		

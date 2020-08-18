@@ -191,7 +191,7 @@ public class PublishController {
 				g.drawString(publish.getProdName(), (width/2)-(int)((r.getWidth())/2), 130);
 				g.setFont(nameFont); 
 				g.drawString(publish.getAuthor(), (width/2)-(int)((r2.getWidth())/2)+160, 170); 
-				g.drawImage(logo, 330, 580, 100, 40, null);
+				g.drawImage(logo, 330, 555, 100, 40, null);
 			}else if (publish.getImgType().contentEquals("icon")) {
 				g.setFont(titleFont); 
 				g.drawString(publish.getProdName(), (width/2)-(int)((r.getWidth())/2), 330);
@@ -257,9 +257,14 @@ public class PublishController {
 		
 		publish = publishService.getProduct(prodNo);
 		
-		//인쇄비가 있다면 추천 소비자가격은 인쇄비의 2배
-		if (publish.getRetailPrice()==0) {
+		//인쇄비가 있고 소비자가격이0, 판매용일 경우 추천 소비자가격은 인쇄비의 2배
+		if (publish.getPrintPrice()!=0 && publish.getRetailPrice()==0 && publish.getPurposeCode().contentEquals("sale")) {
 			publish.setRetailPrice(publish.getPrintPrice()*2);
+		}
+		
+		//소장용일 경우 인쇄비+수수료
+		if (publish.getPurposeCode().contentEquals("have")) {
+			publish.setRetailPrice((int) (publish.getPrintPrice()+publish.getPrintPrice()*0.3));
 		}
 		
 		//해시태그 가져오기
@@ -478,7 +483,8 @@ public class PublishController {
 				String fileRoot = path+"publish/fileUpload/"; // 파일 경로
 				String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 				String root_path = request.getSession().getServletContext().getRealPath("/"); 
-				savedFileName = uploadFile(fileRoot,savedFileName,multipartFile.getBytes());
+				String thumbnailRoot = fileRoot+"thumbnailFile/";
+				savedFileName = publishService.uploadFile(thumbnailRoot,savedFileName,multipartFile.getBytes());
 				
 				if (i==1) {
 					File f =new File(fileRoot+"thumbnailFile/"+savedFileName);
@@ -507,12 +513,5 @@ public class PublishController {
 		return publish;
 	}
 	
-	public String uploadFile(String uploadPath, String savedName, byte[] fileData) throws Exception{
-
-        File target = new File(uploadPath, savedName);
-
-        FileCopyUtils.copy(fileData, target);
-        
-        return savedName;
-     }
+	
 }

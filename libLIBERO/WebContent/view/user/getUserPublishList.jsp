@@ -46,7 +46,7 @@
 								<div class="row">
 									
 							  		<div class="col-lg-2 align-self-center">
-						  				<img class="prodThumbnail" src="../resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}">
+						  				<a href="/libero/product/getProduct/${prod.prodNo}"><img class="prodThumbnail" src="../resources/images/publish/fileUpload/thumbnailFile/${prod.prodThumbnail}"></a>
 							  		</div>
 							  		
 							  		<div class="col-lg-7 align-self-center">
@@ -55,7 +55,7 @@
 							  					<tr>
 							  						<th>
 							  							${param.prodType=='book' ? '도서' : '상품' } 제목</th>
-							  						<td>: ${prod.prodName}</td>
+							  						<td><a href="/libero/product/getProduct/${prod.prodNo}">: ${prod.prodName}</a></td>
 							  					</tr>
 							  					<c:if test="${param.prodType=='book'}">
 								  					<tr>
@@ -76,21 +76,29 @@
 							  		</div>
 							  		
 							  		<div class="col-lg-3">
-							   			<button type="button" class="btn btn-brown brown lighten-1 btn-block" 
-							  					onclick = "popup(${prod.prodNo})" 
-							  					aria-pressed="true" style="margin-bottom: 10px">판매 통계 조회
-							  			</button>
-							   			<c:if test="${prod.blindCode=='show'}">
-							  				<button class="btn btn-outline-brown waves-effect btn-block" onclick="updateCode('${prod.prodNo}','hide',this)">판매 중지하기</button>
+							  			<c:if test="${prod.purposeCode=='sale' || prod.purposeCode==null}">
+								   			<button type="button" class="btn btn-brown brown lighten-1 btn-block" 
+								  					onclick = "popup(${prod.prodNo})" 
+								  					aria-pressed="true" style="margin-bottom: 10px">판매 통계 조회
+								  			</button>
+								   			<c:if test="${prod.blindCode=='show'}">
+								  				<button class="btn btn-outline-brown waves-effect btn-block" onclick="updateCode('${prod.prodNo}','hide',this)">판매 중지하기</button>
+								  			</c:if>
+								  			<c:if test="${prod.blindCode=='hide'}">
+								  				<button class="btn btn-brown brown lighten-1 btn-block" onclick="updateCode('${prod.prodNo}','show',this)">판매 재개</button>
+								  			</c:if>
+								  			<c:if test="${param.prodType=='prod'}">
+								  				<button type="button" class="btn btn-brown brown lighten-1 btn-block" 
+								  					onclick = "location.href='/libero/publish/updateProduct?prodNo=${prod.prodNo}'" 
+								  					aria-pressed="true" style="margin-top: 10px">상품 수정
+								  				</button>
+								  			</c:if>
 							  			</c:if>
-							  			<c:if test="${prod.blindCode=='hide'}">
-							  				<button class="btn btn-info brown lighten-1 btn-block" onclick="updateCode('${prod.prodNo}','show',this)">판매 재개</button>
-							  			</c:if>
-							  			<c:if test="${param.prodType=='prod'}">
+							  			<c:if test="${prod.purposeCode=='have'}">
 							  				<button type="button" class="btn btn-brown brown lighten-1 btn-block" 
-							  					onclick = "location.href='/libero/publish/updateProduct?prodNo=${prod.prodNo}'" 
-							  					aria-pressed="true" style="margin-top: 10px">상품 수정
-							  				</button>
+								  					onclick = "location.href='/libero/product/getProduct/${prod.prodNo}'" 
+								  					aria-pressed="true" style="margin-top: 10px">소장 도서 구매
+								  				</button>
 							  			</c:if>
 							  		</div>
 						  		</div>
@@ -129,7 +137,7 @@
         		success: function (data, status) {
         			console.log(e);
         			var hide = "<button class='btn btn-outline-brown waves-effect btn-block' onclick=\"updateCode('"+prodNo+"','hide',this)\">판매 중지하기</button>";
-        			var show = "<button class='btn btn-info brown lighten-1 btn-block' onclick=\"updateCode('"+prodNo+"','show',this)\">판매 재개</button>";
+        			var show = "<button class='btn btn-brown brown lighten-1 btn-block' onclick=\"updateCode('"+prodNo+"','show',this)\">판매 재개</button>";
         			if (data.blindCode == 'show') {
 						$(e).replaceWith(hide);
 					}else {
@@ -206,17 +214,17 @@
 														+"</table>"
 													+"</div>"
     												+"<div class='col-lg-3'>"
-    														+"<a href='javascript:popup("+prod.prodNo+")' class='btn btn-info brown lighten-1 btn-block' role='button' aria-pressed='true' style='margin-bottom:10px'>판매 통계 조회</a>";
+    														+"<button type='button' class='btn btn-brown brown lighten-1 btn-block' onclick = 'popup("+prod.prodNo+")' aria-pressed='true' style='margin-bottom: 10px'>판매 통계 조회</button>";
 														
     						if (prod.blindCode=='show') {
 								card += 					'<button class="btn btn-outline-brown waves-effect btn-block" onclick="updateCode(\''+prod.prodNo+'\',\'hide\',this)">판매 중지하기</button>';
 							}
     						if (prod.blindCode=='hide') {
-    							card += 					"<button class='btn btn-info brown lighten-1 btn-block' onclick='updateCode(\'"+prod.prodNo+"\','show',this)'>판매 재개</button>";
+    							card += 					"<button class='btn btn-brown brown lighten-1 btn-block' onclick='updateCode(\'"+prod.prodNo+"\','show',this)'>판매 재개</button>";
 							}
     						
     						if (prodType=='prod') {
-    							card += 					"<a href='/libero/publish/updateProduct?prodNo="+prod.prodNo+"' class='btn btn-info brown lighten-1 btn-block' role='button' aria-pressed='true' style='margin-top: 10px'>상품 수정</a>";
+    							card += 					"<a href='/libero/publish/updateProduct?prodNo="+prod.prodNo+"' class='btn btn-brown brown lighten-1 btn-block text-white' role='button' aria-pressed='true' style='margin-top: 10px'>상품 수정</a>";
 							}
 							card +=		  			"</div>";
 							if (prod.blindCode=='report') {

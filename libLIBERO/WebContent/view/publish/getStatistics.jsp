@@ -8,9 +8,12 @@
 		<meta charset="UTF-8">
 		<title>판매 통계 조회</title>
 		<jsp:include page="/common/cdn.jsp"></jsp:include>
+		<link rel="stylesheet" href="../resources/css/common.css">
 		<style type="text/css">
 			body {
+				padding:0;
 				background-color: #f5f5f5;
+				font-family: 'GyeonggiBatang';
 			}
 		</style>
 	</head>

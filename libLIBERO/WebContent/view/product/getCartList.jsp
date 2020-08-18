@@ -39,20 +39,20 @@
           <tr>
             <th></th>
             <th class="font-weight-bold">
-              <strong>Product</strong>
+              <strong>상품명</strong>
             </th>
             <th class="font-weight-bold">
-              <strong>Type</strong>
+              <strong>상품 종류</strong>
             </th>
             <th></th>
             <th class="font-weight-bold">
-              <strong>Price</strong>
+              <strong>상품 가격</strong>
             </th>
             <th class="font-weight-bold">
-              <strong>QTY</strong>
+              <strong>갯수</strong>
             </th>
             <th class="font-weight-bold">
-              <strong>Amount</strong>
+              <strong>총 상품 가격</strong>
             </th>
             <th></th>
           </tr>
@@ -82,12 +82,11 @@
               </h5>
               ${cartList.factoryId}
             </td>
-              <p class="text-muted"></p>
-            </td>
             <td class="align-middle">${cartList.prodType}</td>
-            <td></td>
-            <td class="align-middle">${cartList.retailPrice}</td><input type="hidden" class="retailPrice" name="retailPrice${i}" id="retailPrice${i}" value="${cartList.retailPrice }">
+            <td><input type="hidden" id="prodType${i}" value="${cartList.prodType }"/></td>
+            <td class="align-middle">${cartList.retailPrice}</td>
             <td class="align-middle">
+            	<input type="hidden" class="retailPrice" name="retailPrice${i}" id="retailPrice${i}" value="${cartList.retailPrice }">
            	  <c:if test="${cartList.prodType == 'paper' or cartList.prodType == 'ebook' }">
               <input type="number"  aria-label="Search" class="form-control" name="buyAmount${i}" id="${i}" style="width: 100px" value="${cartList.buyAmount}">
               </c:if>
@@ -188,12 +187,18 @@
 			
 			var deliveryFee = 0;
 			var factory = new Array();
-			
 			for (var i=0; i<kk ; i++){
 				
-				var factoryId = $("#factory"+i).val();
-				console.log(factoryId)
-				factory.push(factoryId);
+				var prodType = $("#prodType"+i).val();
+				console.log(prodType);
+				if(prodType == 'paper'){
+					var factoryId = $("#factory"+i).val();
+					console.log(factoryId)
+					factory.push(factoryId);
+				}else{
+					continue;
+				}
+				
 			}
 			console.log(factory)
 			var factory = removeDuplicatesArray(factory);
@@ -280,7 +285,7 @@
 // 				alert(eachPrice2);
 // 				alert(eachPrice3);
 				var totalPrice=0;
-				for (var i=1; i<kk ; i++){
+				for (var i=0; i<kk ; i++){
 					
 							var eachPrice=parseInt($("#eachPrice"+i).val());
 							//alert("eachPrice는");
@@ -334,6 +339,7 @@
 			$(".removeButton").on("click", function(){
 				
 				var prodNo = $(this).val();
+				var button = $(this);
 				
 				
 				$.ajax({

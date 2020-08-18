@@ -243,7 +243,8 @@
     });
     
     function addProd() {
-    	
+    	console.log($("input[name='prodType']:checked").val());
+    	console.log($("input[name='coverFile']").val());
     	if (!$("input[id='prodThumbnail']").val()) {
     		Swal.fire({
 				  icon: 'error',
@@ -256,6 +257,14 @@
     		Swal.fire({
 				  icon: 'error',
 				  text: '상품명을 입력해주세요.'
+				});
+    		return;
+		}
+    	
+    	if ($("input[name='prodType']:checked").val()=="design" && $("input[name='coverFile']").val()==null) {
+    		Swal.fire({
+				  icon: 'error',
+				  text: '표지 파일을 등록해주세요.'
 				});
     		return;
 		}

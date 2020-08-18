@@ -186,7 +186,8 @@
 							//alert(currentPage);
 							
 						if(data.product == ""){
-								alert("더이상 상품이 없습니다");
+								//alert("더이상 상품이 없습니다");
+								swal("더이상 상품이 없습니다.","","warning")
 							}
 						if(data.product != ""){
 							
@@ -233,7 +234,7 @@
 				var searchCondition = $("#searchConditionText").text();
 					$("#searchConditionText").val(searchCondition);
 				var searchCondition = $("#searchConditionText").val();
-					alert(searchCondition);
+					//alert(searchCondition);
 					if(searchCondition == "작가명"){
 						var searchCondition = "author";
 						
@@ -246,7 +247,7 @@
 					$("#searchCondition").val(searchCondition);
 					var searchKeyword = $("input[name='searchKeyword']").val();
 					
-					alert(searchKeyword);
+					//alert(searchKeyword);
 					//searchKeyword = encodeURIComponent(searchKeyword);
 
 				

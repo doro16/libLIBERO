@@ -62,13 +62,8 @@ function relocate(prodNo){
 <jsp:include page="/view/user/topButton.jsp"></jsp:include>
 <div class="row">
 <div class="col-lg-2">
-		   			<a href="/libero/user/getUserPublishList?prodType=book" 
-		   				class="btn btn-outline-brown waves-effect btn-block" role="button" 
-		   				aria-pressed="true" style="margin-bottom: 10px">도서</a>
-		   				
-		   			<a href="/libero/user/getUserPublishList?prodType=prod" 
-		   				class="btn btn-outline-brown waves-effect btn-block" role="button" 
-		   				aria-pressed="true">서비스상품</a>
+		   			<button class="btn btn-outline-brown waves-effect btn-block" role="button" 
+		   				aria-pressed="true" style="margin-bottom: 10px" disabled>주문 상품 상세</button>
 </div>
 <div class="col">
 
@@ -248,7 +243,8 @@ function relocate(prodNo){
 							  						<th>구매 수량</th>
 							  						<td>:  ${getProduct.buyAmount}</td>
 							  					</tr>
-							  					<tr><th><td>
+							  					<tr><th>
+							  					<td>
 							  					
 <!-- 				리뷰 등록 버튼, 모달 내용 -->
 								<c:if test="${getProduct.deliveryStatus == 5 }">
@@ -345,7 +341,23 @@ function relocate(prodNo){
 									    <p class="white-text">상세정보</p>
 									  </div>
 									</div>
-								</div>	
+								</div>
+								<c:if test="${getProduct.prodType == 'ebook' }">
+								<div>
+									<a href="/libero/resources/images/publish/fileUpload/manuFile/${getProduct.manuFile}" download="manuFile"><button class="btn btn-outline-warning waves-effect" type="button">전자책 다운로드</button></a>
+								</div>
+								</c:if>
+								<c:if test="${getProduct.prodType == 'design' }">
+								<div>
+									<a href="/libero/resources/images/publish/fileUpload/coverFile/${getProduct.coverFile}" download="manuFile"><button class="btn btn-outline-warning waves-effect" type="button">표지 파일</button></a>
+								</div>
+								</c:if>
+								<c:if test="${getProduct.prodType == 'target' }">
+								<div>
+									<a href="/libero/resources/images/publish/fileUpload/coverFile/${getProduct.coverFile}" download="manuFile"><button class="btn btn-outline-warning waves-effect" type="button">표지 파일</button></a>
+								</div>
+								</c:if>	
+									
 					  		<!-- row End -->
 					  		
 						</div>

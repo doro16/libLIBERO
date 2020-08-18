@@ -72,6 +72,14 @@
 					</div>
 				</c:if>
 				<!-- 표지파일 입력폼 끝 -->
+				<!-- 작가이름 입력폼  -->
+				<div class="form-group">
+					<label class="formLabel" for="author">작가명</label>
+					<div>
+						<input type="text" id="author" name="author" class="form-control" placeholder="작가명을 입력해주세요" value="${prod.author}">
+					</div>
+				</div>
+				<!-- 작가이름 입력폼 끝 -->
 				<div class="row">
 				<!-- 상품 제목 입력폼  -->
 				<div class="form-group col-6">

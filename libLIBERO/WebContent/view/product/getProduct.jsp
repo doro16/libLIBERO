@@ -13,7 +13,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
 	
-
+		<link rel="stylesheet" href="../resources/css/common.css">
 		<!-- ToolBar Start /////////////////////////////////////-->
 		<jsp:include page="../toolbar.jsp" />
 	   	<!-- ToolBar End /////////////////////////////////////-->
@@ -127,12 +127,12 @@
           <div class="carousel-inner text-center text-md-left z-depth-1" style="width: 400px; height: 450px; margin-bottom: 0px; padding-bottom: 0px" role="listbox">
             <div class="carousel-item active">
               <img style="margin-bottom: 0px;" src="../../resources/images/publish/fileUpload/thumbnailFile/${product.prodThumbnail}"
-                alt="First slide" class="img-fluid">
+                alt="First slide" width="400px" height="450px">
             </div>
             <c:if test="${product.coverFile != null }">
             <div class="carousel-item">
               <img src="../../resources/images/publish/fileUpload/coverFile/${product.coverFile}"
-                alt="Second slide" class="img-fluid">
+                alt="Second slide" width="400px" height="450px">
             </div>
             </c:if>
           </div>
@@ -476,7 +476,7 @@
 </div>		
 		
 		
-		
+<jsp:include page="../../common/footer.jsp"></jsp:include>	
 		
 		
 		
@@ -555,15 +555,18 @@
 		//alert(buyAmount);
 		
 		if (userId=="") {
-			alert("로그인 해주세요.");
+			//alert("로그인 해주세요.");
+			swal("로그인 해주세요!","","warning")
 			return;
 		}
 		if (phoneCode!=1) {
-			alert("휴대폰 본인인증을 완료한 회원만 가능합니다.");
+			//alert("휴대폰 본인인증을 완료한 회원만 가능합니다.");
+			swal("휴대폰인증을 완료한 회원만 가능합니다.","","warning")
 			return;
 		}
 		if (buyAmount==0) {
-			alert("수량을 선택해주세요.");
+			//alert("수량을 선택해주세요.");
+			swal("수량을 선택해 주세요","","warning")
 			return;
 		}
 		
