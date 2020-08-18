@@ -285,7 +285,7 @@
 // 				alert(eachPrice2);
 // 				alert(eachPrice3);
 				var totalPrice=0;
-				for (var i=1; i<kk ; i++){
+				for (var i=0; i<kk ; i++){
 					
 							var eachPrice=parseInt($("#eachPrice"+i).val());
 							//alert("eachPrice는");
