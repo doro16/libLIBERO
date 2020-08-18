@@ -170,11 +170,7 @@ public class UserController {
 					String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 					String extension=originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 					
-
-					//String fileRoot = "C:/Users/LG/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
-
 					String fileRoot = path+"user/fileUpload/"; // 파일 경로
-
 					String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 					String root_path = request.getSession().getServletContext().getRealPath("/"); 
 					savedFileName = publishService.uploadFile(fileRoot,savedFileName,multipartFile.getBytes());
@@ -276,12 +272,12 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "getUserCash",  method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView getUserCash(HttpSession session) throws Exception {
+	public ModelAndView getUserCash(HttpSession session, String userId) throws Exception {
 		
 		System.out.println("/user/getUserCash : GET");
 		
 		User user = ((User) session.getAttribute("user"));
-		String userId = user.getUserId();
+		userId = user.getUserId();
 		user = userService.getUser(userId);
 		String cashCode = user.getCashCode();
 		
@@ -411,7 +407,7 @@ public class UserController {
 		System.out.println("/user/requestCash : POST");
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/user/getUserCash");
+		mav.setViewName("/user/getUserCash");
 
 		HttpSession session = request.getSession(true);
 		User user = (User) session.getAttribute("user");
@@ -452,7 +448,7 @@ public class UserController {
 	
 	
 	@RequestMapping(value="getUser", method=RequestMethod.GET)
-	public ModelAndView getUser(HttpSession session, @RequestParam(required = false) String userId) throws Exception{
+	public ModelAndView updateUser(HttpSession session, @RequestParam(required = false) String userId) throws Exception{
 		System.out.println(" ---------------------------------------");
 		System.out.println("/user/getUser : GET");
 		System.out.println(" ---------------------------------------");
@@ -490,7 +486,7 @@ public class UserController {
 			if (originalFileName!="") {
 				String extension=originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 				
-				String fileRoot = "C:/Users/LG/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
+				String fileRoot = "C:/Users/user/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
 				String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 				String root_path = request.getSession().getServletContext().getRealPath("/"); 
 				savedFileName = publishService.uploadFile(fileRoot,savedFileName,multipartFile.getBytes());
@@ -501,22 +497,16 @@ public class UserController {
 				System.out.println(" ---------------------------------------");
 				System.out.println(f.getName());
 				System.out.println(" ---------------------------------------");
-				
+			
 				user.setProfile(f.getName());
 			}
 			
 		}
 		
 		userService.updateUser(user);
-		user = userService.getUser(user.getUserId());
-		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("user", userService.getUser(user.getUserId()));
 		modelAndView.setViewName("forward:/view/user/getUser.jsp");
-		
-		HttpSession session = request.getSession(true);
-		session.removeAttribute("user");
-		session.setAttribute("user", user);
 		
 		return modelAndView;
 	}
