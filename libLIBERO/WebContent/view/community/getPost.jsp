@@ -35,7 +35,13 @@
                <c:if test="${post.qnaRegType == 'e'}">기타&nbsp;| &nbsp;</c:if>
                
                ${post.postName}</h4>
+               <c:if test="${empty post.user.profile }">
+               <img src='../resources/images/user/fileUpload/null_user.png' style='height: 50px; width: 50px; float: left; margin:5px 10px 10px 0;'>
+               </c:if>
+               <c:if test="${ ! empty post.user.profile }">
                <img src='../resources/images/user/fileUpload/${post.user.profile}' style='height: 50px; width: 50px; float: left; margin:5px 10px 10px 0;'>
+               </c:if>
+               
                <span style="margin:0 0 -18px 0; font-size: 16px; font-weight:bold;">${post.user.nickname}</span>
                <c:if test="${post.postType != 'q'}">
                		<span style="float:left;"><fmt:formatDate value="${post.regDate}" pattern="yyyy-MM-dd HH:mm:ss" />&nbsp;&nbsp;조회 &nbsp;${post.viewCount}&nbsp;&nbsp;댓글 &nbsp;${post.commentCount}</span>
