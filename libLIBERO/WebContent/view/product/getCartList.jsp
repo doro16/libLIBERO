@@ -82,12 +82,11 @@
               </h5>
               ${cartList.factoryId}
             </td>
-              <p class="text-muted"></p>
-            </td>
             <td class="align-middle">${cartList.prodType}</td>
-            <td></td>
-            <td class="align-middle">${cartList.retailPrice}</td><input type="hidden" class="retailPrice" name="retailPrice${i}" id="retailPrice${i}" value="${cartList.retailPrice }">
+            <td><input type="hidden" id="prodType${i}" value="${cartList.prodType }"/></td>
+            <td class="align-middle">${cartList.retailPrice}</td>
             <td class="align-middle">
+            	<input type="hidden" class="retailPrice" name="retailPrice${i}" id="retailPrice${i}" value="${cartList.retailPrice }">
            	  <c:if test="${cartList.prodType == 'paper' or cartList.prodType == 'ebook' }">
               <input type="number"  aria-label="Search" class="form-control" name="buyAmount${i}" id="${i}" style="width: 100px" value="${cartList.buyAmount}">
               </c:if>
@@ -190,9 +189,16 @@
 			var factory = new Array();
 			for (var i=0; i<kk ; i++){
 				
-				var factoryId = $("#factory"+i).val();
-				console.log(factoryId)
-				factory.push(factoryId);
+				var prodType = $("#prodType"+i).val();
+				console.log(prodType);
+				if(prodType == 'paper'){
+					var factoryId = $("#factory"+i).val();
+					console.log(factoryId)
+					factory.push(factoryId);
+				}else{
+					continue;
+				}
+				
 			}
 			console.log(factory)
 			var factory = removeDuplicatesArray(factory);
@@ -333,6 +339,7 @@
 			$(".removeButton").on("click", function(){
 				
 				var prodNo = $(this).val();
+				var button = $(this);
 				
 				
 				$.ajax({

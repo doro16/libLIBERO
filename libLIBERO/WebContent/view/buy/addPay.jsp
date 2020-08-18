@@ -71,8 +71,6 @@ function daumjuso() {
 
 
 /////////////////////////I'mport
-
-
   $(function(){
 	  
     	$("#payment").on("click",function(){
@@ -169,6 +167,10 @@ function daumjuso() {
                 }
             });    
  
+    		
+    	})
+    });    
+    
   $(document).ready(function() {
 	  
 	  
@@ -300,107 +302,6 @@ function daumjuso() {
 <c:set var="i" value="0" />
 		  <c:forEach var="prod" items="${productList}">
 			<c:set var="i" value="${ i+1 }" />
-			<script>
-			  $(function(){
-				  
-			    	$("#payment").on("click",function(){
-			            var IMP = window.IMP; // 생략가능
-			            IMP.init('imp17527359'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-			            var msg;
-			            IMP.request_pay({
-			                pg : 'html5_inicis',
-			                pay_method : $("#paymentOption").val(),
-			                merchant_uid : 'merchant_' + new Date().getTime(),
-			                name : "${prod.prodName}",
-			                amount : $("#payment").val(),
-			                buyer_email : $("#userId").val(),
-			                buyer_name : $("#receiverName").val(),
-			                buyer_tel : $("#receiverPhone").val(),
-			                buyer_addr :$("#receiverAddr").val()+ " "+$('#extraAddress').val()
-			               
-			                //m_redirect_url : 'http://www.naver.com'
-			            }, function(rsp) {
-			                if ( rsp.success ) {
-			                	var sendData = JSON.stringify({
-			                    	"payNo" : rsp.imp_uid,
-			                        "merchantUid" : rsp.merchant_uid,
-			                        "actualPrice" : rsp.paid_amount,
-			                        "paymentOption" : rsp.pay_method,
-			                        "payStatus" : rsp.status,
-			                        "receiverName" : rsp.buyer_name,
-			                        "receiverPhone" : rsp.buyer_tel,
-			                        "receiverAddr" : rsp.buyer_addr,
-			                        "buyerId" : '${user.userId}',
-			                        "deliveryRequest" : $("#deliveryRequest").val(),
-			                        "buyNoArray": ${buyNoArray}
-
-			                	})
-   	
-			                    //[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-			                    jQuery.ajax({
-			                        url: '/libero/buy/json/afterPay', //교체 하기
-			                        type: 'POST',
-			                        dataType: 'json',
-			                        contentType: 'application/json',
-			                        data: sendData
-			                    }).done(function(data,status) {
-			                        //[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
-			                        if (status === 'success') {
-			                        	msg += '\n고유ID : ' + rsp.imp_uid;
-			                			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-			                			msg += '\결제 금액 : ' + rsp.paid_amount;
-			                			msg += '카드 승인번호 : ' + rsp.apply_num;
-			                			msg += '결제 일시 : '+rsp.paid_at;
-			                            
-			                            alert(msg);
-			                        } else {
-			                            //[3] 아직 제대로 결제가 되지 않았습니다.
-			                            //[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-			                        	msg = '결제에 실패하였습니다. 다시 시도해 주세요.';
-			                            
-			                        	alert(msg);
-			                        }
-			                    });
-			                    swal({
-			                		text : "결제 완료",
-			                		icon : "info",
-			                		buttons:{
-			                			Home : {
-			                				text:"홈 으로",
-			                				value:"Home",
-			                			},
-			                			BuyList :{
-			                				text:"구매목록",
-			                				value:"BuyList",
-			                			},
-			                				},
-			                		
-			                	}).then((value) =>{
-			                		switch (value)     {
-			                			case "Home" :
-			                	 			window.location.href="/libero";
-			                				break;
-			                			
-			                			case "BuyList" : 
-			                				window.location.href="/libero/buy/getUserBuyList?userId=${user.userId}";
-			                		}
-			                	});
-			                    //성공시 이동할 페이지
-			                   // location.href='/libero';
-			                } else {
-			                    msg = '결제에 실패하였습니다.';
-			                    msg += '에러내용 : ' + rsp.error_msg;
-			                    //실패시 이동할 페이지
-			                   	<%-- location.href="<%=request.getContextPath()%>/order/payFail"; --%>
-			                    alert(msg);
-			                }
-			            });    
-			 
-			    		
-			    	})
-			    });    
-			   
-			</script>
 			
 			<h4>상품 정보</h4>
 						 <div class="card border-light mb-3" style="margin-bottom: 20px">
@@ -412,7 +313,7 @@ function daumjuso() {
 							  				<tbody>
 								  				<tr>
 							  						<th>상품 이름</th>
-							  						<td id="forImport${i}">: ${prod.prodName}</td>
+							  						<td>: ${prod.prodName}</td>
 								  					</tr>
 							  					<tr>
 							  						<th>상품 가격</th>
