@@ -346,7 +346,7 @@ function relocate(prodNo){
 									    <p class="white-text">상세정보</p>
 									  </div>
 									</div>
-								</div>1
+								</div>
 								<c:if test="${getProduct.prodType == 'ebook' }">
 								<div>
 									<a href="/libero/resources/images/publish/fileUpload/manuFile/${getProduct.manuFile}" download="manuFile"><button class="btn btn-outline-warning waves-effect" type="button">원고 파일</button></a>
