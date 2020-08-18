@@ -65,13 +65,13 @@ public class MainController {
 
 	}
 	
-	@RequestMapping("/intro")
-	public ModelAndView intro() throws Exception {
+	@RequestMapping("/info")
+	public ModelAndView info() throws Exception {
 	    System.out.println("MainContorller Start");
 	    
 	    
 	    ModelAndView modelAndView = new ModelAndView();    
-		modelAndView.setViewName("forward:/intro.jsp");
+		modelAndView.setViewName("forward:/info.jsp");
 	   
 		return modelAndView;
 

@@ -76,7 +76,7 @@
 							  		</div>
 							  		
 							  		<div class="col-lg-3">
-							  			<c:if test="${prod.purposeCode=='sale'}">
+							  			<c:if test="${prod.purposeCode=='sale' || prod.purposeCode==null}">
 								   			<button type="button" class="btn btn-brown brown lighten-1 btn-block" 
 								  					onclick = "popup(${prod.prodNo})" 
 								  					aria-pressed="true" style="margin-bottom: 10px">판매 통계 조회

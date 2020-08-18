@@ -484,7 +484,7 @@ public class PublishController {
 				String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 				String root_path = request.getSession().getServletContext().getRealPath("/"); 
 				String thumbnailRoot = fileRoot+"thumbnailFile/";
-				savedFileName = uploadFile(thumbnailRoot,savedFileName,multipartFile.getBytes());
+				savedFileName = publishService.uploadFile(thumbnailRoot,savedFileName,multipartFile.getBytes());
 				
 				if (i==1) {
 					File f =new File(fileRoot+"thumbnailFile/"+savedFileName);
@@ -513,12 +513,5 @@ public class PublishController {
 		return publish;
 	}
 	
-	public String uploadFile(String uploadPath, String savedName, byte[] fileData) throws Exception{
-
-        File target = new File(uploadPath, savedName);
-
-        FileCopyUtils.copy(fileData, target);
-        
-        return savedName;
-     }
+	
 }
