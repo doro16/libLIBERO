@@ -177,11 +177,11 @@ public class UserController {
 
 					String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 					String root_path = request.getSession().getServletContext().getRealPath("/"); 
-					savedFileName = uploadFile(fileRoot,savedFileName,multipartFile.getBytes());
+					savedFileName = publishService.uploadFile(fileRoot,savedFileName,multipartFile.getBytes());
 					
 					File f =new File(fileRoot+savedFileName);
 					multipartFile.transferTo(new File(root_path+"\\resources\\images\\user\\fileUpload\\"+savedFileName));
-					multipartFile.transferTo(f);
+					//multipartFile.transferTo(f);
 					System.out.println(" ---------------------------------------");
 					System.out.println(f.getName());
 					System.out.println(" ---------------------------------------");
@@ -276,12 +276,12 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "getUserCash",  method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView getUserCash(HttpSession session, String userId) throws Exception {
+	public ModelAndView getUserCash(HttpSession session) throws Exception {
 		
 		System.out.println("/user/getUserCash : GET");
 		
 		User user = ((User) session.getAttribute("user"));
-		userId = user.getUserId();
+		String userId = user.getUserId();
 		user = userService.getUser(userId);
 		String cashCode = user.getCashCode();
 		
@@ -493,7 +493,7 @@ public class UserController {
 				String fileRoot = "C:/Users/LG/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
 				String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 				String root_path = request.getSession().getServletContext().getRealPath("/"); 
-				savedFileName = uploadFile(fileRoot,savedFileName,multipartFile.getBytes());
+				savedFileName = publishService.uploadFile(fileRoot,savedFileName,multipartFile.getBytes());
 				
 				File f =new File(fileRoot+savedFileName);
 				multipartFile.transferTo(new File(root_path+"\\resources\\images\\user\\fileUpload\\"+savedFileName));
@@ -543,13 +543,4 @@ public class UserController {
 		
 		return modelAndView;
 	}	
-	
-	public String uploadFile(String uploadPath, String savedName, byte[] fileData) throws Exception{
-
-        File target = new File(uploadPath, savedName);
-
-        FileCopyUtils.copy(fileData, target);
-        
-        return savedName;
-     }
 }
