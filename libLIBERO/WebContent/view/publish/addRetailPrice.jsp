@@ -7,7 +7,6 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>libLIBERO : 가격 책정</title>
 		<jsp:include page="/common/cdn.jsp"></jsp:include>
 		<!--  ///////////////////////// CSS ////////////////////////// -->
 		<link rel="stylesheet" href="../resources/css/common.css">
@@ -444,11 +443,12 @@
 				  /* Read more about handling dismissals below */
 				  if (result.dismiss === Swal.DismissReason.timer) {
 				    console.log('I was closed by the timer')
+				    $("#centralModal").modal("show");
 				  }
 				});
 				//SweetAlert End
 				
-				$("#centralModal").modal("show");
+				
 			}
 			
 		}

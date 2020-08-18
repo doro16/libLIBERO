@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
 	<link rel="stylesheet" href="../resources/css/common.css">
 	<style type="text/css">
@@ -190,7 +189,7 @@
 			var deliveryFee = 0;
 			var factory = new Array();
 			
-			for (var i=1; i<kk ; i++){
+			for (var i=0; i<kk ; i++){
 				
 				var factoryId = $("#factory"+i).val();
 				console.log(factoryId)

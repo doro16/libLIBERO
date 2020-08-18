@@ -191,19 +191,19 @@ public class PublishController {
 				g.drawString(publish.getProdName(), (width/2)-(int)((r.getWidth())/2), 130);
 				g.setFont(nameFont); 
 				g.drawString(publish.getAuthor(), (width/2)-(int)((r2.getWidth())/2)+160, 170); 
-				g.drawImage(logo, 300, 555, 130, 40, null);
+				g.drawImage(logo, 330, 580, 100, 40, null);
 			}else if (publish.getImgType().contentEquals("icon")) {
 				g.setFont(titleFont); 
 				g.drawString(publish.getProdName(), (width/2)-(int)((r.getWidth())/2), 330);
 				g.setFont(nameFont); 
 				g.drawString(publish.getAuthor(), (width/2)-(int)((r2.getWidth())/2), 350); 
-				g.drawImage(logo, 300, 580, 130, 40, null);
+				g.drawImage(logo, 330, 580, 100, 40, null);
 			}else if (publish.getImgType().contentEquals("img")) {
 				g.setFont(titleFont); 
 				g.drawString(publish.getProdName(), (width/2)-180, 530);
 				g.setFont(nameFont); 
-				g.drawString(publish.getAuthor(), (width/2)-(int)(r2.getWidth())+225, 550); 
-				g.drawImage(logo, 290, 560, 130, 40, null);
+				g.drawString(publish.getAuthor(), (width/2)-(int)(r2.getWidth())+180, 550); 
+				g.drawImage(logo, 300, 560, 100, 40, null);
 			}
 			g.dispose(); 
 			UUID savedFileName = UUID.randomUUID();	
@@ -217,19 +217,19 @@ public class PublishController {
 				g2.drawString(publish.getProdName(), (cWidth/4)*3-(int)((r.getWidth())/2), 130);
 				g2.setFont(nameFont); 
 				g2.drawString(publish.getAuthor(), (cWidth/4)*3-(int)((r2.getWidth())/2)+160, 170); 
-				g2.drawImage(logo, 740, 555, 130, 40, null);
+				g2.drawImage(logo, 770, 555, 100, 40, null);
 			}else if (publish.getImgType().contentEquals("icon")) {
 				g2.setFont(titleFont); 
 				g2.drawString(publish.getProdName(), (cWidth/4)*3-(int)((r.getWidth())/2), 330);
 				g2.setFont(nameFont); 
 				g2.drawString(publish.getAuthor(), (cWidth/4)*3-(int)((r2.getWidth())/2), 350); 
-				g2.drawImage(logo, 740, 555, 130, 40, null);
+				g2.drawImage(logo, 770, 555, 100, 40, null);
 			}else if (publish.getImgType().contentEquals("img")) {
 				g2.setFont(titleFont); 
 				g2.drawString(publish.getProdName(), (cWidth/4)*3-170, 520);
 				g2.setFont(nameFont); 
 				g2.drawString(publish.getAuthor(), (cWidth/4)*3-(int)((r2.getWidth())/2)+190, 550); 
-				g2.drawImage(logo, 745, 565, 130, 40, null);
+				g2.drawImage(logo, 780, 565, 100, 40, null);
 			}
 			g2.dispose(); 
 			savedFileName = UUID.randomUUID();	
@@ -478,7 +478,8 @@ public class PublishController {
 				String fileRoot = path+"publish/fileUpload/"; // 파일 경로
 				String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 				String root_path = request.getSession().getServletContext().getRealPath("/"); 
-				savedFileName = uploadFile(fileRoot,savedFileName,multipartFile.getBytes());
+				String thumbnailRoot = fileRoot+"thumbnailFile/";
+				savedFileName = uploadFile(thumbnailRoot,savedFileName,multipartFile.getBytes());
 				
 				if (i==1) {
 					File f =new File(fileRoot+"thumbnailFile/"+savedFileName);

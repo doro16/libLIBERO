@@ -7,13 +7,6 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		
-		<c:if test="${prod.prodType=='design'||'target'}">
-			<title>libLIBERO : 표지 디자인 수정</title>
-		</c:if>
-		<c:if test="${prod.prodType=='correct'}">
-			<title>libLIBERO : 교정교열 수정</title>
-		</c:if>
 		<jsp:include page="/common/cdn.jsp"></jsp:include>
 		<!--  ///////////////////////// CSS ////////////////////////// -->
 		<link rel="stylesheet" href="../resources/css/common.css">
@@ -79,6 +72,14 @@
 					</div>
 				</c:if>
 				<!-- 표지파일 입력폼 끝 -->
+				<!-- 작가이름 입력폼  -->
+				<div class="form-group">
+					<label class="formLabel" for="author">작가명</label>
+					<div>
+						<input type="text" id="author" name="author" class="form-control" placeholder="작가명을 입력해주세요" value="${prod.author}">
+					</div>
+				</div>
+				<!-- 작가이름 입력폼 끝 -->
 				<div class="row">
 				<!-- 상품 제목 입력폼  -->
 				<div class="form-group col-6">

@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 	<jsp:include page="/common/cdn.jsp"></jsp:include>
 	<link rel="stylesheet" href="../../resources/css/common.css">
 
@@ -47,8 +46,7 @@
 		<jsp:include page="../toolbar.jsp" />
 		
 	   	<!-- ToolBar End /////////////////////////////////////-->
-
-<br/><br/><br/><br/><br/><br/>
+<br/><br/>
 <h6 class="font-weight-bold text-center grey-text text-uppercase small mb-4">작가서비스</h6>
     <h3 class="font-weight-bold text-center dark-grey-text pb-2">
     <c:if test="${product[0].prodType == 'design'}">표지 디자인</c:if>
@@ -99,7 +97,7 @@
       <div class="tab-pane fade show in active" id="panel31" role="tabpanel">
 
         <!-- Grid row -->
-        <div class="row" id="bookRow">
+        <div class="row m-0 " id="bookRow">
 
           <!-- Grid column -->
           
@@ -181,7 +179,7 @@
 							}
 						if(data.product != ""){
 							
-							var displayValue = "<div class='row'>";
+							var displayValue = "<div class='row m-0'>";
 							
 							$.each(data.product, function(index,product){
 								
