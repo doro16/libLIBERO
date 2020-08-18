@@ -221,7 +221,7 @@
 				var searchCondition = $("#searchConditionText").text();
 					$("#searchConditionText").val(searchCondition);
 				var searchCondition = $("#searchConditionText").val();
-					alert(searchCondition);
+					//alert(searchCondition);
 					if(searchCondition == "작가명"){
 						var searchCondition = "author";
 						
@@ -234,7 +234,7 @@
 					$("#searchCondition").val(searchCondition);
 					var searchKeyword = $("input[name='searchKeyword']").val();
 					
-					alert(searchKeyword);
+					//alert(searchKeyword);
 					//searchKeyword = encodeURIComponent(searchKeyword);
 
 				

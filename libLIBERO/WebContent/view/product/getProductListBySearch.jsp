@@ -47,9 +47,9 @@
 		<jsp:include page="../toolbar.jsp" />
 	   	<!-- ToolBar End /////////////////////////////////////-->
 
-<br/><br/><br/><br/><br/><br/>
-<h6 class="font-weight-bold text-center grey-text text-uppercase small mb-4">서점</h6>
-    <h3 class="font-weight-bold text-center dark-grey-text pb-2">ALL</h3>
+<br/><br/>
+<h6 class="font-weight-bold text-center grey-text text-uppercase small mb-4">검색조건 : ${search.searchCondition=='prodName' ? '제목' : search.searchCondition=='author' ? '작가명' : '해쉬태그'}</h6>
+    <h3 class="font-weight-bold text-center dark-grey-text pb-2">검색어 : ${search.searchKeyword}</h3>
     <hr class="w-header my-4">
 
 	
@@ -75,6 +75,7 @@
 			<form class="form-inline mr-auto">
 			  <input type="hidden" id="searchCondition" name="searchCondition">
 			  <input class="form-control mr-sm-2" type="text" name="searchKeyword" >
+			  <input type="hidden" name="prodType" value="${param.prodType}">
 			  <button class="btn btn-brown btn-rounded btn-sm my-0" id="searchButton" >Search</button>
 			</form>
 	</div>
@@ -136,7 +137,7 @@
             	<input type="hidden" id="maxPage" value="${resultPage.maxPage}">
             	<input type="hidden" id="searchCondition" value="${search.searchCondition}">
             	<input type="hidden" id="searchKeyword"	  value="${search.searchKeyword}">
-
+<jsp:include page="../../common/footer.jsp"></jsp:include>
 </body>
 
 

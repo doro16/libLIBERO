@@ -314,13 +314,13 @@ function relocate(prodNo){
 								<div class="modal-footer">
 								
 								<c:if test="${getProduct.reviewFlag == false }">
-										<button type="button" class="btn btn-cyan" id="addButton${i}">등록</button>
+										<button type="button" class="btn btn-brown brown lighten-1" id="addButton${i}">등록</button>
 								</c:if>		
 								<c:if test="${getProduct.reviewFlag == true }">
-										<button type="button" class="btn btn-cyan" id="updateButton${i}">수정</button>
+										<button type="button" class="btn btn-brown brown lighten-1" id="updateButton${i}">수정</button>
 								</c:if>
 										
-										<button type="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">취소</button>
+										<button type="button" class="btn btn-outline-brown waves-effect" data-dismiss="modal">취소</button>
 								</div>
 							</div>
 							</div>

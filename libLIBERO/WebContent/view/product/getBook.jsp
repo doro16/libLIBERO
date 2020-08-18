@@ -320,7 +320,12 @@
 							  <c:set var="i" value="${ i+1 }" />
     
     <div class="media mb-3">
-      <img class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3" src="../../resources/images/user/fileUpload/${review.user.profile}">
+      <c:if test="${review.user.profile!=null}">
+      	<img class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3" src="../../resources/images/user/fileUpload/${review.user.profile}">
+      </c:if>
+      <c:if test="${review.user.profile==null}">
+      	<img class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3" src="../../resources/images/user/fileUpload/null_user.png">
+      </c:if>
       <div class="media-body">
         <a>
           <h5 class="user-name font-weight-bold">${review.user.nickname}</h5>

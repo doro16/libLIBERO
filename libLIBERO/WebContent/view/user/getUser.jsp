@@ -58,7 +58,9 @@
 				  	</div>
 				  	</div>
 				  	<div class="view overlay zoom" id="profileDiv" style="width: 200px; height:200px" >
-				  	<img src="/libero/resources/images/user/fileUpload/${user.profile}" class="img-thumbnail hoverable" id="profile"/>
+				  	<c:if test="${user.profile!=null}">
+				  		<img src="/libero/resources/images/user/fileUpload/${user.profile}" class="img-thumbnail hoverable" id="profile"/>
+				  	</c:if>
 				  	<div class="mask flex-center waves-effect waves-light">
 									    <p class="white-text"></p>
 									  </div>
@@ -144,12 +146,13 @@
 							</a>
 						</span>
 					</c:if>
-					
+				<c:if test="${user.userId eq sessionScope.user.userId}">
 				<span id="btnDiv" style="float:right">
-				
+					
 					<button type="button" id="modifyBtn" class="btn btn-info brown lighten-1" onclick="updateUser()">수정</button>
 					<button type="button" id="modifyBtn" class="btn btn-info brown lighten-1" onclick="location.href=('/libero/user/removeUser')">탈퇴</button>
 				</span>
+				</c:if>
 			</div>
 			
 		</div>
