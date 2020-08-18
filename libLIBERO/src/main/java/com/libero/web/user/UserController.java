@@ -173,11 +173,11 @@ public class UserController {
 					String fileRoot = path+"user/fileUpload/"; // 파일 경로
 					String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 					String root_path = request.getSession().getServletContext().getRealPath("/"); 
-					savedFileName = uploadFile(fileRoot,savedFileName,multipartFile.getBytes());
+					savedFileName = publishService.uploadFile(fileRoot,savedFileName,multipartFile.getBytes());
 					
 					File f =new File(fileRoot+savedFileName);
 					multipartFile.transferTo(new File(root_path+"\\resources\\images\\user\\fileUpload\\"+savedFileName));
-					multipartFile.transferTo(f);
+					//multipartFile.transferTo(f);
 					System.out.println(" ---------------------------------------");
 					System.out.println(f.getName());
 					System.out.println(" ---------------------------------------");
@@ -489,11 +489,11 @@ public class UserController {
 				String fileRoot = "C:/Users/user/git/libLIBERO/libLIBERO/WebContent/resources/images/user/fileUpload/"; // 파일 경로
 				String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 				String root_path = request.getSession().getServletContext().getRealPath("/"); 
-				savedFileName = uploadFile(fileRoot,savedFileName,multipartFile.getBytes());
+				savedFileName = publishService.uploadFile(fileRoot,savedFileName,multipartFile.getBytes());
 				
 				File f =new File(fileRoot+savedFileName);
 				multipartFile.transferTo(new File(root_path+"\\resources\\images\\user\\fileUpload\\"+savedFileName));
-				multipartFile.transferTo(f);
+				//multipartFile.transferTo(f);
 				System.out.println(" ---------------------------------------");
 				System.out.println(f.getName());
 				System.out.println(" ---------------------------------------");
@@ -534,12 +534,5 @@ public class UserController {
 		return modelAndView;
 	}	
 	
-	public String uploadFile(String uploadPath, String savedName, byte[] fileData) throws Exception{
 
-        File target = new File(uploadPath, savedName);
-
-        FileCopyUtils.copy(fileData, target);
-        
-        return savedName;
-     }
 }
