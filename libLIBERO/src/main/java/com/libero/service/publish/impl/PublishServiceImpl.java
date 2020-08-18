@@ -1,5 +1,6 @@
 package com.libero.service.publish.impl;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 
 import com.libero.common.Search;
 import com.libero.service.domain.Cash;
@@ -117,5 +119,14 @@ public class PublishServiceImpl implements PublishService{
 	public void updateBlindCode(Publish publish) throws Exception {
 		publishDAO.updateBlindCode(publish);
 	}
+	
+	public String uploadFile(String uploadPath, String savedName, byte[] fileData) throws Exception{
+
+        File target = new File(uploadPath, savedName);
+
+        FileCopyUtils.copy(fileData, target);
+        
+        return savedName;
+     }
 
 }

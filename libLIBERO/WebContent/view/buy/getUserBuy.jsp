@@ -248,7 +248,8 @@ function relocate(prodNo){
 							  						<th>구매 수량</th>
 							  						<td>:  ${getProduct.buyAmount}</td>
 							  					</tr>
-							  					<tr><th><td>
+							  					<tr><th>
+							  					<td>
 							  					
 <!-- 				리뷰 등록 버튼, 모달 내용 -->
 								<c:if test="${getProduct.deliveryStatus == 5 }">
@@ -345,7 +346,23 @@ function relocate(prodNo){
 									    <p class="white-text">상세정보</p>
 									  </div>
 									</div>
-								</div>	
+								</div>1
+								<c:if test="${getProduct.prodType == 'ebook' }">
+								<div>
+									<a href="/libero/resources/images/publish/fileUpload/manuFile/${getProduct.manuFile}" download="manuFile"><button class="btn btn-outline-warning waves-effect" type="button">원고 파일</button></a>
+								</div>
+								</c:if>
+								<c:if test="${getProduct.prodType == 'design' }">
+								<div>
+									<a href="/libero/resources/images/publish/fileUpload/coverFile/${getProduct.coverFile}" download="manuFile"><button class="btn btn-outline-warning waves-effect" type="button">표지 파일</button></a>
+								</div>
+								</c:if>
+								<c:if test="${getProduct.prodType == 'target' }">
+								<div>
+									<a href="/libero/resources/images/publish/fileUpload/coverFile/${getProduct.coverFile}" download="manuFile"><button class="btn btn-outline-warning waves-effect" type="button">표지 파일</button></a>
+								</div>
+								</c:if>	
+									
 					  		<!-- row End -->
 					  		
 						</div>

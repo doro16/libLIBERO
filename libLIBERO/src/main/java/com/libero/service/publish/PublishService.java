@@ -41,5 +41,7 @@ public interface PublishService {
 	public List<String> getHashtagList(int prodNo) throws Exception;
 	
 	public void updateBlindCode(Publish publish) throws Exception;
+	
+	public String uploadFile(String uploadPath, String savedName, byte[] fileData) throws Exception;
 
 }

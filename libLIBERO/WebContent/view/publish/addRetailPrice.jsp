@@ -98,7 +98,7 @@
 			      			<hr class="hrColor">
 			      		</div>
 			      		<div class="md-form input-group mb-0">
-  							<input type="text" id="retailPrice" name="retailPrice" class="form-control col-lg-5" onblur="retailView()" value="${prod.retailPrice}">
+  							<input type="text" id="retailPrice" name="retailPrice" class="form-control col-lg-5" onblur="retailView()" value="${prod.retailPrice}" autofocus="autofocus">
   							<div class="input-group-append">
     							<span class="input-group-text md-addon">원</span>
   							</div>
@@ -342,31 +342,51 @@
 	</body>
 	<script type="text/javascript">
 		$(function(){
-			var price = $("input[name='retailPrice']").val();
-			var printPrice = "${prod.printPrice}";
-			var fee = Math.ceil(price*0.3/10)*10;
+			if ("${prod.purposeCode}"=='sale') {
+				var price = $("input[name='retailPrice']").val();
+				var printPrice = "${prod.printPrice}";
+				var fee = Math.ceil(price*0.3/10)*10;
+				
+				fee = numberWithCommas(fee);
+				price = numberWithCommas(price);
+				printPrice = numberWithCommas(printPrice);
+				
+				$("#fee").html("- "+fee+"원");
+				
+				var finalPrice = removeCommas(price)-removeCommas(printPrice)-removeCommas(fee);
+				
+				finalPrice = numberWithCommas(finalPrice);
+				
+				$("#finalPrice").html(finalPrice+"원");
+			}
 			
-			fee = numberWithCommas(fee);
-			price = numberWithCommas(price);
-			printPrice = numberWithCommas(printPrice);
+			if ("${prod.purposeCode}"=='have') {
+				var printPrice = "${prod.printPrice}";
+				var fee = Math.ceil(printPrice*0.3);
+				fee = numberWithCommas(fee);
+				
+			}
 			
-			$("#fee").html("- "+fee+"원");
-			
-			var finalPrice = removeCommas(price)-removeCommas(printPrice)-removeCommas(fee);
-			
-			finalPrice = numberWithCommas(finalPrice);
-			
-			$("#finalPrice").html(finalPrice+"원");
 		});
 		
 		function retailView() {
-			var price = $("input[name='retailPrice']").val();
+			var price = removeCommas($("input[name='retailPrice']").val());
 			var printPrice = "${prod.printPrice}";
 			// 10의 자리에서 올림
-			var fee = Math.ceil(price*0.3/10)*10;
-			price = Math.ceil(price/100)*100;
-			fee = numberWithCommas(fee);
-			price = numberWithCommas(price);
+			if ("${prod.purposeCode}"=='sale') {
+				var fee = Math.ceil(price*0.3/10)*10;
+				fee = numberWithCommas(fee);
+				price = Math.ceil(price/100)*100;
+				price = numberWithCommas(price);
+			}
+			if ("${prod.purposeCode}"=='have') {
+				var fee = Math.ceil(printPrice*0.3);
+				fee = numberWithCommas(fee);
+				price = Math.ceil(price);
+				price = numberWithCommas(price);
+			}
+			
+			
 			printPrice = numberWithCommas(printPrice);
 			
 			var finalPrice = removeCommas(price)-removeCommas(printPrice)-removeCommas(fee);
@@ -404,7 +424,7 @@
 				$("#modalImg").attr("src","../resources/images/publish/fileUpload/coverFile/${prod.coverFile}");
 			}
 			
-			if (price == "") {
+			if ("${prod.purposeCode}"=='sale' && price == "") {
 				Swal.fire({
 					  icon: 'error',
 					  text: '가격을 등록해주세요.'
