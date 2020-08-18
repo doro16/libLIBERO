@@ -47,7 +47,7 @@
 	   	<!-- ToolBar End /////////////////////////////////////-->
 
 <br/>
-<h6 class="font-weight-bold text-center grey-text text-uppercase small mb-4">검색조건 : ${search.searchCondition}</h6>
+<h6 class="font-weight-bold text-center grey-text text-uppercase small mb-4">검색조건 : ${search.searchCondition=='prodName' ? '제목' : search.searchCondition=='author' ? '작가명' : '해쉬태그'}</h6>
     <h3 class="font-weight-bold text-center dark-grey-text pb-2">검색어 : ${search.searchKeyword}</h3>
     <hr class="w-header my-4">
 
@@ -145,7 +145,7 @@
             	<input type="hidden" id="k" value="${book[0].prodType}">
             	<input type="hidden" id="maxPage" value="${resultPage.maxPage}">
             	<input type="hidden" id="searchKeyword"	  value="${search.searchKeyword}">
-
+<jsp:include page="../../common/footer.jsp"></jsp:include>
 </body>
 
 

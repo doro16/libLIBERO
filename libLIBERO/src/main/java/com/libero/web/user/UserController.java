@@ -411,7 +411,7 @@ public class UserController {
 		System.out.println("/user/requestCash : POST");
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/user/getUserCash");
+		mav.setViewName("redirect:/user/getUserCash");
 
 		HttpSession session = request.getSession(true);
 		User user = (User) session.getAttribute("user");

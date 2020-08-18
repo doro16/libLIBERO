@@ -43,10 +43,13 @@
 							//alert(JSONData.commentContent);
 							if(menu!='q'){		
 							var date = new Date(Number(JSONData.regDate));
-							var displayValue ="<div class='wow"+ JSONData.commentNo+"'>"
-								
-								+"<img src='../resources/images/user/fileUpload/"+JSONData.user.profile+"'  alt='프로필사진' style='height: 55px; width: 55px; float: left; margin:-4px 10px 10px 0;'>"
-								+"<p style='font-size: 14px; color:DodgerBlue; font-weight: 600; float:left;'>" +JSONData.user.nickname + "&nbsp;&nbsp;&nbsp;</p>"
+							var displayValue ="<div class='wow"+ JSONData.commentNo+"'>";
+								if(JSONData.user.profile == null){
+									displayValue+= "<img src='../resources/images/user/fileUpload/null_user.png' style= 'height: 55px; width: 55px; float: left; margin:-4px 10px 10px 0;'>";
+								} else if (JSONData.user.profile != null){						
+									displayValue+= "<img src='../resources/images/user/fileUpload/"+JSONData.user.profile+"'  style= 'height: 55px; width: 55px; float: left; margin:-4px 10px 10px 0;'>";
+								}					
+								displayValue+= "<p style='font-size: 14px; color:DodgerBlue; font-weight: 600; float:left;'>" +JSONData.user.nickname + "&nbsp;&nbsp;&nbsp;</p>"
 								+"<p style='font-size: 11px; color:gray; font-weight: 400;'>" + date.getFullYear()+".0"+parseInt(date.getMonth()+1)+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+"</span>"
 								+"<p id= 'none"+ JSONData.commentNo+"' style='font-size: 15px; padding: 14px 0px; font-weight: 400;'>"+JSONData.commentContent
 								+"</p><br>"
@@ -206,8 +209,13 @@
 					</c:if>	  
 					<c:if test="${param.menu!='q'}">    
     							<div class="wow${comment.commentNo}">
+   								<c:if test="${empty comment.user.profile }">
+   								<img src="../resources/images/user/fileUpload/null_user.png" style= "height: 55px; width: 55px; float: left; margin:-4px 10px 10px 0;">
+   								</c:if>
+   								<c:if test="${ ! empty comment.user.profile }">
+   								<img src="../resources/images/user/fileUpload/${comment.user.profile}"  style= "height: 55px; width: 55px; float: left; margin:-4px 10px 10px 0;">
+   								</c:if>
    								
-   								<img src="../resources/images/user/fileUpload/${comment.user.profile}"  alt="프로필사진" style= "height: 55px; width: 55px; float: left; margin:-4px 10px 10px 0;">
    								<p style="font-size: 14px; color:DodgerBlue; font-weight: 600; float: left;">${comment.user.nickname}&nbsp;&nbsp;&nbsp;</p>
    								
    								<p style="font-size: 11px; color:gray; font-weight: 400;"><fmt:formatDate value="${comment.regDate}" pattern="yyyy.MM.dd HH:mm:ss" /></p>

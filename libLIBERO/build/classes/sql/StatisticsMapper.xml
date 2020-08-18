@@ -70,7 +70,7 @@
 		FROM (SELECT b.*,u.gender_code FROM buy b
 			LEFT JOIN user u
 			ON u.user_id = b.user_id
-			AND b.buy_code IN('paid')) sub
+			WHERE b.buy_code IN('paid')) sub
 		WHERE prod_no IN(#{value});
 	</select>
 	
@@ -83,7 +83,8 @@
 		FROM buy b
 		LEFT JOIN user u
 		ON u.user_id = b.user_id
-		WHERE prod_no IN(#{value});
+		WHERE prod_no IN(#{value})
+		AND b.buy_code IN('paid');
 	</select>
 	
 	<select id="getMainCount" resultMap="stSelectMap">

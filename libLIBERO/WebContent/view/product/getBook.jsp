@@ -127,11 +127,11 @@
           <div class="carousel-inner text-center text-md-left z-depth-1" style="width: 400px; height: 450px; margin-bottom: 0px; padding-bottom: 0px" role="listbox">
             <div class="carousel-item active">
               <img style="margin-bottom: 0px;" src="../../resources/images/publish/fileUpload/thumbnailFile/${product.prodThumbnail}"
-                alt="First slide" class="img-fluid">
+                alt="First slide" width="400px" height="450px">
             </div>
             <div class="carousel-item">
               <img src="../../resources/images/publish/fileUpload/coverFile/${product.coverFile}"
-                alt="Second slide" class="img-fluid">
+                alt="Second slide" width="400px" height="450px">
             </div>
           </div>
           <!--/.Slides-->
@@ -320,7 +320,12 @@
 							  <c:set var="i" value="${ i+1 }" />
     
     <div class="media mb-3">
-      <img class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3" src="../../resources/images/user/fileUpload/${review.user.profile}">
+      <c:if test="${review.user.profile!=null}">
+      	<img class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3" src="../../resources/images/user/fileUpload/${review.user.profile}">
+      </c:if>
+      <c:if test="${review.user.profile==null}">
+      	<img class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3" src="../../resources/images/user/fileUpload/null_user.png">
+      </c:if>
       <div class="media-body">
         <a>
           <h5 class="user-name font-weight-bold">${review.user.nickname}</h5>
