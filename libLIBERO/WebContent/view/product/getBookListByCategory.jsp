@@ -107,7 +107,7 @@
             <a class="card hoverable mb-4 z-depth-0 h-10" id="productcard" data-toggle="modal" data-target="#basicExampleModal">
 
             <!-- Card image -->
-            <img class="card-img-top z-depth-1" id="cardImage" src="../../resources/images/publish/fileUpload/thumbnailFile/${book.prodThumbnail}" alt="Card image cap" width="120px" height="190px">
+            <a href="/libero/product/getProduct/${book.prodNo}"><img class="card-img-top z-depth-1" id="cardImage" src="../../resources/images/publish/fileUpload/thumbnailFile/${book.prodThumbnail}" alt="Card image cap" width="120px" height="220px"></a>
             
               <!-- Card content -->
               
@@ -183,17 +183,17 @@
 							var displayValue = "<div class='row'>";
 							
 							$.each(data.product, function(index,product){
-								
+								var retailPrice = product.retailPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 						
 								
 							displayValue +=	
 							   "<div class='col-sm-2' style='margin:50px 0px 0px 30px;'>"
 							  +"<div style='padding:20px 5px 5px 10px;'>"
 							  +"<a class='card hoverable mb-4 z-depth-0 h-10' id='productcard' data-toggle='modal' data-target='#basicExampleModal'>"
-				              +"<img class='card-img-top z-depth-1' id='cardImage' src='../resources/images/publish/fileUpload/thumbnailFile"+product.prodThumbnail+"' alt='Card image cap' width='120px' height='190px'>"
-				              +"<h6><a href=/libero/product/getProduct/"+product.prodNo+">"+product.prodName+"<a></h6>"
+				              +"<a href=/libero/product/getProduct/"+product.prodNo+"><img class='card-img-top z-depth-1' id='cardImage' src='../resources/images/publish/fileUpload/thumbnailFile"+product.prodThumbnail+"' alt='Card image cap' width='120px' height='220px'></a>"
+				              +"<br/><br/><h6><a href=/libero/product/getProduct/"+product.prodNo+">"+product.prodName+"<a></h6>"
 				              +"<h6>"+product.author+"</h6>"
-				              +"<h6>"+product.retailPrice+"</h6>"
+				              +"<h6>\\"+retailPrice+"원</h6>"
 				              +"</a>"
 				              +"</div>"
 				              +"</div>"

@@ -267,7 +267,12 @@
 		$("#click_kakao_login").on("click", function(){
 			window.open('${kakao_login}','카카오 로그인','width=400, height=500'); 
 		})
-		
+		if ('${message}' == 'remove') {
+			swal({
+				text : "탈퇴한 회원입니다.",
+				icon : "error"
+			});
+		}
 		if('${message}' == 'wrong'){
 			swal({
 				text : "아이디 혹은 비밀번호를 확인해 주세요",

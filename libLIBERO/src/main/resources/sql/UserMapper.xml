@@ -226,6 +226,7 @@
 	<update id="removeUser"	parameterType="user">
 		UPDATE user
 		SET user_code = '0'
+		WHERE user_id IN(#{userId})
 	</update>
 	
 	<update id="updateUser" parameterType="user">

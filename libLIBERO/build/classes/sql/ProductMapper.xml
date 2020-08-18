@@ -186,7 +186,7 @@
 	
 	<select id="getProductListBySearch"	parameterType="hashMap" resultMap="productSelectMap">
 			SELECT * FROM(
-							SELECT DISTINCT p.prod_name, p.author, p.retail_price, p.prod_no, h.hashtag_name, p.prod_type, p.blind_code, p.purpose_code, p.reg_date	
+							SELECT DISTINCT p.prod_name, p.author, p.retail_price, p.prod_no, h.hashtag_name, p.prod_type, p.blind_code, p.purpose_code, p.reg_date, p.prod_thumbnail
 							FROM product p
 							LEFT OUTER JOIN hashtag h
 							ON p.prod_no = h.prod_no

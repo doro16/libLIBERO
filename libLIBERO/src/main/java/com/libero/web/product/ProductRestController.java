@@ -413,4 +413,39 @@ public class ProductRestController {
 					return map;
 			}
 			
+			//method 카테고리별도서상품화면 출력
+			@RequestMapping(value="json/getProductListBySearch/", method = RequestMethod.POST)
+			public Map getProductListBySearch(int currentPage, String searchCondition, String searchKeyword, String prodType) throws Exception {
+				
+					Search search = new Search();
+
+					System.out.println("/product/json/getBookListBySearch : POST");
+					System.out.println("prodType : "+prodType);
+					if(currentPage == 1) {
+						currentPage = currentPage + 2;
+					}else {
+						currentPage = currentPage + 1;
+					}
+					System.out.println("searchCondition : "+searchCondition);
+					System.out.println("searchKeyword : "+searchKeyword);
+					search.setPageSize(pageSize);
+					search.setCurrentPage(currentPage);
+					search.setSearchCondition(searchCondition);
+					search.setSearchKeyword(searchKeyword);
+					
+					//BusinessLogic
+					List<Product> product = productService.getProductListBySearch(search, prodType);
+					int totalCount = productService.getProductTotalCountBySearch(search, prodType);
+					
+					
+					Page resultPage = new Page(search.getCurrentPage(), totalCount, pageUnit, pageSize);
+					
+					Map map = new HashMap();
+					map.put("product", product);
+					map.put("currentPage", currentPage);
+					
+					
+					return map;
+			}
+			
 }//end class

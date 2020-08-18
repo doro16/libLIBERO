@@ -238,7 +238,7 @@
           <p class="ml-xl-0 ml-3">
             <strong><span class="grey-text">페이지수 : </span></strong>${product.bookPage}p</p>
               <c:if test="${product.prodType == 'paper'}">
-          	  <span class="grey-text" style="font-size : 15px;">인쇄컬러 : </span>${product.colorType}, <span class="grey-text" style="font-size : 15px;">표지 : </span>${product.coverType}, <span class="grey-text" style="font-size : 15px;">내지 : </span>${product.innerType} , <span class="grey-text" style="font-size : 15px;">판형 : </span>${product.sizeType }</p>
+          	  <span class="grey-text" style="font-size : 15px;">인쇄컬러 : </span>${product.colorType == 'color' ? '컬러' : '흑백'}, <span class="grey-text" style="font-size : 15px;">표지 : </span>${product.coverType == 'snow' ? '스노우' : product.coverType == 'arte' ? '아트' : '몽블랑'}, <span class="grey-text" style="font-size : 15px;">내지 : </span>${product.innerType == 'rough' ? '갱지' : product.innerType == 'white' ? '백상지' : '미색지'} , <span class="grey-text" style="font-size : 15px;">판형 : </span>${product.sizeType }</p>
           	  </c:if>
           <div class="mt-5">
             <div class="row mt-3 mb-4">
@@ -411,10 +411,13 @@
           </ul>
         </div>
         <p class="dark-grey-text article">${review.reviewContent}</p>
+        <c:if test="${review.reviewImage!=null}">
         <!-- <p><a href="#" class="more" id="more${i}" value="${i}">more</a></p> -->
         <button class="more btn btn-link" id="${i}" value="0">more</button>
-        <div id="img${i}"></div>
-        <input type="hidden" id="imgset${i}" value="${review.reviewImage}">
+        
+	        <div id="img${i}"></div>
+	        <input type="hidden" id="imgset${i}" value="${review.reviewImage}">
+        </c:if>
       </div>
     </div>
     	</c:forEach>

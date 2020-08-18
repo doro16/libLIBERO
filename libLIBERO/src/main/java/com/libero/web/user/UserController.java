@@ -117,6 +117,10 @@ public class UserController {
 			modelAndView.addObject("message","wrong");
 			modelAndView.setViewName("forward:/view/user/loginView.jsp");
 			return modelAndView;
+		} else if (!user.getPassword().equals(dbUser.getPassword())&& dbUser.getUserCode() == 0) {
+			modelAndView.addObject("message","remove");
+			modelAndView.setViewName("forward:/view/user/loginView.jsp");
+			return modelAndView;
 		} else {
 			modelAndView.addObject("message","right");
 		

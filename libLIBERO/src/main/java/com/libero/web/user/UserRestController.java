@@ -143,7 +143,7 @@ public class UserRestController {
 		String host = "smtp.naver.com"; 
 		int port=465; 
 		final String username = "wjddbstp"; //네이버 아이이디 
-		final String password = ""; //네이버 비번 
+		final String password = "mnbv4845!1!1"; //네이버 비번 
 		String verCode=userService.getAlphaNumericString();
 		String recipient = userId; //받는 사람 이메일 주소 
 		Properties props = System.getProperties(); // 메일 제목, 내용을 담을 properties 만들기. 

@@ -109,11 +109,11 @@
             <a class="card hoverable mb-4 z-depth-0 h-10" id="productcard" data-toggle="modal" data-target="#basicExampleModal">
 
             <!-- Card image -->
-            <img class="card-img-top z-depth-1" id="cardImage" src="../../resources/images/publish/fileUpload/thumbnailFile/${product.prodThumbnail}" alt="Card image cap" width="120px" height="190px">
+            <a href="/libero/product/getProduct/${product.prodNo}"><img class="card-img-top z-depth-1" id="cardImage" src="/libero/resources/images/publish/fileUpload/thumbnailFile/${product.prodThumbnail}" alt="Card image cap" width="120px" height="220px"></a>
             
               <!-- Card content -->
               
-             	<h6><a href="/libero/product/getProduct/${product.prodNo}">${product.prodName}</a></h6>
+             	<br/><br/><h6><a href="/libero/product/getProduct/${product.prodNo}">${product.prodName}</a></h6>
                 <h6>${product.author}</h6>
              	<h6>￦<fmt:formatNumber value="${product.retailPrice}" pattern="#,###.###" type="currency"/>원</h6>
              
@@ -133,7 +133,7 @@
             <div class="text-center">
   				<button type="button" class="btn btn-brown btn-rounded" id="button" value="${i}">5개 더보기</button>
 			</div>
-            	<input type="hidden" id="k" value="${product[0].prodType}">
+            	<input type="hidden" id="k" value="${param.prodType}">
             	<input type="hidden" id="maxPage" value="${resultPage.maxPage}">
             	<input type="hidden" id="searchCondition" value="${search.searchCondition}">
             	<input type="hidden" id="searchKeyword"	  value="${search.searchKeyword}">
@@ -149,7 +149,7 @@
 				var curPage = $("#currentPage").val();
 				var prodType = $("#k").val();
 				var maxPage = $("#maxPage").val();
-				var searchCondition = $("#searchCondition").val();
+				var searchCondition = "${param.searchCondition}";
 				var searchKeyword = $("#searchKeyword").val();
 				
 				curPage = parseInt(curPage);
@@ -176,7 +176,7 @@
 							//alert(currentPage);
 							
 						if(data.product == ""){
-								alert("더이상 상품이 없습니다");
+								swal("더이상 상품이 없습니다.","","warning");	
 							}
 						if(data.product != ""){
 							
@@ -184,16 +184,16 @@
 							
 							$.each(data.product, function(index,product){
 								
-						
+								var retailPrice = product.retailPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 								
 							displayValue +=	
 							   "<div class='col-sm-2' style='margin:50px 0px 0px 30px;'>"
 							  +"<div style='padding:20px 5px 5px 20px;'>"
 							  +"<a class='card hoverable mb-4 z-depth-0 h-10' id='productcard' data-toggle='modal' data-target='#basicExampleModal'>"
-				              +"<img class='card-img-top z-depth-1' id='cardImage' src='../../resources/images/publish/fileUpload/thumbnailFile"+product.prodThumbnail+"' alt='Card image cap' width='120px' height='190px'>"
-				              +"<h6><a href=/libero/product/getProduct/"+product.prodNo+">"+product.prodName+"<a></h6>"
+				              +"<img class='card-img-top z-depth-1' id='cardImage' src='../../resources/images/publish/fileUpload/thumbnailFile"+product.prodThumbnail+"' alt='Card image cap' width='120px' height='220px'>"
+				              +"<br/><br/><h6><a href=/libero/product/getProduct/"+product.prodNo+">"+product.prodName+"<a></h6>"
 				              +"<h6>"+product.author+"</h6>"
-				              +"<h6>"+product.retailPrice+"</h6>"
+				              +"<h6>\\"+retailPrice+"원</h6>"
 				              +"</a>"
 				              +"</div>"
 				              +"</div>"

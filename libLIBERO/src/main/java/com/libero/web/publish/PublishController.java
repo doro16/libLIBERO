@@ -238,8 +238,8 @@ public class PublishController {
 		}
 		
 		publishService.updateProductInfo(publish);
-		List<String> hashtagName = Arrays.asList(publish.getHashtagName().split(","));
-		if (hashtagName.size()>0) {
+		if (!publish.getHashtagName().isEmpty()) {
+			List<String> hashtagName = Arrays.asList(publish.getHashtagName().split(","));
 			publishService.addHashtag(publish.getProdNo(), hashtagName);
 		}
 		ModelAndView modelAndView = new ModelAndView();
