@@ -162,8 +162,8 @@
 								<input type="hidden" name="reportNo2" value="${report.reportNo}"/>	
 								</td>
 								<c:set var="prodName" value="${report.product.prodName}" />
-								<td align="left">${fn:substring(prodName,0,20)}
-								<c:if test="${fn:length(prodName)>20}">
+								<td align="left">${fn:substring(prodName,0,15)}
+								<c:if test="${fn:length(prodName)>15}">
                                 ......
                             	</c:if> 
 								</td>
@@ -250,8 +250,8 @@
 					
 								</td>
 								<c:set var="postName" value="${report.post.postName}" />
-								<td align="left" onClick="location.href='/libero/community/getPost?postNo=${report.post.postNo}'">${fn:substring(postName,0,20)}
-								<c:if test="${fn:length(postName)>20}">
+								<td align="left" onClick="location.href='/libero/community/getPost?postNo=${report.post.postNo}'">${fn:substring(postName,0,15)}
+								<c:if test="${fn:length(postName)>15}">
                                 ......
                             	</c:if> 
 								</td>
