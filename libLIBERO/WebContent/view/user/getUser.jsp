@@ -58,13 +58,9 @@
 				  	</div>
 				  	</div>
 				  	<div class="view overlay zoom" id="profileDiv" style="width: 200px; height:200px" >
-<<<<<<< HEAD
-				  	<img src="../resources/images/user/fileUpload/${user.profile}" class="img-thumbnail hoverable" id="profile"/>
-=======
 				  	<c:if test="${user.profile!=null}">
 				  		<img src="/libero/resources/images/user/fileUpload/${user.profile}" class="img-thumbnail hoverable" id="profile"/>
 				  	</c:if>
->>>>>>> refs/remotes/origin/master
 				  	<div class="mask flex-center waves-effect waves-light">
 									    <p class="white-text"></p>
 									  </div>
